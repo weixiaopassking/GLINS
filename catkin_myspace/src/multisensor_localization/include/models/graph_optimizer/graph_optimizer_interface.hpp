@@ -28,13 +28,13 @@ namespace multisensor_localization
         virtual void SetEdgeRobustKernel(std::string robust_kernel_name, double robust_kernel_size) = 0;
          virtual void AddSe3Node(const Eigen::Isometry3d &pose, bool need_fix) = 0;
         // //!为什么这里是两个vertex_index???
-        // virtual void AddSe3Edge(int vertex_index1,
-        //                         int vertex_index2,
-        //                         const Eigen::Isometry3d &relative_pose,
-        //                         const Eigen::VectorXd noise) = 0;
-        // virtual void AddSe3PriorXYZEdge(int se3_vertex_index,
-        //                                 const Eigen::Vector3d &xyz,
-        //                                 const Eigen::VectorXd noise);
+        virtual void AddSe3Edge(int vertex_index1,
+                                int vertex_index2,
+                                const Eigen::Isometry3d &relative_pose,
+                                const Eigen::VectorXd noise) = 0;
+        virtual void AddSe3PriorXYZEdge(int se3_vertex_index,
+                                        const Eigen::Vector3d &xyz,
+                                        const Eigen::VectorXd noise)=0;
         // virtual void AddSe3PriorQuaternionEdge(int se3_vertex_index,
         //                                        const Eigen::Quaterniond &quat,
         //                                        const Eigen::VectorXd noise);
