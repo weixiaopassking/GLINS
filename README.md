@@ -35,7 +35,8 @@
 + [x] NDT    
 + [ ] ICP
 + [ ] Fast lio2  
-+ [ ] Aloam
++ [ ] Aloam  
+
 **后端优化器**
 + [x] g2o
 + [ ] ceres
