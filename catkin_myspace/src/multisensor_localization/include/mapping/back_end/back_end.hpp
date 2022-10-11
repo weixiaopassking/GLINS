@@ -1,14 +1,17 @@
 /*
- * @Description: back end 任务管理， 放在类里使代码更清晰
+ * @Description: 后端算法的具体实现
  * @Author: Ren Qian
- * @Date: 2020-02-10 08:31:22
+ * @Date: 2022-10-11
  */
 
-#ifndef BACK_END_END_FLOW_HPP_
-#define BACK_END_END_FLOW_HPP_
+#ifndef BACK_END_HPP_
+#define BACK_END_HPP_
 
+//图优化器接口
+#include "../../../include/models/graph_optimizer/graph_optimizer_interface.hpp"
+//自定义传感器数据类型
 #include "../../../include/sensor_data/cloud_data.hpp"
-
+// yaml参数库
 #include <yaml-cpp/yaml.h>
 
 namespace multisensor_localization
@@ -24,6 +27,35 @@ namespace multisensor_localization
         bool ConfigDataPath(const YAML::Node &config_node);
 
         float key_frame_distance_ = 2.0;
+
+        std::shared_ptr<GraphOptimizerInterface> graph_optimizer_ptr_;
+
+        class GraphOptimizerConfig
+        {
+        public:
+            GraphOptimizerConfig()
+            {
+                odom_noise_.resize(6);
+                close_loop_noise_.resize(6);
+                gnss_nosie_.resize(3);
+            }
+
+        public:
+            bool use_gnss = true;
+            bool use_close_loop = true;
+
+            Eigen::VectorXd odom_noise_;
+            Eigen::VectorXd close_loop_noise_;
+            Eigen::VectorXd gnss_nosie_;
+
+            int key_frame_optimize_step_ = 100;
+            int gnss_optimize_step_ = 100;
+            int close_loop_optimize_step_ = 100;
+        };
+        GraphOptimizerConfig graph_optimizer_config_;
+        int new_gnss_cnt_ = 0;
+        int new_loop_cnt_ = 0;
+        int new_key_frame_cnt_ = 0;
     };
 
 }

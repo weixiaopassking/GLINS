@@ -34,12 +34,13 @@ namespace g2o
             _measurement = m;
         }
         /*读盘*/
-        virtual bool read(std::istream &is) override
+        bool read(std::istream &is) override
         {
-
+            return true;
         }
-        virtual bool write(std::ostream &os) const override
+        bool write(std::ostream &os) const override
         {
+            return true;
         }
     };
 

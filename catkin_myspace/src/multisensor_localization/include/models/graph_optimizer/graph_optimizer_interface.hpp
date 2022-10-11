@@ -15,10 +15,10 @@
 namespace multisensor_localization
 {
 
-    class GrapOptimizerInterface
+    class GraphOptimizerInterface
     {
     public:
-        virtual ~GrapOptimizerInterface() {}
+        virtual ~GraphOptimizerInterface() {}
         /*优化动作*/
         virtual bool Optimize() = 0;
         // /*输入输出数据*/

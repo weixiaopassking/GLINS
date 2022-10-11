@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(multisensor_localization)
 
 #cmake 编译配置
-SET(CMAKE_BUILD_TYPE "Release")
+SET(CMAKE_BUILD_TYPE "Debug")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 add_compile_options(-std=c++14)
 add_definitions(-std=c++14)

@@ -2,6 +2,8 @@
 
 #include "../../../../include/debug_tools/debug_tools.hpp"
 
+#include "glog/logging.h"
+
 namespace multisensor_localization
 {
 
@@ -15,14 +17,16 @@ namespace multisensor_localization
         graph_optimizer_ptr_.reset(new g2o::SparseOptimizer());
 
         g2o::OptimizationAlgorithmFactory *solver_factory = g2o::OptimizationAlgorithmFactory::instance();
+       // solver_factory->listSolvers(LOG(INFO));
         g2o::OptimizationAlgorithmProperty solver_property;
         g2o::OptimizationAlgorithm *solver = solver_factory->construct(solver_type, solver_property);
         graph_optimizer_ptr_->setAlgorithm(solver);
 
         if (!graph_optimizer_ptr_->solver())
         {
-            DebugTools::Debug_Error("创建g2o优化器失败");
+           LOG(ERROR)<<std::endl<<"创建g2o优化器失败"<<std::endl;
         }
+           LOG(ERROR)<<std::endl<<"创建g2o成功"<<std::endl;
         robust_kernel_factroy_ = g2o::RobustKernelFactory::instance();
     }
 
@@ -34,7 +38,7 @@ namespace multisensor_localization
      **/
     bool G2oOptimizer::Optimize()
     {
-        static int optimiz_cnt=0;
+       // static int optimiz_cnt=0;
         if(graph_optimizer_ptr_->edges().size()<1)
         {
             return false;
@@ -44,8 +48,8 @@ namespace multisensor_localization
         graph_optimizer_ptr_->computeActiveErrors();
         graph_optimizer_ptr_->setVerbose(false);//是否输出调试
 
-        double cost_value=graph_optimizer_ptr_->chi2();//代价值
-        int iterations=graph_optimizer_ptr_->optimize(max_iterations_num_);//最大迭代次数
+      //  double cost_value=graph_optimizer_ptr_->chi2();//代价值
+       // int iterations=graph_optimizer_ptr_->optimize(max_iterations_num_);//最大迭代次数
 
         DebugTools::Debug_Info("g2o迭代记录");
         
@@ -182,6 +186,7 @@ namespace multisensor_localization
      **/
     bool G2oOptimizer::GetOptimizedPose(std::deque<Eigen::Matrix4f> &Optimized_pose)
     {
+        return true;
     }
 
 } // namespace multisensor_localization

@@ -16,8 +16,8 @@
 namespace multisensor_localization
 {
     /**
-     * @brief 后面端流程控制初始化
-     * @note
+     * @brief 后端任务管理器初始化
+     * @note 话题订阅、话题发布、后端算法初始化
      * @todo
      **/
     BackEndFlow::BackEndFlow(ros::NodeHandle &nh)
@@ -32,7 +32,8 @@ namespace multisensor_localization
         key_frame_pub_ptr_ = std::make_shared<KeyFramePublisher>(nh, "/key_frame", "/map", 100);
         key_frames_pub_ptr_ = std::make_shared<KeyFramesPublisher>(nh, "/optimized_key_frames", "/map", 100);
 
-        //后端优化
+        /*后端优化*/
+       back_end_ptr_=std::make_shared<BackEnd>(); 
     }
 
     /**
@@ -42,7 +43,7 @@ namespace multisensor_localization
      **/
     bool BackEndFlow::Run()
     {
-        
+        return true;
     }
 
 } // namespace multisensor_localization
