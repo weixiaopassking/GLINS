@@ -43,3 +43,6 @@ add_executable(front_end_node src/app/front_end_node.cpp ${ALL_SRCS} )
 target_link_libraries(front_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 
 
+add_executable(back_end_node src/app/back_end_node.cpp ${ALL_SRCS} )
+target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+

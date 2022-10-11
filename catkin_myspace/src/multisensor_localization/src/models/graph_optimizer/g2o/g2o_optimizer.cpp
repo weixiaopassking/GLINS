@@ -26,8 +26,30 @@ namespace multisensor_localization
         robust_kernel_factroy_ = g2o::RobustKernelFactory::instance();
     }
 
+
+    /**
+     * @brief 执行优化(核心代码)
+     * @note 
+     * @todo
+     **/
     bool G2oOptimizer::Optimize()
     {
+        static int optimiz_cnt=0;
+        if(graph_optimizer_ptr_->edges().size()<1)
+        {
+            return false;
+        }
+        graph_optimizer_ptr_->initializeOptimization();
+        graph_optimizer_ptr_->computeInitialGuess();
+        graph_optimizer_ptr_->computeActiveErrors();
+        graph_optimizer_ptr_->setVerbose(false);//是否输出调试
+
+        double cost_value=graph_optimizer_ptr_->chi2();//代价值
+        int iterations=graph_optimizer_ptr_->optimize(max_iterations_num_);//最大迭代次数
+
+        DebugTools::Debug_Info("g2o迭代记录");
+        
+        return true;
     }
 
     /**
@@ -142,6 +164,24 @@ namespace multisensor_localization
         edge->setInformation(information_matrix);
         edge->vertices()[0] = v_se3;
         graph_optimizer_ptr_->addEdge(edge);
+    }
+
+    /**
+     * @brief 输出节点个数
+     * @note
+     * @todo
+     **/
+    int G2oOptimizer::GetNodeNum()
+    {
+        return graph_optimizer_ptr_->vertices().size();
+    }
+    /**
+     * @brief 输出优化后的位姿
+     * @note
+     * @todo
+     **/
+    bool G2oOptimizer::GetOptimizedPose(std::deque<Eigen::Matrix4f> &Optimized_pose)
+    {
     }
 
 } // namespace multisensor_localization

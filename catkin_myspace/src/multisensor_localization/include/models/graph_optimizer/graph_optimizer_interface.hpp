@@ -22,8 +22,8 @@ namespace multisensor_localization
         /*优化动作*/
         virtual bool Optimize() = 0;
         // /*输入输出数据*/
-        // virtual bool GetOptimizedPose(std::deque<Eigen::Matrix4f> &Optimized_pose) = 0;
-        // virtual bool GetNodeNum() = 0;
+        virtual bool GetOptimizedPose(std::deque<Eigen::Matrix4f> &Optimized_pose) = 0;
+        virtual int GetNodeNum() = 0;
         // /*添加鲁棒核、节点、边、*/
         virtual void SetEdgeRobustKernel(std::string robust_kernel_name, double robust_kernel_size) = 0;
          virtual void AddSe3Node(const Eigen::Isometry3d &pose, bool need_fix) = 0;
