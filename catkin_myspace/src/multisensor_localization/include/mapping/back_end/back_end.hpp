@@ -11,6 +11,7 @@
 #include "../../../include/models/graph_optimizer/graph_optimizer_interface.hpp"
 //自定义传感器数据类型
 #include "../../../include/sensor_data/cloud_data.hpp"
+#include "../../../include/sensor_data/pose_data.hpp""
 // yaml参数库
 #include <yaml-cpp/yaml.h>
 //fstream
@@ -22,6 +23,8 @@ namespace multisensor_localization
     {
     public:
         BackEnd();
+
+        bool Update(const  CloudData&cloud_data,const PoseData&laser_odom);
 
     private:
         bool ConfigFrame(const YAML::Node &config_node);

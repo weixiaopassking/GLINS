@@ -47,11 +47,11 @@ namespace multisensor_localization
             return false;
         while (!HasData())
         {
-            if(ValidData())
-            return false;
+            if (ValidData())
+                continue;
 
             //更新后端
-
+            UpdateBackEnd();
             //发布数据
         }
 
@@ -126,12 +126,22 @@ namespace multisensor_localization
     }
 
     /**
-     * @brief  更新后端
+     * @brief  更新后端(核心)
      * @note
      * @todo
      **/
     bool BackEndFlow::UpdateBackEnd()
     {
+        /*lidar 对齐到gnss坐标系再优化*/
+        static bool odom_inited=false;
+        static Eigen::Matrix4f  gnss_to_lidar_matrix=Eigen::Matrix4f::Identity();
+        if(!odom_inited)
+        {
+            odom_inited=true;
+            gnss_to_lidar_matrix=current_gnss_pose_data_.pose_*current_laser_odom_data_.pose_.inverse();
+        }
+        current_laser_odom_data_.pose_=gnss_to_lidar_matrix*current_laser_odom_data_.pose_;
+        //return back_end_ptr_.        
     }
 
     /**

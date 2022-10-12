@@ -37,7 +37,7 @@ namespace multisensor_localization
         ConfigFrame(config_node);
         ConfigGraphOptimizer(config_node);
         ConfigDataPath(config_node);
-         LOG(ERROR)<<"参数配置完毕"<<std::endl;
+         
     }
 
     /**
