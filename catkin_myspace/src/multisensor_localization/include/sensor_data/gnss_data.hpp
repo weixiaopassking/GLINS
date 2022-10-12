@@ -12,7 +12,7 @@
 
 #include <GeographicLib/LocalCartesian.hpp>
 #include <glog/logging.h>
-#include "../debug_tools/debug_tools.hpp"
+#include "../tools/color_terminal.hpp"
 
 
 namespace multisensor_localization

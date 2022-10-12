@@ -4,8 +4,8 @@
  * @note  modified from Ren Qian
  * @Date: 2022-10-02
  */
-#ifndef DEBUG_TOOLS_HPP_
-#define DEBUG_TOOLS_HPP_
+#ifndef COLOR_TERMINAL_HPP_
+#define COLOR_TERMINAL_HPP_
 
 #include <ros/ros.h>
 
@@ -31,12 +31,10 @@ namespace multisensor_localization
 #define fontColorCyanBold "\033[1m\033[36m"
 #define fontColorWhiteBold "\033[1m\033[37m"
 
-        class DebugTools
+        class ColorTerminal
         {
         public:
-                static void Debug_Info(const std::string str);
-                static void Debug_Warn(const std::string str);
-                static void Debug_Error(const std::string str);
+                static void ColorInfo(const std::string str);
         };
 
 }

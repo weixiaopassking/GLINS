@@ -33,7 +33,7 @@ namespace multisensor_localization
         key_frames_pub_ptr_ = std::make_shared<KeyFramesPublisher>(nh, "/optimized_key_frames", "/map", 100);
 
         /*后端优化*/
-       back_end_ptr_=std::make_shared<BackEnd>(); 
+        back_end_ptr_ = std::make_shared<BackEnd>();
     }
 
     /**
@@ -43,7 +43,104 @@ namespace multisensor_localization
      **/
     bool BackEndFlow::Run()
     {
+        if (!ReadData())
+            return false;
+        while (!HasData())
+        {
+            if(ValidData())
+            return false;
+
+            //更新后端
+
+            //发布数据
+        }
+
         return true;
+    }
+    /**
+     * @brief 后端流任务管理 数据读取
+     * @note
+     * @todo
+     **/
+    bool BackEndFlow::ReadData()
+    {
+        cloud_sub_ptr_->ParseData(cloud_data_buff_);
+        gnss_odom_sub_ptr_->ParseData(gnss_odom_data_buff_);
+        laser_odom_sub_ptr_->ParseData(laser_odom_data_buff_);
+        return true;
+    }
+
+    /**
+     * @brief 后端流任务管理 数据确认
+     * @note
+     * @todo
+     **/
+    bool BackEndFlow::HasData()
+    {
+        if (cloud_data_buff_.size() == 0)
+            return false;
+        if (gnss_odom_data_buff_.size() == 0)
+            return false;
+        if (laser_odom_data_buff_.size() == 0)
+            return false;
+
+        return true;
+    }
+    /**
+     * @brief 后端流任务管理 有效数据提取
+     * @note 计算下时间戳对齐程序,刷新数据
+     * @todo
+     **/
+    bool BackEndFlow::ValidData()
+    {
+        /*提取出当前数据*/
+        current_cloud_data_ = cloud_data_buff_.front();
+        current_gnss_pose_data_ = gnss_odom_data_buff_.front();
+        current_laser_odom_data_ = laser_odom_data_buff_.front();
+        /*计算时间差*/
+        double diff_gnss_time = current_cloud_data_.time_stamp_ - current_gnss_pose_data_.time_stamp_;
+        double diff_laser_time = current_cloud_data_.time_stamp_ - current_laser_odom_data_.time_stamp_;
+
+        /*根据时间戳对齐刷新数据*/
+        if (diff_gnss_time < -0.05 || diff_laser_time < -0.05)
+        {
+            cloud_data_buff_.pop_front();
+            return false;
+        }
+
+        if (diff_gnss_time > 0.05)
+        {
+            gnss_odom_data_buff_.pop_front();
+            return false;
+        }
+
+        if (diff_laser_time > 0.05)
+        {
+            laser_odom_data_buff_.pop_front();
+            return false;
+        }
+
+        cloud_data_buff_.pop_front();
+        gnss_odom_data_buff_.pop_front();
+        laser_odom_data_buff_.pop_front();
+    }
+
+    /**
+     * @brief  更新后端
+     * @note
+     * @todo
+     **/
+    bool BackEndFlow::UpdateBackEnd()
+    {
+    }
+
+    /**
+     * @brief  保存轨迹数据
+     * @note
+     * @todo
+     **/
+    bool BackEndFlow::SaveTrajectory()
+    {
     }
 
 } // namespace multisensor_localization

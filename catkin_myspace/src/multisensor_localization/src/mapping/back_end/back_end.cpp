@@ -14,9 +14,11 @@
 #include <ros/ros.h>
 #include <ros/package.h>
 // debug tool
-#include "../../../include/debug_tools/debug_tools.hpp"
+#include "../../../include/tools/color_terminal.hpp"
 // g2o优化算法
 #include "../../../include/models/graph_optimizer/g2o/g2o_optimizer.hpp"
+// tools
+#include "../../../include/tools/file_manager.hpp"
 
 namespace multisensor_localization
 {
@@ -35,6 +37,7 @@ namespace multisensor_localization
         ConfigFrame(config_node);
         ConfigGraphOptimizer(config_node);
         ConfigDataPath(config_node);
+         LOG(ERROR)<<"参数配置完毕"<<std::endl;
     }
 
     /**
@@ -67,7 +70,8 @@ namespace multisensor_localization
         }
         else
         {
-            LOG(ERROR) << graph_optimizer_type << " 未能找到对应的优化方法" << std::endl;
+            LOG(ERROR) << graph_optimizer_type << "[未能找到对应的优化方法]" << std::endl;
+            ROS_BREAK();
         }
 
         /*优化是否考虑闭环、回环*/
@@ -109,16 +113,63 @@ namespace multisensor_localization
 
     /**
      * @brief   配置数据保存路径
-     * @note 
+     * @note
      * @todo 创建文件时候用文件管理器
      **/
     bool BackEnd::ConfigDataPath(const YAML::Node &config_node)
     {
+        /*读参数据存放路径*/
         std::string data_path = config_node["data_path"].as<std::string>();
-        if(data_path=="./")
-        //data_path=ros::package::getPath("multisensor_localization")
-        return true;
+        if (data_path == "./")
+        {
+            data_path = ros::package::getPath("multisensor_localization") + "/data";
+        }
+        else
+        {
+            LOG(ERROR) << "[yaml中的数据存放路径设置错误]" << std::endl;
+        }
+        /*创建文件夹data*/
+        if (!FileManager::CreateDirectory(data_path))
+        {
+            LOG(ERROR) << "[创建data文件夹失败]" << std::endl;
+            return false;
+        }
+        LOG(INFO) << "[创建data文件夹成功]" << std::endl;
+        /*创建文件夹data/key_frames*/
+        key_frames_path_ = data_path + "/key_frames";
+        if (!FileManager::CreateDirectory(key_frames_path_))
+        {
+            LOG(ERROR) << "[创建data/key_frames文件夹失败]" << std::endl;
+            return false;
+        }
+        LOG(INFO) << "[创建data/key_frames文件夹成功]" << std::endl;
+        /*创建文件夹data/trajectory*/
+        trajectory_path_ = data_path + "/trajectory";
+        if (!FileManager::CreateDirectory(trajectory_path_))
+        {
+            LOG(ERROR) << "[创建data/trajectory文件夹成功]" << std::endl;
+            return false;
+        }
+        LOG(INFO) << "[创建data/trajectory文件夹成功]" << std::endl;
 
+        /*创建文件data/trajectory/ground_truth.txt*/
+
+        if (!FileManager::CreateFile(ground_truth_ofs_, trajectory_path_ + "/ground_truth.txt"))
+        {
+            LOG(ERROR) << "[创建ground_truth.txt文件失败]" << std::endl;
+            return false;
+        }
+        LOG(INFO) << "[创建ground_truth.txt文件成功]" << std::endl;
+
+        /*创建文件data/trajectory/laser_odom.txt*/
+        if (!FileManager::CreateFile(laser_odom_ofs_, trajectory_path_ + "/laser_odom.txt"))
+        {
+            LOG(ERROR) << "[创建laser_odom.文件失败]" << std::endl;
+            return false;
+        }
+        LOG(INFO) << "[创建laser_odom文件成功]" << std::endl;
+
+        return true;
     }
 
 }

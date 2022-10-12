@@ -13,6 +13,8 @@
 #include "../../../include/sensor_data/cloud_data.hpp"
 // yaml参数库
 #include <yaml-cpp/yaml.h>
+//fstream
+#include <fstream>
 
 namespace multisensor_localization
 {
@@ -25,6 +27,13 @@ namespace multisensor_localization
         bool ConfigFrame(const YAML::Node &config_node);
         bool ConfigGraphOptimizer(const YAML::Node &config_node);
         bool ConfigDataPath(const YAML::Node &config_node);
+
+    private:
+        std::string key_frames_path_ = "";
+        std::string trajectory_path_ = "";
+
+        std::ofstream ground_truth_ofs_;
+        std::ofstream laser_odom_ofs_;
 
         float key_frame_distance_ = 2.0;
 

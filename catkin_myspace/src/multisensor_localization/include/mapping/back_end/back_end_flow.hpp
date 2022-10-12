@@ -50,7 +50,7 @@ namespace multisensor_localization
         std::shared_ptr<KeyFramesPublisher> key_frames_pub_ptr_;
 
         std::deque<CloudData> cloud_data_buff_;
-        std::deque<PoseData> gnss_pose_data_buff_;
+        std::deque<PoseData> gnss_odom_data_buff_;
         std::deque<PoseData> laser_odom_data_buff_;
 
         PoseData current_gnss_pose_data_;

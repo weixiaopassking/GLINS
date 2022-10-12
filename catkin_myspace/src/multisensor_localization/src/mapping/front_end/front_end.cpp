@@ -19,7 +19,7 @@
 //体素滤方法
 #include "../../../include/models/cloud_filter/voxel_filter.hpp"
 // debug方式
-#include "../../../include/debug_tools/debug_tools.hpp"
+#include "../../../include/tools/color_terminal.hpp"
 
 #include <glog/logging.h>
 
@@ -74,7 +74,8 @@ namespace multisensor_localization
         }
         else
         {
-            DebugTools::Debug_Error("无对应匹配方法");
+            
+            ColorTerminal::ColorInfo("无对应匹配方法");
             return false;
         }
 
@@ -99,7 +100,7 @@ namespace multisensor_localization
         }
         else
         {
-            DebugTools::Debug_Error("无对应滤波方法");
+           ColorTerminal::ColorInfo("无对应滤波方法");
             return false;
         }
 

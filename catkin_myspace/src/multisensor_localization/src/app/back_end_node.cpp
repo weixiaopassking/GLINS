@@ -31,6 +31,7 @@ int main(int argc, char **argv)
     google::InitGoogleLogging(argv[0]);
     std::string path = ros::package::getPath("multisensor_localization");
     FLAGS_log_dir = path + "/Log";
+    FLAGS_logtostderr = true;
     FLAGS_alsologtostderr = 1;
     /*后端任务管理器创建*/
    back_end_flow_ptr=std::make_shared<BackEndFlow>(nh);

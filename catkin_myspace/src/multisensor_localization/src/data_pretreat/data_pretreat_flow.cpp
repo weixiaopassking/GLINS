@@ -103,7 +103,7 @@ namespace multisensor_localization
                 cloud_data_buff_.pop_front();
                 return false;
             }
-            DebugTools::Debug_Info("多传感器时间同步已完成");
+            ColorTerminal::ColorInfo("多传感器时间同步已完成");
             sensor_inited = true;
         }
 
@@ -127,7 +127,7 @@ namespace multisensor_localization
                       << "[lidar_to_imu]" << std::endl
                       << lidar_to_imu_ << std::endl;
 
-            DebugTools::Debug_Info("多传感器空间标定已完成");
+            ColorTerminal::ColorInfo("多传感器空间标定已完成");
             calibration_finished = true;
         }
         return calibration_finished;
@@ -146,7 +146,7 @@ namespace multisensor_localization
             GnssData gnss_data = gnss_data_buff_.front();
             gnss_data.InitOriginPosition();
             gnss_inited = true;
-            DebugTools::Debug_Info("东北天坐标系初始化已完成");
+             ColorTerminal::ColorInfo("东北天坐标系初始化已完成");
             LOG(INFO) << std::endl
                       << "[ENU origin point]" << std::endl
                       << "longitude \t" << gnss_data.longitude_ << std::endl
