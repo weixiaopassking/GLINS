@@ -18,7 +18,7 @@ namespace multisensor_localization
     /**
      * @brief 后端任务管理器初始化
      * @note 话题订阅、话题发布、后端算法初始化
-     * @todo
+     * @todo 完结
      **/
     BackEndFlow::BackEndFlow(ros::NodeHandle &nh)
     {

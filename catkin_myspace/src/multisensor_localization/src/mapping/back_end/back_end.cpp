@@ -13,9 +13,9 @@
 // ros库
 #include <ros/ros.h>
 #include <ros/package.h>
-//debug tool
+// debug tool
 #include "../../../include/debug_tools/debug_tools.hpp"
-//g2o优化算法
+// g2o优化算法
 #include "../../../include/models/graph_optimizer/g2o/g2o_optimizer.hpp"
 
 namespace multisensor_localization
@@ -31,7 +31,7 @@ namespace multisensor_localization
         std::string config_file_path = ros::package::getPath("multisensor_localization") + "/config/back_end.yaml";
         YAML::Node config_node = YAML::LoadFile(config_file_path);
         /*参数配置*/
-        DebugTools::Debug_Info("参数配置中");
+        // DebugTools::Debug_Info("参数配置中");
         ConfigFrame(config_node);
         ConfigGraphOptimizer(config_node);
         ConfigDataPath(config_node);
@@ -45,7 +45,7 @@ namespace multisensor_localization
     bool BackEnd::ConfigFrame(const YAML::Node &config_node)
     {
         key_frame_distance_ = config_node["key_frame_distance"].as<float>();
-        LOG(INFO) <<std::endl<< "[key_frame_distance] " << std::endl
+        LOG(INFO) << "[关键帧距离] " << std::endl
                   << key_frame_distance_ << std::endl;
         return true;
     }
@@ -62,20 +62,20 @@ namespace multisensor_localization
         if (graph_optimizer_type == "g2o")
         {
             graph_optimizer_ptr_ = std::make_shared<G2oOptimizer>("lm_var");
-            LOG(INFO) << std::endl<<" [图优化方法]" << std::endl
+            LOG(INFO) << "[图优化方法]" << std::endl
                       << graph_optimizer_type << std::endl;
         }
         else
         {
-            LOG(ERROR) <<std::endl<<  graph_optimizer_type << " 未能找到对应的优化方法" << std::endl;
+            LOG(ERROR) << graph_optimizer_type << " 未能找到对应的优化方法" << std::endl;
         }
 
         /*优化是否考虑闭环、回环*/
         graph_optimizer_config_.use_gnss = config_node["use_gnss"].as<bool>();
         graph_optimizer_config_.use_close_loop = config_node["use_close_loop"].as<bool>();
-        LOG(INFO) << " [use_gnss]" << std::endl
+        LOG(INFO) << "[use_gnss]" << std::endl
                   << graph_optimizer_config_.use_gnss << std::endl;
-        LOG(INFO) << " [use_close_loop]" << std::endl
+        LOG(INFO) << "[use_close_loop]" << std::endl
                   << graph_optimizer_config_.use_close_loop << std::endl;
 
         /*优化间隔*/
@@ -94,28 +94,31 @@ namespace multisensor_localization
         graph_optimizer_config_.close_loop_noise_ = Eigen::Map<Eigen::Matrix<double, 6, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["close_loop_noise"].as<std::vector<double>>().data());
         graph_optimizer_config_.odom_noise_ = Eigen::Map<Eigen::Matrix<double, 6, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["odom_noise"].as<std::vector<double>>().data());
         graph_optimizer_config_.gnss_nosie_ = Eigen::Map<Eigen::Matrix<double, 3, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["odom_noise"].as<std::vector<double>>().data());
-        LOG(INFO) << "[close_loop_noise_]" << std::endl
+        LOG(INFO) << "[close_loop_noise]" << std::endl
                   << graph_optimizer_config_.close_loop_noise_
                   << std::endl;
-        LOG(INFO) << "[odom_noise_]" << std::endl
+        LOG(INFO) << "[odom_noise]" << std::endl
                   << graph_optimizer_config_.odom_noise_
                   << std::endl;
-        LOG(INFO) << "[gnss_nosie_]" << std::endl
+        LOG(INFO) << "[gnss_nosie]" << std::endl
                   << graph_optimizer_config_.gnss_nosie_
                   << std::endl;
 
-                  return true;
+        return true;
     }
 
     /**
      * @brief   配置数据保存路径
-     * @note
-     * @todo
+     * @note 
+     * @todo 创建文件时候用文件管理器
      **/
     bool BackEnd::ConfigDataPath(const YAML::Node &config_node)
     {
-        std::string data_path=config_node["data_path"].as<std::string>();
+        std::string data_path = config_node["data_path"].as<std::string>();
+        if(data_path=="./")
+        //data_path=ros::package::getPath("multisensor_localization")
         return true;
+
     }
 
 }

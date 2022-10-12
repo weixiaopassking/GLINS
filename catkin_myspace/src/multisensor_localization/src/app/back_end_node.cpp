@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     ros::NodeHandle nh;
 
     /*后端优化流程*/
-    std::shared_ptr<BackEndFlow> back_end_flow_ptr=std::make_shared<BackEndFlow>(nh);
+    std::shared_ptr<BackEndFlow> back_end_flow_ptr;
 
     /*glog配置*/
     google::InitGoogleLogging(argv[0]);

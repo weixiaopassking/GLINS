@@ -14,13 +14,13 @@
 4. 预处理器搜索的顺序（当前文件所在目录) --> 编译选项-I指定的目录 --> 默认的标准库目录
 所以，用户自定义头文件"",系统头文件<>
 5. yaml读参录入LOG确认
-6. 编译警告尽可能避免 影响编译速度??
+6. 编译警告尽可能避免 影响编译速度
 
 ### 必要说明
-kitti时间戳 ms.ns
-rostopic echo /synced_cloud |grep frame_id
-
-catkin_make -DCATKIN_WHITELIST_PACKAGES="multisensor_localization" -j8
+1. kitti时间戳 ms.ns 
+2. 话题frame查看 rostopic echo /synced_cloud |grep frame_id
+3. catkin_make -DCATKIN_WHITELIST_PACKAGES="multisensor_localization" -j8
+4. tools存放小工具诸如文件管理器、计时器、彩色终端等
 
 
 ### 开发记录
