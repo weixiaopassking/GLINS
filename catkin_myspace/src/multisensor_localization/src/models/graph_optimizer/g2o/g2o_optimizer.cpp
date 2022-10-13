@@ -183,8 +183,16 @@ namespace multisensor_localization
      * @note
      * @todo
      **/
-    bool G2oOptimizer::GetOptimizedPose(std::deque<Eigen::Matrix4f> &Optimized_pose)
+    bool G2oOptimizer::GetOptimizedPose(std::deque<Eigen::Matrix4f> &optimized_pose)
     {
+        optimized_pose.clear();
+        int vertex_num=graph_optimizer_ptr_->vertices().size();
+        for(int i=0;i<vertex_num;i++)
+        {
+            g2o::VertexSE3 *v=dynamic_cast<g2o::VertexSE3*>(graph_optimizer_ptr_->vertex(i));
+            Eigen::Isometry3d pose=v->estimate();
+            optimized_pose.push_back(pose.matrix().cast<float>());
+        }
         return true;
     }
 

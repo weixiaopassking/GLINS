@@ -54,7 +54,7 @@ namespace multisensor_localization
         /*优化动作*/
         bool Optimize() override;
         /*输出数据*/
-         bool GetOptimizedPose(std::deque<Eigen::Matrix4f> &Optimized_pose)override;
+         bool GetOptimizedPose(std::deque<Eigen::Matrix4f> &optimized_pose)override;
          int GetNodeNum() override;
         /*添加鲁棒核*/
         void SetEdgeRobustKernel(std::string robust_kernel_name, double robust_kernel_size) override;

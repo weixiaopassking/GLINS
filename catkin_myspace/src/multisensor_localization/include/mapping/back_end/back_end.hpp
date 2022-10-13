@@ -11,11 +11,14 @@
 #include "../../../include/models/graph_optimizer/graph_optimizer_interface.hpp"
 //自定义传感器数据类型
 #include "../../../include/sensor_data/cloud_data.hpp"
-#include "../../../include/sensor_data/pose_data.hpp""
+#include "../../../include/sensor_data/pose_data.hpp"
+#include "../../../include/sensor_data/key_frame.hpp"
 // yaml参数库
 #include <yaml-cpp/yaml.h>
 //fstream
 #include <fstream>
+//c++
+#include <deque>
 
 namespace multisensor_localization
 {
@@ -24,12 +27,19 @@ namespace multisensor_localization
     public:
         BackEnd();
 
-        bool Update(const  CloudData&cloud_data,const PoseData&laser_odom);
+        bool Update(const  CloudData&cloud_data,const PoseData&laser_odom,const PoseData & gnss_odom);
+
 
     private:
         bool ConfigFrame(const YAML::Node &config_node);
         bool ConfigGraphOptimizer(const YAML::Node &config_node);
         bool ConfigDataPath(const YAML::Node &config_node);
+
+        bool IsNewKeyFrame(const CloudData&cloud_data,const PoseData&laser_odom);
+        bool IsOptimized();
+        bool AddNodeAndEdge(const PoseData&gnss_data);
+        bool SaveTrajectory(const PoseData& laser_odom,const PoseData &gnss_odom);
+        bool GetOptimizedKeyFrames(std::deque<KeyFrame> &key_frames_deque);
 
     private:
         std::string key_frames_path_ = "";
@@ -39,6 +49,12 @@ namespace multisensor_localization
         std::ofstream laser_odom_ofs_;
 
         float key_frame_distance_ = 2.0;
+
+        bool has_new_key_frame_=false;
+        bool has_new_optimized_=false;
+
+    KeyFrame current_key_frame_;
+       std::deque<KeyFrame>  key_frames_deque_;
 
         std::shared_ptr<GraphOptimizerInterface> graph_optimizer_ptr_;
 
@@ -73,3 +89,8 @@ namespace multisensor_localization
 }
 
 #endif
+
+// optimize_step_with_key_frame：当新到关键帧计数达到这个值时做一次优化
+// optimize_step_with_gnss：当新产生产生的gnss观测技术达到这个值时做一次优化
+// optimize_step_with_loop：当新得到闭环检测边的计数达到这个值时做一次优化
+// 当这三个条件满足其中之一时，即做优化，并把三个计数均清零。

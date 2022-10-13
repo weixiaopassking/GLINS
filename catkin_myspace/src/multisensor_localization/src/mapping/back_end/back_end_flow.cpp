@@ -133,15 +133,15 @@ namespace multisensor_localization
     bool BackEndFlow::UpdateBackEnd()
     {
         /*lidar 对齐到gnss坐标系再优化*/
-        static bool odom_inited=false;
-        static Eigen::Matrix4f  gnss_to_lidar_matrix=Eigen::Matrix4f::Identity();
-        if(!odom_inited)
+        static bool odom_inited = false;
+        static Eigen::Matrix4f gnss_to_lidar_matrix = Eigen::Matrix4f::Identity();
+        if (!odom_inited)
         {
-            odom_inited=true;
-            gnss_to_lidar_matrix=current_gnss_pose_data_.pose_*current_laser_odom_data_.pose_.inverse();
+            odom_inited = true;
+            gnss_to_lidar_matrix = current_gnss_pose_data_.pose_ * current_laser_odom_data_.pose_.inverse();
         }
-        current_laser_odom_data_.pose_=gnss_to_lidar_matrix*current_laser_odom_data_.pose_;
-        //return back_end_ptr_.        
+        current_laser_odom_data_.pose_ = gnss_to_lidar_matrix * current_laser_odom_data_.pose_;
+        return back_end_ptr_->Update(current_cloud_data_, current_laser_odom_data_, current_gnss_pose_data_);
     }
 
     /**
@@ -152,5 +152,13 @@ namespace multisensor_localization
     bool BackEndFlow::SaveTrajectory()
     {
     }
+
+    /**
+     * @brief  保存轨迹数据
+     * @note
+     * @todo
+     **/
+
+
 
 } // namespace multisensor_localization
