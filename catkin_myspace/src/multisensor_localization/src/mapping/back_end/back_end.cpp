@@ -338,4 +338,36 @@ namespace multisensor_localization
         }
     }
 
-}
+    /**
+     * @brief   是否产生关键帧
+     * @note 从back_end取到back_end_flow
+     * @todo
+     **/
+    bool BackEnd::HasNewKeyFrame()
+    {
+        return has_new_key_frame_;
+    }
+
+    /**
+     * @brief   是否有新优化结果产生
+     * @note 从back_end取到back_end_flow
+     * @todo
+     **/
+    bool BackEnd::HasNewOptimized()
+    {
+        return has_new_optimized_;
+    }
+
+    /**
+     * @brief   是否有新优化结果产生
+     * @note 从back_end取到back_end_flow
+     * @todo
+     **/
+    void BackEnd::GetCurrentKeyFrame(KeyFrame &key_frame)
+    {
+        key_frame = current_key_frame_;
+    }
+
+
+
+} // namespace multisensor_localization

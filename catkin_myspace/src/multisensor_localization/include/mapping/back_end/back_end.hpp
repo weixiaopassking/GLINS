@@ -28,7 +28,10 @@ namespace multisensor_localization
         BackEnd();
 
         bool Update(const  CloudData&cloud_data,const PoseData&laser_odom,const PoseData & gnss_odom);
-
+        bool HasNewKeyFrame();
+        bool HasNewOptimized();
+        bool GetOptimizedKeyFrames(std::deque<KeyFrame> &key_frames_deque);
+        void GetCurrentKeyFrame(KeyFrame &key_frame);
 
     private:
         bool ConfigFrame(const YAML::Node &config_node);
@@ -39,7 +42,7 @@ namespace multisensor_localization
         bool IsOptimized();
         bool AddNodeAndEdge(const PoseData&gnss_data);
         bool SaveTrajectory(const PoseData& laser_odom,const PoseData &gnss_odom);
-        bool GetOptimizedKeyFrames(std::deque<KeyFrame> &key_frames_deque);
+
 
     private:
         std::string key_frames_path_ = "";

@@ -50,9 +50,10 @@ namespace multisensor_localization
             if (ValidData())
                 continue;
 
-            //更新后端
+            /*更新后端*/
             UpdateBackEnd();
-            //发布数据
+            /*发布数据*/
+            PublishData();
         }
 
         return true;
@@ -154,11 +155,28 @@ namespace multisensor_localization
     }
 
     /**
-     * @brief  保存轨迹数据
+     * @brief  数据发布
      * @note
      * @todo
      **/
-
-
+    bool BackEndFlow::PublishData()
+    {
+        transformed_odom_pub_ptr_->Publish(current_laser_odom_data_.pose_);
+        /*有新关键帧*/
+        if (back_end_ptr_->HasNewKeyFrame())
+        {
+            KeyFrame key_frame;
+             back_end_ptr_->GetCurrentKeyFrame(key_frame);
+             key_frame_pub_ptr_->Publish(key_frame);
+        }
+        /*有新优化*/
+        if (back_end_ptr_->HasNewOptimized())
+        {
+            std::deque<KeyFrame> optimized_key_frames;
+            back_end_ptr_->GetOptimizedKeyFrames(optimized_key_frames);
+            key_frames_pub_ptr_->Publish(optimized_key_frames);
+        }
+        return true;
+    }
 
 } // namespace multisensor_localization

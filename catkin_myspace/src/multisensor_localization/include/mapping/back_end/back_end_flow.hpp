@@ -34,9 +34,9 @@ namespace multisensor_localization
         bool ReadData();
         bool HasData();
         bool ValidData();
-
         bool UpdateBackEnd();
         bool SaveTrajectory();
+        bool PublishData();
 
     private:
         std::shared_ptr<BackEnd> back_end_ptr_;
