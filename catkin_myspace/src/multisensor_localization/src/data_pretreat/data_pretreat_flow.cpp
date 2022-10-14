@@ -1,19 +1,21 @@
 /*
- * @Description:传感器数据预处理
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 传感器数据处理任务管理
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v0.0
+ * @Date: 2022-10-14
  */
 
+//relevant
 #include "../../include/data_pretreat/data_pretreat_flow.hpp"
-
+//ros
+#include <ros/package.h>
 
 namespace multisensor_localization
 {
 
     /**
-     * @brief 传感器数据流初始化
+     * @brief 数据预处理任务管理--初始化
      * @note
      * @todo
      **/
@@ -32,12 +34,11 @@ namespace multisensor_localization
         gnss_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/synced_gnss", "/map", "/velo_link", 100);
         origin_pub_ptr_ = std::make_shared<OriginPublisher>(nh, "/ref_point_wgs84", 100, "map");
         /*畸变矫正*/
-
-        /*just a test*/
+        //似乎是有点问题
     }
 
     /**
-     * @brief 数据预处理逻辑运行
+     * @brief 数据预处理任务管理--运行
      * @note
      * @todo
      **/
@@ -75,7 +76,7 @@ namespace multisensor_localization
      **/
     bool DataPretreatFlow::ReadData()
     {
-        /*待同步队列*/
+        /*创建未同步队列*/
         static std::deque<ImuData> unsynced_imu_data_buff;
         static std::deque<VelocityData> unsynced_velocity_data_buff;
         static std::deque<GnssData> unsynced_gnss_data_buff;
@@ -85,10 +86,11 @@ namespace multisensor_localization
         velocity_sub_ptr_->ParseData(unsynced_velocity_data_buff);
         gnss_sub_ptr_->ParseData(unsynced_gnss_data_buff);
 
+        /*未接收到点云数据则退出*/
         if (cloud_data_buff_.size() == 0)
             return false;
 
-        /*以雷达数据为基准做数据同步*/
+        /*imu gnss  轮速计 以点云数据为时间戳*/
         double cloud_time = cloud_data_buff_.front().time_stamp_;
         bool is_valid_imu = ImuData::SyncData(unsynced_imu_data_buff, imu_data_buff_, cloud_time);
         bool is_valid_velocity = VelocityData::SyncData(unsynced_velocity_data_buff, velocity_data_buff_, cloud_time);
@@ -103,7 +105,7 @@ namespace multisensor_localization
                 cloud_data_buff_.pop_front();
                 return false;
             }
-            ColorTerminal::ColorInfo("多传感器时间同步已完成");
+           // ColorTerminal::ColorInfo("多传感器时间同步已完成");
             sensor_inited = true;
         }
 
@@ -127,7 +129,7 @@ namespace multisensor_localization
                       << "[lidar_to_imu]" << std::endl
                       << lidar_to_imu_ << std::endl;
 
-            ColorTerminal::ColorInfo("多传感器空间标定已完成");
+            //ColorTerminal::ColorInfo("多传感器空间标定已完成");
             calibration_finished = true;
         }
         return calibration_finished;
@@ -146,7 +148,7 @@ namespace multisensor_localization
             GnssData gnss_data = gnss_data_buff_.front();
             gnss_data.InitOriginPosition();
             gnss_inited = true;
-             ColorTerminal::ColorInfo("东北天坐标系初始化已完成");
+            // ColorTerminal::ColorInfo("东北天坐标系初始化已完成");
             LOG(INFO) << std::endl
                       << "[ENU origin point]" << std::endl
                       << "longitude \t" << gnss_data.longitude_ << std::endl

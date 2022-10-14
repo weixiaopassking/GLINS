@@ -1,33 +1,32 @@
 /*
- * @Description:传感器数据预处理
- * @Author: Robotics gang
- * @note  modified from Ren Qian
- * @Date: 2022-10-02
+ * @Description: 传感器数据处理任务管理
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
  */
 
 #ifndef DATA_PRETREAT_FLOW_HPP_
 #define DATA_PRETREAT_FLOW_HPP_
 
-// ros库函数
+// ros
 #include <ros/ros.h>
-#include <ros/package.h>
-//第三方库
+// yaml
 #include <yaml-cpp/yaml.h>
-//订阅器
+// subscriber
 #include "../subscriber/cloud_subscriber.hpp"
 #include "../subscriber/gnss_subscriber.hpp"
 #include "../subscriber/imu_subscriber.hpp"
 #include "../subscriber/velocity_subscriber.hpp"
-//发布器
+// publisher
 #include "../publisher/cloud_publisher.hpp"
 #include "../publisher/odometry_publisher.hpp"
 #include "../publisher/origin_publisher.hpp"
-//模块
-// TODO LIST:畸变矫正 但这里似乎是有问题
+
+//畸变矫正 todo but 可能有点问题
 
 namespace multisensor_localization
 {
-
     class DataPretreatFlow
     {
     public:
@@ -44,11 +43,12 @@ namespace multisensor_localization
         bool PublishData();
 
     private:
+        /*传感器数据订阅*/
         std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
         std::shared_ptr<ImuSubscriber> imu_sub_ptr_;
         std::shared_ptr<VelocitySubscriber> velocity_sub_ptr_;
         std::shared_ptr<GnssSubscriber> gnss_sub_ptr_;
-
+        /*数据发布*/
         std::shared_ptr<CloudPublisher> cloud_pub_ptr_;
         std::shared_ptr<OdometryPublisher> gnss_pub_ptr_;
         std::shared_ptr<OriginPublisher> origin_pub_ptr_;

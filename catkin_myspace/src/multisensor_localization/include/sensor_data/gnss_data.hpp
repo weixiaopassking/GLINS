@@ -1,19 +1,18 @@
 /*
- * @Description:
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: gnss数据封装
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
  */
 
 #ifndef GNSS_DATA_HPP_
 #define GNSS_DATA_HPP_
 
+//c++
 #include <deque>
-
+//地理日志库
 #include <GeographicLib/LocalCartesian.hpp>
-#include <glog/logging.h>
-#include "../tools/color_terminal.hpp"
-
 
 namespace multisensor_localization
 {

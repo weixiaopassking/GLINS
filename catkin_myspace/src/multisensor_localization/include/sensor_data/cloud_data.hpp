@@ -1,8 +1,9 @@
 /*
- * @Description:
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 激光雷达数据封装
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
  */
 
 #ifndef CLOUD_DATA_HPP_
@@ -17,8 +18,8 @@ namespace multisensor_localization
   {
   public:
     using POINT = pcl::PointXYZ;
-    using CLOUD = pcl::PointCloud<POINT>;
-    using CLOUD_PTR = CLOUD::Ptr;
+    using CLOUD = pcl::PointCloud<pcl::PointXYZ>;
+    using CLOUD_PTR = pcl::PointCloud<pcl::PointXYZ>::Ptr;
 
   public:
     CloudData();

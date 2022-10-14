@@ -1,8 +1,10 @@
 /*
- * @Description:
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: imu数据封装
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
+ * @Todo xyz下划线规范??
  */
 
 #ifndef IMU_DATA_HPP_
@@ -11,7 +13,6 @@
 #include <deque>
 #include <cmath>
 #include <Eigen/Dense>
-#include <glog/logging.h>
 
 namespace multisensor_localization
 {
@@ -51,9 +52,12 @@ namespace multisensor_localization
 
   public:
     Eigen::Matrix3f OrientationToMatrix();
-    static bool SyncData(std::deque<ImuData> &unsynced_data_buff,\
-     std::deque<ImuData> &synced_data_buff,\
-     double sync_time);
+    static bool SyncData(std::deque<ImuData> &unsynced_data_buff,
+                         std::deque<ImuData> &synced_data_buff,
+                         double sync_time);
   };
-}
+
+
+}//namespace multisensor_localization
+
 #endif

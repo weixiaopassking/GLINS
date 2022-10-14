@@ -1,14 +1,13 @@
 /*
- * @Description:自定义IMU数据结构
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: imu数据封装
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
  */
 
+//relevant
 #include "../../include/sensor_data/imu_data.hpp"
-
-
 
 namespace multisensor_localization
 {
@@ -22,14 +21,13 @@ namespace multisensor_localization
     {
         Eigen::Quaterniond q(orientation_.w, orientation_.x, orientation_.y, orientation_.z);
         Eigen::Matrix3f matrix = q.matrix().cast<float>();
-
         return matrix;
     }
 
     /**
      * @brief 时间同步
      * @note 时间戳为ms+ns
-     * @todo
+     * @todo 四元数可以尝试球面插值
      **/
     bool ImuData::SyncData(std::deque<ImuData> &unsynced_data_buff, std::deque<ImuData> &synced_data_buff, double sync_time)
     {
@@ -80,7 +78,6 @@ namespace multisensor_localization
         synced_data.angular_velocity_.y = front_data.angular_velocity_.y * front_scale + back_data.angular_velocity_.y * back_scale;
         synced_data.angular_velocity_.z = front_data.angular_velocity_.z * front_scale + back_data.angular_velocity_.z * back_scale;
 
-        //! TODO或可采用球面插值
         synced_data.orientation_.x = front_data.orientation_.x * front_scale + back_data.orientation_.x * back_scale;
         synced_data.orientation_.y = front_data.orientation_.y * front_scale + back_data.orientation_.y * back_scale;
         synced_data.orientation_.z = front_data.orientation_.z * front_scale + back_data.orientation_.z * back_scale;
@@ -92,4 +89,6 @@ namespace multisensor_localization
 
         return true;
     }
-}
+
+
+}//namespace multisensor_localization

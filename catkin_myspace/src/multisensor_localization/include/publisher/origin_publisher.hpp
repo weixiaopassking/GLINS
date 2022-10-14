@@ -4,6 +4,7 @@
 
 #include "../sensor_data/gnss_data.hpp"
 #include <sensor_msgs/NavSatFix.h>
+#include <ros/ros.h>
 
 namespace multisensor_localization
 {

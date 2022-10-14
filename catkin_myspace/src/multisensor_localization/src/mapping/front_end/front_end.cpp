@@ -75,7 +75,7 @@ namespace multisensor_localization
         else
         {
             
-            ColorTerminal::ColorInfo("无对应匹配方法");
+           // ColorTerminal::ColorInfo("无对应匹配方法");
             return false;
         }
 
@@ -100,7 +100,7 @@ namespace multisensor_localization
         }
         else
         {
-           ColorTerminal::ColorInfo("无对应滤波方法");
+           //ColorTerminal::ColorInfo("无对应滤波方法");
             return false;
         }
 

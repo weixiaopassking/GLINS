@@ -1,14 +1,17 @@
 /*
- * @Description: velocity 数据
- * @Author: Ren Qian
- * @Date: 2019-07-17 18:27:40
+ * @Description: 速度数据存放
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
+ * @Todo
  */
-#ifndef LIDAR_LOCALIZATION_SENSOR_DATA_VELOCITY_DATA_HPP_
-#define LIDAR_LOCALIZATION_SENSOR_DATA_VELOCITY_DATA_HPP_
+
+#ifndef VELOCITY_DATA_HPP_
+#define VELOCITY_DATA_HPP_
 
 #include <deque>
 #include <Eigen/Dense>
-#include <glog/logging.h>
 
 namespace multisensor_localization
 {
@@ -30,10 +33,12 @@ namespace multisensor_localization
     AngularVelocity angular_velocity_;
 
   public:
+    void TransformCoordinate(Eigen::Matrix4f transform_matrix);
     static bool SyncData(std::deque<VelocityData> &unsynced_data_buff,
                          std::deque<VelocityData> &synced_data_buff,
                          double sync_time);
-    void TransformCoordinate(Eigen::Matrix4f transform_matrix);
   };
+
+  
 }
 #endif

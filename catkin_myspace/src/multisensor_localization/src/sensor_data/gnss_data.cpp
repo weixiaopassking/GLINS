@@ -1,17 +1,20 @@
 /*
- * @Description:自定义点云数据结构
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: gnss数据封装
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
  */
 
+//relevant
 #include "../../include/sensor_data/gnss_data.hpp"
+//glog
+#include <glog/logging.h>
 
 
 namespace multisensor_localization
 {
-    /*类内静态变量初始化*/
+    /*类内静态变量 类内申明类外初始化*/
     bool GnssData::origin_position_inited_ = false;
     GeographicLib::LocalCartesian GnssData::geo_converter_;
 
@@ -35,8 +38,9 @@ namespace multisensor_localization
     {
         if (!origin_position_inited_)
         {
-            ColorTerminal::ColorInfo("东北天坐标系未初始化");
+           LOG(ERROR)<<"[东北天坐标系未正常初始化]"<<std::endl;
         }
+        /*取出新位移*/
         geo_converter_.Forward(latitude_, longitude_, altitude_,
                                local_E_, local_N_, local_U_);
     }
@@ -51,22 +55,22 @@ namespace multisensor_localization
     {
         while (unsynced_data_buff.size() >= 2)
         {
-            /*异常1:sync_time>[0]>[1]*/
+            /*异常1:sync_time<[0]<[1] #无法对齐,退出*/
             if (unsynced_data_buff.at(0).time_stamp_ > sync_time)
                 return false;
-            /*异常2:[0]>[1]>sync_time*/
+            /*异常2:[0]<[1]<sync_time  #丢掉[0],继续下一轮循环尝试转用[1][2]*/
             if (unsynced_data_buff.at(1).time_stamp_ < sync_time)
             {
                 unsynced_data_buff.pop_front();
                 continue;
             }
-            /*异常3:[0]>>sync_time>[1]*/
+            /*异常3:[0]<<sync_time<[1] #[0]与sync_time可能丢帧,弃用[0]，退出  */
             if (sync_time - unsynced_data_buff.at(0).time_stamp_ > 0.2)
             {
                 unsynced_data_buff.pop_front();
                 break;
             }
-            /*异常4:[0]>sync_time>>[2]*/
+            /*异常4:[0]<sync_time<<[2]  #sync_time与[1]可能丢帧,弃用[0],，退出*/
             if (unsynced_data_buff.at(1).time_stamp_ - sync_time > 0.2)
             {
                 unsynced_data_buff.pop_front();
@@ -75,10 +79,11 @@ namespace multisensor_localization
             break;
         }
 
+        /*经上述处理后，待同步数据不足对，无法同步*/
         if (unsynced_data_buff.size() < 2)
             return false;
 
-        /*线性插值a(1-t)+bt系数计算*/
+        /*线性插值a(1-t)+bt 系数计算*/
         GnssData front_data = unsynced_data_buff.at(0);
         GnssData back_data = unsynced_data_buff.at(1);
         double front_scale = (back_data.time_stamp_ - sync_time) / (back_data.time_stamp_ - front_data.time_stamp_);
@@ -98,9 +103,11 @@ namespace multisensor_localization
         synced_data.local_N_ = front_data.local_N_ * front_scale + back_data.local_N_ * back_scale;
         synced_data.local_U_ = front_data.local_U_ * front_scale + back_data.local_U_ * back_scale;
 
-        /*压入队列引用传参*/
+        /*压入队列引用方式向外传参*/
         synced_data_buff.push_back(synced_data);
 
         return true;
     }
+
+
 } // multisensor_localization

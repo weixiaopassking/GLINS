@@ -1,9 +1,9 @@
 /*
- * @Description:自定义点云数据结构
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 激光雷达数据封装
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
  */
 
 #include "../../include/sensor_data/cloud_data.hpp"
@@ -12,7 +12,7 @@ namespace multisensor_localization
 {
 
     /**
-     * @brief 点云数据类型构造函数
+     * @brief 激光雷达数据类型封装构造
      * @note 为cloud_ptr_分配内存空间
      * @todo
      **/

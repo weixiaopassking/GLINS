@@ -1,26 +1,51 @@
 /*
- * @Description:debug小工具
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:
- * @Date: 2022-10-03
+ * @Description: 终端彩色输出
+ * @Function: 定义三个级别的彩色终端输出
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
+ * @Note
  */
 
+// directly relevant
 #include "../../include/tools/color_terminal.hpp"
+// c++
+#include <string>
+#include <iostream>
 
 namespace multisensor_localization
 {
+
     /**
-     * @brief 终端输出提示
-     * @note 
+     * @brief 彩色终端输出--节点级别
+     * @note 蓝色
      * @todo
      **/
-    void ColorTerminal::ColorInfo(std::string str)
+    void ColorTerminal::ColorNodeInfo(const std::string str)
     {
         std::cout << std::endl
-                  << fontColorGreen << str << fontColorReset << std::endl;
+                  << fontColorBlueBold << str << fontColorReset << std::endl;
+    }
+    /**
+     * @brief 彩色终端输出--任务管理级别
+     * @note 黄色
+     * @todo
+     **/
+    void ColorTerminal::ColorFlowInfo(const std::string str)
+    {
+        std::cout << std::endl
+                  << fontColorYellowBold << str << fontColorReset << std::endl;
     }
 
-
+    /**
+     * @brief 彩色终端输出--算法实现级别
+     * @note 绿色
+     * @todo
+     **/
+    void ColorTerminal::ColorConcreteInfo(const std::string str)
+    {
+        std::cout << std::endl
+                  << fontColorGreenBold << str << fontColorReset << std::endl;
+    }
 
 } // namespace multisensor_localization

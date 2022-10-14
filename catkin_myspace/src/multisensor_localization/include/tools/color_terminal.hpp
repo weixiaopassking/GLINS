@@ -1,13 +1,15 @@
 /*
- * @Description: 一些debug自定义小工具
- * @Author: Robotics gang
- * @note  modified from Ren Qian
- * @Date: 2022-10-02
+ * @Description: 彩色终端
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
  */
+
 #ifndef COLOR_TERMINAL_HPP_
 #define COLOR_TERMINAL_HPP_
 
-#include <ros/ros.h>
+#include <string>
 
 namespace multisensor_localization
 {
@@ -34,9 +36,11 @@ namespace multisensor_localization
         class ColorTerminal
         {
         public:
-                static void ColorInfo(const std::string str);
+                static void ColorNodeInfo(const std::string str);
+                static void ColorFlowInfo(const std::string str);
+                static void ColorConcreteInfo(const std::string str);
         };
 
-}
+} // namespace multisensor_localization
 
 #endif

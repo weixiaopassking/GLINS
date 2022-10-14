@@ -50,7 +50,7 @@ namespace multisensor_localization
         //  double cost_value=graph_optimizer_ptr_->chi2();//代价值
         // int iterations=graph_optimizer_ptr_->optimize(max_iterations_num_);//最大迭代次数
 
-        ColorTerminal::ColorInfo("g2o迭代记录");
+        //ColorTerminal::ColorInfo("g2o迭代记录");
 
         return true;
     }
@@ -139,7 +139,7 @@ namespace multisensor_localization
         g2o::RobustKernel *kernel = robust_kernel_factroy_->construct(kernel_type);
         if (kernel == nullptr)
         {
-           ColorTerminal::ColorInfo("无对应的鲁棒核");
+        //   ColorTerminal::ColorInfo("无对应的鲁棒核");
         }
         kernel->setDelta(kernel_size);
         edge->setRobustKernel(kernel);

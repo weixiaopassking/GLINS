@@ -1,13 +1,12 @@
 /*
- * @Description:自定义速度数据结构
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 速度数据存放
+ * @Function: 线速度+角速度
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-14
+ * @Todo
  */
-
 #include "../../include/sensor_data/velocity_data.hpp"
-
 
 
 namespace multisensor_localization
@@ -23,22 +22,22 @@ namespace multisensor_localization
 
         while (unsynced_data_buff.size() >= 2)
         {
-            /*异常1:sync_time>[0]>[1]*/
+            /*异常1:sync_time<[0]<[1]*/
             if (unsynced_data_buff.at(0).time_stamp_ > sync_time)
                 return false;
-            /*异常2:[0]>[1]>sync_time*/
+            /*异常2:[0]<[1]<sync_time*/
             if (unsynced_data_buff.at(1).time_stamp_ < sync_time)
             {
                 unsynced_data_buff.pop_front();
                 continue;
             }
-            /*异常3:[0]>>sync_time>[1]*/
+            /*异常3:[0]<<sync_time<[1]*/
             if (sync_time - unsynced_data_buff.at(0).time_stamp_ > 0.2)
             {
                 unsynced_data_buff.pop_front();
                 break;
             }
-            /*异常4:[0]>sync_time>>[2]*/
+            /*异常4:[0]<sync_time<<[2]*/
             if (unsynced_data_buff.at(1).time_stamp_ - sync_time > 0.2)
             {
                 unsynced_data_buff.pop_front();
@@ -73,10 +72,12 @@ namespace multisensor_localization
 
         return true;
     }
+
+
     /**
      * @brief 臂杆速度传递
-     * @note ???似乎是有问题的
-     * @todo
+     * @note 计算gnss系测量出来的线/角速度传递到lidar系
+     * @todo 未严格验证可能存在问题??
      **/
     void VelocityData::TransformCoordinate(Eigen::Matrix4f transform_matrix)
     {
@@ -101,4 +102,6 @@ namespace multisensor_localization
         linear_velocity_.y = v(1);
         linear_velocity_.z = v(2);
     }
+
+
 } // namespace multisensor_localization
