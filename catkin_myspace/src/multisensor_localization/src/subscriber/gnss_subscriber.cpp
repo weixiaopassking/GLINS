@@ -1,11 +1,12 @@
 /*
- * @Description:gnss订阅
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: GNSS订阅
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-15
  */
 
+//relevent
 #include "../../include/subscriber/gnss_subscriber.hpp"
 
 namespace multisensor_localization

@@ -1,9 +1,9 @@
 /*
- * @Description:imu订阅器
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 里程计数据订阅
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-15
  */
 
 #include "../../include/subscriber/odometry_subscriber.hpp"

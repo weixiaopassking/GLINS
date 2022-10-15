@@ -1,17 +1,21 @@
 /*
- * @Description:订阅imu消息
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 里程计数据订阅
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-15
  */
 
-#ifndef ODOMETRY_SUBSCRIBER_HPP_
+#ifndef  ODOMETRY_SUBSCRIBER_HPP_
 #define ODOMETRY_SUBSCRIBER_HPP_
 
+//ros
 #include <ros/ros.h>
-#include <deque>
-#include "../sensor_data/pose_data.hpp"
 #include <nav_msgs/Odometry.h>
+//c++
+#include <deque>
+//自定义位姿数据
+#include "../sensor_data/pose_data.hpp"
 
 
 namespace multisensor_localization

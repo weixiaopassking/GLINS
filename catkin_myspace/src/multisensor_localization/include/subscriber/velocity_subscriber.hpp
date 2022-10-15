@@ -1,17 +1,20 @@
 /*
- * @Description:订阅速度消息
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 速度数据订阅
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-15
  */
 
 #ifndef VELOCITY_SUBSCRIBER_HPP_
 #define VELOCITY_SUBSCRIBER_HPP_
 
+//c++
 #include <deque>
+//ros
 #include <ros/ros.h>
-#include <glog/logging.h>
 #include <geometry_msgs/TwistStamped.h>
+//速度自定义数据
 #include "../sensor_data/velocity_data.hpp"
 
 namespace multisensor_localization
