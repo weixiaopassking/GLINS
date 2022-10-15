@@ -8,7 +8,6 @@
  */
 #include "../../include/sensor_data/velocity_data.hpp"
 
-
 namespace multisensor_localization
 {
     /**
@@ -73,11 +72,12 @@ namespace multisensor_localization
         return true;
     }
 
-
     /**
      * @brief 臂杆速度传递
      * @note 计算gnss系测量出来的线/角速度传递到lidar系
-     * @todo 未严格验证可能存在问题??
+     * 原理:连杆间的速度传递
+     * 输入参数:imu_to_lidar
+     * @todo
      **/
     void VelocityData::TransformCoordinate(Eigen::Matrix4f transform_matrix)
     {
@@ -85,16 +85,17 @@ namespace multisensor_localization
         Eigen::Matrix3d t_R = matrix.block<3, 3>(0, 0);
         Eigen::Vector3d w(angular_velocity_.x, angular_velocity_.y, angular_velocity_.z);
         Eigen::Vector3d v(linear_velocity_.x, linear_velocity_.y, linear_velocity_.z);
+        /*{i+1}系统的角速度*/
         w = t_R * w;
+        /*{i+1}系统的线速度*/
         v = t_R * v;
-
         Eigen::Vector3d r(matrix(0, 3), matrix(1, 3), matrix(2, 3));
         Eigen::Vector3d delta_v;
         delta_v(0) = w(1) * r(2) - w(2) * r(1);
         delta_v(1) = w(2) * r(0) - w(0) * r(2);
         delta_v(2) = w(0) * r(1) - w(1) * r(0);
         v = v + delta_v;
-
+        /*结果传入类内全局变量*/
         angular_velocity_.x = w(0);
         angular_velocity_.y = w(1);
         angular_velocity_.z = w(2);
@@ -102,6 +103,5 @@ namespace multisensor_localization
         linear_velocity_.y = v(1);
         linear_velocity_.z = v(2);
     }
-
 
 } // namespace multisensor_localization

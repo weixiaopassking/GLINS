@@ -1,21 +1,20 @@
 /*
- * @Description:订阅激光点云数据
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 激光雷达数据订阅
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-15
  */
 
 #ifndef CLOUD_SUBSCRIBER_HPP_
 #define CLOUD_SUBSCRIBER_HPP_
 
+//c++
 #include <deque>
+//ros
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
-#include <pcl/point_types.h>
-#include <pcl/point_cloud.h>
-#include <pcl_conversions/pcl_conversions.h>
-#include <glog/logging.h>
-
+//自定义点云数据类型
 #include "../sensor_data/cloud_data.hpp"
 
 namespace multisensor_localization

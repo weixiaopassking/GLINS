@@ -1,18 +1,21 @@
 /*
- * @Description:点云订阅器
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 激光雷达数据订阅
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-15
  */
 
+//relevent
 #include "../../include/subscriber/cloud_subscriber.hpp"
+//pcl
+#include <pcl_conversions/pcl_conversions.h>
 
 namespace multisensor_localization
 {
-    /**
-     * @brief 点云订阅初始化
-     * @note
+      /**
+     * @brief 点云订阅
+     * @note 
      * @todo
      **/
     CloudSubscriber::CloudSubscriber(ros::NodeHandle &nh, std::string topic_name, size_t buff_size)
@@ -49,4 +52,6 @@ namespace multisensor_localization
             new_cloud_data_buff_.clear();
         }
     }
+
+    
 }//namespace multisensor_localization

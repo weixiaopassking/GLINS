@@ -34,14 +34,14 @@ int main(int argc, char **argv)
     FLAGS_logtostderr = true;
     FLAGS_alsologtostderr = 1;
     /*后端任务管理器创建*/
-   back_end_flow_ptr=std::make_shared<BackEndFlow>(nh);
+    back_end_flow_ptr = std::make_shared<BackEndFlow>(nh);
 
     ros::Rate rate(10);
     while (ros::ok())
     {
         ros::spinOnce();
 
-        //back_end_flow_ptr->Run();
+        // back_end_flow_ptr->Run();
 
         rate.sleep();
     }
