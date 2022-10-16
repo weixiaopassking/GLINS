@@ -12,8 +12,8 @@
 #include <ros/package.h>
 // glog日志库
 #include <glog/logging.h>
-// debug自定义工具
-#include "../../include/debug_tools/debug_tools.hpp"
+// // debug自定义工具
+// #include "../../include/tools/color_terminal.hpp"
 
 //数据处理流程控制
 #include "../../include/mapping/front_end/front_end_flow.hpp"

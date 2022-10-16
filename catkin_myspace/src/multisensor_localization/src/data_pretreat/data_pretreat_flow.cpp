@@ -1,17 +1,19 @@
 /*
  * @Description: 传感器数据处理任务管理
-  * @Function:
+ * @Function:
  * @Author: Robotic Gang (modified from Ren Qian)
- * @Version : v0.0
- * @Date: 2022-10-14
+ * @Version : v0.1
+ * @Date: 2022-10-16
  */
 
-//relevant
+// relevant
 #include "../../include/data_pretreat/data_pretreat_flow.hpp"
-//ros
+// ros
 #include <ros/package.h>
-//glog
+// glog
 #include <glog/logging.h>
+// tools
+#include "../../include/tools/color_terminal.hpp"
 
 namespace multisensor_localization
 {
@@ -35,8 +37,9 @@ namespace multisensor_localization
         cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/synced_cloud", "/velo_link", 100);
         gnss_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/synced_gnss", "/map", "/velo_link", 100);
         origin_pub_ptr_ = std::make_shared<OriginPublisher>(nh, "/ref_point_wgs84", 100, "map");
-        /*畸变矫正*/
-        //似乎是有点问题
+        /*畸变矫正 */
+        //! todo注意验证一下结果
+       distortion_adjust_=std::make_shared<DistortionAdjust>();
     }
 
     /**
@@ -78,7 +81,7 @@ namespace multisensor_localization
      **/
     bool DataPretreatFlow::ReadData()
     {
-        /*创建未同步队列*/
+        /*创建未同步队列 函数内保持*/
         static std::deque<ImuData> unsynced_imu_data_buff;
         static std::deque<VelocityData> unsynced_velocity_data_buff;
         static std::deque<GnssData> unsynced_gnss_data_buff;
@@ -104,11 +107,11 @@ namespace multisensor_localization
         {
             if (!is_valid_imu || !is_valid_velocity || !is_valid_gnss)
             {
-                cloud_data_buff_.pop_front();
+                cloud_data_buff_.pop_front(); //全未对齐则弃用该帧点云
                 return false;
             }
-           // ColorTerminal::ColorInfo("多传感器时间同步已完成");
             sensor_inited = true;
+            ColorTerminal::ColorFlowInfo("多传感器初始时间戳已同步");
         }
 
         return true;
@@ -116,8 +119,8 @@ namespace multisensor_localization
 
     /**
      * @brief 多传感器空间标定
-     * @note gnss与LIO必须在线标定
-     * @todo YAML 读参
+     * @note gnss与LIO必须在线标定!!
+     * @todo
      **/
     bool DataPretreatFlow::InitCalibration()
     {
@@ -131,7 +134,7 @@ namespace multisensor_localization
                       << "[lidar_to_imu]" << std::endl
                       << lidar_to_imu_ << std::endl;
 
-            //ColorTerminal::ColorInfo("多传感器空间标定已完成");
+            ColorTerminal::ColorFlowInfo("多传感器空间标定已完成");
             calibration_finished = true;
         }
         return calibration_finished;
@@ -149,14 +152,15 @@ namespace multisensor_localization
         {
             GnssData gnss_data = gnss_data_buff_.front();
             gnss_data.InitOriginPosition();
-            gnss_inited = true;
-            // ColorTerminal::ColorInfo("东北天坐标系初始化已完成");
+
             LOG(INFO) << std::endl
                       << "[ENU origin point]" << std::endl
                       << "longitude \t" << gnss_data.longitude_ << std::endl
                       << "latitude \t" << gnss_data.latitude_ << std::endl;
 
             origin_pub_ptr_->Publish(gnss_data);
+            ColorTerminal::ColorFlowInfo("东北天坐标系初始化已完成");
+            gnss_inited = true;
         }
         return gnss_inited;
     }
@@ -183,6 +187,7 @@ namespace multisensor_localization
     /**
      * @brief 检查数据有效性
      * @note 主要检查时间戳同步程度
+     * 所用数据集为10hz imu信息所以最大误差50ms,超过50ms误差认为丢包
      * @todo
      **/
     bool DataPretreatFlow::ValidData()
@@ -242,17 +247,19 @@ namespace multisensor_localization
      **/
     bool DataPretreatFlow::TransformData()
     {
-        /*gnss位姿转换*/
+        /*gnss位姿转换到雷达系下*/
         gnss_pose_ = Eigen::Matrix4f::Identity();
         current_gnss_data_.UpdateXYZ();
         gnss_pose_(0, 3) = current_gnss_data_.local_E_;
         gnss_pose_(1, 3) = current_gnss_data_.local_N_;
         gnss_pose_(2, 3) = current_gnss_data_.local_U_;
         gnss_pose_.block<3, 3>(0, 0) = current_imu_data_.OrientationToMatrix();
-        gnss_pose_ *= lidar_to_imu_;//转到雷达坐标系
+        gnss_pose_ *= lidar_to_imu_; //转到雷达坐标系
         /*点云畸变矫正*/
-        // current_velocity_data_.TransformCoordinate(lidar_to_imu_.inverse());
-        //! TODO 畸变矫正变换似乎有问题 暂时跳过
+        current_velocity_data_.TransformCoordinate(lidar_to_imu_.inverse());
+        distortion_adjust_->SetMotionParam(0.1,current_velocity_data_);
+        //!! todo 这里是否正确 
+        //distortion_adjust_->AdjustCloud();
         return true;
     }
 

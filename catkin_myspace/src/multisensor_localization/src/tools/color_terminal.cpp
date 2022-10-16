@@ -24,7 +24,9 @@ namespace multisensor_localization
     void ColorTerminal::ColorNodeInfo(const std::string str)
     {
         std::cout << std::endl
-                  << fontColorBlueBold << str << fontColorReset << std::endl;
+                  << fontColorBlueBold << str << fontColorReset << std::endl
+                  << std::endl;
+        ;
     }
 
     /**
@@ -35,7 +37,8 @@ namespace multisensor_localization
     void ColorTerminal::ColorFlowInfo(const std::string str)
     {
         std::cout << std::endl
-                  << fontColorYellowBold << str << fontColorReset << std::endl;
+                  << fontColorYellowBold << str << fontColorReset << std::endl
+                  << std::endl;
     }
 
     /**
@@ -46,7 +49,9 @@ namespace multisensor_localization
     void ColorTerminal::ColorConcreteInfo(const std::string str)
     {
         std::cout << std::endl
-                  << fontColorGreenBold << str << fontColorReset << std::endl;
+                  << fontColorGreenBold << str << fontColorReset << std::endl
+                  << std::endl;
+        ;
     }
 
 } // namespace multisensor_localization

@@ -3,7 +3,7 @@
  * @Function:
  * @Author: Robotic Gang (modified from Ren Qian)
  * @Version : v1.0
- * @Date: 2022-10-14
+ * @Date: 2022-10-16
  */
 
 #ifndef DATA_PRETREAT_FLOW_HPP_
@@ -22,6 +22,8 @@
 #include "../publisher/cloud_publisher.hpp"
 #include "../publisher/odometry_publisher.hpp"
 #include "../publisher/origin_publisher.hpp"
+//畸变矫正
+#include "../models/scan_adjust/distortion_adjust.hpp"
 
 //畸变矫正 todo but 可能有点问题
 
@@ -52,7 +54,9 @@ namespace multisensor_localization
         std::shared_ptr<CloudPublisher> cloud_pub_ptr_;
         std::shared_ptr<OdometryPublisher> gnss_pub_ptr_;
         std::shared_ptr<OriginPublisher> origin_pub_ptr_;
-
+        //畸变矫正
+        std::shared_ptr<DistortionAdjust> distortion_adjust_;
+        /*数据队列*/
         std::deque<CloudData> cloud_data_buff_;
         std::deque<ImuData> imu_data_buff_;
         std::deque<VelocityData> velocity_data_buff_;
@@ -62,7 +66,7 @@ namespace multisensor_localization
         Eigen::Matrix4f gnss_pose_ = Eigen::Matrix4f::Identity();
 
         YAML::Node config_node_;
-
+        /*当前数据*/
         CloudData current_cloud_data_;
         ImuData current_imu_data_;
         VelocityData current_velocity_data_;

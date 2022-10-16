@@ -43,7 +43,7 @@ int main(int argc, char **argv)
         ros::spinOnce();
 
     /*数据预处理任务管理--运行*/
-      //  data_pretreat_flow_ptr->Run();
+        data_pretreat_flow_ptr->Run();
 
         rate.sleep();
     }
