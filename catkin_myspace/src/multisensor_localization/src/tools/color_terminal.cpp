@@ -1,9 +1,9 @@
 /*
  * @Description: 终端彩色输出
- * @Function: 定义三个级别的彩色终端输出
+ * @Function: 定义三个级别的彩色终端输出 蓝>黄>绿
  * @Author: Robotic Gang (modified from Ren Qian)
  * @Version : v1.0
- * @Date: 2022-10-14
+ * @Date: 2022-10-16
  * @Note
  */
 
@@ -26,6 +26,7 @@ namespace multisensor_localization
         std::cout << std::endl
                   << fontColorBlueBold << str << fontColorReset << std::endl;
     }
+
     /**
      * @brief 彩色终端输出--任务管理级别
      * @note 黄色

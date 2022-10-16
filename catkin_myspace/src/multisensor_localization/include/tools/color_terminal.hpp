@@ -1,14 +1,16 @@
 /*
- * @Description: 彩色终端
- * @Function:
+ * @Description: 终端彩色输出
+ * @Function: 定义三个级别的彩色终端输出 蓝>黄>绿
  * @Author: Robotic Gang (modified from Ren Qian)
  * @Version : v1.0
- * @Date: 2022-10-14
+ * @Date: 2022-10-16
+ * @Note
  */
 
 #ifndef COLOR_TERMINAL_HPP_
 #define COLOR_TERMINAL_HPP_
 
+//c++
 #include <string>
 
 namespace multisensor_localization
