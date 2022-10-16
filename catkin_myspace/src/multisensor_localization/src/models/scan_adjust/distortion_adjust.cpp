@@ -46,8 +46,8 @@ namespace multisensor_localization
         pcl::transformPointCloud(*origin_cloud_ptr, *origin_cloud_ptr, transform_matrix);
         /*速度转换*/
         linear_velocity_ = rotate_matrix.inverse() * linear_velocity_;
-        angular_velocity_ = angular_velocity_.inverse() * angular_velocity_;
-        /*遍历点云并转换*/
+        angular_velocity_ = rotate_matrix.inverse() * angular_velocity_;
+        // /*遍历点云并转换*/
         for (size_t point_index = 1; point_index < origin_cloud_ptr->points.size(); point_index++)
         {
             /*计算当前角度*/
@@ -55,16 +55,45 @@ namespace multisensor_localization
             /*过圈处理*/
             orientation_current += orientation_current < 0.0 ? 2.0 * M_PI : orientation_current;
             /*盲区处理*/
-            if(orientation_current<orientation_delete||(2.0*M_PI-orientation_delete)<orientation_delete)
+            if (orientation_current < orientation_delete || (2.0 * M_PI - orientation_delete) < orientation_delete)
             {
                 continue;
             }
-             /*计算圈内的比例系数*/
-             // 针对kitti数据集 比例为1的一圈
-            float time_rotation=fabs(orientation_current)/orientation_space*scan_period_-scan_period_/2.0;
-            //time_rotation   
+            /*计算圈内的比例系数*/
+            float time_rotation = fabs(orientation_current) / orientation_space * scan_period_ - scan_period_ / 2.0;
+
+            Eigen::Vector3f origin_point(origin_cloud_ptr->points[point_index].x,
+                                         origin_cloud_ptr->points[point_index].y,
+                                         origin_cloud_ptr->points[point_index].z);
+            /*旋转矫正*/
+            Eigen::Matrix3f current_matrix = UpdateMatrix(time_rotation);
+            Eigen::Vector3f rotated_point = current_matrix * origin_point;
+            /*平移矫正*/
+            Eigen::Vector3f adjusted_point = rotated_point + linear_velocity_ * time_rotation;
+            /*结果输出*/
+            CloudData::POINT point;
+            point.x = adjusted_point(0);
+            point.y = adjusted_point(1);
+            point.z = adjusted_point(2);
+            output_cloud_ptr->points.push_back(point);
         }
         return true;
+    }
+
+    /**
+     * @brief 更新旋转矩阵
+     * @note
+     * @todo
+     **/
+    Eigen::Matrix3f DistortionAdjust::UpdateMatrix(float time_rotation)
+    {
+        Eigen::Vector3f angle = angular_velocity_ * time_rotation;
+        Eigen::AngleAxisf t_Vz(angle(2), Eigen::Vector3f::UnitZ());
+        Eigen::AngleAxisf t_Vy(angle(1), Eigen::Vector3f::UnitY());
+        Eigen::AngleAxisf t_Vx(angle(0), Eigen::Vector3f::UnitX());
+        Eigen::AngleAxisf t_V;
+        t_V = t_Vz * t_Vy * t_Vx;
+        return t_V.matrix();
     }
 
 } // namespace multisensor_localization

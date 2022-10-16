@@ -6,7 +6,7 @@
  * @Date: 2022-10-16
  */
 
-//eigen
+// eigen
 #include <Eigen/Dense>
 //自定义速度数据
 #include "../../../include/sensor_data/velocity_data.hpp"
@@ -18,14 +18,14 @@ namespace multisensor_localization
 
     class DistortionAdjust
     {
-        public:
-        void SetMotionParam(float scan_period,VelocityData velocity_data);
-        bool AdjustCloud(CloudData::CLOUD_PTR &input_cloud_ptr,CloudData::CLOUD_PTR &output_cloud_ptr);
+    public:
+        void SetMotionParam(float scan_period, VelocityData velocity_data);
+        bool AdjustCloud(CloudData::CLOUD_PTR &input_cloud_ptr, CloudData::CLOUD_PTR &output_cloud_ptr);
 
-        private:
-        inline Eigen::Matrix3f UpdateMatrix(float real_time);
+    private:
+        Eigen::Matrix3f UpdateMatrix(float time_rotation);
 
-        private:
+    private:
         float scan_period_;
         Eigen::Vector3f linear_velocity_;
         Eigen::Vector3f angular_velocity_;
