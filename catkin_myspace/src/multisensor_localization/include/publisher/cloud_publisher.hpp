@@ -1,18 +1,19 @@
 /*
- * @Description:点云发布器
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 点云数据发布
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
 #ifndef CLOUD_PUBLISHER_HPP_
 #define CLOUD_PUBLISHER_HPP_
 
-#include <sensor_msgs/PointCloud2.h>
-#include <pcl/point_types.h>
-#include <pcl/point_cloud.h>
-#include <pcl_conversions/pcl_conversions.h>
-#include <glog/logging.h>
+//ros 
+#include <ros/ros.h>
+//c++
+#include <string>
+//自定义点云数据类型
 #include "../sensor_data/cloud_data.hpp"
 
 namespace multisensor_localization
@@ -40,5 +41,8 @@ namespace multisensor_localization
     ros::Publisher publisher_;
     std::string frame_id_;
   };
+
+
 } // namespace multisensor_localization
+
 #endif

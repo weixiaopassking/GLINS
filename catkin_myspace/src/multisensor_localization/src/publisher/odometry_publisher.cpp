@@ -1,11 +1,12 @@
 /*
- * @Description:点云发布器
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 多关键帧发布
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
+// relevent
 #include "../../include/publisher/odometry_publisher.hpp"
 
 namespace multisensor_localization
@@ -30,7 +31,7 @@ namespace multisensor_localization
 
     /**
      * @brief 里程计发布信息
-     * @note 重载一
+     * @note 重载(取外参作时间戳)
      * @todo
      **/
     void OdometryPublisher::Publish(const Eigen::Matrix4f &transform_matrix, double time)
@@ -41,7 +42,7 @@ namespace multisensor_localization
 
     /**
      * @brief 里程计发布信息
-     * @note 重载二
+     * @note 重载(取发布时间做时间戳)
      * @todo
      **/
     void OdometryPublisher::Publish(const Eigen::Matrix4f &transform_matrix)
@@ -56,20 +57,22 @@ namespace multisensor_localization
      **/
     void OdometryPublisher::PublishData(const Eigen::Matrix4f &transform_matrix, ros::Time time)
     {
+        /*填充header*/
         odometry_.header.stamp = time;
 
-        // set the position
+        /*填充三轴位姿数据*/
         odometry_.pose.pose.position.x = transform_matrix(0, 3);
         odometry_.pose.pose.position.y = transform_matrix(1, 3);
         odometry_.pose.pose.position.z = transform_matrix(2, 3);
 
+        /*填充旋转数据*/
         Eigen::Quaternionf q;
         q = transform_matrix.block<3, 3>(0, 0);
         odometry_.pose.pose.orientation.x = q.x();
         odometry_.pose.pose.orientation.y = q.y();
         odometry_.pose.pose.orientation.z = q.z();
         odometry_.pose.pose.orientation.w = q.w();
-
+        /*发布*/
         publisher_.publish(odometry_);
     }
 

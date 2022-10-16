@@ -1,17 +1,22 @@
 /*
- * @Description:里程计发布器
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 里程计发布
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
 #ifndef ODOMETRY_PUBLISHER_HPP_
 #define ODOMETRY_PUBLISHER_HPP_
 
-#include <string>
-#include <Eigen/Dense>
+//ros
 #include <ros/ros.h>
 #include <nav_msgs/Odometry.h>
+//c++
+#include <string>
+//eigen
+#include <Eigen/Dense>
+
 
 namespace multisensor_localization
 {
@@ -31,7 +36,7 @@ namespace multisensor_localization
     bool HasSubscribers();
 
   private:
-    inline void PublishData(const Eigen::Matrix4f &transform_matrix, ros::Time time);
+     void PublishData(const Eigen::Matrix4f &transform_matrix, ros::Time time);
 
   private:
     ros::NodeHandle nh_;

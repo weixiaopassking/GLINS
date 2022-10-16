@@ -10,6 +10,8 @@
 #include "../../include/data_pretreat/data_pretreat_flow.hpp"
 //ros
 #include <ros/package.h>
+//glog
+#include <glog/logging.h>
 
 namespace multisensor_localization
 {

@@ -1,14 +1,16 @@
 /*
- * @Description:点云发布器
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 单个关键帧发布
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
+//relevent
 #include "../../include/publisher/key_frame_publisher.hpp"
-
+//ros
 #include <geometry_msgs/PoseStamped.h>
+//eigen
 #include <Eigen/Dense>
 
 namespace multisensor_localization
@@ -25,7 +27,6 @@ namespace multisensor_localization
                                          int buff_size)
         : nh_(nh), frame_id_(frame_id)
     {
-
         publisher_ = nh_.advertise<geometry_msgs::PoseStamped>(topic_name, buff_size);
     }
 
@@ -40,21 +41,21 @@ namespace multisensor_localization
         geometry_msgs::PoseStamped pose_stamped;
 
         ros::Time ros_time((float)key_frame.time_stamp_);
+        /*填充header*/
         pose_stamped.header.stamp = ros_time;
         pose_stamped.header.frame_id = frame_id_;
-
         pose_stamped.header.seq = key_frame.index_;
-
+        /*填充三轴位置数据*/
         pose_stamped.pose.position.x = key_frame.pose_(0, 3);
         pose_stamped.pose.position.y = key_frame.pose_(1, 3);
         pose_stamped.pose.position.z = key_frame.pose_(2, 3);
-
+     /*填充旋转数据*/
         Eigen::Quaternionf q = key_frame.GetQuaternion();
         pose_stamped.pose.orientation.x = q.x();
         pose_stamped.pose.orientation.y = q.y();
         pose_stamped.pose.orientation.z = q.z();
         pose_stamped.pose.orientation.w = q.w();
-
+        /*发布*/
         publisher_.publish(pose_stamped);
     }
 

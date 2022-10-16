@@ -1,12 +1,16 @@
 /*
- * @Description:点云发布器
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 点云数据发布
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
+
+// relevent
 #include "../../include/publisher/cloud_publisher.hpp"
+// pcl
+#include <pcl_conversions/pcl_conversions.h>
 
 namespace multisensor_localization
 {
@@ -26,7 +30,7 @@ namespace multisensor_localization
 
     /**
      * @brief 点云发布消息
-     * @note 重载一
+     * @note 重载(时间戳取外参)
      * @todo
      **/
     void CloudPublisher::Publish(CloudData::CLOUD_PTR &cloud_ptr_input, double time)
@@ -37,7 +41,7 @@ namespace multisensor_localization
 
     /**
      * @brief 点云发布消息
-     * @note 重载一 取外参时间戳
+     * @note 重载(时间戳取发布时刻) 
      * @todo
      **/
     void CloudPublisher::Publish(CloudData::CLOUD_PTR &cloud_ptr_input)
@@ -47,15 +51,16 @@ namespace multisensor_localization
     }
 
     /**
-     * @brief 点云发布消息
-     * @note 重载二 取发布时刻时间戳
+     * @brief 数据发布
+     * @note 
      * @todo
      **/
     void CloudPublisher::PublishData(CloudData::CLOUD_PTR &cloud_ptr_input, ros::Time time)
     {
+        /*pcl格式的点云转换为ros类型的消息*/
         sensor_msgs::PointCloud2Ptr cloud_ptr_output(new sensor_msgs::PointCloud2());
         pcl::toROSMsg(*cloud_ptr_input, *cloud_ptr_output);
-
+        /*填充数据发布*/
         cloud_ptr_output->header.stamp = time;
         cloud_ptr_output->header.frame_id = frame_id_;
         publisher_.publish(*cloud_ptr_output);
@@ -70,4 +75,6 @@ namespace multisensor_localization
     {
         return publisher_.getNumSubscribers() != 0;
     }
+
+
 } // namespace lidar_localization

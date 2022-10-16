@@ -1,11 +1,12 @@
 /*
- * @Description:点云发布器
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 东北天坐标系原点发布
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
+//relevent
 #include "../../include/publisher/origin_publisher.hpp"
 
 namespace multisensor_localization
@@ -24,7 +25,7 @@ namespace multisensor_localization
 
     /**
      * @brief 发布坐标起点
-     * @note
+     * @note 发布稳定的gnss初始点到rviz_satellite
      * @todo
      **/
     void OriginPublisher::Publish(GnssData &gnss_input)
@@ -36,6 +37,16 @@ namespace multisensor_localization
         origin_.status.service = gnss_input.service_;
 
         publisher_.publish(origin_);
+    }
+
+        /**
+     * @brief 发布器是否被订阅
+     * @note
+     * @todo
+     **/
+    bool OriginPublisher::HasSubscribers()
+    {
+        return publisher_.getNumSubscribers() != 0;
     }
 
 }

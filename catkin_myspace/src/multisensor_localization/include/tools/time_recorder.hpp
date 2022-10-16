@@ -1,3 +1,11 @@
+/*
+ * @Description: 程序计时器
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
+ */
+
 #ifndef TIME_RECORDER_HPP_
 #define TIME_RECORDER_HPP_
 
@@ -11,33 +19,13 @@ namespace multisensor_localization
     class TimeRecorder
     {
     public:
-            /**
-         * @brief 构造函数中开始计时
-         * @note
-         * @todo
-         **/
-        TimeRecorder()
-        {
-            start = std::chrono::system_clock::now();
-        }
-
-        /**
-         * @brief 计时器结果输出
-         * @note
-         * @todo
-         **/
-        double Result()
-        {
-            end = std::chrono::system_clock::now();
-            double res = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-            start = std::chrono::system_clock::now();
-            return res; //微妙级别
-        }
+        TimeRecorder();
+        double Result();
 
     private:
-        std::chrono::time_point<std::chrono::system_clock> start, end;
+        std::chrono::time_point<std::chrono::system_clock> start_, end_;
     };
 
-} // namesapce multisensor_localization
+}//namespace multisensor_localization
 
 #endif

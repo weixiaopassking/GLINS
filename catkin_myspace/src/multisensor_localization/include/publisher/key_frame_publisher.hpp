@@ -1,16 +1,19 @@
 /*
- * @Description:点云发布器
- * @Author: Robotic Gang
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 单个关键帧发布
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
 #ifndef KEY_FRAME_PUBLISHER_HPP_
 #define KEY_FRAME_PUBLISHER_HPP_
 
-#include <deque>
+//ros
 #include <ros/ros.h>
-
+//c++
+#include <deque>
+//自定义关键帧数据结构
 #include "../../include/sensor_data/key_frame.hpp"
 
 namespace multisensor_localization

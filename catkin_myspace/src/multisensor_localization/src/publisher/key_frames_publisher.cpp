@@ -1,28 +1,39 @@
 /*
- * @Description:点云发布器
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 多关键帧发布
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-16
  */
 
+// relevent
 #include "../../include/publisher/key_frames_publisher.hpp"
-
+// ros
 #include <nav_msgs/Path.h>
+// eigen
 #include <Eigen/Dense>
 
 namespace multisensor_localization
 {
+    /**
+     * @brief 多关键帧发布器初始化
+     * @note
+     * @todo
+     **/
     KeyFramesPublisher::KeyFramesPublisher(ros::NodeHandle &nh,
                                            std::string topic_name,
                                            std::string frame_id,
                                            int buff_size)
         : nh_(nh), frame_id_(frame_id)
     {
-
         publisher_ = nh_.advertise<nav_msgs::Path>(topic_name, buff_size);
     }
 
+    /**
+     * @brief 多关键帧发布
+     * @note 以path方式发布
+     * @todo
+     **/
     void KeyFramesPublisher::Publish(const std::deque<KeyFrame> &key_frames)
     {
         nav_msgs::Path path;
@@ -56,6 +67,11 @@ namespace multisensor_localization
         publisher_.publish(path);
     }
 
+    /**
+     * @brief 发布器是否被订阅
+     * @note
+     * @todo
+     **/
     bool KeyFramesPublisher::HasSubscribers()
     {
         return publisher_.getNumSubscribers() != 0;
