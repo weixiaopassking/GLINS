@@ -47,7 +47,7 @@ namespace multisensor_localization
         /*速度转换*/
         linear_velocity_ = rotate_matrix.inverse() * linear_velocity_;
         angular_velocity_ = rotate_matrix.inverse() * angular_velocity_;
-        // /*遍历点云并转换*/
+        /*遍历点云并转换*/
         for (size_t point_index = 1; point_index < origin_cloud_ptr->points.size(); point_index++)
         {
             /*计算当前角度*/

@@ -39,7 +39,7 @@ namespace multisensor_localization
         origin_pub_ptr_ = std::make_shared<OriginPublisher>(nh, "/ref_point_wgs84", 100, "map");
         /*畸变矫正 */
         //! todo注意验证一下结果
-       distortion_adjust_=std::make_shared<DistortionAdjust>();
+        distortion_adjust_ = std::make_shared<DistortionAdjust>();
     }
 
     /**
@@ -257,8 +257,8 @@ namespace multisensor_localization
         gnss_pose_ *= lidar_to_imu_; //转到雷达坐标系
         /*点云畸变矫正*/
         current_velocity_data_.TransformCoordinate(lidar_to_imu_.inverse());
-        distortion_adjust_->SetMotionParam(0.1,current_velocity_data_);//雷达10z 
-        distortion_adjust_->AdjustCloud(current_cloud_data_.cloud_ptr_,current_cloud_data_.cloud_ptr_);
+        distortion_adjust_->SetMotionParam(0.1, current_velocity_data_); //雷达10z
+        distortion_adjust_->AdjustCloud(current_cloud_data_.cloud_ptr_, current_cloud_data_.cloud_ptr_);
         return true;
     }
 
@@ -275,4 +275,5 @@ namespace multisensor_localization
 
         return true;
     }
+    
 } // namespace multisensor_localization

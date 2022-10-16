@@ -8,11 +8,15 @@
 #ifndef FRONT_END_FRONT_END_FLOW_HPP_
 #define FRONT_END_FRONT_END_FLOW_HPP_
 
+//ros
 #include <ros/ros.h>
-
+//订阅器
 #include "../../subscriber/cloud_subscriber.hpp"
+//发布器
 #include "../../publisher/odometry_publisher.hpp"
+//前端
 #include "../../mapping/front_end/front_end.hpp"
+//glog
 #include <glog/logging.h>
 
 namespace multisensor_localization

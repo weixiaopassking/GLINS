@@ -1,10 +1,9 @@
 /*
- * @Description: 前端里程计节点
- * @Author: Robotic Gang
- * @Function:
- * @note  modified from Ren Qian
- * @Date: 2022-10-02
- * @Note:
+ * @Description: 激光雷达数据订阅
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-15
  */
 
 // ros库文件
@@ -12,9 +11,8 @@
 #include <ros/package.h>
 // glog日志库
 #include <glog/logging.h>
-// // debug自定义工具
+//  debug自定义工具
 // #include "../../include/tools/color_terminal.hpp"
-
 //数据处理流程控制
 #include "../../include/mapping/front_end/front_end_flow.hpp"
 
@@ -43,4 +41,5 @@ int main(int argc, char **argv)
         rate.sleep();
     }
     return 0;
+
 }
