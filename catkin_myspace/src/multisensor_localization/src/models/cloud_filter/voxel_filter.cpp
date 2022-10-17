@@ -1,9 +1,14 @@
 /*
- * @Description: voxel filter 模块实现
- * @Author: Ren Qian
- * @Date: 2020-02-09 19:53:20
+ * @Description:体素滤波器
+ * @Author: Robotic Gang
+ *@Funciton:
+ * @Note:Modified from Ren Qian
+ * @Date: 2022-10-17
  */
+
+//滤波器
 #include "../../../include/models/cloud_filter/voxel_filter.hpp"
+//glog
 #include <glog/logging.h>
 
 namespace multisensor_localization
@@ -59,4 +64,4 @@ namespace multisensor_localization
         return true;
     }
 
-}
+}//namespace multisensor_localization

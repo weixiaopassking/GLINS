@@ -77,6 +77,7 @@ namespace multisensor_localization
             point.z = adjusted_point(2);
             output_cloud_ptr->points.push_back(point);
         }
+        pcl::transformPointCloud(*output_cloud_ptr,*output_cloud_ptr,transform_matrix.inverse());
         return true;
     }
 

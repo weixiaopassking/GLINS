@@ -1,31 +1,33 @@
 /*
- * @Description: 前端里程计算法
- * @Author: Ren Qian
- * @Date: 2020-02-04 18:53:06
+ * @Description:前端算法
+ * @Author: Robotic Gang
+ *@Funciton:
+ * @Note:Modified from Ren Qian
+ * @Date: 2022-10-17
  */
 
-//文件读写
+// relevent
+#include "../../../include/mapping/front_end/front_end.hpp"
+// file
 #include <fstream>
 #include <boost/filesystem.hpp>
-// ros库
+// ros
+#include <ros/ros.h>
 #include <ros/package.h>
-// pcl库
+// pcl
 #include <pcl/common/transforms.h>
 #include <pcl/io/pcd_io.h>
-//前端算法
-#include "../../../include/mapping/front_end/front_end.hpp"
-//匹配方法
+// ndt匹配
 #include "../../../include/models/registration/ndt_registration.hpp"
-//体素滤方法
+//体素滤
 #include "../../../include/models/cloud_filter/voxel_filter.hpp"
-// debug方式
+// tools
 #include "../../../include/tools/color_terminal.hpp"
-
+// glog
 #include <glog/logging.h>
 
 namespace multisensor_localization
 {
-
     /**
      * @brief 前端流程控制初始化
      * @note 订阅点云信息 发布激光里程计
@@ -74,11 +76,11 @@ namespace multisensor_localization
         }
         else
         {
-            
-           // ColorTerminal::ColorInfo("无对应匹配方法");
+            LOG(ERROR) << std::endl
+                       << "[无对应匹配方法]" << std::endl;
+            ROS_BREAK();
             return false;
         }
-
         return true;
     }
 
@@ -100,10 +102,10 @@ namespace multisensor_localization
         }
         else
         {
-           //ColorTerminal::ColorInfo("无对应滤波方法");
+            LOG(ERROR) << std::endl
+                       << "[无对应滤波方法]" << std::endl;
             return false;
         }
-
         return true;
     }
 
@@ -153,7 +155,7 @@ namespace multisensor_localization
         registration_ptr_->ScanMatch(filtered_cloud_ptr, predict_pose, result_cloud_ptr, current_frame_.pose_);
         cloud_pose = current_frame_.pose_; //引用取参值
 
-        /*更新相邻两帧的相对运动*/
+        /*更新相邻两帧的相对运动  但是数学原理是什么呢??*/
         step_pose = last_pose.inverse() * current_frame_.pose_;
         predict_pose = current_frame_.pose_ * step_pose;
         last_pose = current_frame_.pose_;
@@ -167,7 +169,6 @@ namespace multisensor_localization
             AddNewFrame(current_frame_);
             last_key_frame_pose = current_frame_.pose_;
         }
-
         return true;
     }
 
@@ -213,4 +214,5 @@ namespace multisensor_localization
         return true;
     }
 
-}
+} // namespace multisensor_localization
+

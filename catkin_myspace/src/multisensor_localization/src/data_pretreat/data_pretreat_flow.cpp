@@ -37,8 +37,7 @@ namespace multisensor_localization
         cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/synced_cloud", "/velo_link", 100);
         gnss_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/synced_gnss", "/map", "/velo_link", 100);
         origin_pub_ptr_ = std::make_shared<OriginPublisher>(nh, "/ref_point_wgs84", 100, "map");
-        /*畸变矫正 */
-        //! todo注意验证一下结果
+        /*畸变矫正 */ /*但是注意验证一下结果!!!*/
         distortion_adjust_ = std::make_shared<DistortionAdjust>();
     }
 
@@ -230,12 +229,12 @@ namespace multisensor_localization
         velocity_data_buff_.pop_front();
         gnss_data_buff_.pop_front();
 
-        LOG(INFO) << std::endl
-                  << "[time_stamp]" << std::endl
-                  << "current_cloud_data \t " << std::fixed << current_cloud_data_.time_stamp_ << std::endl
-                  << "current_imu_data \t" << std::fixed << current_imu_data_.time_stamp_ << std::endl
-                  << "current_velocity_data \t" << std::fixed << current_velocity_data_.time_stamp_ << std::endl
-                  << "current_gnss_data \t" << std::fixed << current_gnss_data_.time_stamp_ << std::endl;
+        // LOG(INFO) << std::endl
+        //           << "[time_stamp]" << std::endl
+        //           << "current_cloud_data \t " << std::fixed << current_cloud_data_.time_stamp_ << std::endl
+        //           << "current_imu_data \t" << std::fixed << current_imu_data_.time_stamp_ << std::endl
+        //           << "current_velocity_data \t" << std::fixed << current_velocity_data_.time_stamp_ << std::endl
+        //           << "current_gnss_data \t" << std::fixed << current_gnss_data_.time_stamp_ << std::endl;
 
         return true;
     }
@@ -275,5 +274,5 @@ namespace multisensor_localization
 
         return true;
     }
-    
+
 } // namespace multisensor_localization

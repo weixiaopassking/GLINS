@@ -1,18 +1,24 @@
 /*
- * @Description: voxel filter 模块实现
- * @Author: Ren Qian
- * @Date: 2020-02-09 19:53:20
+ * @Description:NDT匹配算法
+ * @Author: Robotic Gang
+ *@Funciton:
+ * @Note:Modified from Ren Qian
+ * @Date: 2022-10-17
  */
+
+//relevent
 #include "../../../include/models/registration/ndt_registration.hpp"
+//yaml
 #include <yaml-cpp/yaml.h>
+//glog
 #include <glog/logging.h>
 
 namespace multisensor_localization
 {
 
     /**
-     * @brief 点云匹配初始化(参数文件配置)
-     * @note
+     * @brief 点云匹配初始化
+     * @note 重载(yaml文件提供参数)
      * @todo
      **/
     NdtRegistration::NdtRegistration(const YAML::Node &node)
@@ -28,14 +34,13 @@ namespace multisensor_localization
     }
 
     /**
-     * @brief 点云匹配初始化(形式参数配置)
-     * @note
+     * @brief 点云匹配初始化
+     * @note 重载(参数文件提供参数)
      * @todo
      **/
     NdtRegistration::NdtRegistration(float res, float step_size, float trans_eps, int max_iter)
         : ndt_ptr_(new pcl::NormalDistributionsTransform<CloudData::POINT, CloudData::POINT>())
     {
-
         SetRegistrationParam(res, step_size, trans_eps, max_iter);
     }
 
@@ -89,4 +94,4 @@ namespace multisensor_localization
         return true;
     }
 
-}
+}//namespace multisensor_localization

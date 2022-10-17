@@ -26,7 +26,6 @@ namespace multisensor_localization
         std::cout << std::endl
                   << fontColorBlueBold << str << fontColorReset << std::endl
                   << std::endl;
-        ;
     }
 
     /**

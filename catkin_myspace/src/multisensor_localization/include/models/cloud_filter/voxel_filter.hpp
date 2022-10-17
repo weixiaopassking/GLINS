@@ -1,14 +1,17 @@
 /*
  * @Description:体素滤波器
  * @Author: Robotic Gang
+ *@Funciton:
  * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Date: 2022-10-17
  */
 
 #ifndef VOXEL_FILTER_HPP_
 #define VOXEL_FILTER_HPP_
 
+//relevent
 #include "./cloud_filter_interface.hpp"
+//pcl
 #include <pcl/filters/voxel_grid.h>
 
 namespace multisensor_localization
@@ -28,6 +31,6 @@ namespace multisensor_localization
         pcl::VoxelGrid<CloudData::POINT> voxel_filter_;
     };
 
-} // multisensor_localization
+} //namespace multisensor_localization
 
 #endif

@@ -1,14 +1,17 @@
 /*
  * @Description:点云滤波接口函数
  * @Author: Robotic Gang
+ *@Funciton:
  * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Date: 2022-10-17
  */
 
 #ifndef CLOUD_FILTER_INTERFACE_HPP_
 #define CLOUD_FILTER_INTERFACE_HPP_
 
+//自定义点云数据类型
 #include "../../../include/sensor_data/cloud_data.hpp"
+//yaml
 #include <yaml-cpp/yaml.h>
 
 namespace multisensor_localization

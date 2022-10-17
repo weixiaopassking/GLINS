@@ -6,7 +6,10 @@
  * @Date: 2022-10-03
  */
 
+//relevent
 #include "../../../include/mapping/front_end/front_end_flow.hpp"
+//tools
+#include "../../../include/tools/color_terminal.hpp"
 
 namespace multisensor_localization
 {
@@ -20,6 +23,7 @@ namespace multisensor_localization
         cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/synced_cloud", 1e10);
         laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/laser_odom", "/map", "/lidar", 100);
         front_end_ptr_ = std::make_shared<FrontEnd>();
+        ColorTerminal::ColorFlowInfo("参数配置完成");
     }
 
     /**
@@ -90,7 +94,8 @@ namespace multisensor_localization
         if (!odometry_inited)
         {
             odometry_inited = true;
-            front_end_ptr_->SetInitPose(Eigen::Matrix4f::Identity()); //不再需要gnss提供初值
+            front_end_ptr_->SetInitPose(Eigen::Matrix4f::Identity()); //这里不再用gnss提供初值
+            /*更新前端里程计*/
             return front_end_ptr_->UpdateOdometry(current_cloud_data_, laser_odometry_);
         }
         return front_end_ptr_->UpdateOdometry(current_cloud_data_, laser_odometry_);
