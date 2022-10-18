@@ -40,7 +40,7 @@ namespace multisensor_localization
         std::string config_file_path = ros::package::getPath("multisensor_localization") + "/config/front_end.yaml";
         YAML::Node config_node = YAML::LoadFile(config_file_path);
         /*参数配置*/
-        ConfigFrame(config_node);
+       // ConfigFrame(config_node);
         ConfigRegistrationMethod(registration_ptr_, config_node);
         ConfigFilterMethod("local_map", local_map_filter_ptr_, config_node);
         ConfigFilterMethod("frame", frame_filter_ptr_, config_node);
@@ -136,10 +136,13 @@ namespace multisensor_localization
         CloudData::CLOUD_PTR filtered_cloud_ptr(new CloudData::CLOUD());
         frame_filter_ptr_->Filter(current_frame_.cloud_data_.cloud_ptr_, filtered_cloud_ptr);
         /*定义用于运动递推的参数 */
+
         static Eigen::Matrix4f step_pose = Eigen::Matrix4f::Identity();
         static Eigen::Matrix4f last_pose = init_pose_;
         static Eigen::Matrix4f predict_pose = init_pose_;
         static Eigen::Matrix4f last_key_frame_pose = init_pose_;
+
+        
 
         /*第一帧处理*/
         if (local_map_frames_.size() == 0)
@@ -161,9 +164,9 @@ namespace multisensor_localization
         last_pose = current_frame_.pose_;
 
         /*是否更新关键帧*/
-        if (fabs(last_key_frame_pose(0, 3) - current_frame_.pose_(0, 3)) +
+        if ((fabs(last_key_frame_pose(0, 3) - current_frame_.pose_(0, 3)) +
                 fabs(last_key_frame_pose(1, 3) - current_frame_.pose_(1, 3)) +
-                fabs(last_key_frame_pose(2, 3) - current_frame_.pose_(2, 3)) >
+                fabs(last_key_frame_pose(2, 3) - current_frame_.pose_(2, 3))) >
             key_frame_distance_)
         {
             AddNewFrame(current_frame_);
@@ -210,7 +213,7 @@ namespace multisensor_localization
             CloudData::CLOUD_PTR filtered_local_map_ptr(new CloudData::CLOUD());
             local_map_filter_ptr_->Filter(local_map_ptr_, filtered_local_map_ptr);
             registration_ptr_->SetInputTarget(filtered_local_map_ptr);
-        }
+        } 
         return true;
     }
 

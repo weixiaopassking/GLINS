@@ -1,6 +1,6 @@
 /*
  * @Description: 传感器数据预处理节点
-  * @Function:
+ * @Function:
  * @Author: Robotic Gang (modified from Ren Qian)
  * @Version : v1.0
  * @Date: 2022-10-16
@@ -16,12 +16,11 @@
 // tools
 #include "../../include/tools/color_terminal.hpp"
 
-
 using namespace multisensor_localization;
 
 int main(int argc, char **argv)
 {
-    
+
     /*ros系统配置*/
     ros::init(argc, argv, "data_pretreat_node");
     ros::NodeHandle nh;
@@ -42,7 +41,7 @@ int main(int argc, char **argv)
     {
         ros::spinOnce();
 
-    /*数据预处理任务管理--运行*/
+        /*数据预处理任务管理--运行*/
         data_pretreat_flow_ptr->Run();
 
         rate.sleep();

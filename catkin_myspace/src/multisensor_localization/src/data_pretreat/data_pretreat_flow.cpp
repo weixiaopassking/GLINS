@@ -255,9 +255,9 @@ namespace multisensor_localization
         gnss_pose_.block<3, 3>(0, 0) = current_imu_data_.OrientationToMatrix();
         gnss_pose_ *= lidar_to_imu_; //转到雷达坐标系
         /*点云畸变矫正*/
-        current_velocity_data_.TransformCoordinate(lidar_to_imu_.inverse());
-        distortion_adjust_->SetMotionParam(0.1, current_velocity_data_); //雷达10z
-        distortion_adjust_->AdjustCloud(current_cloud_data_.cloud_ptr_, current_cloud_data_.cloud_ptr_);
+     //   current_velocity_data_.TransformCoordinate(lidar_to_imu_.inverse());
+       // distortion_adjust_->SetMotionParam(0.1, current_velocity_data_); //雷达10z
+      //  distortion_adjust_->AdjustCloud(current_cloud_data_.cloud_ptr_, current_cloud_data_.cloud_ptr_);
         return true;
     }
 

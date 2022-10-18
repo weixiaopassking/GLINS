@@ -60,13 +60,13 @@ Visualization Manager:
       Class: rviz_plugins/AerialMapDisplay
       Draw Behind: false
       Dynamically reload: true
-      Enabled: false
+      Enabled: true
       Frame Convention: XYZ -> ENU
       Name: AerialMapDisplay
       Object URI: http://a.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.jpg?access_token=pk.eyJ1IjoidGgzY29yeWQiLCJhIjoiY2l5MjNramozMDAxYTMybnR4Y296NmZ6bCJ9.Qx4UJrlAlu5kK1GvrCvmig
       Robot frame: world
       Topic: /ref_point_wgs84
-      Value: false
+      Value: true
       Zoom: 16
     - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
@@ -97,7 +97,7 @@ Visualization Manager:
         Head Length: 0.30000001192092896
         Head Radius: 0.10000000149011612
         Shaft Length: 1
-        Shaft Radius: 1
+        Shaft Radius: 0.10000000149011612
         Value: Arrow
       Topic: /laser_odom
       Unreliable: false
@@ -130,25 +130,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 340.7806701660156
+      Distance: 18.897754669189453
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 118.67620086669922
-        Y: -26.966405868530273
-        Z: 23.728717803955078
+        X: 0
+        Y: 0
+        Z: 0
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8897963166236877
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.095386266708374
+      Yaw: 1.2003978490829468
     Saved: ~
 Window Geometry:
   Displays:
