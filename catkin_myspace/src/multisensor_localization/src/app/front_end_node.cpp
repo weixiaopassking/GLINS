@@ -36,9 +36,9 @@ int main(int argc, char **argv)
     ros::Rate rate(100);
     while (ros::ok())
     {
-      //  ros::spinOnce();
-      //  front_end_flow_ptr->Run();
-       // rate.sleep();
+        ros::spinOnce();
+       front_end_flow_ptr->Run();
+       rate.sleep();
     }
     return 0;
 

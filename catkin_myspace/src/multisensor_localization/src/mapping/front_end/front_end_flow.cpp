@@ -40,11 +40,11 @@ namespace multisensor_localization
         {
             if (!ValidData())
                 continue;
-
-            if (UpdateLaserOdometry())
-            {
-                PublishData();
-            }
+  PublishData();
+            // if (UpdateLaserOdometry())
+            // {
+              
+            // }
         }
         return true;
     }
