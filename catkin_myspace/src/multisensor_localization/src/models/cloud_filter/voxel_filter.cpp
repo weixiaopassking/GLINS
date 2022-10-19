@@ -8,7 +8,7 @@
 
 //滤波器
 #include "../../../include/models/cloud_filter/voxel_filter.hpp"
-//glog
+// glog
 #include <glog/logging.h>
 
 namespace multisensor_localization
@@ -45,8 +45,7 @@ namespace multisensor_localization
     bool VoxelFilter::SetFilterParam(float leaf_size_x, float leaf_size_y, float leaf_size_z)
     {
         voxel_filter_.setLeafSize(leaf_size_x, leaf_size_y, leaf_size_z);
-        LOG(INFO) << std::endl
-                  << "[VoxelFilter_param]" << std::endl
+        LOG(INFO) << "[VoxelFilter_param]" << std::endl
                   << leaf_size_x << "," << leaf_size_y << "," << leaf_size_z << std::endl;
         return true;
     }
@@ -64,4 +63,4 @@ namespace multisensor_localization
         return true;
     }
 
-}//namespace multisensor_localization
+} // namespace multisensor_localization

@@ -1,9 +1,9 @@
 /*
- * @Description: 后端任务管理
- * @Author: Robotics gang
- * @Note: Modified from Ren Qian
- * @Date: 2022-10-11
- * @Status:
+ * @Description: 后端任务管理器
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-19
  */
 
 #ifndef BACK_END_FLOW_HPP_

@@ -23,9 +23,9 @@ namespace multisensor_localization
 
         if (!graph_optimizer_ptr_->solver())
         {
-            LOG(ERROR) << "创建g2o优化器失败" << std::endl;
+            LOG(ERROR) << "[create g2o solver failed]" << std::endl;
         }
-        LOG(INFO) << "[创建g2o成功,选定算法]" << std::endl
+        LOG(INFO) << "[create g2o solver success]" << std::endl
                   << solver_type << std::endl;
         robust_kernel_factroy_ = g2o::RobustKernelFactory::instance();
     }

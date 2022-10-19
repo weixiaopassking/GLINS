@@ -20,9 +20,12 @@ using namespace multisensor_localization;
 
 int main(int argc, char **argv)
 {
+
     /*ros系统配置*/
     ros::init(argc, argv, "front_end_node");
     ros::NodeHandle nh;
+
+    ColorTerminal::ColorNodeInfo("front_end_node节点启动");
 
     /*glog配置*/
     google::InitGoogleLogging(argv[0]);

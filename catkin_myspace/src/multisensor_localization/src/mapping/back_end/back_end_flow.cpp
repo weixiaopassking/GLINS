@@ -1,17 +1,23 @@
 /*
- * @Description:传感器数据预处理
- * @Author: Robotic Gang
- *@Funciton:
- * @Note:Modified from Ren Qian
- * @Date: 2022-10-03
+ * @Description: 后端任务管理器
+  * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-19
  */
 
+//relevent
 #include "../../../include/mapping/back_end/back_end_flow.hpp"
+//sensor_data
 #include "../../../include/sensor_data/cloud_data.hpp"
+//subscriber
 #include "../../../include/subscriber/odometry_subscriber.hpp"
+//publisher
 #include "../../../include/publisher/odometry_publisher.hpp"
 #include "../../../include/publisher/key_frame_publisher.hpp"
 #include "../../../include/publisher/key_frames_publisher.hpp"
+//tools
+#include "../../../include/tools/color_terminal.hpp"
 
 namespace multisensor_localization
 {
@@ -34,6 +40,7 @@ namespace multisensor_localization
 
         /*后端优化*/
         back_end_ptr_ = std::make_shared<BackEnd>();
+          ColorTerminal::ColorFlowInfo("Flow配置完成");
     }
 
     /**

@@ -1,10 +1,12 @@
 /*
- * @Description: back end 任务管理， 放在类里使代码更清晰
- * @Author: Ren Qian
- * @Date: 2020-02-10 08:31:22
+ * @Description: 后端算法
+ * @Function:
+ * @Author: Robotic Gang (modified from Ren Qian)
+ * @Version : v1.0
+ * @Date: 2022-10-19
  */
 
-//后端算法
+// relevent
 #include "../../../include/mapping/back_end/back_end.hpp"
 // yaml库
 #include <yaml-cpp/yaml.h>
@@ -13,13 +15,12 @@
 // ros库
 #include <ros/ros.h>
 #include <ros/package.h>
-// debug tool
+//  tools
 #include "../../../include/tools/color_terminal.hpp"
-// g2o优化算法
-#include "../../../include/models/graph_optimizer/g2o/g2o_optimizer.hpp"
-// tools
 #include "../../../include/tools/file_manager.hpp"
-// pcl库
+// g2o
+#include "../../../include/models/graph_optimizer/g2o/g2o_optimizer.hpp"
+// pcl
 #include <pcl/io/pcd_io.h>
 
 namespace multisensor_localization
@@ -35,7 +36,6 @@ namespace multisensor_localization
         std::string config_file_path = ros::package::getPath("multisensor_localization") + "/config/back_end.yaml";
         YAML::Node config_node = YAML::LoadFile(config_file_path);
         /*参数配置*/
-        // DebugTools::Debug_Info("参数配置中");
         ConfigFrame(config_node);
         ConfigGraphOptimizer(config_node);
         ConfigDataPath(config_node);
@@ -49,7 +49,7 @@ namespace multisensor_localization
     bool BackEnd::ConfigFrame(const YAML::Node &config_node)
     {
         key_frame_distance_ = config_node["key_frame_distance"].as<float>();
-        LOG(INFO) << "[关键帧距离] " << std::endl
+        LOG(INFO) << "[key_frame_distance] " << std::endl
                   << key_frame_distance_ << std::endl;
         return true;
     }
@@ -66,7 +66,7 @@ namespace multisensor_localization
         if (graph_optimizer_type == "g2o")
         {
             graph_optimizer_ptr_ = std::make_shared<G2oOptimizer>("lm_var");
-            LOG(INFO) << "[图优化方法]" << std::endl
+            LOG(INFO) << "[graph_optimizer_type]" << std::endl
                       << graph_optimizer_type << std::endl;
         }
         else
@@ -95,7 +95,7 @@ namespace multisensor_localization
                   << graph_optimizer_config_.close_loop_optimize_step_
                   << std::endl;
 
-        /* 数据噪声*/
+        /* 数据噪声 信息*/
         graph_optimizer_config_.close_loop_noise_ = Eigen::Map<Eigen::Matrix<double, 6, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["close_loop_noise"].as<std::vector<double>>().data());
         graph_optimizer_config_.odom_noise_ = Eigen::Map<Eigen::Matrix<double, 6, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["odom_noise"].as<std::vector<double>>().data());
         graph_optimizer_config_.gnss_nosie_ = Eigen::Map<Eigen::Matrix<double, 3, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["odom_noise"].as<std::vector<double>>().data());
@@ -114,7 +114,7 @@ namespace multisensor_localization
 
     /**
      * @brief   配置数据保存路径
-     * @note
+     * @note   过程中失败不返回直接ROS_BREAK()
      * @todo 创建文件时候用文件管理器
      **/
     bool BackEnd::ConfigDataPath(const YAML::Node &config_node)
@@ -127,46 +127,51 @@ namespace multisensor_localization
         }
         else
         {
-            LOG(ERROR) << "[yaml中的数据存放路径设置错误]" << std::endl;
+            LOG(ERROR) << std::endl
+                       << "[yaml中的数据存放路径设置错误]" << std::endl;
+            ROS_BREAK();
         }
+
         /*创建文件夹data*/
         if (!FileManager::CreateDirectory(data_path))
         {
             LOG(ERROR) << "[创建data文件夹失败]" << std::endl;
-            return false;
+            ROS_BREAK();
         }
         LOG(INFO) << "[创建data文件夹成功]" << std::endl;
+
         /*创建文件夹data/key_frames*/
         key_frames_path_ = data_path + "/key_frames";
         if (!FileManager::CreateDirectory(key_frames_path_))
         {
             LOG(ERROR) << "[创建data/key_frames文件夹失败]" << std::endl;
+
             return false;
         }
         LOG(INFO) << "[创建data/key_frames文件夹成功]" << std::endl;
+
         /*创建文件夹data/trajectory*/
         trajectory_path_ = data_path + "/trajectory";
         if (!FileManager::CreateDirectory(trajectory_path_))
         {
-            LOG(ERROR) << "[创建data/trajectory文件夹成功]" << std::endl;
-            return false;
+            LOG(ERROR) << "[创建data/trajectory文件夹失败]" << std::endl;
+            ROS_BREAK();
         }
         LOG(INFO) << "[创建data/trajectory文件夹成功]" << std::endl;
 
         /*创建文件data/trajectory/ground_truth.txt*/
-
         if (!FileManager::CreateFile(ground_truth_ofs_, trajectory_path_ + "/ground_truth.txt"))
         {
             LOG(ERROR) << "[创建ground_truth.txt文件失败]" << std::endl;
-            return false;
+            ROS_BREAK();
         }
         LOG(INFO) << "[创建ground_truth.txt文件成功]" << std::endl;
 
         /*创建文件data/trajectory/laser_odom.txt*/
         if (!FileManager::CreateFile(laser_odom_ofs_, trajectory_path_ + "/laser_odom.txt"))
         {
-            LOG(ERROR) << "[创建laser_odom.文件失败]" << std::endl;
-            return false;
+            LOG(ERROR) << "[创建laser_odom文件失败]" << std::endl;
+            ROS_BREAK();
         }
         LOG(INFO) << "[创建laser_odom文件成功]" << std::endl;
 
@@ -367,7 +372,5 @@ namespace multisensor_localization
     {
         key_frame = current_key_frame_;
     }
-
-
 
 } // namespace multisensor_localization

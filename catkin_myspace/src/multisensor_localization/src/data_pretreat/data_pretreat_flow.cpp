@@ -129,8 +129,7 @@ namespace multisensor_localization
             std::string config_file_path = ros::package::getPath("multisensor_localization") + "/config/data_pretreat.yaml";
             YAML::Node config_node = YAML::LoadFile(config_file_path);
             lidar_to_imu_ = Eigen::Map<Eigen::Matrix<float, 4, 4, Eigen::RowMajor>>(config_node_["calibration_param"]["lidar_to_imu"].as<std::vector<float>>().data());
-            LOG(INFO) << std::endl
-                      << "[lidar_to_imu]" << std::endl
+            LOG(INFO) << "[lidar_to_imu]" << std::endl
                       << lidar_to_imu_ << std::endl;
 
             ColorTerminal::ColorFlowInfo("多传感器空间标定已完成");
@@ -152,10 +151,10 @@ namespace multisensor_localization
             GnssData gnss_data = gnss_data_buff_.front();
             gnss_data.InitOriginPosition();
 
-            LOG(INFO) << std::endl
-                      << "[ENU origin point]" << std::endl
-                      << "longitude \t" << gnss_data.longitude_ << std::endl
-                      << "latitude \t" << gnss_data.latitude_ << std::endl;
+            LOG(INFO)
+                << "[ENU origin point]" << std::endl
+                << "longitude \t" << gnss_data.longitude_ << std::endl
+                << "latitude \t" << gnss_data.latitude_ << std::endl;
 
             origin_pub_ptr_->Publish(gnss_data);
             ColorTerminal::ColorFlowInfo("东北天坐标系初始化已完成");
@@ -255,9 +254,9 @@ namespace multisensor_localization
         gnss_pose_.block<3, 3>(0, 0) = current_imu_data_.OrientationToMatrix();
         gnss_pose_ *= lidar_to_imu_; //转到雷达坐标系
         /*点云畸变矫正*/
-     //   current_velocity_data_.TransformCoordinate(lidar_to_imu_.inverse());
-       // distortion_adjust_->SetMotionParam(0.1, current_velocity_data_); //雷达10z
-      //  distortion_adjust_->AdjustCloud(current_cloud_data_.cloud_ptr_, current_cloud_data_.cloud_ptr_);
+        //   current_velocity_data_.TransformCoordinate(lidar_to_imu_.inverse());
+        // distortion_adjust_->SetMotionParam(0.1, current_velocity_data_); //雷达10z
+        //  distortion_adjust_->AdjustCloud(current_cloud_data_.cloud_ptr_, current_cloud_data_.cloud_ptr_);
         return true;
     }
 

@@ -6,11 +6,11 @@
  * @Date: 2022-10-17
  */
 
-//relevent
+// relevent
 #include "../../../include/models/registration/ndt_registration.hpp"
-//yaml
+// yaml
 #include <yaml-cpp/yaml.h>
-//glog
+// glog
 #include <glog/logging.h>
 
 namespace multisensor_localization
@@ -56,12 +56,12 @@ namespace multisensor_localization
         ndt_ptr_->setTransformationEpsilon(trans_eps);
         ndt_ptr_->setMaximumIterations(max_iter);
 
-        LOG(INFO) << std::endl
-                  << "[NdtRegistration_param]" << std::endl
-                  << "res \t" << res << std::endl
-                  << "step_size \t" << step_size << std::endl
-                  << "trans_eps \t" << trans_eps << std::endl
-                  << "max_iter \t" << max_iter << std::endl;
+        LOG(INFO)
+            << "[NdtRegistration_param]" << std::endl
+            << "res \t" << res << std::endl
+            << "step_size \t" << step_size << std::endl
+            << "trans_eps \t" << trans_eps << std::endl
+            << "max_iter \t" << max_iter << std::endl;
         return true;
     }
 
@@ -94,4 +94,4 @@ namespace multisensor_localization
         return true;
     }
 
-}//namespace multisensor_localization
+} // namespace multisensor_localization

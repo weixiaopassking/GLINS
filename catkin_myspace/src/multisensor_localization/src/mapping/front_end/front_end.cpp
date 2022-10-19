@@ -70,16 +70,14 @@ namespace multisensor_localization
         if (registration_method == "NDT")
         {
             registration_ptr = std::make_shared<NdtRegistration>(config_node[registration_method]);
-            LOG(INFO) << std::endl
+            LOG(INFO) 
                       << "[registration_method]" << std::endl
                       << registration_method << std::endl;
         }
         else
         {
-            LOG(ERROR) << std::endl
-                       << "[无对应匹配方法]" << std::endl;
+            LOG(ERROR) << "[无对应匹配方法]" << std::endl;
             ROS_BREAK();
-            return false;
         }
         return true;
     }
@@ -96,15 +94,14 @@ namespace multisensor_localization
         if (filter_mothod == "voxel_filter")
         {
             filter_ptr = std::make_shared<VoxelFilter>(config_node[filter_mothod][filter_user]);
-            LOG(INFO) << std::endl
-                      << "[filter_mothod]" << std::endl
+            LOG(INFO) <<  "[filter_mothod]" << std::endl
                       << filter_mothod << std::endl;
         }
         else
         {
-            LOG(ERROR) << std::endl
+            LOG(ERROR) 
                        << "[无对应滤波方法]" << std::endl;
-            return false;
+                       ROS_BREAK();
         }
         return true;
     }
