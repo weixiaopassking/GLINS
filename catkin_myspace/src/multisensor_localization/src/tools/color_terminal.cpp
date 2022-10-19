@@ -53,4 +53,18 @@ namespace multisensor_localization
         ;
     }
 
+
+        /**
+     * @brief 彩色终端输出--算法实现级别
+     * @note 绿色
+     * @todo
+     **/
+    void ColorTerminal::ColorConcreteDebug(const std::string str)
+    {
+        std::cout << std::endl
+                  << fontColorWhiteBold << str << fontColorReset << std::endl
+                  << std::endl;
+        ;
+    }
+
 } // namespace multisensor_localization

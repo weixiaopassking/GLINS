@@ -1,22 +1,22 @@
 /*
  * @Description: 后端任务管理器
-  * @Function:
+ * @Function:
  * @Author: Robotic Gang (modified from Ren Qian)
  * @Version : v1.0
  * @Date: 2022-10-19
  */
 
-//relevent
+// relevent
 #include "../../../include/mapping/back_end/back_end_flow.hpp"
-//sensor_data
+// sensor_data
 #include "../../../include/sensor_data/cloud_data.hpp"
-//subscriber
+// subscriber
 #include "../../../include/subscriber/odometry_subscriber.hpp"
-//publisher
+// publisher
 #include "../../../include/publisher/odometry_publisher.hpp"
 #include "../../../include/publisher/key_frame_publisher.hpp"
 #include "../../../include/publisher/key_frames_publisher.hpp"
-//tools
+// tools
 #include "../../../include/tools/color_terminal.hpp"
 
 namespace multisensor_localization
@@ -40,7 +40,7 @@ namespace multisensor_localization
 
         /*后端优化*/
         back_end_ptr_ = std::make_shared<BackEnd>();
-          ColorTerminal::ColorFlowInfo("Flow配置完成");
+        ColorTerminal::ColorFlowInfo("Flow配置完成");
     }
 
     /**
@@ -52,21 +52,22 @@ namespace multisensor_localization
     {
         if (!ReadData())
             return false;
-        while (!HasData())
+        while (HasData())
         {
-            if (ValidData())
-                continue;
+           if (!ValidData())
+               continue;
 
             /*更新后端*/
             UpdateBackEnd();
             /*发布数据*/
-            PublishData();
+             PublishData();
+
         }
 
         return true;
     }
     /**
-     * @brief 后端流任务管理 数据读取
+     * @brief 后端流任务管理--数据读取
      * @note
      * @todo
      **/
@@ -79,7 +80,7 @@ namespace multisensor_localization
     }
 
     /**
-     * @brief 后端流任务管理 数据确认
+     * @brief 后端流任务管理-- 数据确认
      * @note
      * @todo
      **/
@@ -109,7 +110,7 @@ namespace multisensor_localization
         double diff_gnss_time = current_cloud_data_.time_stamp_ - current_gnss_pose_data_.time_stamp_;
         double diff_laser_time = current_cloud_data_.time_stamp_ - current_laser_odom_data_.time_stamp_;
 
-        /*根据时间戳对齐刷新数据*/
+        /*根据时间戳对齐刷新数据 50ms 10hz*/
         if (diff_gnss_time < -0.05 || diff_laser_time < -0.05)
         {
             cloud_data_buff_.pop_front();
@@ -134,22 +135,25 @@ namespace multisensor_localization
     }
 
     /**
-     * @brief  更新后端(核心)
+     * @brief  后端优化(核心)
      * @note
      * @todo
      **/
     bool BackEndFlow::UpdateBackEnd()
     {
-        /*lidar 对齐到gnss坐标系再优化*/
+        /*计算gnss到lidar的转换*/
         static bool odom_inited = false;
-        static Eigen::Matrix4f gnss_to_lidar_matrix = Eigen::Matrix4f::Identity();
+        static Eigen::Matrix4f lidar_to_gnss_matrix = Eigen::Matrix4f::Identity();
         if (!odom_inited)
         {
             odom_inited = true;
-            gnss_to_lidar_matrix = current_gnss_pose_data_.pose_ * current_laser_odom_data_.pose_.inverse();
+            lidar_to_gnss_matrix = current_gnss_pose_data_.pose_ * current_laser_odom_data_.pose_.inverse();
+               std::cout << std::endl
+                  <<  lidar_to_gnss_matrix  << std::endl;
         }
-        current_laser_odom_data_.pose_ = gnss_to_lidar_matrix * current_laser_odom_data_.pose_;
-        return back_end_ptr_->Update(current_cloud_data_, current_laser_odom_data_, current_gnss_pose_data_);
+        /*lidar转到gnss下 对齐才能把一起优化*/
+        current_laser_odom_data_.pose_ = lidar_to_gnss_matrix * current_laser_odom_data_.pose_;
+         return back_end_ptr_->Update(current_cloud_data_, current_laser_odom_data_, current_gnss_pose_data_);
     }
 
     /**
@@ -168,13 +172,14 @@ namespace multisensor_localization
      **/
     bool BackEndFlow::PublishData()
     {
+        //这里有被优化吗，感觉是还没被优化
         transformed_odom_pub_ptr_->Publish(current_laser_odom_data_.pose_);
-        /*有新关键帧*/
+        /*有新关键帧 因为需要从back_end_flow到back_end中取状态量*/
         if (back_end_ptr_->HasNewKeyFrame())
         {
             KeyFrame key_frame;
-             back_end_ptr_->GetCurrentKeyFrame(key_frame);
-             key_frame_pub_ptr_->Publish(key_frame);
+            back_end_ptr_->GetCurrentKeyFrame(key_frame);
+            key_frame_pub_ptr_->Publish(key_frame);
         }
         /*有新优化*/
         if (back_end_ptr_->HasNewOptimized())

@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     {
         ros::spinOnce();
 
-        // back_end_flow_ptr->Run();
+         back_end_flow_ptr->Run();
 
         rate.sleep();
     }

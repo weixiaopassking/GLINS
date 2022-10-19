@@ -10,7 +10,7 @@
 #ifndef COLOR_TERMINAL_HPP_
 #define COLOR_TERMINAL_HPP_
 
-//c++
+// c++
 #include <string>
 
 namespace multisensor_localization
@@ -41,6 +41,7 @@ namespace multisensor_localization
                 static void ColorNodeInfo(const std::string str);
                 static void ColorFlowInfo(const std::string str);
                 static void ColorConcreteInfo(const std::string str);
+                static void ColorConcreteDebug(const std::string str);
         };
 
 } // namespace multisensor_localization
