@@ -54,14 +54,13 @@ namespace multisensor_localization
             return false;
         while (HasData())
         {
-           if (!ValidData())
-               continue;
+            if (!ValidData())
+                continue;
 
             /*更新后端*/
             UpdateBackEnd();
             /*发布数据*/
-             PublishData();
-
+            PublishData();
         }
 
         return true;
@@ -148,12 +147,12 @@ namespace multisensor_localization
         {
             odom_inited = true;
             lidar_to_gnss_matrix = current_gnss_pose_data_.pose_ * current_laser_odom_data_.pose_.inverse();
-               std::cout << std::endl
-                  <<  lidar_to_gnss_matrix  << std::endl;
+            std::cout << std::endl
+                      << lidar_to_gnss_matrix << std::endl;
         }
         /*lidar转到gnss下 对齐才能把一起优化*/
         current_laser_odom_data_.pose_ = lidar_to_gnss_matrix * current_laser_odom_data_.pose_;
-         return back_end_ptr_->Update(current_cloud_data_, current_laser_odom_data_, current_gnss_pose_data_);
+        return back_end_ptr_->Update(current_cloud_data_, current_laser_odom_data_, current_gnss_pose_data_);
     }
 
     /**
@@ -172,16 +171,16 @@ namespace multisensor_localization
      **/
     bool BackEndFlow::PublishData()
     {
-        //这里有被优化吗，感觉是还没被优化
+        /*发布对齐的gnss坐标*/
         transformed_odom_pub_ptr_->Publish(current_laser_odom_data_.pose_);
-        /*有新关键帧 因为需要从back_end_flow到back_end中取状态量*/
+        /*发布新关键 (1.因为需要从back_end_flow到back_end中取状态量 2.以方向簇发布)*/
         if (back_end_ptr_->HasNewKeyFrame())
         {
             KeyFrame key_frame;
             back_end_ptr_->GetCurrentKeyFrame(key_frame);
             key_frame_pub_ptr_->Publish(key_frame);
         }
-        /*有新优化*/
+        /*发布优化后的关键帧序列*/
         if (back_end_ptr_->HasNewOptimized())
         {
             std::deque<KeyFrame> optimized_key_frames;
