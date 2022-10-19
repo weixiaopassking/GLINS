@@ -14,5 +14,5 @@ sleep 2s
 gnome-terminal -t "node2" -x bash -c "cd $work_path;$add_source;rosrun multisensor_localization front_end_node;exec bash;"
 #bag启动
 sleep 2s
-gnome-terminal -t "node3" -x bash -c "cd $work_path;$add_source; rosbag play  kitti_2011_10_03_drive_0027_synced.bag ;exec bash;"
+gnome-terminal -t "node3" -x bash -c "cd $work_path;$add_source; rosbag play  *.bag ;exec bash;"
 gnome-terminal -t "node4" -x bash -c "cd $work_path;$add_source; rostopic hz /laser_odom ;exec bash;"                           

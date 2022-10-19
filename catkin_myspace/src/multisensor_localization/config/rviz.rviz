@@ -86,7 +86,7 @@ Visualization Manager:
           Value: true
         Value: true
       Enabled: true
-      Keep: 0
+      Keep: 100
       Name: Odometry
       Position Tolerance: 0.10000000149011612
       Shape:
@@ -94,10 +94,10 @@ Visualization Manager:
         Axes Length: 1
         Axes Radius: 0.10000000149011612
         Color: 255; 25; 0
-        Head Length: 0.30000001192092896
-        Head Radius: 0.10000000149011612
-        Shaft Length: 1
-        Shaft Radius: 0.10000000149011612
+        Head Length: 0.4000000059604645
+        Head Radius: 1
+        Shaft Length: 0.5
+        Shaft Radius: 0.5
         Value: Arrow
       Topic: /laser_odom
       Unreliable: false
@@ -130,16 +130,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 18.897754669189453
+      Distance: 1665.7227783203125
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 481.32672119140625
+        Y: -164.07432556152344
+        Z: -0.13009293377399445
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -148,7 +148,7 @@ Visualization Manager:
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.2003978490829468
+      Yaw: 4.950401306152344
     Saved: ~
 Window Geometry:
   Displays:

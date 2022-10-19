@@ -8,3 +8,5 @@
 catkin_myspace/src/multisensor_localization/Log/
 
 catkin_myspace/kitti_2011_10_03_drive_0027_synced.bag
+
+catkin_myspace/kitti_lidar_only_2011_10_03_drive_0027_synced.bag

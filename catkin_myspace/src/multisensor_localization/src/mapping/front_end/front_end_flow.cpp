@@ -6,9 +6,9 @@
  * @Date: 2022-10-03
  */
 
-//relevent
+// relevent
 #include "../../../include/mapping/front_end/front_end_flow.hpp"
-//tools
+// tools
 #include "../../../include/tools/color_terminal.hpp"
 
 namespace multisensor_localization
@@ -40,11 +40,11 @@ namespace multisensor_localization
         {
             if (!ValidData())
                 continue;
-  PublishData();
-            // if (UpdateLaserOdometry())
-            // {
-              
-            // }
+
+            if (UpdateLaserOdometry())
+            {
+                PublishData();
+            }
         }
         return true;
     }
@@ -109,7 +109,7 @@ namespace multisensor_localization
     bool FrontEndFlow::PublishData()
     {
         /*发布激光里程计*/
-      //  std::cout<<"【激光里程计】"<<laser_odometry_<<std::endl;
+         std::cout<<"【激光里程计】"<<laser_odometry_<<std::endl;
         laser_odom_pub_ptr_->Publish(laser_odometry_, current_cloud_data_.time_stamp_);
 
         return true;
