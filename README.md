@@ -28,7 +28,7 @@
 安装方法可参考[博客:机器人开发常见第三方库、软件安装和使用](https://blog.csdn.net/weixin_37684239/article/details/126568335?spm=1001.2014.3001.5501)
 
 ## 4.如何运行
-参考各Tag中的README,通常运行launch 文件即可
+见multisensor_localization功能包下readme文件夹
 
 ## 5 工程适配
  **前端里程计**
