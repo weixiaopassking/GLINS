@@ -35,6 +35,8 @@ namespace multisensor_localization
         std::deque<KeyFrame> gnss_frame_buff_;
 
     }; // class LoopClosinigFlow
+
+    
 } // namespace multisensor_localization
 
 #endif
