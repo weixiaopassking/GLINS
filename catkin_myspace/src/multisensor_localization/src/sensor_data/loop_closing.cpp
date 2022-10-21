@@ -14,7 +14,7 @@ namespace multisensor_localization
 {
     /**
      * @brief 提取出旋转矩阵
-     * @note
+     * @note 
      * @todo
      **/
     Eigen::Quaternionf LoopPose::GetQuaternion()
