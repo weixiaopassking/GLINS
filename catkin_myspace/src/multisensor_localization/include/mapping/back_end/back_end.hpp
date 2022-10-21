@@ -15,9 +15,9 @@
 #include "../../../include/sensor_data/key_frame.hpp"
 // yaml参数库
 #include <yaml-cpp/yaml.h>
-//fstream
+// fstream
 #include <fstream>
-//c++
+// c++
 #include <deque>
 
 namespace multisensor_localization
@@ -27,22 +27,23 @@ namespace multisensor_localization
     public:
         BackEnd();
 
-        bool Update(const  CloudData&cloud_data,const PoseData&laser_odom,const PoseData & gnss_odom);
+        bool Update(const CloudData &cloud_data, const PoseData &laser_odom, const PoseData &gnss_odom);
         bool HasNewKeyFrame();
         bool HasNewOptimized();
         bool GetOptimizedKeyFrames(std::deque<KeyFrame> &key_frames_deque);
         void GetCurrentKeyFrame(KeyFrame &key_frame);
 
     private:
+        /*参数配置*/
         bool ConfigFrame(const YAML::Node &config_node);
         bool ConfigGraphOptimizer(const YAML::Node &config_node);
         bool ConfigDataPath(const YAML::Node &config_node);
-
-        bool IsNewKeyFrame(const CloudData&cloud_data,const PoseData&laser_odom);
+        
+        bool IsNewKeyFrame(const CloudData &cloud_data, const PoseData &laser_odom);
         bool IsOptimized();
-        bool AddNodeAndEdge(const PoseData&gnss_data);
-        bool SaveTrajectory(const PoseData& laser_odom,const PoseData &gnss_odom);
+        bool AddNodeAndEdge(const PoseData &gnss_data);
 
+        bool SaveTrajectory(const PoseData &laser_odom, const PoseData &gnss_odom);
 
     private:
         std::string key_frames_path_ = "";
@@ -53,11 +54,11 @@ namespace multisensor_localization
 
         float key_frame_distance_ = 2.0;
 
-        bool has_new_key_frame_=false;
-        bool has_new_optimized_=false;
+        bool has_new_key_frame_ = false;
+        bool has_new_optimized_ = false;
 
-    KeyFrame current_key_frame_;
-       std::deque<KeyFrame>  key_frames_deque_;
+        KeyFrame current_key_frame_;
+        std::deque<KeyFrame> key_frames_deque_;
 
         std::shared_ptr<GraphOptimizerInterface> graph_optimizer_ptr_;
 
@@ -82,7 +83,8 @@ namespace multisensor_localization
             int key_frame_optimize_step_ = 100;
             int gnss_optimize_step_ = 100;
             int close_loop_optimize_step_ = 100;
-        };
+        }; //        class GraphOptimizerConfig
+
         GraphOptimizerConfig graph_optimizer_config_;
         int new_gnss_cnt_ = 0;
         int new_loop_cnt_ = 0;

@@ -140,7 +140,7 @@ namespace multisensor_localization
      **/
     bool BackEndFlow::UpdateBackEnd()
     {
-        /*计算gnss到lidar的转换*/
+        /*计算gnss到lidar的转换 这里需要还思考思考*/
         static bool odom_inited = false;
         static Eigen::Matrix4f lidar_to_gnss_matrix = Eigen::Matrix4f::Identity();
         if (!odom_inited)
@@ -163,6 +163,8 @@ namespace multisensor_localization
     bool BackEndFlow::SaveTrajectory()
     {
     }
+
+    
 
     /**
      * @brief  数据发布
