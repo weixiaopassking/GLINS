@@ -21,11 +21,11 @@ namespace multisensor_localization
 {
     class KeyFrameSubscriber
     {
-
+public:
         KeyFrameSubscriber(ros::NodeHandle &nh, std::string topic_name, size_t buff_size);
         KeyFrameSubscriber() = default;
 
-        void Parse(std::deque<KeyFrame>key_frame_buff);
+        void ParseData(std::deque<KeyFrame>key_frame_buff);
 
         private:
         void MsgCallback(const geometry_msgs::PoseWithCovarianceStampedConstPtr& key_frame_msgs_ptr);

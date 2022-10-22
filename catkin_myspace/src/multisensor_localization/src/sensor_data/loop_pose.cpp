@@ -8,7 +8,7 @@
  */
 
 // relevent
-#include "../../include/sensor_data/loop_closing.hpp"
+#include "../../include/sensor_data/loop_pose.hpp"
 
 namespace multisensor_localization
 {

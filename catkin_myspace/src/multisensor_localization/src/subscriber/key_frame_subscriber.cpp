@@ -28,7 +28,7 @@ namespace multisensor_localization
      * @note
      * @todo
      **/
-    void KeyFrameSubscriber::Parse(std::deque<KeyFrame> key_frame_buff)
+    void KeyFrameSubscriber::ParseData(std::deque<KeyFrame> key_frame_buff)
     {
         if (new_key_frame_buff_.size() > 0)
         {

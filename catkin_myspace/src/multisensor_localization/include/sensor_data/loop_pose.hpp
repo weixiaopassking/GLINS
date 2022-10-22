@@ -7,8 +7,8 @@
  * @Todo
  */
 
-#ifndef LOOP_CLOSING_HPP_
-#define LOOP_CLOSING_HPP_
+#ifndef LOOP_POSE_HPP_
+#define LOOP_POSE_HPP_
 
 #include <Eigen/Dense>
 
@@ -20,7 +20,7 @@ namespace multisensor_localization
     public:
     double time_stamp_;
     unsigned int index0_=0;
-    unsigned int index1=0;
+    unsigned int index1_=0;
     Eigen::Matrix4f pose=Eigen::Matrix4f::Identity();
     public:
     Eigen::Quaternionf GetQuaternion();
