@@ -29,10 +29,9 @@ namespace multisensor_localization
         // publisher
         loop_pose_pub_ptr_ = std::make_shared<LoopPosePublisher>(nh, "/loop_pose", "/map", 1e2);
         // loop closing
-        loop_closing_ptr_=std::make_shared<LoopClosing>();
-    
-        ColorTerminal::ColorFlowInfo("Flow配置完成");
+        loop_closing_ptr_ = std::make_shared<LoopClosing>();
 
+        ColorTerminal::ColorFlowInfo("Flow配置完成");
     }
 
     /**
@@ -50,7 +49,7 @@ namespace multisensor_localization
             if (!ValidData())
                 continue;
 
-            // loop_closing_ptr_->Update(current_key_frame_, current_key_gnss_);
+            loop_closing_ptr_->Update(current_key_frame_, current_key_gnss_);
 
             PublishData();
         }
@@ -123,6 +122,7 @@ namespace multisensor_localization
      **/
     bool LoopClosinigFlow::PublishData()
     {
+        return true;
     }
 
 } // namespace multisensor_localization

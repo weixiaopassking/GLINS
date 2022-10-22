@@ -8,9 +8,9 @@
 
 // relevent
 #include "../../../include/mapping/loop_closing/loop_closing.hpp"
-//ndt
+// ndt
 #include "../../../include/models/registration/ndt_registration.hpp"
-//voxel
+// voxel
 #include "../../../include/models/cloud_filter/voxel_filter.hpp"
 // ros
 #include <ros/ros.h>
@@ -122,14 +122,39 @@ namespace multisensor_localization
         std::string filter_method = config_node[filter_user + "_filter"].as<std::string>();
         LOG(INFO) << "[闭环registration_method]" << std::endl
                   << filter_method << std::endl;
-        if(filter_method=="voxel_filter")
+        if (filter_method == "voxel_filter")
         {
-            filter_ptr=std::make_shared<VoxelFilter>(config_node[filter_method][filter_user]);
+            filter_ptr = std::make_shared<VoxelFilter>(config_node[filter_method][filter_user]);
         }
-        else if(filter_method=="no_filter")
+        else
         {
-            
+            LOG(ERROR) << "[无对应滤波] " << std::endl;
+            ROS_BREAK();
         }
+        return true;
+    }
+
+    /**
+     * @brief 回环算法 更新
+     * @note
+     * @todo
+     **/
+    bool LoopClosing::Update(const KeyFrame key_frame, const KeyFrame key_gnss)
+    {
+        has_new_loop_pose_ = false;
+
+        all_key_frames_.push_back(key_frame);
+        all_key_gnss_.push_back(key_gnss);
+
+        int key_frame_index=0;
+        
+        //查询最近帧
+
+        //点云配准
+
+        has_new_loop_pose_=true;
+        return true;
+        
     }
 
 } // namespace multisensor_localization

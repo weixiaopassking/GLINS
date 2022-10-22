@@ -36,14 +36,14 @@ list(REMOVE_ITEM  ALL_SRCS  ${NODE_SRCS})
 
 
 # #数据预处理节点
-add_executable(data_pretreat_node src/app/data_pretreat_node.cpp ${ALL_SRCS} )
-target_link_libraries(data_pretreat_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
-# # 前端里程计节点
-add_executable(front_end_node src/app/front_end_node.cpp ${ALL_SRCS} )
-target_link_libraries(front_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+# add_executable(data_pretreat_node src/app/data_pretreat_node.cpp ${ALL_SRCS} )
+# target_link_libraries(data_pretreat_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+#  前端里程计节点
+# add_executable(front_end_node src/app/front_end_node.cpp ${ALL_SRCS} )
+# target_link_libraries(front_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 #  #后端优化节点
-add_executable(back_end_node src/app/back_end_node.cpp ${ALL_SRCS} )
-target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+# add_executable(back_end_node src/app/back_end_node.cpp ${ALL_SRCS} )
+# target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 # 回环检测
 add_executable(loop_closing_node src/app/loop_closing_node.cpp ${ALL_SRCS} )
 target_link_libraries(loop_closing_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
