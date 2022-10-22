@@ -8,6 +8,10 @@
 
 // relevent
 #include "../../../include/mapping/loop_closing/loop_closing.hpp"
+//ndt
+#include "../../../include/models/registration/ndt_registration.hpp"
+//voxel
+#include "../../../include/models/cloud_filter/voxel_filter.hpp"
 // ros
 #include <ros/ros.h>
 #include <ros/package.h>
@@ -29,6 +33,10 @@ namespace multisensor_localization
                                        "/config/loop_closing.yaml";
         YAML::Node config_node = YAML::LoadFile(config_file_path);
         ConfigParam(config_node);
+        ConfigDataPath(config_node);
+        ConfigRegistrationMethod(registration_ptr_, config_node);
+        ConfigFilterMethod("map", map_filter_ptr_, config_node);
+        ConfigFilterMethod("scan", scan_filter_ptr_, config_node);
     }
 
     /**
@@ -43,6 +51,17 @@ namespace multisensor_localization
         diff_num_ = config_node["diff_num"].as<int>();
         detect_area_ = config_node["detect_area"].as<float>();
         fitness_score_limit_ = config_node["fitness_score_limit"].as<float>();
+
+        LOG(INFO) << "[extend_frame_num]" << std::endl
+                  << extend_frame_num_ << std::endl;
+        LOG(INFO) << "[loop_step]" << std::endl
+                  << loop_step_ << std::endl;
+        LOG(INFO) << "[diff_num]" << std::endl
+                  << diff_num_ << std::endl;
+        LOG(INFO) << "[detect_area]" << std::endl
+                  << detect_area_ << std::endl;
+        LOG(INFO) << "[fitness_score_limit]" << std::endl
+                  << fitness_score_limit_ << std::endl;
 
         return true;
     }
@@ -65,8 +84,9 @@ namespace multisensor_localization
                        << "[yaml中的数据存放路径设置错误]" << std::endl;
             ROS_BREAK();
         }
-        key_frame_path_=data_path+"key_frames";
-
+        key_frame_path_ = data_path + "/key_frames";
+        LOG(INFO) << "[key_frames 路径]" << std::endl
+                  << key_frame_path_ << std::endl;
         return true;
     }
 
@@ -77,7 +97,19 @@ namespace multisensor_localization
      **/
     bool LoopClosing::ConfigRegistrationMethod(std::shared_ptr<RegistrationInterface> &registration_ptr, const YAML::Node &config_node)
     {
-        
+        std::string registration_method = config_node["registration_method"].as<std::string>();
+        LOG(INFO) << "[registration_method]" << std::endl
+                  << registration_method << std::endl;
+        if (registration_method == "NDT")
+        {
+            registration_ptr = std::make_shared<NdtRegistration>(config_node[registration_method]);
+        }
+        else
+        {
+            LOG(ERROR) << "[未能找到对应匹配方式]" << std::endl;
+            ROS_BREAK();
+        }
+        return true;
     }
 
     /**
@@ -87,7 +119,17 @@ namespace multisensor_localization
      **/
     bool LoopClosing::ConfigFilterMethod(std::string filter_user, std::shared_ptr<CloudFilterInterface> &filter_ptr, const YAML::Node &config_node)
     {
-
+        std::string filter_method = config_node[filter_user + "_filter"].as<std::string>();
+        LOG(INFO) << "[闭环registration_method]" << std::endl
+                  << filter_method << std::endl;
+        if(filter_method=="voxel_filter")
+        {
+            filter_ptr=std::make_shared<VoxelFilter>(config_node[filter_method][filter_user]);
+        }
+        else if(filter_method=="no_filter")
+        {
+            
+        }
     }
 
 } // namespace multisensor_localization

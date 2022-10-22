@@ -6,6 +6,8 @@
  * @Date: 2022-10-20
  */
 
+// flow
+#include "../../include/mapping/loop_closing/loop_closing_flow.hpp"
 // ros库文件
 #include <ros/ros.h>
 #include <ros/package.h>
@@ -31,16 +33,16 @@ int main(int argc, char **argv)
     FLAGS_alsologtostderr = 1;     //终端输出日志
     FLAGS_colorlogtostderr = true; //允许输出颜色
 
-    /*数据预处理任务管理--初始化*/
-    //std::shared_ptr<LoopClosingFlow> data_pretreat_flow_ptr = std::make_shared<DataPretreatFlow>(nh);
+    /*回环检测--初始化*/
+    std::shared_ptr<LoopClosinigFlow> loop_closing_flow_ptr = std::make_shared<LoopClosinigFlow>(nh);
 
     ros::Rate rate(100);
     while (ros::ok())
     {
         ros::spinOnce();
 
-        /*数据预处理任务管理--运行*/
-       // data_pretreat_flow_ptr->Run();
+        /*回环检测--运行*/
+        loop_closing_flow_ptr->Run();
 
         rate.sleep();
     }

@@ -10,6 +10,8 @@
 #include "../../../include/mapping/loop_closing/loop_closing_flow.hpp"
 // sensor_data
 #include "../../../include/sensor_data/loop_pose.hpp"
+// tools
+#include "../../../include/tools/color_terminal.hpp"
 
 namespace multisensor_localization
 {
@@ -27,7 +29,10 @@ namespace multisensor_localization
         // publisher
         loop_pose_pub_ptr_ = std::make_shared<LoopPosePublisher>(nh, "/loop_pose", "/map", 1e2);
         // loop closing
-        
+        loop_closing_ptr_=std::make_shared<LoopClosing>();
+    
+        ColorTerminal::ColorFlowInfo("Flow配置完成");
+
     }
 
     /**

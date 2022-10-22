@@ -9,6 +9,8 @@
 #ifndef LOOP_CLOSING_FLOW_HPP_
 #define LOOP_CLOSING_FLOW_HPP_
 
+//relevent
+#include "../../../include/mapping/loop_closing/loop_closing.hpp"
 // c++
 #include <deque>
 // ros
@@ -19,6 +21,7 @@
 #include "../../../include/subscriber/key_frame_subscriber.hpp"
 // publisher
 #include "../../../include/publisher/loop_pose_publisher.hpp"
+
 
 namespace multisensor_localization
 {
@@ -41,7 +44,7 @@ namespace multisensor_localization
         // publisher
         std::shared_ptr<LoopPosePublisher> loop_pose_pub_ptr_;
         //loop closing 
-        //std::shared_ptr<LoopClosinig> loop_closing_ptr_;
+        std::shared_ptr<LoopClosing> loop_closing_ptr_;
 
         //数据列
         std::deque<KeyFrame> key_frame_buff_;
