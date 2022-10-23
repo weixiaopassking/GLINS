@@ -6,11 +6,12 @@
 
 ## 2.主要内容
 
-+ [x] Tag v1.0 惯导数据可视化   
-+ [x] Tag v2.0 ndt里程计  
-+ [x] Tag v3.0 增加后端优化约束: gnss先验边优化
-+ [ ] Tag v4.0 增加后端优化约束: ndt回环检测
-
++ [x] Tag v1.0 惯导数据可视化     
++ [x] Tag v2.0 ndt里程计    
++ [x] Tag v3.0 ndt里程计松耦合gnss  
++ [ ] Tag v4.0 带闭环的ndt里程计松耦合gnss  
++ [ ] Tag v5.0 重定位功能  
++ [ ] Tag v6.0 带闭环的fastlio2里程计松耦合gnss  
  
 
 
