@@ -7,11 +7,10 @@
 ## 2.主要内容
 
 + [x] Tag v1.0 惯导数据可视化   
-+ [x] Tag v2.0 DNT里程计  
-+ [ ] Tag v3.0 DNT里程计+后端优化+回环检测(codeding 中)  
-+ [ ] Tag v4.0 DNT重定位
-+ [ ] Tag v5.0 前端适配Fast lio
-+ [ ] Tag v5.0 Lio gnss松耦合
++ [x] Tag v2.0 ndt里程计  
++ [x] Tag v3.0 增加后端优化约束: gnss先验边优化
++ [ ] Tag v4.0 增加后端优化约束: ndt回环检测
+
  
 
 
