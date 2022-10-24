@@ -43,13 +43,15 @@
 + [ ] gtsam
 
 **回环检测**
-+ [ ] Scan Context  
++ [ ] ndt    
++ [ ] Scan Context    
 
 **重定位**
 + [ ] DNT  
 
 **数据集**
-+ [x] kitti  
++ [x] kitti    
+ +[ ] kaist  
  
 ## 6.参考
 [任乾 知乎专栏从零开始做自动驾驶](https://zhuanlan.zhihu.com/p/83775731)  
