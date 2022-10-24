@@ -6,12 +6,12 @@
 
 ## 2.主要内容
 
-+ [x] Tag v1.0 惯导数据可视化   
-+ [x] Tag v2.0 DNT里程计  
-+ [ ] Tag v3.0 DNT里程计+后端优化+回环检测(codeding 中)  
-+ [ ] Tag v4.0 DNT重定位
-+ [ ] Tag v5.0 前端适配Fast lio
-+ [ ] Tag v5.0 Lio gnss松耦合
++ [x] Tag v1.0 惯导数据可视化     
++ [x] Tag v2.0 ndt里程计    
++ [x] Tag v3.0 ndt里程计松耦合gnss  
++ [ ] Tag v4.0 带闭环的ndt里程计松耦合gnss  
++ [ ] Tag v5.0 重定位功能  
++ [ ] Tag v6.0 带闭环的fastlio2里程计松耦合gnss  
  
 
 
