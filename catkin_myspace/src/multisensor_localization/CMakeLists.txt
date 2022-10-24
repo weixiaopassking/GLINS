@@ -42,11 +42,11 @@ list(REMOVE_ITEM  ALL_SRCS  ${NODE_SRCS})
 # add_executable(front_end_node src/app/front_end_node.cpp ${ALL_SRCS} )
 # target_link_libraries(front_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 #  #后端优化节点
-# add_executable(back_end_node src/app/back_end_node.cpp ${ALL_SRCS} )
-# target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+add_executable(back_end_node src/app/back_end_node.cpp ${ALL_SRCS} )
+target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 # 回环检测
-add_executable(loop_closing_node src/app/loop_closing_node.cpp ${ALL_SRCS} )
-target_link_libraries(loop_closing_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+# add_executable(loop_closing_node src/app/loop_closing_node.cpp ${ALL_SRCS} )
+# target_link_libraries(loop_closing_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 #可视化节点
 # add_executable(viewer_node src/app/viewer_node.cpp ${ALL_SRCS} )
 # target_link_libraries(viewer_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})

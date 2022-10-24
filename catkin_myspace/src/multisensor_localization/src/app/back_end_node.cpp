@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     /*后端任务管理器创建*/
      std::shared_ptr<BackEndFlow> back_end_flow_ptr = std::make_shared<BackEndFlow>(nh);
 
-    ros::Rate rate(10);
+    ros::Rate rate(10);//后端10hz即可
     while (ros::ok())
     {
         ros::spinOnce();

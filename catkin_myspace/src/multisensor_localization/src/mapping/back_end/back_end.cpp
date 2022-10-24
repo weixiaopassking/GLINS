@@ -33,7 +33,8 @@ namespace multisensor_localization
     BackEnd::BackEnd()
     {
         /*参数文件读取*/
-        std::string config_file_path = ros::package::getPath("multisensor_localization") + "/config/back_end.yaml";
+        std::string config_file_path = ros::package::getPath("multisensor_localization") +
+                                       "/config/back_end.yaml";
         YAML::Node config_node = YAML::LoadFile(config_file_path);
         /*参数配置*/
         ConfigFrame(config_node);
