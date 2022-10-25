@@ -19,6 +19,9 @@
 #include <fstream>
 // c++
 #include <deque>
+//eigen
+#include <Eigen/Dense>
+
 
 namespace multisensor_localization
 {
@@ -43,7 +46,7 @@ namespace multisensor_localization
         bool IsOptimized();
         bool AddNodeAndEdge(const PoseData &gnss_data);
 
-        bool SaveTrajectory(const PoseData &laser_odom, const PoseData &gnss_odom);
+        bool SaveTrajectory(std::ofstream &ofs, const Eigen::Matrix4f&pose );
 
     private:
         std::string key_frames_path_ = "";

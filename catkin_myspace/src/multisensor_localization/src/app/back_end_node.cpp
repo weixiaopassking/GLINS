@@ -4,6 +4,7 @@
  * @Author: Robotic Gang (modified from Ren Qian)
  * @Version : v1.0
  * @Date: 2022-10-18
+ *  @Todo: 最后一次强制优化
  */
 
 //后端部分
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
     /*后端任务管理器创建*/
      std::shared_ptr<BackEndFlow> back_end_flow_ptr = std::make_shared<BackEndFlow>(nh);
 
-    ros::Rate rate(10);//后端10hz即可
+    ros::Rate rate(100);//
     while (ros::ok())
     {
         ros::spinOnce();

@@ -11,10 +11,10 @@ use_gnss: true
 use_close_loop: false
 
 key_frame_optimize_step: 10000 # 没有其他信息时，每隔 step 发送一次优化的位姿
-gnss_optimize_step: 500 # 每累计 step 个 gnss 观测时，优化一次
+gnss_optimize_step: 200 # 每累计 step 个 gnss 观测时，优化一次
 close_loop_optimize_step: 100  # 每累计 step 个闭环约束时优化一次
 
 g2o_param:
-    odom_noise: [0.5, 0.5, 0.5, 0.001, 0.001, 0.001] # 噪声：x y z yaw roll pitch
+    odom_noise: [0.1, 0.1, 0.1, 0.001, 0.001, 0.001] # 噪声：x y z yaw roll pitch
     close_loop_noise: [2.0, 2.0, 2.0, 0.01, 0.01, 0.01] # 噪声：x y z yaw roll pitch
-    gnss_noise: [2.0, 2.0, 2.0] # 噪声：x y z
+    gnss_noise: [2, 2, 2] # 噪声：x y z

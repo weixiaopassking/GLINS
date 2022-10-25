@@ -1,32 +1,46 @@
+/*
+ * @Description:不做滤波
+ * @Author: Robotic Gang
+ *@Funciton:
+ * @Note:Modified from Ren Qian
+ * @Date: 2022-10-21
+ */
+
+// relevent
 #include "../../../../include/models/graph_optimizer/g2o/g2o_optimizer.hpp"
-
+// tools
 #include "../../../../include/tools/color_terminal.hpp"
+// glog
+#include <glog/logging.h>
 
-#include "glog/logging.h"
+#include <ros/ros.h>
 
 namespace multisensor_localization
 {
 
     /**
      * @brief 初始化优化算法
-     * @note 通过工厂函数类生成固定搭配的优化算法
+     * @note 通过工厂函数类生成固定搭配的优化算法，这样方便些
      * @todo
      **/
     G2oOptimizer::G2oOptimizer(const std::string &solver_type)
     {
+        /*重置优化器指针*/
         graph_optimizer_ptr_.reset(new g2o::SparseOptimizer());
-
+        /*为优化器配置算法*/
         g2o::OptimizationAlgorithmFactory *solver_factory = g2o::OptimizationAlgorithmFactory::instance();
         g2o::OptimizationAlgorithmProperty solver_property;
         g2o::OptimizationAlgorithm *solver = solver_factory->construct(solver_type, solver_property);
         graph_optimizer_ptr_->setAlgorithm(solver);
-
+        /*检验优化器是否成功生成*/
         if (!graph_optimizer_ptr_->solver())
         {
             LOG(ERROR) << "[create g2o solver failed]" << std::endl;
+            ROS_BREAK();
         }
         LOG(INFO) << "[create g2o solver success]" << std::endl
                   << solver_type << std::endl;
+        /*初始化鲁棒核*/
         robust_kernel_factroy_ = g2o::RobustKernelFactory::instance();
     }
 
@@ -37,22 +51,33 @@ namespace multisensor_localization
      **/
     bool G2oOptimizer::Optimize()
     {
-        // static int optimiz_cnt=0;
+        /*计数*/
+      //  static int optimiz_cnt = 0;
+        /*无边不优化*/
         if (graph_optimizer_ptr_->edges().size() < 1)
         {
             return false;
         }
+
         graph_optimizer_ptr_->initializeOptimization();
         graph_optimizer_ptr_->computeInitialGuess();
         graph_optimizer_ptr_->computeActiveErrors();
         graph_optimizer_ptr_->setVerbose(false); //是否输出调试
 
-        //  double cost_value=graph_optimizer_ptr_->chi2();//代价值
-        // int iterations=graph_optimizer_ptr_->optimize(max_iterations_num_);//最大迭代次数
+        double cost_before_opt = graph_optimizer_ptr_->chi2();                //代价值
+        int iterations = graph_optimizer_ptr_->optimize(max_iterations_num_); //最大迭代次数
+        double cost_after_opt = graph_optimizer_ptr_->chi2();                 //代价值
 
-        //ColorTerminal::ColorInfo("g2o迭代记录");
+        LOG(INFO) << "[g2o调试信息]" << std::endl
+                  << "顶点数: " << graph_optimizer_ptr_->vertices().size() << std::endl
+                  << "边数: " << graph_optimizer_ptr_->edges().size() << std::endl
+                  << "耗时:  " << std::endl
+                  << "误差变化:  " << cost_before_opt << "-----" << cost_after_opt << std::endl
+<<"迭代次数: "<<iterations<<" / "<<max_iterations_num_<<std::endl;
 
-        return true;
+            // ColorTerminal::ColorInfo("g2o迭代记录");
+
+            return true;
     }
 
     /**
@@ -92,14 +117,18 @@ namespace multisensor_localization
                                   const Eigen::Isometry3d &relative_pose,
                                   const Eigen::VectorXd noise)
     {
+        /*计算信息矩阵 有必要再多此一举取倒数吗???*/
         Eigen::MatrixXd information_matrix = CalculateSe3EdgeInformationMatrix(noise);
         g2o::VertexSE3 *v1 = dynamic_cast<g2o::VertexSE3 *>(graph_optimizer_ptr_->vertex(vertex_index1));
         g2o::VertexSE3 *v2 = dynamic_cast<g2o::VertexSE3 *>(graph_optimizer_ptr_->vertex(vertex_index2));
         g2o::EdgeSE3 *edge(new g2o::EdgeSE3());
+
+        edge->setMeasurement(relative_pose);
         edge->setInformation(information_matrix);
         edge->vertices()[0] = v1;
         edge->vertices()[1] = v2;
         graph_optimizer_ptr_->addEdge(edge);
+
         if (need_robust_kernel_)
         {
             AddRobustKernel(edge, robust_kernel_name_, robust_kernel_size_);
@@ -139,7 +168,7 @@ namespace multisensor_localization
         g2o::RobustKernel *kernel = robust_kernel_factroy_->construct(kernel_type);
         if (kernel == nullptr)
         {
-        //   ColorTerminal::ColorInfo("无对应的鲁棒核");
+            //   ColorTerminal::ColorInfo("无对应的鲁棒核");
         }
         kernel->setDelta(kernel_size);
         edge->setRobustKernel(kernel);
@@ -155,7 +184,7 @@ namespace multisensor_localization
                                           const Eigen::VectorXd noise)
     {
         /*计算信息矩阵*/
-        Eigen::MatrixXd information_matrix = Eigen::MatrixXd(noise.rows(), noise.rows());
+        Eigen::MatrixXd information_matrix = Eigen::MatrixXd::Identity(noise.rows(), noise.rows());
         for (int i = 0; i < noise.rows(); i++)
         {
             information_matrix(i, i) /= noise(i);
@@ -186,11 +215,11 @@ namespace multisensor_localization
     bool G2oOptimizer::GetOptimizedPose(std::deque<Eigen::Matrix4f> &optimized_pose)
     {
         optimized_pose.clear();
-        int vertex_num=graph_optimizer_ptr_->vertices().size();
-        for(int i=0;i<vertex_num;i++)
+        int vertex_num = graph_optimizer_ptr_->vertices().size();
+        for (int i = 0; i < vertex_num; i++)
         {
-            g2o::VertexSE3 *v=dynamic_cast<g2o::VertexSE3*>(graph_optimizer_ptr_->vertex(i));
-            Eigen::Isometry3d pose=v->estimate();
+            g2o::VertexSE3 *v = dynamic_cast<g2o::VertexSE3 *>(graph_optimizer_ptr_->vertex(i));
+            Eigen::Isometry3d pose = v->estimate();
             optimized_pose.push_back(pose.matrix().cast<float>());
         }
         return true;

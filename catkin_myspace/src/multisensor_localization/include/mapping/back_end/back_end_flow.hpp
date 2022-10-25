@@ -35,7 +35,6 @@ namespace multisensor_localization
         bool HasData();
         bool ValidData();
         bool UpdateBackEnd();
-        bool SaveTrajectory();
         bool PublishData();
 
     private:

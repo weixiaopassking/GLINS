@@ -36,11 +36,28 @@ namespace g2o
         /*读盘*/
         bool read(std::istream &is) override
         {
+            Eigen::Vector3d v;
+            is >> v(0) >> v(1) >> v(2);
+
+            setMeasurement(Eigen::Vector3d(v));
+
+            for (int i = 0; i < information().rows(); ++i)
+                for (int j = i; j < information().cols(); ++j)
+                {
+                    is >> information()(i, j);
+                    if (i != j)
+                        information()(j, i) = information()(i, j);
+                }
             return true;
         }
         bool write(std::ostream &os) const override
         {
-            return true;
+            Eigen::Vector3d v = _measurement;
+            os << v(0) << " " << v(1) << " " << v(2) << " ";
+            for (int i = 0; i < information().rows(); ++i)
+                for (int j = i; j < information().cols(); ++j)
+                    os << " " << information()(i, j);
+            return os.good();
         }
     };
 

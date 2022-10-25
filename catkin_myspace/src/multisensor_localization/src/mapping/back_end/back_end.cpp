@@ -8,6 +8,8 @@
 
 // relevent
 #include "../../../include/mapping/back_end/back_end.hpp"
+//c++
+#include <ostream>
 // yaml库
 #include <yaml-cpp/yaml.h>
 // log
@@ -99,7 +101,7 @@ namespace multisensor_localization
         /* 数据噪声 信息*/
         graph_optimizer_config_.close_loop_noise_ = Eigen::Map<Eigen::Matrix<double, 6, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["close_loop_noise"].as<std::vector<double>>().data());
         graph_optimizer_config_.odom_noise_ = Eigen::Map<Eigen::Matrix<double, 6, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["odom_noise"].as<std::vector<double>>().data());
-        graph_optimizer_config_.gnss_nosie_ = Eigen::Map<Eigen::Matrix<double, 3, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["odom_noise"].as<std::vector<double>>().data());
+        graph_optimizer_config_.gnss_nosie_ = Eigen::Map<Eigen::Matrix<double, 3, 1, Eigen::ColMajor>>(config_node[graph_optimizer_type + "_param"]["gnss_noise"].as<std::vector<double>>().data());
         LOG(INFO) << "[close_loop_noise]" << std::endl
                   << graph_optimizer_config_.close_loop_noise_
                   << std::endl;
@@ -187,23 +189,27 @@ namespace multisensor_localization
     bool BackEnd::Update(const CloudData &cloud_data, const PoseData &laser_odom, const PoseData &gnss_odom)
     {
         /*重置标志位*/
-        has_new_key_frame_ = true;
-        has_new_optimized_ = true;
-        /*保存轨迹*/ // todo 暂鸽咕咕咕
-                     // SaveTrajectory();
+        has_new_key_frame_ = false;
+        has_new_optimized_ = false;
+        /*保存轨迹*/
 
         /*判断是否是关键帧*/
         if (IsNewKeyFrame(cloud_data, laser_odom))
         {
+            /*保存轨迹 用于evo评估*/
+            // SaveTrajectory(ground_truth_ofs_, gnss_odom.pose_);
+            // SaveTrajectory(laser_odom_ofs_, laser_odom.pose_);
 
             /*添加顶点和边*/
             AddNodeAndEdge(gnss_odom);
             //判断是否优化
-            IsOptimized();
-
-            ColorTerminal::ColorConcreteDebug("判定为关键帧");
-            std::cout << new_gnss_cnt_ << std::endl;
+            //std::cout << new_gnss_cnt_ << std::endl;
+            if (IsOptimized())
+            {
+            }
         }
+
+
         return true;
     }
 
@@ -265,10 +271,17 @@ namespace multisensor_localization
      **/
     bool BackEnd::AddNodeAndEdge(const PoseData &gnss_data)
     {
+        /*【添加顶点】雷达里程计关键帧的位姿 仅起点固定*/
         Eigen::Isometry3d transform; //也就是是T矩阵
-        /*【添加顶点】雷达里程计关键帧的位姿(非固定)*/
         transform.matrix() = current_key_frame_.pose_.cast<double>();
-        graph_optimizer_ptr_->AddSe3Node(transform, false);
+        if (!graph_optimizer_config_.use_gnss && graph_optimizer_ptr_->GetNodeNum() == 0)
+        {
+            graph_optimizer_ptr_->AddSe3Node(transform, true);
+        }
+        else
+        {
+            graph_optimizer_ptr_->AddSe3Node(transform, false);
+        }
         new_key_frame_cnt_++;
 
         /*【添加边】激光里程计帧间约束*/
@@ -284,7 +297,7 @@ namespace multisensor_localization
         last_key_frame = current_key_frame_; //缓存历史数据
 
         /*【添加边】gnss先验信息 三轴约束*/
-        if (graph_optimizer_config_.use_gnss)
+        if (graph_optimizer_config_.use_gnss == true)
         {
             Eigen::Vector3d xyz(static_cast<double>(gnss_data.pose_(0, 3)),
                                 static_cast<double>(gnss_data.pose_(1, 3)),
@@ -356,6 +369,7 @@ namespace multisensor_localization
                 key_frames_deque.push_back(key_frame);
             }
         }
+        return true;
     }
 
     /**
@@ -386,6 +400,30 @@ namespace multisensor_localization
     void BackEnd::GetCurrentKeyFrame(KeyFrame &key_frame)
     {
         key_frame = current_key_frame_;
+    }
+
+    /**
+     * @brief   保存轨迹
+     * @note
+     * @todo
+     **/
+    bool BackEnd::SaveTrajectory(std::ofstream &ofs, const Eigen::Matrix4f &pose)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                ofs << pose(i, j);
+                if (i == 2 && j == 3)
+                {
+                    ofs << std::endl;
+                }
+                else
+                {
+                    ofs << " ";
+                }
+            }
+        }
     }
 
 } // namespace multisensor_localization

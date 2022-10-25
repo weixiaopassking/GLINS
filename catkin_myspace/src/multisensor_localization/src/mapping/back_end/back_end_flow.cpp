@@ -41,7 +41,6 @@ namespace multisensor_localization
         /*后端优化*/
         back_end_ptr_ = std::make_shared<BackEnd>();
         ColorTerminal::ColorFlowInfo("Flow配置完成");
-  
     }
 
     /**
@@ -76,6 +75,7 @@ namespace multisensor_localization
         cloud_sub_ptr_->ParseData(cloud_data_buff_);
         gnss_odom_sub_ptr_->ParseData(gnss_odom_data_buff_);
         laser_odom_sub_ptr_->ParseData(laser_odom_data_buff_);
+        // loop_
         return true;
     }
 
@@ -132,6 +132,8 @@ namespace multisensor_localization
         cloud_data_buff_.pop_front();
         gnss_odom_data_buff_.pop_front();
         laser_odom_data_buff_.pop_front();
+
+        return true;
     }
 
     /**
@@ -144,28 +146,18 @@ namespace multisensor_localization
         /*计算gnss到lidar的转换 这里需要还思考思考*/
         static bool odom_inited = false;
         static Eigen::Matrix4f lidar_to_gnss_matrix = Eigen::Matrix4f::Identity();
+
         if (!odom_inited)
         {
             odom_inited = true;
             lidar_to_gnss_matrix = current_gnss_pose_data_.pose_ * current_laser_odom_data_.pose_.inverse();
-            std::cout << std::endl
-                      << lidar_to_gnss_matrix << std::endl;
         }
         /*lidar转到gnss下 对齐才能把一起优化*/
         current_laser_odom_data_.pose_ = lidar_to_gnss_matrix * current_laser_odom_data_.pose_;
+        // ColorTerminal::ColorConcreteDebug("测试以下");
+
         return back_end_ptr_->Update(current_cloud_data_, current_laser_odom_data_, current_gnss_pose_data_);
     }
-
-    /**
-     * @brief  保存轨迹数据
-     * @note
-     * @todo
-     **/
-    bool BackEndFlow::SaveTrajectory()
-    {
-    }
-
-    
 
     /**
      * @brief  数据发布
