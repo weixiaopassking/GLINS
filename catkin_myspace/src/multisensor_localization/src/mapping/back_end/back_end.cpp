@@ -8,7 +8,7 @@
 
 // relevent
 #include "../../../include/mapping/back_end/back_end.hpp"
-//c++
+// c++
 #include <ostream>
 // yaml库
 #include <yaml-cpp/yaml.h>
@@ -188,10 +188,9 @@ namespace multisensor_localization
      **/
     bool BackEnd::Update(const CloudData &cloud_data, const PoseData &laser_odom, const PoseData &gnss_odom)
     {
-        /*重置标志位*/
+        /*重置标志位!!! 每次更新必须要重置标志位*/
         has_new_key_frame_ = false;
         has_new_optimized_ = false;
-        /*保存轨迹*/
 
         /*判断是否是关键帧*/
         if (IsNewKeyFrame(cloud_data, laser_odom))
@@ -202,13 +201,13 @@ namespace multisensor_localization
 
             /*添加顶点和边*/
             AddNodeAndEdge(gnss_odom);
-            //判断是否优化
-            //std::cout << new_gnss_cnt_ << std::endl;
+
             if (IsOptimized())
             {
+                /*todo 保存关键帧*/
+                ColorTerminal::ColorConcreteDebug("执行了一次优化");
             }
         }
-
 
         return true;
     }
@@ -274,6 +273,7 @@ namespace multisensor_localization
         /*【添加顶点】雷达里程计关键帧的位姿 仅起点固定*/
         Eigen::Isometry3d transform; //也就是是T矩阵
         transform.matrix() = current_key_frame_.pose_.cast<double>();
+        /*使用GNSS且已存在至少一个顶点则新顶点不固定 */
         if (!graph_optimizer_config_.use_gnss && graph_optimizer_ptr_->GetNodeNum() == 0)
         {
             graph_optimizer_ptr_->AddSe3Node(transform, true);
@@ -344,7 +344,6 @@ namespace multisensor_localization
         if (graph_optimizer_ptr_->Optimize())
         {
             has_new_optimized_ = true;
-            ColorTerminal::ColorConcreteDebug("执行优化");
         }
         return true;
     }

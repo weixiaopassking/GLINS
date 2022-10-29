@@ -14,10 +14,11 @@
 /*GNSS 观测做先验边*/
 namespace g2o
 {
-    /*观测维度 数据类型 链接顶点的类型*/
+    /*观测维度 输入的数据类型 链接顶点的类型*/
     class EdgeSE3PriorXYZ : public g2o::BaseUnaryEdge<3, Eigen::Vector3d, g2o::VertexSE3>
     {
     public:
+         /*内存对齐*/
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
         EdgeSE3PriorXYZ() : g2o::BaseUnaryEdge<3, Eigen::Vector3d, g2o::VertexSE3>() {}
 

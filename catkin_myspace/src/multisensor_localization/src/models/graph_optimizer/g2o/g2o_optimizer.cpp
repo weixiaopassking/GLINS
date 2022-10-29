@@ -93,7 +93,7 @@ namespace multisensor_localization
     }
     /**
      * @brief 添加顶点
-     * @note
+     * @note 通常第一个顶点为先验，固定不优化
      * @todo
      **/
     void G2oOptimizer::AddSe3Node(const Eigen::Isometry3d &pose, bool need_fix)
@@ -103,7 +103,7 @@ namespace multisensor_localization
         vertex->setEstimate(pose);
         if (need_fix)
         {
-            vertex->setFixed(true); //第一个顶点固定不变不用优化
+            vertex->setFixed(true);
         }
         graph_optimizer_ptr_->addVertex(vertex);
     }
