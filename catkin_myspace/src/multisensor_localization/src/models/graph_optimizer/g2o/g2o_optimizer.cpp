@@ -10,9 +10,10 @@
 #include "../../../../include/models/graph_optimizer/g2o/g2o_optimizer.hpp"
 // tools
 #include "../../../../include/tools/color_terminal.hpp"
+#include "../../../../include/tools/time_recorder.hpp"
 // glog
 #include <glog/logging.h>
-
+// ros
 #include <ros/ros.h>
 
 namespace multisensor_localization
@@ -52,32 +53,34 @@ namespace multisensor_localization
     bool G2oOptimizer::Optimize()
     {
         /*计数*/
-      //  static int optimiz_cnt = 0;
+        static int optimiz_cnt = 0;
         /*无边不优化*/
         if (graph_optimizer_ptr_->edges().size() < 1)
         {
             return false;
         }
-
+        /*优化器设置*/
         graph_optimizer_ptr_->initializeOptimization();
         graph_optimizer_ptr_->computeInitialGuess();
         graph_optimizer_ptr_->computeActiveErrors();
         graph_optimizer_ptr_->setVerbose(false); //是否输出调试
 
-        double cost_before_opt = graph_optimizer_ptr_->chi2();                //代价值
+        double cost_before_opt = graph_optimizer_ptr_->chi2();
+        TimeRecorder opt_time_cost;
         int iterations = graph_optimizer_ptr_->optimize(max_iterations_num_); //最大迭代次数
         double cost_after_opt = graph_optimizer_ptr_->chi2();                 //代价值
 
         LOG(INFO) << "[g2o调试信息]" << std::endl
                   << "顶点数: " << graph_optimizer_ptr_->vertices().size() << std::endl
                   << "边数: " << graph_optimizer_ptr_->edges().size() << std::endl
-                  << "耗时:  " << std::endl
+                  << "耗时ms:  " << opt_time_cost.Result() << std::endl
                   << "误差变化:  " << cost_before_opt << "-----" << cost_after_opt << std::endl
-<<"迭代次数: "<<iterations<<" / "<<max_iterations_num_<<std::endl;
+                  << "迭代次数: " << iterations << " / " << max_iterations_num_ << std::endl
+                  << "优化次数: " << optimiz_cnt << std::endl;
 
-            // ColorTerminal::ColorInfo("g2o迭代记录");
+        // ColorTerminal::ColorInfo("g2o迭代记录");
 
-            return true;
+        return true;
     }
 
     /**
@@ -117,8 +120,13 @@ namespace multisensor_localization
                                   const Eigen::Isometry3d &relative_pose,
                                   const Eigen::VectorXd noise)
     {
-        /*计算信息矩阵 有必要再多此一举取倒数吗???*/
-        Eigen::MatrixXd information_matrix = CalculateSe3EdgeInformationMatrix(noise);
+        /*计算信息矩阵 */
+        Eigen::MatrixXd information_matrix = Eigen::MatrixXd::Identity(noise.rows(), noise.rows());
+        for (int i = 0; i < noise.rows(); i++)
+        {
+            information_matrix(i, i) /= noise(i);
+        }
+
         g2o::VertexSE3 *v1 = dynamic_cast<g2o::VertexSE3 *>(graph_optimizer_ptr_->vertex(vertex_index1));
         g2o::VertexSE3 *v2 = dynamic_cast<g2o::VertexSE3 *>(graph_optimizer_ptr_->vertex(vertex_index2));
         g2o::EdgeSE3 *edge(new g2o::EdgeSE3());
@@ -133,21 +141,6 @@ namespace multisensor_localization
         {
             AddRobustKernel(edge, robust_kernel_name_, robust_kernel_size_);
         }
-    }
-
-    /**
-     * @brief 计算信息矩阵 SE3边
-     * @note
-     * @todo
-     **/
-    Eigen::MatrixXd G2oOptimizer::CalculateSe3EdgeInformationMatrix(Eigen::VectorXd noise)
-    {
-        Eigen::MatrixXd information_matrix = Eigen::MatrixXd::Identity(6, 6);
-        for (int i = 0; i < noise.rows(); i++)
-        {
-            information_matrix(i, i) /= noise(i);
-        }
-        return information_matrix;
     }
 
     /**
@@ -208,8 +201,8 @@ namespace multisensor_localization
         return graph_optimizer_ptr_->vertices().size();
     }
     /**
-     * @brief 输出优化后的位姿
-     * @note
+     * @brief 得到优化后的位姿
+     * @note 这里是全局优化
      * @todo
      **/
     bool G2oOptimizer::GetOptimizedPose(std::deque<Eigen::Matrix4f> &optimized_pose)

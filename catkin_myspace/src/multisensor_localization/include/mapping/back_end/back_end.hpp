@@ -19,9 +19,8 @@
 #include <fstream>
 // c++
 #include <deque>
-//eigen
+// eigen
 #include <Eigen/Dense>
-
 
 namespace multisensor_localization
 {
@@ -31,22 +30,23 @@ namespace multisensor_localization
         BackEnd();
 
         bool Update(const CloudData &cloud_data, const PoseData &laser_odom, const PoseData &gnss_odom);
-        bool HasNewKeyFrame();
-        bool HasNewOptimized();
+        bool HasNewKeyFrame();  //主要是针对flow层的接口
+        bool HasNewOptimized(); //主要是针对flow层的接口
         bool GetOptimizedKeyFrames(std::deque<KeyFrame> &key_frames_deque);
-        void GetCurrentKeyFrame(KeyFrame &key_frame);
+        void GetCurrentKeyFrame(KeyFrame &key_frame); //主要是针对flow层的接口
 
     private:
         /*参数配置*/
         bool ConfigFrame(const YAML::Node &config_node);
         bool ConfigGraphOptimizer(const YAML::Node &config_node);
         bool ConfigDataPath(const YAML::Node &config_node);
-        
+
         bool IsNewKeyFrame(const CloudData &cloud_data, const PoseData &laser_odom);
         bool IsOptimized();
         bool AddNodeAndEdge(const PoseData &gnss_data);
 
-        bool SaveTrajectory(std::ofstream &ofs, const Eigen::Matrix4f&pose );
+        bool SaveTrajectory(std::ofstream &ofs, const Eigen::Matrix4f &pose);
+        bool SaveOptimizedTrajectory();
 
     private:
         std::string key_frames_path_ = "";
@@ -54,6 +54,7 @@ namespace multisensor_localization
 
         std::ofstream ground_truth_ofs_;
         std::ofstream laser_odom_ofs_;
+        std::ofstream optimized_pose_ofs_;
 
         float key_frame_distance_ = 2.0;
 
@@ -62,6 +63,7 @@ namespace multisensor_localization
 
         KeyFrame current_key_frame_;
         std::deque<KeyFrame> key_frames_deque_;
+        std::deque<Eigen::Matrix4f> optimized_pose_;
 
         std::shared_ptr<GraphOptimizerInterface> graph_optimizer_ptr_;
 

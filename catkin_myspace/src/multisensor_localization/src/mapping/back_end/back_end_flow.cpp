@@ -154,7 +154,6 @@ namespace multisensor_localization
         }
         /*lidar转到gnss下 对齐才能把一起优化*/
         current_laser_odom_data_.pose_ = lidar_to_gnss_matrix * current_laser_odom_data_.pose_;
-        // ColorTerminal::ColorConcreteDebug("测试以下");
 
         return back_end_ptr_->Update(current_cloud_data_, current_laser_odom_data_, current_gnss_pose_data_);
     }
@@ -168,14 +167,16 @@ namespace multisensor_localization
     {
         /*发布对齐的gnss坐标*/
         transformed_odom_pub_ptr_->Publish(current_laser_odom_data_.pose_);
-        /*发布新关键 (1.因为需要从back_end_flow到back_end中取状态量 2.以方向簇发布)*/
+
+        /*以方向簇的方式发布新关键 */
         if (back_end_ptr_->HasNewKeyFrame())
         {
             KeyFrame key_frame;
             back_end_ptr_->GetCurrentKeyFrame(key_frame);
             key_frame_pub_ptr_->Publish(key_frame);
         }
-        /*发布优化后的关键帧序列*/
+
+        /*以路径形式发布优化后的关键帧序列*/
         if (back_end_ptr_->HasNewOptimized())
         {
             std::deque<KeyFrame> optimized_key_frames;

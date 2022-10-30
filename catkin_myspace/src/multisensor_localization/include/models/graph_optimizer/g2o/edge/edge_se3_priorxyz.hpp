@@ -18,10 +18,15 @@ namespace g2o
     class EdgeSE3PriorXYZ : public g2o::BaseUnaryEdge<3, Eigen::Vector3d, g2o::VertexSE3>
     {
     public:
-         /*内存对齐*/
+        /*内存对齐*/
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
         EdgeSE3PriorXYZ() : g2o::BaseUnaryEdge<3, Eigen::Vector3d, g2o::VertexSE3>() {}
 
+        /**
+         * @brief   计算误差
+         * @note
+         * @todo
+         **/
         void computeError() override
         {
             const g2o::VertexSE3 *v1 = static_cast<const g2o::VertexSE3 *>(_vertices[0]);
@@ -30,35 +35,32 @@ namespace g2o
             _error = estimate - _measurement;
         }
 
+        /**
+         * @brief   观测量
+         * @note
+         * @todo
+         **/
         void setMeasurement(const Eigen::Vector3d &m) override
         {
             _measurement = m;
         }
-        /*读盘*/
+        /**
+         * @brief   读盘
+         * @note
+         * @todo
+         **/
         bool read(std::istream &is) override
         {
-            Eigen::Vector3d v;
-            is >> v(0) >> v(1) >> v(2);
-
-            setMeasurement(Eigen::Vector3d(v));
-
-            for (int i = 0; i < information().rows(); ++i)
-                for (int j = i; j < information().cols(); ++j)
-                {
-                    is >> information()(i, j);
-                    if (i != j)
-                        information()(j, i) = information()(i, j);
-                }
             return true;
         }
+        /**
+         * @brief   存盘
+         * @note
+         * @todo
+         **/
         bool write(std::ostream &os) const override
         {
-            Eigen::Vector3d v = _measurement;
-            os << v(0) << " " << v(1) << " " << v(2) << " ";
-            for (int i = 0; i < information().rows(); ++i)
-                for (int j = i; j < information().cols(); ++j)
-                    os << " " << information()(i, j);
-            return os.good();
+            return true;
         }
     };
 

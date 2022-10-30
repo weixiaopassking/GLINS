@@ -178,6 +178,13 @@ namespace multisensor_localization
         }
         LOG(INFO) << "[创建laser_odom文件成功]" << std::endl;
 
+        /*创建文件data/trajectory/optimized_odom.txt*/
+        if (!FileManager::CreateFile(optimized_pose_ofs_, trajectory_path_ + "/laser_odom.txt"))
+        {
+            LOG(ERROR) << "[创建laser_odom文件失败]" << std::endl;
+            ROS_BREAK();
+        }
+        LOG(INFO) << "[创建laser_odom文件成功]" << std::endl;
         return true;
     }
 
@@ -196,15 +203,15 @@ namespace multisensor_localization
         if (IsNewKeyFrame(cloud_data, laser_odom))
         {
             /*保存轨迹 用于evo评估*/
-            // SaveTrajectory(ground_truth_ofs_, gnss_odom.pose_);
-            // SaveTrajectory(laser_odom_ofs_, laser_odom.pose_);
+            SaveTrajectory(ground_truth_ofs_, gnss_odom.pose_);
+            SaveTrajectory(laser_odom_ofs_, laser_odom.pose_);
 
             /*添加顶点和边*/
             AddNodeAndEdge(gnss_odom);
 
             if (IsOptimized())
             {
-                /*todo 保存关键帧*/
+                SaveOptimizedTrajectory();
                 ColorTerminal::ColorConcreteDebug("执行了一次优化");
             }
         }
@@ -244,14 +251,14 @@ namespace multisensor_localization
             std::string pcd_path = key_frames_path_ + "/key_frame_" + std::to_string(key_frames_deque_.size()) + ".pcd";
             pcl::io::savePCDFileBinary(pcd_path, *(cloud_data.cloud_ptr_));
 
-            /*当前激光里程计数据(已转到gnss坐标系下)创建临时关键帧*/
+            /*当前激光里程计数据(已转到gnss坐标系下)记为关键帧同时加到关键帧队列*/
             KeyFrame key_frame;
             key_frame.time_stamp_ = laser_odom.time_stamp_;
             key_frame.index_ = (unsigned int)key_frames_deque_.size();
             key_frame.pose_ = laser_odom.pose_;
-            /*加入关键帧队列*/
+
             key_frames_deque_.push_back(key_frame);
-            /*同时赋值给当前关键帧*/
+
             current_key_frame_ = key_frame;
             return has_new_key_frame_;
         }
@@ -263,17 +270,18 @@ namespace multisensor_localization
      * @brief   添加顶点和边
      * @note
      * 【顶点:】激光里程计关键帧的位姿(已转换到gnss坐标系下)
-     *  【边】激光里程计关键帧的相对位姿(已转换到gnss坐标系下)
-     *  【先验边】gnss东北天相对位置
+     * 【边】激光里程计关键帧的相对位姿(已转换到gnss坐标系下)
+     * 【先验边】gnss东北天相对位置
+     * TODO!!! 【边】回环检测边
      *注意：先加顶点后加边
      * @todo
      **/
     bool BackEnd::AddNodeAndEdge(const PoseData &gnss_data)
     {
-        /*【添加顶点】雷达里程计关键帧的位姿 仅起点固定*/
+        /*添加顶点: 雷达里程计关键帧的位姿 仅起点固定*/
         Eigen::Isometry3d transform; //也就是是T矩阵
         transform.matrix() = current_key_frame_.pose_.cast<double>();
-        /*使用GNSS且已存在至少一个顶点则新顶点不固定 */
+
         if (!graph_optimizer_config_.use_gnss && graph_optimizer_ptr_->GetNodeNum() == 0)
         {
             graph_optimizer_ptr_->AddSe3Node(transform, true);
@@ -284,11 +292,10 @@ namespace multisensor_localization
         }
         new_key_frame_cnt_++;
 
-        /*【添加边】激光里程计帧间约束*/
-        /*缓存历史数据*/
-        static KeyFrame last_key_frame = current_key_frame_;
-        int node_num = graph_optimizer_ptr_->GetNodeNum(); //获得顶点数
-        if (node_num >= 2)                                 // 2个及2个以上的节点数时才有条件添加帧间约束的边
+        /*添加边: 激光里程计帧间约束*/
+        static KeyFrame last_key_frame = current_key_frame_; //缓存历史数据
+        int node_num = graph_optimizer_ptr_->GetNodeNum();   //获得顶点数
+        if (node_num >= 2)                                   // 2个及2个以上的节点数时才有条件添加帧间约束的边
         {
             Eigen::Matrix4f last_to_now = last_key_frame.pose_.inverse() * current_key_frame_.pose_;
             transform.matrix() = last_to_now.cast<double>();
@@ -296,7 +303,7 @@ namespace multisensor_localization
         }
         last_key_frame = current_key_frame_; //缓存历史数据
 
-        /*【添加边】gnss先验信息 三轴约束*/
+        /*添加边: gnss先验信息 三轴约束*/
         if (graph_optimizer_config_.use_gnss == true)
         {
             Eigen::Vector3d xyz(static_cast<double>(gnss_data.pose_(0, 3)),
@@ -305,6 +312,7 @@ namespace multisensor_localization
             graph_optimizer_ptr_->AddSe3PriorXYZEdge(node_num - 1, xyz, graph_optimizer_config_.gnss_nosie_);
             new_gnss_cnt_++;
         }
+
         return true;
     }
 
@@ -340,7 +348,8 @@ namespace multisensor_localization
         new_gnss_cnt_ = 0;
         new_loop_cnt_ = 0;
         new_key_frame_cnt_ = 0;
-        /*执行优化器，并刷是否有新优化产生的标志位*/
+
+        /*执行优化器(核心逻辑)，并刷新标志位*/
         if (graph_optimizer_ptr_->Optimize())
         {
             has_new_optimized_ = true;
@@ -422,6 +431,26 @@ namespace multisensor_localization
                     ofs << " ";
                 }
             }
+        }
+        return true;
+    }
+
+    /**
+     * @brief   保存优化后的轨迹
+     * @note
+     * @todo
+     **/
+    bool BackEnd::SaveOptimizedTrajectory()
+    {
+        /*无节点时则退出*/
+        if (graph_optimizer_ptr_->GetNodeNum() == 0)
+            return false;
+
+        graph_optimizer_ptr_->GetOptimizedPose(optimized_pose_);
+
+        for (int i = 0; i < optimized_pose_.size(); i++)
+        {
+            SaveTrajectory(optimized_pose_ofs_, optimized_pose_.at(i));
         }
     }
 

@@ -53,14 +53,14 @@ namespace multisensor_localization
         G2oOptimizer(const std::string &solver_type = "lm_var");
         /*优化动作*/
         bool Optimize() override;
-        /*输出数据*/
+        /*获取优化后的位姿*/
          bool GetOptimizedPose(std::deque<Eigen::Matrix4f> &optimized_pose)override;
          int GetNodeNum() override;
         /*添加鲁棒核*/
         void SetEdgeRobustKernel(std::string robust_kernel_name, double robust_kernel_size) override;
         /*添加节点*/
         void AddSe3Node(const Eigen::Isometry3d &pose, bool need_fix) override;
-        // /*添加边*/
+         /*添加边*/
         void AddSe3Edge(int vertex_index1,
                         int vertex_index2,
                         const Eigen::Isometry3d &relative_pose,
@@ -68,15 +68,10 @@ namespace multisensor_localization
          void AddSe3PriorXYZEdge(int se3_vertex_index,
                                         const Eigen::Vector3d &xyz,
                                         const Eigen::VectorXd noise) override;
-        //  void AddSe3PriorQuaternionEdge(int se3_vertex_index,
-        //                                        const Eigen::Quaterniond &quat,
-        //                                        const Eigen::VectorXd noise) {}
+
 
     private:
-        /*计算信息矩阵 ps:其实就是权重*/
-        Eigen::MatrixXd CalculateSe3EdgeInformationMatrix(Eigen::VectorXd noise);
-        //Eigen::MatrixXd CalculateSe3PriorQuaternionEdgeInformationMatrix(Eigen::VectorXd noise);
-        //Eigen::MatrixXd CalculateDiagMatrix(Eigen::VectorXd noise);
+      
         void  AddRobustKernel(g2o::OptimizableGraph::Edge *edge,
                                        const std::string &kernel_type,
                                        const double kernel_size);
