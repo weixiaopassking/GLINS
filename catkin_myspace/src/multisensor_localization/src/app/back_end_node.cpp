@@ -14,13 +14,27 @@
 #include <ros/package.h>
 // glog日志库
 #include <glog/logging.h>
-//tools
+// tools
 #include "../../include/tools/color_terminal.hpp"
+//自定义头文件
+#include <multisensor_localization/optimizeMap.h>
 
 using namespace multisensor_localization;
 
+bool is_need_optimize = false;
 
-
+/**
+ * @brief 优化后地图的回调函数
+ * @note
+ * @todo
+ **/
+bool OptimizeMapCallback(optimizeMap::Request &request, optimizeMap::Response &response)
+{
+    is_need_optimize = true;
+    response.succeed = true;
+    return response.succeed;
+}
+std::shared_ptr<BackEndFlow> back_end_flow_ptr;
 int main(int argc, char **argv)
 {
     /*ros系统配置*/
@@ -35,14 +49,24 @@ int main(int argc, char **argv)
     FLAGS_logtostderr = true;
     FLAGS_alsologtostderr = 1;
     /*后端任务管理器创建*/
-     std::shared_ptr<BackEndFlow> back_end_flow_ptr = std::make_shared<BackEndFlow>(nh);
+    back_end_flow_ptr = std::make_shared<BackEndFlow>(nh);
+    /*创建服务*/
+    ros::ServiceServer force_optimize = nh.advertiseService("force_optimize", OptimizeMapCallback);
 
-    ros::Rate rate(100);//
+    ros::Rate rate(100);
     while (ros::ok())
     {
         ros::spinOnce();
 
-         back_end_flow_ptr->Run();
+        back_end_flow_ptr->Run();
+
+        /*执行强制优化*/
+        if (is_need_optimize == true)
+        {
+            LOG(INFO) << "[强制优化启动]" << std::endl;
+            back_end_flow_ptr->ForceOptimize();
+            is_need_optimize = false;
+        }
 
         rate.sleep();
     }

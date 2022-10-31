@@ -20,10 +20,22 @@ include(cmake/g2o.cmake)
 #ROS配置
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rospy
   std_msgs
   roslib
+  message_generation 
 )
 include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_service_files(
+   FILES
+   optimizeMap.srv
+)
+
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+)
 
 catkin_package()
 
@@ -48,5 +60,5 @@ target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 # add_executable(loop_closing_node src/app/loop_closing_node.cpp ${ALL_SRCS} )
 # target_link_libraries(loop_closing_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 #可视化节点
-# add_executable(viewer_node src/app/viewer_node.cpp ${ALL_SRCS} )
-# target_link_libraries(viewer_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+add_executable(viewer_node src/app/viewer_node.cpp ${ALL_SRCS} )
+target_link_libraries(viewer_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})

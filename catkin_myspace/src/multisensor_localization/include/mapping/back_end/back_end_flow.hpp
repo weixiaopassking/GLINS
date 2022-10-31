@@ -29,6 +29,7 @@ namespace multisensor_localization
     public:
         BackEndFlow(ros::NodeHandle &nh);
         bool Run();
+       bool ForceOptimize();//强制优化
 
     private:
         bool ReadData();

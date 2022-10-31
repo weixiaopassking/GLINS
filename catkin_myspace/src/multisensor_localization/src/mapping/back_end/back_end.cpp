@@ -178,13 +178,6 @@ namespace multisensor_localization
         }
         LOG(INFO) << "[创建laser_odom文件成功]" << std::endl;
 
-        /*创建文件data/trajectory/optimized_odom.txt*/
-        if (!FileManager::CreateFile(optimized_pose_ofs_, trajectory_path_ + "/laser_odom.txt"))
-        {
-            LOG(ERROR) << "[创建laser_odom文件失败]" << std::endl;
-            ROS_BREAK();
-        }
-        LOG(INFO) << "[创建laser_odom文件成功]" << std::endl;
         return true;
     }
 
@@ -448,10 +441,28 @@ namespace multisensor_localization
 
         graph_optimizer_ptr_->GetOptimizedPose(optimized_pose_);
 
-        for (int i = 0; i < optimized_pose_.size(); i++)
+        /*创建文件data/trajectory/optimized_odom.txt*/
+        if (!FileManager::CreateFile(optimized_pose_ofs_, trajectory_path_ + "/optimized_odom.txt"))
+        {
+            LOG(ERROR) << "optimized_odom 文件创建失败" << std::endl;
+            return false;
+        }
+
+        for (unsigned int i = 0; i <optimized_pose_.size(); i++)
         {
             SaveTrajectory(optimized_pose_ofs_, optimized_pose_.at(i));
         }
+        return true;
+    }
+
+    bool BackEnd::ForceOptimize()
+    {
+        if(graph_optimizer_ptr_->Optimize())
+        has_new_optimized_=true;
+
+        SaveOptimizedTrajectory();
+
+        return has_new_optimized_;
     }
 
 } // namespace multisensor_localization

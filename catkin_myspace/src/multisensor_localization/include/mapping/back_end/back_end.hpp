@@ -28,6 +28,7 @@ namespace multisensor_localization
     {
     public:
         BackEnd();
+        bool ForceOptimize();
 
         bool Update(const CloudData &cloud_data, const PoseData &laser_odom, const PoseData &gnss_odom);
         bool HasNewKeyFrame();  //主要是针对flow层的接口

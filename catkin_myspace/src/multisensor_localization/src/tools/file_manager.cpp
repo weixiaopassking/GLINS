@@ -6,11 +6,10 @@
  * @Date: 2022-10-16
  */
 
-//relevent
+// relevent
 #include "../../include/tools/file_manager.hpp"
-//boost
+// boost
 #include <boost/filesystem.hpp>
-
 
 namespace multisensor_localization
 {
@@ -53,8 +52,11 @@ namespace multisensor_localization
      **/
     bool FileManager::CreateFile(std::ofstream &ofs, std::string file_path)
     {
-        ofs.open(file_path.c_str(),std::ios::app);
-        if(!ofs)
+        ofs.close();
+        boost::filesystem::remove(file_path.c_str());
+
+        ofs.open(file_path.c_str(), std::ios::app);
+        if (!ofs)
         {
             return false;
         }
@@ -68,6 +70,7 @@ namespace multisensor_localization
      **/
     bool FileManager::WriteFile(const std::ofstream &ofs, std::string file_path)
     {
+        return true;
     }
 
 } // namespace multisensor_localization
