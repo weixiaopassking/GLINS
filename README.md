@@ -8,9 +8,9 @@
 
 第一阶段:  简单的建图与重定位功能
 + [x] Tag v1.0 惯导数据可视化     
-+ [x] Tag v2.0 ndt里程计    
-+ [x] Tag v3.0 ndt里程计松耦合gnss  
-+ [x] Tag v4.0 带闭环的ndt里程计松耦合gnss  
++ [x] Tag v2.0 ndt里程计       
++ [x] Tag v3.0 ndt里程计松耦合gnss    
++ [x] Tag v4.0 带闭环的ndt里程计松耦合gnss   
 + [ ] Tag v5.0 简单的重定位功能  
 
  第二阶段: 具有较好鲁棒性的室内定位
