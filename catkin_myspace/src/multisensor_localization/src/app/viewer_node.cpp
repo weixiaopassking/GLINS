@@ -8,7 +8,7 @@
 
 
 //可视化流程控制
-//#include "../../include/mapping/front_end/front_end_flow.hpp"
+#include "../../include/mapping/viewer/viewer_flow.hpp"
 // ros库文件
 #include <ros/ros.h>
 #include <ros/package.h>
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 {
 
   /*ros系统配置*/
-  ros::init(argc, argv, "front_end_node");
+  ros::init(argc, argv, "viewer_node_node");
   ros::NodeHandle nh;
 
   ColorTerminal::ColorNodeInfo("viewer_node节点启动");
@@ -36,13 +36,13 @@ int main(int argc, char **argv)
   FLAGS_alsologtostderr = 1;
 
   /*数据预处理流程指针*/
-  std::shared_ptr<ViewerFlow> viewer_flow_ptr = std::make_shared<FrontEndFlow>(nh);
+  std::shared_ptr<ViewerFlow> viewer_flow_ptr = std::make_shared<ViewerFlow>(nh);
 
   ros::Rate rate(100);
   while (ros::ok())
   {
     ros::spinOnce();
-    // front_end_flow_ptr->Run();
+    //viewer_flow_ptr->Run();
     rate.sleep();
   }
   return 0;

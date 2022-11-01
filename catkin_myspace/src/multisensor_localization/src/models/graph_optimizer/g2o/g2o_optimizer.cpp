@@ -69,7 +69,7 @@ namespace multisensor_localization
         TimeRecorder opt_time_cost;
         int iterations = graph_optimizer_ptr_->optimize(max_iterations_num_); //最大迭代次数
         double cost_after_opt = graph_optimizer_ptr_->chi2();                 //代价值
-
+        optimiz_cnt++;
         LOG(INFO) << "[g2o调试信息]" << std::endl
                   << "顶点数: " << graph_optimizer_ptr_->vertices().size() << std::endl
                   << "边数: " << graph_optimizer_ptr_->edges().size() << std::endl

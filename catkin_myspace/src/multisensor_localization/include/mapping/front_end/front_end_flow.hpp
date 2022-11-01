@@ -11,11 +11,11 @@
 
 // ros
 #include <ros/ros.h>
-//订阅器
+//subscriber
 #include "../../subscriber/cloud_subscriber.hpp"
-//发布器
+//publisher
 #include "../../publisher/odometry_publisher.hpp"
-//前端算法
+//front end  algorithm
 #include "../../mapping/front_end/front_end.hpp"
 // glog
 #include <glog/logging.h>
@@ -51,5 +51,6 @@ namespace multisensor_localization
         Eigen::Matrix4f laser_odometry_ = Eigen::Matrix4f::Identity();
     };
 }
+
 
 #endif

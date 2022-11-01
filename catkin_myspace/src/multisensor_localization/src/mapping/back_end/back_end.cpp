@@ -130,8 +130,7 @@ namespace multisensor_localization
         }
         else
         {
-            LOG(ERROR) << std::endl
-                       << "[yaml中的数据存放路径设置错误]" << std::endl;
+            LOG(ERROR) << "[yaml中的数据存放路径设置错误]" << std::endl;
             ROS_BREAK();
         }
 

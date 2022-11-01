@@ -11,19 +11,22 @@
 
 // ros
 #include <ros/ros.h>
-//sub
+// sub
 #include "../../subscriber/cloud_subscriber.hpp"
 #include "../../subscriber/odometry_subscriber.hpp"
 #include "../../subscriber/key_frames_subscriber.hpp"
 #include "../../subscriber/key_frame_subscriber.hpp"
-//pub
+// pub
 #include "../../publisher/odometry_publisher.hpp"
 #include "../../publisher/cloud_publisher.hpp"
+//viewer
+#include "./viewer.hpp"
 
 namespace multisensor_localization
 {
     class ViewerFlow
     {
+    public:
         ViewerFlow(ros::NodeHandle &nh);
 
         bool Run();
@@ -37,7 +40,6 @@ namespace multisensor_localization
         bool PublishLocalData();
 
     private:
-        
         std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
         std::shared_ptr<OdometrySubscriber> transformed_odom_sub_ptr_;
         std::shared_ptr<KeyFrameSubscriber> key_frame_sub_ptr_;
@@ -48,7 +50,7 @@ namespace multisensor_localization
         std::shared_ptr<CloudPublisher> global_map_pub_ptr_;
         std::shared_ptr<CloudPublisher> local_map_pub_ptr_;
 
-        //std::shared_ptr<Viewer>
+        std::shared_ptr<Viewer> viewer_ptr_;
     };
 
 } // namespace multisensor_localization

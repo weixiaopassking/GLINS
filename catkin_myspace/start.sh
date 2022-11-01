@@ -12,6 +12,8 @@ gnome-terminal -t "数据处理" -x bash -c "cd $work_path;$add_source;rosrun mu
 gnome-terminal -t "前端" -x bash -c "cd $work_path;$add_source;rosrun multisensor_localization front_end_node;exec bash;"
 #节点3:后端优化
 gnome-terminal -t "后端" -x bash -c "cd $work_path;$add_source;rosrun multisensor_localization back_end_node;exec bash;"
+#节点4:可视化
+gnome-terminal -t "可视化端" -x bash -c "cd $work_path;$add_source;rosrun multisensor_localization viewer_node;exec bash;"
 #ros bag启动
 gnome-terminal -t "bag" -x bash -c "cd $work_path;$add_source; rosbag play  *.bag ;exec bash;"
 #启动roscore
