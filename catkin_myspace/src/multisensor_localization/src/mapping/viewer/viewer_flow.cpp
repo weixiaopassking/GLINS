@@ -31,7 +31,7 @@ namespace multisensor_localization
         global_map_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/global_map", "/map", 100);
         local_map_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/local_map", "/map", 100);
         /*view*/
-        viewer_ptr_=std::make_shared<Viewer>();
+        viewer_ptr_ = std::make_shared<Viewer>();
         /*终端提示*/
         ColorTerminal::ColorFlowInfo("可视化参数配置完成");
     }
@@ -43,8 +43,84 @@ namespace multisensor_localization
      **/
     bool ViewerFlow::Run()
     {
+        if (!ReadData())
+        {
+            return false;
+        }
+        while (HasData())
+        {
+            if (ValidData())
+            {
+                // viewer_ptr_->UpdateNewKeyFrame();
+                PublishLocalData();
+            }
+        }
 
-        
+        if (optimized_key_frames_buff_.size() > 0)
+        {
+            // viewer_ptr_->UpdateNewKeyFrame();
+            PublishGlobalData();
+        }
+        return true;
+    }
+
+    /**
+     * @brief 读取数据
+     * @note
+     * @todo
+     **/
+    bool ViewerFlow::ReadData()
+    {
+        cloud_sub_ptr_->ParseData(cloud_data_buff_);
+        transformed_odom_sub_ptr_->ParseData(transformed_odom_buff_);
+        key_frame_sub_ptr_->ParseData(key_frame_buff_);
+        optimized_key_frames_sub_ptr_->ParseData(optimized_key_frames_);
+
+        return true;
+    }
+
+    /**
+     * @brief 检查数据
+     * @note
+     * @todo
+     **/
+    bool ViewerFlow::HasData()
+    {
+        if (cloud_data_buff_.size() == 0)
+            return false;
+        if (transformed_odom_buff_.size() == 0)
+            return false;
+
+        return true;
+    }
+
+    /**
+     * @brief提取有效数据
+     * @note
+     * @todo
+     **/
+    bool ViewerFlow::ValidData()
+    {
+        current_cloud_data_ = cloud_data_buff_.front();
+        current_transformed_odom_ = transformed_odom_buff_.front();
+
+        double diff_odom_time = current_cloud_data_.time - current_transformed_odom_.time;
+
+        if (diff_odom_time < -0.05)
+        {
+            cloud_data_buff_.pop_front();
+            return false;
+        }
+
+        if (diff_odom_time > 0.05)
+        {
+            transformed_odom_buff_.pop_front();
+            return false;
+        }
+
+        cloud_data_buff_.pop_front();
+        transformed_odom_buff_.pop_front();
+
         return true;
     }
 

@@ -15,7 +15,7 @@
 #include <glog/logging.h>
 // tools
 #include "../../../include/tools/file_manager.hpp"
-//voxel_filter
+// voxel_filter
 #include "../../../include/models/cloud_filter/voxel_filter.hpp"
 
 namespace multisensor_localization
@@ -56,21 +56,21 @@ namespace multisensor_localization
    **/
   bool Viewer::ConfigFilterMethod(std::string filter_user, std::shared_ptr<CloudFilterInterface> &filter_ptr, const YAML::Node &config_node)
   {
-           std::string filter_mothod = config_node[filter_user + "_filter"].as<std::string>();
+    std::string filter_mothod = config_node[filter_user + "_filter"].as<std::string>();
 
-        if (filter_mothod == "voxel_filter")
-        {
-            filter_ptr = std::make_shared<VoxelFilter>(config_node[filter_mothod][filter_user]);
-            LOG(INFO) <<  "[filter_mothod]" << std::endl
-                      << filter_mothod << std::endl;
-        }
-        else
-        {
-            LOG(ERROR) 
-                       << "[无对应滤波方法]" << std::endl;
-                       ROS_BREAK();
-        }
-        return true;
+    if (filter_mothod == "voxel_filter")
+    {
+      filter_ptr = std::make_shared<VoxelFilter>(config_node[filter_mothod][filter_user]);
+      LOG(INFO) << "[filter_mothod]" << std::endl
+                << filter_mothod << std::endl;
+    }
+    else
+    {
+      LOG(ERROR)
+          << "[无对应滤波方法]" << std::endl;
+      ROS_BREAK();
+    }
+    return true;
   }
 
   /**
@@ -104,6 +104,31 @@ namespace multisensor_localization
       LOG(INFO) << "[地图文件夹创建成功]" << std::endl;
     }
     return true;
+  }
+
+  /**
+   * @brief 更新优化帧
+   * @note
+   * @todo
+   **/
+  bool Viewer::UpdateOptimizedKeyFrames(std::deque<KeyFrame> &optimized_key_frames)
+  {
+    has_global_map_ = false;
+    if (optimized_key_frames.size() > 0)
+    {
+optimized_key_frames
+    }
+
+  }
+
+  /**
+   * @brief 更新当前帧
+   * @note
+   * @todo
+   **/
+  bool Viewer::UpdateCurrentKeyFrame(std::deque<KeyFrame> &new_key_frames, PoseData transformed_data,
+                                     CloudData cloud_data)
+  {
   }
 
 } // namespace multisensor_localization
