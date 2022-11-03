@@ -30,6 +30,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 add_service_files(
    FILES
    optimizeMap.srv
+   saveMap.srv
 )
 
 generate_messages(

@@ -165,7 +165,7 @@ namespace multisensor_localization
      **/
     bool BackEndFlow::PublishData()
     {
-        /*发布对齐的gnss坐标*/
+        /*发布优化前的位姿*/
         transformed_odom_pub_ptr_->Publish(current_laser_odom_data_.pose_);
 
         /*以方向簇的方式发布新关键 */

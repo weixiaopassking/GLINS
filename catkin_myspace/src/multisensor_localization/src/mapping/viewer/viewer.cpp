@@ -17,6 +17,9 @@
 #include "../../../include/tools/file_manager.hpp"
 // voxel_filter
 #include "../../../include/models/cloud_filter/voxel_filter.hpp"
+// pcl
+#include <pcl/common/transforms.h>
+#include <pcl/io/pcd_io.h>
 
 namespace multisensor_localization
 {
@@ -106,29 +109,28 @@ namespace multisensor_localization
     return true;
   }
 
-  /**
-   * @brief 更新优化帧
-   * @note
-   * @todo
-   **/
-  bool Viewer::UpdateOptimizedKeyFrames(std::deque<KeyFrame> &optimized_key_frames)
+  bool Viewer::SaveMap()
   {
-    has_global_map_ = false;
-    if (optimized_key_frames.size() > 0)
+    if (optimized_key_frames_.size() == 0)
+      return false;
+    /*创建全局地图指针*/
+    CloudData::CLOUD_PTR global_map_ptr(new CloudData::CLOUD());
+    /*加载拼接地图*/
+    for (size_t i = 0; i < optimized_key_frames_.size(); i++)
     {
-optimized_key_frames
+      std::string map_file_path = key_frames_path_ + "/key_frame_" + std::to_string(optimized_key_frames_.at(i).index_) + ".pcd";
+      CloudData::CLOUD_PTR cloud_temp_ptr(new CloudData::CLOUD());
+      pcl::io::savePCDFileBinary(map_file_path, *cloud_temp_ptr);
+      pcl::transformPointCloud(*cloud_temp_ptr, *cloud_temp_ptr, optimized_key_frames_.at(i).pose_);
+      *global_map_ptr += *cloud_temp_ptr;
     }
+    /*保存全局地图的PCD文件*/
+    std::string map_file_path = map_path_ + "/map.pcd";
+    std::cout << map_file_path << std::endl;
+    pcl::io::savePCDFileBinary(map_file_path, *global_map_ptr);
 
-  }
-
-  /**
-   * @brief 更新当前帧
-   * @note
-   * @todo
-   **/
-  bool Viewer::UpdateCurrentKeyFrame(std::deque<KeyFrame> &new_key_frames, PoseData transformed_data,
-                                     CloudData cloud_data)
-  {
+    LOG(INFO) << "[map_pcd save path]" << std::endl
+              << map_path_ << std::endl;
   }
 
 } // namespace multisensor_localization

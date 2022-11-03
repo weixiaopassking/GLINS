@@ -16,6 +16,8 @@
 #include <glog/logging.h>
 // tools
 #include "../../include/tools/color_terminal.hpp"
+//自定义头文件
+#include <multisensor_localization/saveMap.h>
 
 
 using namespace multisensor_localization;
