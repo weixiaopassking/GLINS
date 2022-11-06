@@ -27,7 +27,7 @@ namespace multisensor_localization
     public:
         Viewer();
         bool SaveMap();
-     
+           std::deque<KeyFrame> optimized_key_frames_;
 
     private:
         bool ConfigFrame(const YAML::Node &config_node);
@@ -39,7 +39,7 @@ namespace multisensor_localization
         std::shared_ptr<CloudFilterInterface> local_map_filter_ptr_;
         std::shared_ptr<CloudFilterInterface> global_map_filter_ptr_;
 
-        std::deque<KeyFrame> optimized_key_frames_;
+  
 
         std::string data_path = "";
         std::string key_frames_path_ = "";

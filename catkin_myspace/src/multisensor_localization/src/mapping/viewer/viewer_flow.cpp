@@ -43,16 +43,17 @@ namespace multisensor_localization
      **/
     bool ViewerFlow::Run()
     {
+
         if (!ReadData())
         {
             return false;
         }
-        while (HasData())
-        {
-            if (ValidData())
-            {
-            }
-        }
+        // while (HasData())
+        // {
+        //     if (ValidData())
+        //     {
+        //     }
+        // }
 
         return true;
     }
@@ -65,6 +66,7 @@ namespace multisensor_localization
     bool ViewerFlow::ReadData()
     {
         optimized_key_frames_sub_ptr_->ParseData(optimized_key_frames_);
+        std::cout<<optimized_key_frames_.size()<<std::endl;
         return true;
     }
 
@@ -96,6 +98,7 @@ namespace multisensor_localization
 
     bool ViewerFlow::SaveMap()
     {
+        viewer_ptr_->optimized_key_frames_=this->optimized_key_frames_;
         return viewer_ptr_->SaveMap();
     }
 
