@@ -57,11 +57,6 @@ namespace multisensor_localization
 
         while (unsynced_data_buff.size() >= 2)
         {
-            std::cout<<"just a test"<<std::endl;
-            std::cout<<std::fixed << unsynced_data_buff.at(0).time_stamp_ << std::endl;
-            std::cout << std::fixed<<unsynced_data_buff.at(1).time_stamp_ << std::endl;
-            std::cout <<std::fixed<< sync_time << std::endl;
-
             /*异常1:sync_time<[0]<[1] #无法对齐,退出*/
             if (unsynced_data_buff.at(0).time_stamp_ > sync_time)
                 return false;

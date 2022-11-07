@@ -66,7 +66,6 @@ namespace multisensor_localization
     bool ViewerFlow::ReadData()
     {
         optimized_key_frames_sub_ptr_->ParseData(optimized_key_frames_);
-        std::cout<<optimized_key_frames_.size()<<std::endl;
         return true;
     }
 
