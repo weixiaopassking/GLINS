@@ -63,3 +63,7 @@ target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
 #可视化节点
 add_executable(viewer_node src/app/viewer_node.cpp ${ALL_SRCS} )
 target_link_libraries(viewer_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+
+#匹配节点
+add_executable(matching_node src/app/matching_node.cpp ${ALL_SRCS} )
+target_link_libraries(matching_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
