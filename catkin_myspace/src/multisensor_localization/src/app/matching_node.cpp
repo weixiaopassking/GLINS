@@ -1,6 +1,6 @@
 /*
  * @Description: 地图匹配
-  * @Function:
+ * @Function:
  * @Author: Robotic Gang (modified from Ren Qian)
  * @Version : v1.0
  * @Date: 2022-11-08
@@ -11,10 +11,10 @@
 #include <ros/package.h>
 // glog日志库
 #include <glog/logging.h>
-// tools 
+// tools
 #include "../../include/tools/color_terminal.hpp"
-//匹配端任务管理器
-
+//重定位任务管理器
+#include "../../include/matching/matching_flow.hpp"
 
 using namespace multisensor_localization;
 
@@ -33,15 +33,14 @@ int main(int argc, char **argv)
     FLAGS_log_dir = path + "/Log";
     FLAGS_alsologtostderr = 1;
 
-    //std::shared_ptr<MatchingFlow> matching_flow_ptr=std::make_shared<MatchingFlow>(nh);
+    std::shared_ptr<MatchingFlow> matching_flow_ptr = std::make_shared<MatchingFlow>(nh);
 
     ros::Rate rate(100);
     while (ros::ok())
     {
         ros::spinOnce();
-      
-       rate.sleep();
+        matching_flow_ptr->Run();
+        rate.sleep();
     }
     return 0;
-
 }
