@@ -34,7 +34,7 @@ namespace multisensor_localization
         std::string map_path_ = "";
 
         // std::shared_ptr<BoxFilter> box_filter_ptr_;
-        std::shared_ptr<CloudFilterInterface> current_scam_filter_ptr_;
+        std::shared_ptr<CloudFilterInterface> current_scan_filter_ptr_;
         std::shared_ptr<CloudFilterInterface> local_map_filter_ptr_;
         std::shared_ptr<CloudFilterInterface> global_map_filter_ptr_;
         std::shared_ptr<RegistrationInterface> registration_ptr_;

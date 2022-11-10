@@ -42,7 +42,7 @@ namespace multisensor_localization
         ConfigRegistration(registration_ptr_, config_node);
         ConfigFilter("global_map", global_map_filter_ptr_, config_node);
         ConfigFilter("local_map", local_map_filter_ptr_, config_node);
-        ConfigFilter("current_map", current_map_filter_ptr_, config_node);
+        ConfigFilter("current_scan", current_scan_filter_ptr_, config_node);
         // ConfigFilter();
         // ConfigBoxFilter();
         /*地图配置*/
@@ -90,7 +90,7 @@ namespace multisensor_localization
      * @note
      * @todo
      **/
-    bool ConfigFilter(std::string filter_user, std::shared_ptr<CloudFilterInterface> &filter_ptr, const YAML::Node &config_node)
+    bool Matching::ConfigFilter(std::string filter_user, std::shared_ptr<CloudFilterInterface> &filter_ptr, const YAML::Node &config_node)
     {
         std::string filter_method = config_node[filter_user + "_filter"].as<std::string>();
         if (filter_method == "voxel_filter")
@@ -109,6 +109,7 @@ namespace multisensor_localization
 
     bool ConfigBoxFilter(const YAML::Node &config_node)
     {
+        
     }
 
 }; //  namespace multisensor_localization
