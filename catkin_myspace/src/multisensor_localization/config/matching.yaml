@@ -18,4 +18,5 @@ voxel_filter:
     current_scan:
         leaf_size: [1.5, 1.5, 1.5]
 
+# 点云切割 Xmin Xmax Ymin Ymax Zmin Zmax
 box_filter_size: [-150.0, 150.0, -150.0, 150.0, -150.0, 150.0]

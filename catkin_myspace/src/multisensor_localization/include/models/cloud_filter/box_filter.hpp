@@ -13,7 +13,7 @@
 #include "./cloud_filter_interface.hpp"
 //数据类型
 #include "../../sensor_data/cloud_data.hpp"
-//pcl
+// pcl
 #include <pcl/filters/crop_box.h>
 
 namespace multisensor_localization
@@ -24,10 +24,16 @@ namespace multisensor_localization
     public:
         BoxFilter(YAML::Node node);
         BoxFilter() = default;
-        //bool Filter(const CloudData::CLOUD_PTR &input_cloudc_ptr, const CloudData::CLOUD_PTR &filtered_cloud_ptr) override;
+        bool Filter(const CloudData::CLOUD_PTR &input_cloud_ptr, CloudData::CLOUD_PTR &filtered_cloud_ptr) override;
+        bool SetSize(std::vector<float> size);
+        bool SetOrigin(std::vector<float> origin);
+        std::vector<float> GetEdge();
 
     private:
-        pcl::CropBox<CloudData::POINT>pcl_box_filter;
+    void CalculateBoxRange();
+    
+    private:
+        pcl::CropBox<CloudData::POINT> pcl_box_filter;
         std::vector<float> origin_;
         std::vector<float> size_;
         std::vector<float> edge_;
