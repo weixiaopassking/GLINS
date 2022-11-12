@@ -1,5 +1,5 @@
 /*
- * @Description:其
+ * @Description:分割子图
  * @Author: Robotic Gang
  *@Funciton:
  * @Note:Modified from Ren Qian
@@ -33,7 +33,7 @@ namespace multisensor_localization
     void CalculateBoxRange();
     
     private:
-        pcl::CropBox<CloudData::POINT> pcl_box_filter;
+        pcl::CropBox<CloudData::POINT> pcl_box_filter_;
         std::vector<float> origin_;
         std::vector<float> size_;
         std::vector<float> edge_;

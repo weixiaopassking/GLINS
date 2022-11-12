@@ -45,11 +45,12 @@ namespace multisensor_localization
         ConfigFilter("global_map", global_map_filter_ptr_, config_node);
         ConfigFilter("local_map", local_map_filter_ptr_, config_node);
         ConfigFilter("current_scan", current_scan_filter_ptr_, config_node);
-        ConfigBoxFilter(config_node); // todo 没写完呢
-                                      /*地图配置*/
+        ConfigBoxFilter(config_node);
+        /*地图配置*/
+        //初始化全局地图
         LoadGlobalMap();
-        //初始化全局地图??
-        //重置局部地图??
+        //重置局部地图
+        ResetLocalMap(0.0, 0.0, 0.0);
     }
 
     /**
@@ -98,7 +99,7 @@ namespace multisensor_localization
         if (filter_method == "voxel_filter")
         {
             filter_ptr = std::make_shared<VoxelFilter>(config_node[filter_method][filter_user]);
-            LOG(INFO) << "["<<filter_user<<"--filter_method] " << std::endl
+            LOG(INFO) << "[" << filter_user << "--filter_method] " << std::endl
                       << filter_method << std::endl;
             return true;
         }
@@ -134,8 +135,10 @@ namespace multisensor_localization
         local_map_filter_ptr_->Filter(global_map_ptr_, global_map_ptr_);
         LOG(INFO) << "[global map filter size]" << std::endl
                   << global_map_ptr_->points.size() << std::endl;
-
+        /*刷新标志位*/
         has_new_global_map_ = true;
+
+        return true;
     }
 
     /**
@@ -145,25 +148,109 @@ namespace multisensor_localization
      **/
     bool Matching::ResetLocalMap(float x, float y, float z)
     {
-        /*设置起点*/
-        // box_filter_ptr_->SetOrigin(std::vector<float>{x,y,z});
+        /*设置起点 ps:先设起点*/
+        box_filter_ptr_->SetOrigin(std::vector<float>{x, y, z});
 
         /*切割出子图*/
-        // box_filter_ptr_->Filter();
+        box_filter_ptr_->Filter(global_map_ptr_, local_map_ptr_);
 
         /*设置输入点云 向target匹配*/
-        //  registration_ptr_->SetInputTarget(local_map_ptr_);
+        registration_ptr_->SetInputTarget(local_map_ptr_);
+        /*刷新标志位*/
+        has_new_local_map_ = true;
+        /*子图切割结果*/
+        std::vector<float> edge = box_filter_ptr_->GetEdge();
+        LOG(INFO) << " [new local map]" << std::endl
+                  << edge.at(0) << " "
+                  << edge.at(1) << " "
+                  << edge.at(2) << " "
+                  << edge.at(3) << " "
+                  << edge.at(4) << " "
+                  << edge.at(5) << std::endl;
+        return true;
+    }
 
-        // has_new_local_map_ = true;
+    /**
+     * @brief  判断是否经过gnss初始化
+     * @note
+     * @todo
+     **/
+    bool Matching::HasInited()
+    {
+        return has_inited_;
+    }
 
-        // std::vector<float> edge = box_filter_ptr_->GetEdge();
-        // LOG(INFO) <<" [new local map]" <<std::endl
-        //                               <<edge.at(0) << " "
-        //                               << edge.at(1) << " "
-        //                               << edge.at(2) << " "
-        //                               << edge.at(3) << " "
-        //                               << edge.at(4) << " "
-        //                               << edge.at(5) << std::endl ;
+    /**
+     * @brief 判断是否有新的全局地图
+     * @note
+     * @todo
+     **/
+    bool Matching::HasNewGlobalMap()
+    {
+        return has_new_global_map_;
+    }
+
+    /**
+     * @brief 判断是否有新的局部地图
+     * @note
+     * @todo
+     **/
+    bool Matching::HasNewLocalMap()
+    {
+        return has_new_local_map_;
+    }
+
+    /**
+     * @brief 得到全局地图
+     * @note
+     * @todo
+     **/
+    void Matching::GetGlobalMap(CloudData::CLOUD_PTR &global_map)
+    {
+        global_map_filter_ptr_->Filter(global_map_ptr_, global_map);
+        has_new_global_map_ = false;
+    }
+
+    /**
+     * @brief 得到局部地图
+     * @note
+     * @todo
+     **/
+    void Matching::GetLocalMap(CloudData::CLOUD_PTR &local_map)
+    {
+        local_map=local_map_ptr_;
+        has_new_local_map_=false;
+    }
+
+    /**
+     * @brief 得到当前扫描
+     * @note
+     * @todo
+     **/
+    void Matching::GetCurrentScan(CloudData::CLOUD_PTR &current_scan)
+    {
+        current_scan=current_scan_ptr_;
+    }
+
+        /**
+     * @brief 初始位姿(目前由GNSS指定)
+     * @note
+     * @todo
+     **/
+    bool Matching::SetInitPose(const Eigen::Matrix4f& init_pose)
+    {
+            init_pose_=init_pose;
+            static int gnss_cnt=0;
+            if(gnss_cnt==0)
+            {
+                ResetLocalMap(init_pose_(0,3),init_pose_(1,3),init_pose_(2,3));
+            }
+            else if(gnss_cnt>3)//等三帧稳定
+            {
+                has_inited_=true;
+            }
+            gnss_cnt++;
+            return true;
     }
 
 }; //  namespace multisensor_localization

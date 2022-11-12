@@ -1,4 +1,3 @@
-
 /*
  * @Description:不做滤波
  * @Author: Robotic Gang
@@ -48,9 +47,18 @@ namespace multisensor_localization
         return true;
     }
 
+    /**
+     * @brief 全局地图切割出小地图
+     * @note
+     * @todo
+     **/
     bool BoxFilter::Filter(const CloudData::CLOUD_PTR &input_cloud_ptr, CloudData::CLOUD_PTR &filtered_cloud_ptr)
     {
-
+        filtered_cloud_ptr->clear();
+        pcl_box_filter_.setMin(Eigen::Vector4f(edge_.at(0), edge_.at(2), edge_.at(4), 1e-4));
+        pcl_box_filter_.setMax(Eigen::Vector4f(edge_.at(1), edge_.at(3), edge_.at(5), 1e-4));
+        pcl_box_filter_.setInputCloud(input_cloud_ptr);
+        pcl_box_filter_.filter(*filtered_cloud_ptr);
         return true;
     }
 
@@ -62,6 +70,7 @@ namespace multisensor_localization
     bool BoxFilter::SetOrigin(std::vector<float> origin)
     {
         origin_ = origin;
+        CalculateBoxRange();
         return true;
     }
 
@@ -72,7 +81,22 @@ namespace multisensor_localization
      **/
     void BoxFilter::CalculateBoxRange()
     {
+        for (size_t i = 0; i < origin_.size(); i++)
+        {
+            /*计算三轴 min max*/
+            edge_.at(2 * i) = origin_.at(i) + size_.at(2 * i);
+            edge_.at(2 * i + 1) = origin_.at(i) + size_.at(2 * i + 1);
+        }
+    }
 
+    /**
+     * @brief 输出子地图大小
+     * @note
+     * @todo
+     **/
+    std::vector<float> BoxFilter::GetEdge()
+    {
+        return edge_;
     }
 
 } // namespace  multisensor_localization
