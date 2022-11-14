@@ -10,8 +10,7 @@
 + [x] Tag v1.0 惯导数据可视化     
 + [x] Tag v2.0 ndt里程计       
 + [x] Tag v3.0 ndt里程计松耦合gnss    
-+ [x] Tag v4.0 带闭环的ndt里程计松耦合gnss   
-+ [ ] Tag v5.0 简单的重定位功能  
++ [x] Tag v4.0 基于地图的简易定位
 
  第二阶段: 具有较好鲁棒性的室内定位
 + [ ] Tag v6.0 带闭环的fastlio2里程计松耦合gnss  
