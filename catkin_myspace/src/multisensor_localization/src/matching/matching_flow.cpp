@@ -12,6 +12,8 @@
 #include "../../include/matching/matching.hpp"
 // tools
 #include "../../include/tools/color_terminal.hpp"
+// pcl
+#include <pcl/common/transforms.h>
 
 namespace multisensor_localization
 {
@@ -56,7 +58,7 @@ namespace multisensor_localization
             CloudData::CLOUD_PTR local_map_ptr(new CloudData::CLOUD());
             matching_ptr_->GetLocalMap(local_map_ptr);
             local_map_pub_ptr_->Publish(local_map_ptr);
-            ColorTerminal::ColorFlowInfo("局部地图已加载");
+            ColorTerminal::ColorFlowInfo("局部地图已更新");
         }
 
         /*读取数据*/
@@ -69,6 +71,7 @@ namespace multisensor_localization
             /*匹配更新*/
             if (UpdateMatching())
             {
+                std::cout << laser_odometry_ << std::endl;
                 PublishData();
             }
         }
@@ -92,13 +95,13 @@ namespace multisensor_localization
      **/
     bool MatchingFlow::HasData()
     {
-            if (cloud_data_buff_.size() == 0)
-        return false;
-    if (matching_ptr_->HasInited())
+        if (cloud_data_buff_.size() == 0)
+            return false;
+        if (matching_ptr_->HasInited()) //初始化后不再需要gnss数据了
+            return true;
+        if (gnss_data_buff_.size() == 0)
+            return false;
         return true;
-    if (gnss_data_buff_.size() == 0)
-        return false;
-    return true;
     }
     /**
      * @brief 重定位任务管理器件--提取有效数据
@@ -107,31 +110,35 @@ namespace multisensor_localization
      **/
     bool MatchingFlow::ValidData()
     {
-      current_cloud_data_ = cloud_data_buff_.front();
+        current_cloud_data_ = cloud_data_buff_.front();
+
+        /*初始化后也不再需要多传感器对齐*/
+        if (matching_ptr_->HasInited())
+        {
+            cloud_data_buff_.pop_front();
+            gnss_data_buff_.clear();
+            return true;
+        }
         current_gnss_data_ = gnss_data_buff_.front();
 
-    if (matching_ptr_->HasInited()) {
-        cloud_data_buff_.pop_front();
-        gnss_data_buff_.clear();
-        return true;
-    }
+        /*时间对齐检验 以激光雷达为基准*/
+        double diff_time = current_cloud_data_.time_stamp_ - current_gnss_data_.time_stamp_;
+        if (diff_time < -0.05)
+        {
+            cloud_data_buff_.pop_front();
+            return false;
+        }
 
-/*时间对齐检验 以激光雷达为基准*/
-    double diff_time = current_cloud_data_.time_stamp_ - current_gnss_data_.time_stamp_;
-    if (diff_time < -0.05) {
-        cloud_data_buff_.pop_front();
-        return false;
-    }
+        if (diff_time > 0.05)
+        {
+            gnss_data_buff_.pop_front();
+            return false;
+        }
 
-    if (diff_time > 0.05) {
+        cloud_data_buff_.pop_front();
         gnss_data_buff_.pop_front();
-        return false;
-    }
 
-    cloud_data_buff_.pop_front();
-    gnss_data_buff_.pop_front();
-
-    return true;
+        return true;
     }
     /**
      * @brief 重定位任务管理器件--匹配更新
@@ -144,9 +151,10 @@ namespace multisensor_localization
         if (!matching_ptr_->HasInited())
         {
             matching_ptr_->SetInitPose(current_gnss_data_.pose_);
-            ColorTerminal::ColorFlowInfo("初始位置已给定");
+            ColorTerminal::ColorFlowInfo("初始位置已给定"); //仅仅一次
         }
-
+        /*地图匹配更新(核心)*/
+        return matching_ptr_->Update(current_cloud_data_, laser_odometry_);
     }
     /**
      * @brief 重定位任务管理器件--数据发布
@@ -160,7 +168,7 @@ namespace multisensor_localization
         /*激光里程计???*/
 
         /*当前激光扫描*/
-        return  true;
+        return true;
     }
 
 } // namespace multisensor_localization

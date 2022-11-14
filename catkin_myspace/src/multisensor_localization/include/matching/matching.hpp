@@ -24,22 +24,20 @@ namespace multisensor_localization
     {
     public:
         Matching();
-
-        /*数据更新*/
-
+        bool Update(const CloudData &cloud_data, Eigen::Matrix4f &cloud_pose);
         /*设置初始位置*/
-        bool SetInitPose(const Eigen::Matrix4f& init_pose);
+        bool SetInitPose(const Eigen::Matrix4f &init_pose);
 
         /*地图初始化*/
         bool HasInited();
         /*检查是否有全局地图*/
         bool HasNewGlobalMap();
-          /*检查是否有局部地图*/
+        /*检查是否有局部地图*/
         bool HasNewLocalMap();
         /*取出全局地图 全局比较大滤一下*/
-        void GetGlobalMap(CloudData::CLOUD_PTR& global_map);
-        void GetLocalMap(CloudData::CLOUD_PTR& local_map);
-        void GetCurrentScan(CloudData::CLOUD_PTR& current_scan);
+        void GetGlobalMap(CloudData::CLOUD_PTR &global_map);
+        void GetLocalMap(CloudData::CLOUD_PTR &local_map);
+        void GetCurrentScan(CloudData::CLOUD_PTR &current_scan);
 
     private:
         /*参数配置*/
@@ -68,8 +66,7 @@ namespace multisensor_localization
         bool has_new_local_map_ = false;
         bool has_inited_ = false;
 
-    Eigen::Matrix4f init_pose_ = Eigen::Matrix4f::Identity();
-
+        Eigen::Matrix4f init_pose_ = Eigen::Matrix4f::Identity();
 
     }; // class Matching
 

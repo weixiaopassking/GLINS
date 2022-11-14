@@ -20,6 +20,10 @@
 #include "../../include/models/cloud_filter/voxel_filter.hpp"
 // pcl
 #include <pcl/io/pcd_io.h>
+#include <pcl/common/transforms.h>
+//eigen
+#include <Eigen/Core>
+
 
 namespace multisensor_localization
 {
@@ -50,7 +54,7 @@ namespace multisensor_localization
         //初始化全局地图
         LoadGlobalMap();
         //重置局部地图
-        ResetLocalMap(0.0, 0.0, 0.0);
+      ResetLocalMap(0.0, 0.0, 0.0);
     }
 
     /**
@@ -148,6 +152,7 @@ namespace multisensor_localization
      **/
     bool Matching::ResetLocalMap(float x, float y, float z)
     {
+
         /*设置起点 ps:先设起点*/
         box_filter_ptr_->SetOrigin(std::vector<float>{x, y, z});
 
@@ -167,6 +172,8 @@ namespace multisensor_localization
                   << edge.at(3) << " "
                   << edge.at(4) << " "
                   << edge.at(5) << std::endl;
+
+       
         return true;
     }
 
@@ -218,8 +225,8 @@ namespace multisensor_localization
      **/
     void Matching::GetLocalMap(CloudData::CLOUD_PTR &local_map)
     {
-        local_map=local_map_ptr_;
-        has_new_local_map_=false;
+        local_map = local_map_ptr_;
+        has_new_local_map_ = false;
     }
 
     /**
@@ -229,28 +236,62 @@ namespace multisensor_localization
      **/
     void Matching::GetCurrentScan(CloudData::CLOUD_PTR &current_scan)
     {
-        current_scan=current_scan_ptr_;
+        current_scan = current_scan_ptr_;
     }
 
-        /**
+    /**
      * @brief 初始位姿(目前由GNSS指定)
      * @note
      * @todo
      **/
-    bool Matching::SetInitPose(const Eigen::Matrix4f& init_pose)
+    bool Matching::SetInitPose(const Eigen::Matrix4f &init_pose)
     {
-            init_pose_=init_pose;
-            static int gnss_cnt=0;
-            if(gnss_cnt==0)
-            {
-                ResetLocalMap(init_pose_(0,3),init_pose_(1,3),init_pose_(2,3));
-            }
-            else if(gnss_cnt>3)//等三帧稳定
-            {
-                has_inited_=true;
-            }
-            gnss_cnt++;
+            ResetLocalMap(init_pose_(0, 3), init_pose_(1, 3), init_pose_(2, 3));
+             init_pose_ = init_pose;
+             std::cout<<init_pose_<<std::endl;
+               has_inited_ = true;
             return true;
+    }
+
+    /**
+     * @brief 初始位姿(目前由GNSS指定)
+     * @note
+     * @todo
+     **/
+    bool Matching::Update(const CloudData &cloud_data, Eigen::Matrix4f &cloud_pose)
+    {
+        /*滤波*/
+        std::vector<int> indices;
+        pcl::removeNaNFromPointCloud(*cloud_data.cloud_ptr_, *cloud_data.cloud_ptr_, indices);
+        CloudData::CLOUD_PTR filtered_cloud_ptr(new CloudData::CLOUD());
+        current_scan_filter_ptr_->Filter(cloud_data.cloud_ptr_, filtered_cloud_ptr);
+
+        /*运动预测 init_pose_从gnss拿来的*/
+        static Eigen::Matrix4f step_pose = Eigen::Matrix4f::Identity();
+        static Eigen::Matrix4f last_pose = init_pose_;
+        static Eigen::Matrix4f predict_pose = init_pose_;
+
+        /*地图匹配*/
+        CloudData::CLOUD_PTR result_cloud_ptr(new CloudData::CLOUD());
+        registration_ptr_->ScanMatch(filtered_cloud_ptr, predict_pose, result_cloud_ptr, cloud_pose);
+        /*更新相对运动*/
+        step_pose = last_pose.inverse() * cloud_pose;
+        predict_pose = cloud_pose * step_pose;
+        last_pose = cloud_pose;
+                std::cout<<"----cloud_pose----"<<std::endl
+                <<cloud_pose(0,3)<<std::endl
+                <<cloud_pose(1,3)<<std::endl
+                <<cloud_pose(2,3)<<std::endl;
+        /*判断是否需要更新子图*/
+        std::vector<float> edge = box_filter_ptr_->GetEdge();
+        for (int i = 0; i < 3; i++)
+        {
+            if (fabs(cloud_pose(i, 3) - edge.at(2 * i)) > 50.0 &&
+                fabs(cloud_pose(i, 3) - edge.at(2 * i + 1)) > 50.0)
+                continue;
+            ResetLocalMap(cloud_pose(0, 3), cloud_pose(1, 3), cloud_pose(2, 3));
+            break;
+        }
     }
 
 }; //  namespace multisensor_localization

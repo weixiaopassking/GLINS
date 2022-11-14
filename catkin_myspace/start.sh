@@ -17,7 +17,7 @@ gnome-terminal -t "数据处理" -x bash -c "cd $work_path;$add_source;rosrun mu
 #节点5:地图匹配
 gnome-terminal -t "定位" -x bash -c "cd $work_path;$add_source;rosrun multisensor_localization matching_node;exec bash;"
 #ros bag启动
-# gnome-terminal -t "bag" -x bash -c "cd $work_path;$add_source; rosbag play  2019-04-28-20-58-02.bag ;exec bash;"
+gnome-terminal -t "bag" -x bash -c "cd $work_path;$add_source; rosbag play  2019-04-28-20-58-02.bag ;exec bash;"
 #启动roscore
 # gnome-terminal -t "roscore" -x bash -c "cd $work_path;$add_source;roscore;exec bash;"
 # 必要调试输出
