@@ -23,6 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   roslib
+  tf
   message_generation 
 )
 include_directories(include ${catkin_INCLUDE_DIRS})

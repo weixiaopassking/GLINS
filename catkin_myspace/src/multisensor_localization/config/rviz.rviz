@@ -13,6 +13,13 @@ Panels:
         - /Axes1
         - /PointCloud21
         - /PointCloud22
+        - /PointCloud23
+        - /PointCloud23/Autocompute Value Bounds1
+        - /TF1
+        - /TF1/Frames1
+        - /TF1/Tree1
+        - /Odometry2
+        - /Odometry2/Shape1
       Splitter Ratio: 0.5
     Tree Height: 588
   - Class: rviz/Selection
@@ -89,7 +96,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: true
+      Enabled: false
       Keep: 200
       Name: Odometry
       Position Tolerance: 0.10000000149011612
@@ -105,12 +112,12 @@ Visualization Manager:
         Value: Arrow
       Topic: /synced_gnss
       Unreliable: false
-      Value: true
+      Value: false
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 252; 233; 79
-      Enabled: true
+      Enabled: false
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
@@ -128,7 +135,7 @@ Visualization Manager:
       Shaft Length: 0.10000000149011612
       Topic: /optimized_key_frames
       Unreliable: false
-      Value: true
+      Value: false
     - Class: rviz/Axes
       Enabled: true
       Length: 40
@@ -158,7 +165,7 @@ Visualization Manager:
       Channel Name: intensity
       Class: rviz/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: Intensity
+      Color Transformer: AxisColor
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -170,7 +177,7 @@ Visualization Manager:
       Selectable: true
       Size (Pixels): 1
       Size (m): 0.20000000298023224
-      Style: Squares
+      Style: Flat Squares
       Topic: /global_map
       Unreliable: false
       Use Fixed Frame: true
@@ -179,8 +186,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 38.727996826171875
-        Min Value: -17.654441833496094
+        Max Value: 24.664749145507812
+        Min Value: -13.596735954284668
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -188,7 +195,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: AxisColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -203,6 +210,88 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 20.964778900146484
+        Min Value: -0.4933032989501953
+        Value: false
+      Axis: X
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 0
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.5
+      Style: Squares
+      Topic: /current_scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 999999
+      Frames:
+        All Enabled: true
+        map:
+          Value: true
+        vehicle_link:
+          Value: true
+      Marker Scale: 100
+      Name: TF
+      Show Arrows: false
+      Show Axes: true
+      Show Names: true
+      Tree:
+        map:
+          vehicle_link:
+            {}
+      Update Interval: 0
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 0
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 0; 0; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 2
+        Value: Arrow
+      Topic: /laser_localization
+      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
@@ -232,25 +321,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 440.7010192871094
+      Distance: 898.628173828125
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -281.08868408203125
-        Y: -402.96710205078125
-        Z: -31.761917114257812
+        X: -55.000244140625
+        Y: -119.72105407714844
+        Z: -212.65855407714844
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.4297964572906494
+      Pitch: 1.214796543121338
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.3004024028778076
+      Yaw: 0.026762064546346664
     Saved: ~
 Window Geometry:
   Displays:

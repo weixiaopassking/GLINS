@@ -50,11 +50,8 @@ namespace multisensor_localization
         ConfigFilter("local_map", local_map_filter_ptr_, config_node);
         ConfigFilter("current_scan", current_scan_filter_ptr_, config_node);
         ConfigBoxFilter(config_node);
-        /*地图配置*/
-        //初始化全局地图
+        /*加载地图*/
         LoadGlobalMap();
-        //重置局部地图
-      ResetLocalMap(0.0, 0.0, 0.0);
     }
 
     /**
@@ -274,24 +271,22 @@ namespace multisensor_localization
         /*地图匹配*/
         CloudData::CLOUD_PTR result_cloud_ptr(new CloudData::CLOUD());
         registration_ptr_->ScanMatch(filtered_cloud_ptr, predict_pose, result_cloud_ptr, cloud_pose);
+        pcl::transformPointCloud(*cloud_data.cloud_ptr_, *current_scan_ptr_, cloud_pose);
         /*更新相对运动*/
         step_pose = last_pose.inverse() * cloud_pose;
         predict_pose = cloud_pose * step_pose;
         last_pose = cloud_pose;
-                std::cout<<"----cloud_pose----"<<std::endl
-                <<cloud_pose(0,3)<<std::endl
-                <<cloud_pose(1,3)<<std::endl
-                <<cloud_pose(2,3)<<std::endl;
         /*判断是否需要更新子图*/
         std::vector<float> edge = box_filter_ptr_->GetEdge();
         for (int i = 0; i < 3; i++)
         {
-            if (fabs(cloud_pose(i, 3) - edge.at(2 * i)) > 50.0 &&
-                fabs(cloud_pose(i, 3) - edge.at(2 * i + 1)) > 50.0)
+            if (fabs(cloud_pose(i, 3) - edge.at(2 * i)) > 100.0 &&
+                fabs(cloud_pose(i, 3) - edge.at(2 * i + 1)) > 100.0)
                 continue;
             ResetLocalMap(cloud_pose(0, 3), cloud_pose(1, 3), cloud_pose(2, 3));
             break;
         }
+            return true;
     }
 
 }; //  namespace multisensor_localization

@@ -17,6 +17,7 @@
 // pub
 #include "../../include/publisher/odometry_publisher.hpp"
 #include "../../include/publisher/cloud_publisher.hpp"
+#include "../../include/publisher/tf_broadcaster.hpp"
 //算法层
 #include "../../include/matching/matching.hpp"
 
@@ -42,8 +43,7 @@ namespace multisensor_localization
         std::shared_ptr<CloudPublisher> local_map_pub_ptr_;
         std::shared_ptr<CloudPublisher> current_scan_pub_ptr_;
         std::shared_ptr<OdometryPublisher> laser_odom_pub_ptr_;
-
-        // std::shared_ptr<TFBroadCaster> laser_tf_pub_ptr_;
+        std::shared_ptr<TfBroadcaster> laser_tf_pub_ptr_;
 
         std::shared_ptr<Matching> matching_ptr_;
 

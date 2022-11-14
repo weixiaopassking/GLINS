@@ -14,6 +14,8 @@
 #include "../../include/tools/color_terminal.hpp"
 // pcl
 #include <pcl/common/transforms.h>
+// pub
+#include "../../include/publisher/tf_broadcaster.hpp"
 
 namespace multisensor_localization
 {
@@ -31,8 +33,8 @@ namespace multisensor_localization
         global_map_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/global_map", "/map", 100);
         local_map_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/local_map", "/map", 100);
         current_scan_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/current_scan", "/map", 100);
-        // laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/laser_localization", "/map", "/lidar", 100);
-        //  laser_tf_pub_ptr_ = std::make_shared<TFBroadCaster>("/map", "/vehicle_link");
+        laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/laser_localization", "/map", "/lidar", 100);
+        laser_tf_pub_ptr_ = std::make_shared<TfBroadcaster>("/map", "/vehicle_link");
         /*匹配算法*/
         matching_ptr_ = std::make_shared<Matching>();
     }
@@ -71,7 +73,7 @@ namespace multisensor_localization
             /*匹配更新*/
             if (UpdateMatching())
             {
-                std::cout << laser_odometry_ << std::endl;
+
                 PublishData();
             }
         }
@@ -152,6 +154,7 @@ namespace multisensor_localization
         {
             matching_ptr_->SetInitPose(current_gnss_data_.pose_);
             ColorTerminal::ColorFlowInfo("初始位置已给定"); //仅仅一次
+            return true;
         }
         /*地图匹配更新(核心)*/
         return matching_ptr_->Update(current_cloud_data_, laser_odometry_);
@@ -163,11 +166,18 @@ namespace multisensor_localization
      **/
     bool MatchingFlow::PublishData()
     {
+        std::cout << "定位结果:" << std::endl;
+        std::cout << laser_odometry_ << std::endl;
         /*激光定位tf*/
-
-        /*激光里程计???*/
-
+        laser_tf_pub_ptr_->SendTransform(laser_odometry_, current_cloud_data_.time_stamp_);
+        /*激光里程计*/
+        laser_odom_pub_ptr_->Publish(laser_odometry_);
         /*当前激光扫描*/
+        // pcl::PointCloudColorHandlerCustom();
+        CloudData::CLOUD_PTR current_scan_display(new CloudData::CLOUD());
+        matching_ptr_->GetCurrentScan(current_scan_display);
+        current_scan_pub_ptr_->Publish(current_scan_display);
+
         return true;
     }
 
