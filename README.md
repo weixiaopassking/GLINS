@@ -13,7 +13,7 @@ This repo is just  a record for my study.The project is still coding.
 [GeographicLib](https://github.com/geographiclib/geographiclib.git )  
 [glog](https://github.com/google/glog.git)  
 [yaml-cpp 0.6](https://github.com/jbeder/yaml-cpp.git ) 
-ros_qt
+ros_qt5
 ```
 sudo apt-get install ros-melodic-qt-create    
 sudo apt-get install ros-melodic-qt-build  
