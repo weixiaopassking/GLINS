@@ -10,23 +10,40 @@ This repo is just  a record for my study.The project is still coding.
 ## 1.Dependency
 **ros melodic**
 ```shell
-#https://wiki.ros.org/melodic/Installation/Ubuntu  
+#just follow ros wiki https://wiki.ros.org/melodic/Installation/Ubuntu  
 ```
 **cmake  (3.16 or higher is required)**  
 ```
-#https://github.com/Kitware/CMake  
+git clone -b v3.16.5  https://github.com/Kitware/CMake.git
+mkdir build && cd build
+cmake ..
+make 
+sudo make install 
 ```
 **GeographicLib**
 ```
-https://github.com/geographiclib/geographiclib.git
+git clone https://github.com/geographiclib/geographiclib.git  
+mkdir build && cd build  
+cmake ..  
+make   
+sudo make install   
+## you can check cmake version use following command  
+cmake --version  
 ```
 **glog**
 ```
-#https://github.com/google/glog.git  
+git clone https://github.com/google/glog.git 
+mkdir build && cd build  
+cmake ..  
+make   
+sudo make install   
 ```
 **yaml-cpp 0.6**
 ```
-#https://github.com/jbeder/yaml-cpp.git  
+git clone -b yaml-cpp-0.6.0 https://github.com/jbeder/yaml-cpp.git  
+cmake ..  
+make   
+sudo make install   
 ```  
 **ros_qt5**
 ```
