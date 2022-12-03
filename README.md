@@ -1,13 +1,8 @@
 # multisensor_fusion_localization_study
-This repo is just  a record for my study for multisensor_fusion_localization and  is released by.Tag form. 
-
+This repo is just  a record for my study for multisensor_fusion_localization and  is released by.  Tag form.   
+**Relate Video** https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0  
 **Contacts:** For any technical issues, please open an issue at this repository.
 
-**Update Log**   
-2022/9/16 Tag v1.0    
-2022/10/2 Tag v2.0  
-2022/11/7 Tag v3.0  
-2022/11/14 Tag v4.0   
 
 ## 1.Dependency
 **ros melodic**
@@ -79,7 +74,12 @@ chmod +x glins.sh
 
 
 
-
-
-## 8.Licence  
+## 7.Licence  
 The source code is released under GPLv3 license.
+
+
+## 8.Update Log   
+2022/09/16 Tag v1.0  Combaine and display  imu and gnss data by rviz_satellite.    
+2022/10/02 Tag v2.0  Use ndt  algorithm to calculatelidar odom.  
+2022/11/07 Tag v3.0  Loosly couple  lidar  odom with gnss.  
+2022/11/14 Tag v4.0  Simple use ndt algorithm to realize localization.  
