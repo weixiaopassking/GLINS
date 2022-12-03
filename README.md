@@ -12,7 +12,8 @@ This repo is just  a record for my slam study.The project is still coding.
 [cmake  (3.16 or higher is required)](https://github.com/Kitware/CMake)  
 [GeographicLib](https://github.com/geographiclib/geographiclib.git )  
 [glog](https://github.com/google/glog.git)  
-[yaml-cpp 0.6](https://github.com/jbeder/yaml-cpp.git )  
+[yaml-cpp 0.6](https://github.com/jbeder/yaml-cpp.git ) 
+ros_qt
 ```
 sudo apt-get install ros-melodic-qt-create    
 sudo apt-get install ros-melodic-qt-build  
