@@ -9,8 +9,8 @@ This repo is just  a record for my study.The project is still coding.
 
 ## 1.Dependency
 **ros melodic**
-```
-https://wiki.ros.org/melodic/Installation/Ubuntu  
+```shell
+#https://wiki.ros.org/melodic/Installation/Ubuntu  
 ```
 **cmake  (3.16 or higher is required)**  
 ```
