@@ -73,7 +73,7 @@ chmod +x glins.sh
 ## 6.Acknowledgements    
 **Level 0 reference:** 
 
-*Level 1 reference:**  
+**Level 1 reference:**  
 
 ## 7.Licence  
 The source code is released under GPLv3 license.
