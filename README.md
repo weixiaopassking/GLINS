@@ -3,6 +3,11 @@ This repo is just  a record for my study for multisensor_fusion_localization and
 
 **Contacts:** For any technical issues, please open an issue at this repository.
 
+**Update Log**   
+2022/9/16 Tag v1.0    
+2022/10/2 Tag v2.0  
+2022/11/7 Tag v3.0  
+2022/11/14 Tag v4.0   
 
 ## 1.Dependency
 **ros melodic**
@@ -74,11 +79,7 @@ chmod +x glins.sh
 
 
 
-## 7.Update log 
-2022/9/16 Tag v1.0  
-2022/10/2 Tag v2.0  
-2022/11/7 Tag v3.0  
-2022/11/14 Tag v4.0   
+
 
 ## 8.Licence  
 The source code is released under GPLv3 license.
