@@ -8,15 +8,15 @@ This repo is just  a record for my study.The project is still coding.
 
 
 ## 1.Dependency
-[ros melodic]
+**ros melodic**
 ```
-https://wiki.ros.org/melodic/Installation/Ubuntu
+https://wiki.ros.org/melodic/Installation/Ubuntu  
 ```
-[cmake  (3.16 or higher is required)]
+**cmake  (3.16 or higher is required)**  
 ```
 #https://github.com/Kitware/CMake  
 ```
-[GeographicLib]
+**GeographicLib**
 ```
 https://github.com/geographiclib/geographiclib.git
 ```
