@@ -84,5 +84,4 @@ The source code is released under GPLv3 license.
 
 **Level 1:Refinement my repo code use real device**  
 
-
-**Level 2:**  
+**Level 2:Create something new**  
