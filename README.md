@@ -1,5 +1,5 @@
 # multisensor_fusion_localization_study
-This repo is just  a record for my study for multisensor_fusion_localization and  is released by.  Tag form.   
+This repo is just  a record for my study for multisensor_fusion_localization and  is released by tag form.   
 **Relate Video** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
 **Contacts:** For any technical issues, please open an issue at this repository.
 
@@ -72,11 +72,8 @@ chmod +x glins.sh
 
 ## 6.Acknowledgements    
 
-
-
 ## 7.Licence  
 The source code is released under GPLv3 license.
-
 
 ## 8.Update Log   
 2022/09/16 Tag v1.0  Combaine and display  imu and gnss data by rviz_satellite.    
