@@ -1,5 +1,5 @@
 # multisensor_fusion_localization_study
-This repo is just  a record for my slam study.The project is still coding.
+This repo is just  a record for my study.The project is still coding.
 
 **Related video**:   
 **Pipeline:**     
