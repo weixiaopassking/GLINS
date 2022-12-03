@@ -1,0 +1,4 @@
+<launch>
+<node pkg="rviz"  type="rviz"  name="rviz"  args="-d $(find glins)/config/rviz.rviz"></node>
+ <node pkg="glins"  type="test_node"  name="test_node"  output="screen"></node>
+</launch>
