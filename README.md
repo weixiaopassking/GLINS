@@ -21,7 +21,7 @@ make
 sudo make install 
 ```
 **GeographicLib**
-```
+```shell
 git clone https://github.com/geographiclib/geographiclib.git  
 mkdir build && cd build  
 cmake ..  
@@ -31,7 +31,7 @@ sudo make install
 cmake --version  
 ```
 **glog**
-```
+```shell
 git clone https://github.com/google/glog.git 
 mkdir build && cd build  
 cmake ..  
@@ -46,7 +46,7 @@ make
 sudo make install   
 ```  
 **ros_qt5**
-```
+```shell
 sudo apt-get install ros-melodic-qt-create    
 sudo apt-get install ros-melodic-qt-build  
 ```
