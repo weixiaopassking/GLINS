@@ -67,7 +67,7 @@ before run on public dataset or with your device, param must be seted.
 ## 5.Run
 ```
 chmod +x glins.sh
-./glins.sh
+./quick_start
 ```
 
 ## 6.Acknowledgements    
