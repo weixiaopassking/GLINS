@@ -19,7 +19,7 @@ namespace glins
     GnssFixSubscriber::GnssFixSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size)
         : nh_(nh)
     {
-        subscriber_ = nh_.subscribe(topic_name, queue_size, &GnssFixSubscriber::MsgCallbcak, this);
+        subscriber_ = nh_.subscribe<sensor_msgs::NavSatFix>(topic_name, queue_size, &GnssFixSubscriber::MsgCallbcak, this,ros::TransportHints().tcpNoDelay());
     }
     
     /**

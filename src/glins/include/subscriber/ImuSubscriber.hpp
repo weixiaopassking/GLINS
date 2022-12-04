@@ -22,7 +22,7 @@ namespace glins
     class ImuSubscriber
     {
     public:
-        ImuSubscriber()= default;
+        ImuSubscriber() = default;
         ImuSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size);
         void ParseData(std::deque<ImuData> &data_deque);
 

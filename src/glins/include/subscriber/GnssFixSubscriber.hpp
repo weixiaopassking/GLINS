@@ -9,9 +9,9 @@
 #ifndef GNSS_FIX_SUBSCRIBER_HPP_
 #define GNSS_FIX_SUBSCRIBER_HPP_
 
-// c++
+// c++ lib
 #include <deque>
-// ros
+// ros lib
 #include <ros/ros.h>
 #include <sensor_msgs/NavSatFix.h> 
 // sensor data type

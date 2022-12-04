@@ -1,10 +1,10 @@
 /*
  * @Description: gnss data type define
- * @Function:
+ * @Function: Using the WGS 84 reference ellipsoid
  * @Author: niu_wengang@163.com
  * @Version : v1.0
  * @Date: 2022-11-18
- * @Note: Using the WGS 84 reference ellipsoid
+ * @Todo:add defination about gnss raw data
  */
 
 #ifndef GNSS_DATA_TYPE_HPP_

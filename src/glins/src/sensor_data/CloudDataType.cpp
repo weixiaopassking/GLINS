@@ -7,7 +7,7 @@
  */
 
 // relevent
-#include "../../include/sensor_data/CloudData.hpp"
+#include "../../include/sensor_data/CloudDataType.hpp"
 
 namespace glins
 {

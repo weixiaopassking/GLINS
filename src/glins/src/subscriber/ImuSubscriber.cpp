@@ -9,6 +9,7 @@
 // relevent
 #include "../../include/subscriber/ImuSubscriber.hpp"
 
+
 namespace glins
 {
     /**
@@ -19,7 +20,7 @@ namespace glins
     ImuSubscriber::ImuSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size)
         : nh_(nh)
     {
-        subscriber_ = nh_.subscribe(topic_name, queue_size, &ImuSubscriber::MsgCallbcak, this);
+        subscriber_ = nh_.subscribe<sensor_msgs::Imu>(topic_name, queue_size, &ImuSubscriber::MsgCallbcak, this,ros::TransportHints().tcpNoDelay());
     }
     /**
      * @brief  callback function

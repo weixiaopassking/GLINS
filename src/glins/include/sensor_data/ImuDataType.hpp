@@ -4,13 +4,13 @@
  * @Author: niu_wengang@163.com
  * @Version : v1.0
  * @Date: 2022-11-18
- * @Note:
+ * @Todo:
  */
 
 #ifndef IMU_DATA_TYPE_HPP_
 #define IMU_DATA_TYPE_HPP_
 
-// c++
+// c++ lib
 #include <cmath>
 // thirdpart lib
 #include <Eigen/Dense>

@@ -7,9 +7,10 @@
  * @Todo: add defination about colorful point cloud 
  */
 
-#ifndef CLOUD_DATA_HPP_
-#define CLOUD_DATA_HPP_
+#ifndef CLOUD_DATA_TYPE_HPP_
+#define CLOUD_DATA_TYPE_HPP_
 
+//thirdpart lib
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
 

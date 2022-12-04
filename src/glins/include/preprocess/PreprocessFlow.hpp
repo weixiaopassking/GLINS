@@ -9,7 +9,13 @@
 #ifndef PREPROCESS_FLOW_HPP_
 #define PREPROCESS_FLOW_HPP_
 
+// ros lib
 #include <ros/ros.h>
+// sub
+#include "../subscriber/ImuSubscriber.hpp"
+#include "../subscriber/GnssFixSubscriber.hpp"
+//pub
+
 
 namespace glins
 {
@@ -18,7 +24,14 @@ namespace glins
     public:
         PreprocessFlow(ros::NodeHandle &nh);
         bool Run();
-    };//class PreprocessFlow
-}//namespace glins
+
+    private:
+        /*raw sensor data subscrier*/
+        std::shared_ptr<ImuSubscriber> imu_sub_ptr_;
+        std::shared_ptr<GnssFixSubscriber> gnss_fix_sub_ptr_;
+        // std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
+
+    }; // class PreprocessFlow
+} // namespace glins
 
 #endif

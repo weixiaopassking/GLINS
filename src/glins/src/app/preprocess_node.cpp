@@ -28,7 +28,7 @@ void mySigintHandler(int sig)
 int main(int argc, char **argv)
 {
 
-    /*ros config */
+    /*config ros */
     ros::init(argc, argv, "preprocess_node", ros::init_options::NoSigintHandler);
     ros::start();
     ros::NodeHandle nh;
@@ -36,14 +36,16 @@ int main(int argc, char **argv)
     signal(SIGINT, mySigintHandler);
     ColorTerminal::FlowInfo("[preprocess_node] start");
 
-    /*glog config*/
+    /*config glog*/
 
-    /*flow config*/
+    /*config flow*/
+    std::shared_ptr<PreprocessFlow> preprocess_flow_ptr = std::make_shared<PreprocessFlow>(nh);
 
+    /*execute circlue */
     while (ros::ok())
     {
         ros::spinOnce();
-
+        preprocess_flow_ptr->Run();
         rate.sleep();
     }
 

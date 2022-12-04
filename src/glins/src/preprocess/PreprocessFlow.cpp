@@ -18,6 +18,7 @@ namespace glins
     PreprocessFlow::PreprocessFlow(ros::NodeHandle &nh)
     {
 
+        imu_sub_ptr_ = std::make_shared<ImuSubscriber>(nh, "/imu", 10e6);
     }
 
     /**
@@ -27,6 +28,6 @@ namespace glins
      **/
     bool PreprocessFlow::Run()
     {
-        
+        return true;
     }
 }
