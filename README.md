@@ -86,5 +86,5 @@ The source code is released under GPLv3 license.
 2022/11/14 Tag v4.0  Simple use ndt algorithm to realize localization.  
 
 **Level 1:Refinement my repo code use real device**  
-Next publish: tag v5.0    
+Next publish: Tag v5.0    
 **Level 2:Create something new**  
