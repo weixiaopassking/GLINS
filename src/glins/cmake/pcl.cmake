@@ -1,0 +1,3 @@
+find_package(PCL 1.8 REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
+list(APPEND THIRD_PART_LIBRARIES ${PCL_LIBRARIES})
