@@ -12,15 +12,16 @@
 #include <signal.h>
 // thirdpart lib
 
-//relevent
+// relevent
 #include "../../include/preprocess/PreprocessFlow.hpp"
+// tools
+#include "../../include/tools/ColorTerminal.hpp"
 
- using namespace glins;
+using namespace glins;
 
 void mySigintHandler(int sig)
 {
-    std::cout << std::endl
-              << "preprocess_node has been shutdown" << std::endl;
+    ColorTerminal::FlowInfo("[preprocess_node] shutdown");
     ros::shutdown();
 }
 
@@ -29,14 +30,16 @@ int main(int argc, char **argv)
 
     /*ros config */
     ros::init(argc, argv, "preprocess_node", ros::init_options::NoSigintHandler);
+    ros::start();
     ros::NodeHandle nh;
     ros::Rate rate(100);
     signal(SIGINT, mySigintHandler);
+    ColorTerminal::FlowInfo("[preprocess_node] start");
 
     /*glog config*/
 
     /*flow config*/
-    //shared_ptr
+
     while (ros::ok())
     {
         ros::spinOnce();
