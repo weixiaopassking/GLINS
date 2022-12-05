@@ -17,7 +17,7 @@
 namespace glins
 {
 
-    class CloudData
+    class CloudDataType
     {
     public:
         using POINT = pcl::PointXYZ;
@@ -25,12 +25,12 @@ namespace glins
         using CLOUD_PTR = pcl::PointCloud<pcl::PointXYZ>::Ptr;
 
     public:
-        CloudData();
+        CloudDataType();
 
     public:
         double time_stamp = 0.0;
         CLOUD_PTR cloud_ptr;
-    }; // class cloud data
+    }; // class cloud data type
 } // namespace glins
 
 #endif

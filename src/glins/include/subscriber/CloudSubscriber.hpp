@@ -21,7 +21,7 @@ namespace glins
     public:
         CloudSubscriber() = default;
         CloudSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size);
-        void ParseData(std::deque<CloudData> &data_deque);
+        void ParseData(std::deque<CloudDataType> &data_queue);
 
     private:
         void MsgCallbcak(const sensor_msgs::PointCloud2::ConstPtr &msg);
@@ -29,6 +29,6 @@ namespace glins
     private:
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
-        std::deque<CloudData> data_buffer_;
+        std::deque<CloudDataType> data_buffer_;
     }; // class glins
 } // namespace glins

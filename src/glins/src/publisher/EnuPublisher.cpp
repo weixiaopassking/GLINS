@@ -28,7 +28,7 @@ namespace glins
      * @note
      * @todo
      **/
-    void EnuPublisher::Publish(GnssFixData &data)
+    void EnuPublisher::Publish(GnssFixDataType &data)
     {
         origin_.header.frame_id = frame_id_;
         origin_.latitude = data.latitude;

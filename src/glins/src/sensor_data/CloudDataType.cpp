@@ -11,6 +11,6 @@
 
 namespace glins
 {
-    CloudData::CloudData() : cloud_ptr(new CLOUD) {}
+    CloudDataType::CloudDataType() : cloud_ptr(new CLOUD) {}
 
 }; // namesapce glins

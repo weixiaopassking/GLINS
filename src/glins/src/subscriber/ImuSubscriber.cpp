@@ -29,7 +29,7 @@ namespace glins
      **/
     void ImuSubscriber::MsgCallbcak(const sensor_msgs::ImuConstPtr &msg)
     {
-        ImuData imu_data;
+        ImuDataType imu_data;
 
         imu_data.time_stamp = msg->header.stamp.toSec();
 
@@ -54,11 +54,11 @@ namespace glins
      * @note read and clear the buff
      * @todo
      **/
-    void ImuSubscriber::ParseData(std::deque<ImuData> &data_deque)
+    void ImuSubscriber::ParseData(std::deque<ImuDataType> &data_queue)
     {
         if (data_buffer_.size() > 0)
         {
-            data_deque.insert(data_deque.end(), data_buffer_.begin(), data_buffer_.end());
+            data_queue.insert(data_queue.end(), data_buffer_.begin(), data_buffer_.end());
             data_buffer_.clear();
         }
     }

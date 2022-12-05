@@ -17,7 +17,7 @@
 
 namespace glins
 {
-    class ImuData
+    class ImuDataType
     {
     public:
         struct LinearAcceleration

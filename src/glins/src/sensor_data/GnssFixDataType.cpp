@@ -16,15 +16,15 @@ namespace glins
 {
     /*------------------------------GnssFixData--------------------------------*/
     /*static value definition*/
-    bool GnssFixData::flag_origin_fixed = false;
-    GeographicLib::LocalCartesian GnssFixData::geo_converter;
+    bool GnssFixDataType::flag_origin_fixed = false;
+    GeographicLib::LocalCartesian GnssFixDataType::geo_converter;
 
     /**
      * @brief  fix origin  under ENU coordinates
      * @note
      * @todo
      **/
-    void GnssFixData::FixOrigin()
+    void GnssFixDataType::FixOrigin()
     {
         geo_converter.Reset(latitude, longtitude, altitude);
         flag_origin_fixed = true;
@@ -35,7 +35,7 @@ namespace glins
      * @note
      * @todo
      **/
-    void GnssFixData::UpdateGnssOdom()
+    void GnssFixDataType::UpdateGnssOdom()
     {
         if (flag_origin_fixed == false)
         {

@@ -24,7 +24,7 @@ namespace glins
     public:
         GnssFixSubscriber() = default;
         GnssFixSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size);
-        void ParseData(std::deque<GnssFixData> &data_deque);
+        void ParseData(std::deque<GnssFixDataType> &data_queue);
 
     private:
         void MsgCallbcak(const sensor_msgs::NavSatFixConstPtr &msg);
@@ -32,7 +32,7 @@ namespace glins
     private:
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
-        std::deque<GnssFixData> data_buffer_;
+        std::deque<GnssFixDataType> data_buffer_;
     }; // class glins
 
 } // namespace glins

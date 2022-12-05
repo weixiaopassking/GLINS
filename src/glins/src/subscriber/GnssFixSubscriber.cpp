@@ -29,7 +29,7 @@ namespace glins
      **/
     void GnssFixSubscriber::MsgCallbcak(const sensor_msgs::NavSatFixConstPtr &msg)
     {
-        GnssFixData gnss_fix_data;
+        GnssFixDataType gnss_fix_data;
 
         gnss_fix_data.time_stamp = msg->header.stamp.toSec();
 
@@ -48,11 +48,11 @@ namespace glins
      * @note read and clear the buff
      * @todo
      **/
-    void GnssFixSubscriber::ParseData(std::deque<GnssFixData> &data_deque)
+    void GnssFixSubscriber::ParseData(std::deque<GnssFixDataType> &data_queue)
     {
         if (data_buffer_.size() > 0)
         {
-            data_deque.insert(data_deque.end(), data_buffer_.begin(), data_buffer_.end());
+            data_queue.insert(data_queue.end(), data_buffer_.begin(), data_buffer_.end());
             data_buffer_.clear();
         }
     }

@@ -26,7 +26,7 @@ namespace glins
         EnuPublisher(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size, const std::string frame_id);
         EnuPublisher() = default;
 
-        void Publish(GnssFixData &data);
+        void Publish(GnssFixDataType &data);
         bool HasSubscribered();
 
     private:

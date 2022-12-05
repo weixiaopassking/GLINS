@@ -12,7 +12,7 @@
 
 namespace glins
 {
-    Eigen::Matrix3f ImuData::OrientationToRotationMatrix()
+    Eigen::Matrix3f ImuDataType::OrientationToRotationMatrix()
     {
         Eigen::Quaterniond q(orientation.w, orientation.x, orientation.y, orientation.z);
         Eigen::Matrix3f rotation_matrix = q.matrix().cast<float>();

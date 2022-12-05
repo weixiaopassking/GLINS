@@ -35,7 +35,7 @@ namespace glins
      * @note internal time stamp
      * @todo
      **/
-    void CloudPublisher::Publish(CloudData::CLOUD_PTR &cloud_ptr_input)
+    void CloudPublisher::Publish(CloudDataType::CLOUD_PTR &cloud_ptr_input)
     {
         ros::Time time = ros::Time::now();
         PublishData(cloud_ptr_input, time);
@@ -46,7 +46,7 @@ namespace glins
      * @note external time stamp
      * @todo
      **/
-    void CloudPublisher::Publish(CloudData::CLOUD_PTR &cloud_ptr_input, double time)
+    void CloudPublisher::Publish(CloudDataType::CLOUD_PTR &cloud_ptr_input, double time)
     {
         ros::Time ros_time((float)time);
         PublishData(cloud_ptr_input, ros_time);
@@ -57,7 +57,7 @@ namespace glins
      * @note  internal time stamp
      * @todo
      **/
-    void CloudPublisher::PublishData(CloudData::CLOUD_PTR &cloud_ptr_input, ros::Time time)
+    void CloudPublisher::PublishData(CloudDataType::CLOUD_PTR &cloud_ptr_input, ros::Time time)
     {
 
         sensor_msgs::PointCloud2Ptr cloud_ptr_output(new sensor_msgs::PointCloud2());

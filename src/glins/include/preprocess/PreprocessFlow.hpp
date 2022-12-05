@@ -35,10 +35,10 @@ namespace glins
     private:
         bool TimeSynchronization();
         bool SpaceCalibration();
-        // InitEnuOrigin();
-        // CheckDataQueue();
-        // ExtractData()
-        // PublishData();
+        bool InitEnuOrigin();
+        bool CheckDataQueue();
+        bool ExtractData();
+        void PublishData();
     private:
         /*raw sensor data subscrier*/
         std::shared_ptr<ImuSubscriber> imu_sub_ptr_;
@@ -52,6 +52,7 @@ namespace glins
         /*yaml node*/
         YAML::Node config_node_;
 
+        /*sensor data current and queue*/
     }; // class PreprocessFlow
 } // namespace glins
 

@@ -15,7 +15,7 @@
 
 namespace glins
 {
-    class GnssFixData
+    class GnssFixDataType
     {
     public:
         double time_stamp = 0.0; // unix time
@@ -30,7 +30,7 @@ namespace glins
     public:
         void FixOrigin();
         void UpdateGnssOdom();
-    }; // class GnssFix
+    }; // class GnssFixDataType
 
 } // namespace glins
 

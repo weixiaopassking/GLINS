@@ -24,7 +24,7 @@ namespace glins
     public:
         ImuSubscriber() = default;
         ImuSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size);
-        void ParseData(std::deque<ImuData> &data_deque);
+        void ParseData(std::deque<ImuDataType> &data_queue);
 
     private:
         void MsgCallbcak(const sensor_msgs::ImuConstPtr &msg);
@@ -32,7 +32,7 @@ namespace glins
     private:
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
-        std::deque<ImuData> data_buffer_;
+        std::deque<ImuDataType> data_buffer_;
     };
 
 } // namesapce glins

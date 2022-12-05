@@ -30,7 +30,7 @@ namespace glins
      **/
     void CloudSubscriber::MsgCallbcak(const sensor_msgs::PointCloud2::ConstPtr &msg)
     {
-        CloudData cloud_data;
+        CloudDataType cloud_data;
         cloud_data.time_stamp = msg->header.stamp.toSec();
         pcl::fromROSMsg(*msg, *(cloud_data.cloud_ptr));
 
@@ -42,12 +42,12 @@ namespace glins
      * @note read and clear the buff
      * @todo
      **/
-    void CloudSubscriber::ParseData(std::deque<CloudData> &data_deque)
+    void CloudSubscriber::ParseData(std::deque<CloudDataType> &data_queue)
     {
         if (data_buffer_.size() > 0)
         {
-            data_deque.insert(data_deque.end(), data_buffer_.begin(), data_buffer_.end());
-            data_buff_.clear();
+            data_queue.insert(data_queue.end(), data_buffer_.begin(), data_buffer_.end());
+            data_buffer_.clear();
         }
     }
 } // namespace glins
