@@ -29,6 +29,6 @@ namespace glins
     private:
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
-        std::deque<CloudData> data_buff_;
+        std::deque<CloudData> data_buffer_;
     }; // class glins
 } // namespace glins

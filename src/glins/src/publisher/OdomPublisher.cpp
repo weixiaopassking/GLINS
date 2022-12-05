@@ -52,7 +52,7 @@ namespace glins
 
    /**
      * @brief publish data
-     * @note  internal time stamp 
+     * @note  
      * @todo
      **/
     void OdomPublisher::PublishData(const Eigen::Matrix4f &transform_matrix, ros::Time time_stamp)
@@ -77,7 +77,7 @@ namespace glins
     }
 
     /**
-     * @brief  subscriber status
+     * @brief  check subscriber status
      * @note
      * @todo
      **/

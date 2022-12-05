@@ -46,7 +46,7 @@ namespace glins
         imu_data.orientation.z = msg->orientation.z;
         imu_data.orientation.w = msg->orientation.w;
 
-        data_buff_.push_back(imu_data);
+        data_buffer_.push_back(imu_data);
     }
 
     /**
@@ -56,10 +56,10 @@ namespace glins
      **/
     void ImuSubscriber::ParseData(std::deque<ImuData> &data_deque)
     {
-        if (data_buff_.size() > 0)
+        if (data_buffer_.size() > 0)
         {
-            data_deque.insert(data_deque.end(), data_buff_.begin(), data_buff_.end());
-            data_buff_.clear();
+            data_deque.insert(data_deque.end(), data_buffer_.begin(), data_buffer_.end());
+            data_buffer_.clear();
         }
     }
 

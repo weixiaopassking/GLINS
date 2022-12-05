@@ -21,7 +21,7 @@ using namespace glins;
 
 void mySigintHandler(int sig)
 {
-    ColorTerminal::FlowInfo("[preprocess_node] shutdown");
+    ColorTerminal::NodeInfo("[preprocess_node] shutdown");
     ros::shutdown();
 }
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     ros::NodeHandle nh;
     ros::Rate rate(100);
     signal(SIGINT, mySigintHandler);
-    ColorTerminal::FlowInfo("[preprocess_node] start");
+    ColorTerminal::NodeInfo("[preprocess_node] start");
 
     /*config glog*/
 

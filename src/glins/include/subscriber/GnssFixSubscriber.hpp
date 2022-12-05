@@ -32,7 +32,7 @@ namespace glins
     private:
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
-        std::deque<GnssFixData> data_buff_;
+        std::deque<GnssFixData> data_buffer_;
     }; // class glins
 
 } // namespace glins

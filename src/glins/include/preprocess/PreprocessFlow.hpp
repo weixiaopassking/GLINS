@@ -14,8 +14,15 @@
 // sub
 #include "../subscriber/ImuSubscriber.hpp"
 #include "../subscriber/GnssFixSubscriber.hpp"
-//pub
+#include "../subscriber/CloudSubscriber.hpp"
+// pub
+#include "../publisher/CloudPublisher.hpp"
+#include "../publisher/OdomPublisher.hpp"
+#include "../publisher/EnuPublisher.hpp"
 
+// thirdpart lib
+#include <ros/package.h>
+#include <yaml-cpp/yaml.h>
 
 namespace glins
 {
@@ -26,10 +33,24 @@ namespace glins
         bool Run();
 
     private:
+        bool TimeSynchronization();
+        bool SpaceCalibration();
+        // InitEnuOrigin();
+        // CheckDataQueue();
+        // ExtractData()
+        // PublishData();
+    private:
         /*raw sensor data subscrier*/
         std::shared_ptr<ImuSubscriber> imu_sub_ptr_;
         std::shared_ptr<GnssFixSubscriber> gnss_fix_sub_ptr_;
-        // std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
+        std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
+        /*raw sensor data publisher*/
+        std::shared_ptr<CloudPublisher> cloud_pub_ptr_;
+        std::shared_ptr<OdomPublisher> gnss_fix_pub_ptr_;
+        std::shared_ptr<EnuPublisher> enu_origin_pub_ptr_;
+
+        /*yaml node*/
+        YAML::Node config_node_;
 
     }; // class PreprocessFlow
 } // namespace glins

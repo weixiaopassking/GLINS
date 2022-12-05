@@ -8,22 +8,46 @@
 
 // relevent
 #include "../../include/subscriber/CloudSubscriber.hpp"
+// thirdpart lib
+#include <pcl_conversions/pcl_conversions.h>
 
 namespace glins
 {
-
+    /**
+     * @brief  config ros topic
+     * @note refer to
+     * @todo马克
+     **/
     CloudSubscriber::CloudSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size)
     {
         subscriber_ = nh_.subscribe<sensor_msgs::PointCloud2>(topic_name, queue_size, &CloudSubscriber::MsgCallbcak, this, ros::TransportHints().tcpNoDelay());
     }
-    void CloudSubscriber::ParseData(std::deque<CloudData> &data_deque)
-    {
-        
-    }
 
+    /**
+     * @brief  callback function
+     * @note push the data into buff
+     * @todo
+     **/
     void CloudSubscriber::MsgCallbcak(const sensor_msgs::PointCloud2::ConstPtr &msg)
     {
+        CloudData cloud_data;
+        cloud_data.time_stamp = msg->header.stamp.toSec();
+        pcl::fromROSMsg(*msg, *(cloud_data.cloud_ptr));
 
+        data_buffer_.push_back(cloud_data);
     }
 
+    /**
+     * @brief  read data from buff
+     * @note read and clear the buff
+     * @todo
+     **/
+    void CloudSubscriber::ParseData(std::deque<CloudData> &data_deque)
+    {
+        if (data_buffer_.size() > 0)
+        {
+            data_deque.insert(data_deque.end(), data_buffer_.begin(), data_buffer_.end());
+            data_buff_.clear();
+        }
+    }
 } // namespace glins

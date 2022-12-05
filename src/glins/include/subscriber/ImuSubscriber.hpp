@@ -32,7 +32,7 @@ namespace glins
     private:
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
-        std::deque<ImuData> data_buff_;
+        std::deque<ImuData> data_buffer_;
     };
 
 } // namesapce glins
