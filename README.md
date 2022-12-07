@@ -74,15 +74,11 @@ gtsam
 **Lidar:** Velodyne 16     
 **Camera:** ZED2i (Optional)
 
-<<<<<<< HEAD
-
 
 <left class="half">
     <img src="./pic/device.jpg" width=40% >
 </left>
-=======
-<img src=./pic/car.jpg width=40% align="middle" />   
->>>>>>> master
+
 
 ## 3.Build 
 ```
