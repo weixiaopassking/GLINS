@@ -48,14 +48,27 @@ namespace glins
 
         // InitEnuOrigin();
 
-        while (1) 
+        while (1)
         {
-            //CheckDataQueue
-            //ExtractDataCurrent()
-            //PublishResult
+            // CheckDataQueue
+            // ExtractDataCurrent()
+            // PublishResult
         }
-        
 
         return true;
     }
+
+    /**
+     * @brief  software time synchronization
+     * @note
+     *  hardware time synchronization first if supported 
+     * usually use gnss time as reference
+     * @todo 
+     **/
+    bool PreprocessFlow::TimeSynchronization()
+    {
+        static std::deque<ImuDataType> unsynced_imu_data_queue;
+        static std::deque<CloudDataType> unsynced_cloud_data_queue;
+    }
+
 } // namespace glins
