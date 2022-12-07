@@ -55,7 +55,7 @@ sudo apt-get install ros-melodic-qt-build
 **Lidar:** Velodyne 16     
 **Camera:** ZED2i (Optional)
 
-<img src=./pic/car.jpg width=80% align="middle" />   
+<img src=./pic/car.jpg width=60% align="middle" />   
 
 ## 3.Build 
 ```
@@ -74,9 +74,8 @@ chmod +x glins.sh
 ```
 
 ## 6.Acknowledgements    
-**Level 0 reference:** 
-
-**Level 1 reference:**  
+GVINS  
+LIO SAM
 
 ## 7.Licence  
 The source code is released under GPLv3 license.
