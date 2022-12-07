@@ -64,17 +64,25 @@ sudo make install
 sudo apt-get install ros-melodic-qt-create    
 sudo apt-get install ros-melodic-qt-build  
 ```
+gtsam  
+```
+
+```
 ## 2.Device and config  
 **GNSS:** Ublox zedf9p      
 **IMU:** FDISYSTEM N100       
 **Lidar:** Velodyne 16     
 **Camera:** ZED2i (Optional)
 
+<<<<<<< HEAD
 
 
 <left class="half">
     <img src="./pic/device.jpg" width=40% >
 </left>
+=======
+<img src=./pic/car.jpg width=40% align="middle" />   
+>>>>>>> master
 
 ## 3.Build 
 ```
