@@ -22,14 +22,22 @@ namespace glins
         /*load yaml file*/
         std::string config_file_path = ros::package::getPath("glins") + "/config/preprocess.yaml";
         config_node_ = YAML::LoadFile(config_file_path);
+
         /*config subscriber*/
         imu_sub_ptr_ = std::make_shared<ImuSubscriber>(nh, config_node_["imu_sub_topic"].as<std::string>(), 10e5);
         gnss_fix_sub_ptr_ = std::make_shared<GnssFixSubscriber>(nh, config_node_["gnss_fix_sub_topic"].as<std::string>(), 10e5);
         cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, config_node_["cloud_sub_topic"].as<std::string>(), 10e5);
+
         /*config  publisher*/
         cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/synced_cloud", "/velo_link", 100);
         gnss_fix_pub_ptr_ = std::make_shared<OdomPublisher>(nh, "/synced_gnss", "/map", "velo_link", 100);
+        imu_pub_ptr_ = std::make_shared<ImuPublisher>(nh, "/synced_imu", 100, "map");
+        //TODO  imu preintegration     imu_odom_ptr_
         enu_origin_pub_ptr_ = std::make_shared<EnuPublisher>(nh, "/ref_point_wgs84", 100, "map");
+
+        /*config setting*/
+        gnss_enable_=config_node_["gnss_enable"];
+
         /*terminal record*/
         ColorTerminal::FlowInfo("[preprocess_flow]  init");
     }
@@ -43,9 +51,7 @@ namespace glins
     {
 
         // SynceDataQueue();
-
         // InitCalibration();
-
         // InitEnuOrigin();
 
         while (1)
@@ -70,7 +76,7 @@ namespace glins
         /*create unsynced queue*/
         static std::deque<ImuDataType> unsynced_imu_data_queue;
         static std::deque<GnssFixDataType> unsynced_gnss_fix_data_queue;
-         //static std::deque<CloudDataType> unsynced_cloud_data_queue;
+        // static std::deque<CloudDataType> unsynced_cloud_data_queue;
 
         /*read sensor data from sensors' subscriber class*/
         imu_sub_ptr_->ParseData(unsynced_imu_data_queue);
@@ -78,13 +84,40 @@ namespace glins
         imu_sub_ptr_->ParseData(unsynced_imu_data_queue);
 
         /*interpolation refer to lidar time stamp */
-
-        
-
-
+       // ImuDataType::TimeSync()
+        //GnssDataType::TimeSync();
 
 
-        return  true;    
+        return true;
+    }
+
+    /**
+     * @brief
+     * @note
+     * @todo
+     **/
+    bool PreprocessFlow::SpaceCalibration()
+    {
+        return true;
+    }
+    bool PreprocessFlow::InitEnuOrigin()
+    {
+        return true;
+    }
+
+    bool PreprocessFlow::CheckDataQueue()
+    {
+        return true;
+    }
+
+    bool PreprocessFlow::ExtractData()
+    {
+        return true;
+    }
+
+    void PreprocessFlow::PublishData()
+    {
+       
     }
 
 } // namespace glins

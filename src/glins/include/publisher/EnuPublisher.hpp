@@ -7,8 +7,6 @@
  * @Note: Using the WGS 84 reference ellipsoid
  */
 
-
-
 #ifndef ENU_PUBLISHER_HPP_
 #define ENU_PUBLISHER_HPP_
 
@@ -26,7 +24,7 @@ namespace glins
         EnuPublisher(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size, const std::string frame_id);
         EnuPublisher() = default;
 
-        void Publish(GnssFixDataType &data);
+        void Publish(GnssFixDataType &enu_input);
         bool HasSubscribered();
 
     private:

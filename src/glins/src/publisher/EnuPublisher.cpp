@@ -28,13 +28,13 @@ namespace glins
      * @note
      * @todo
      **/
-    void EnuPublisher::Publish(GnssFixDataType &data)
+    void EnuPublisher::Publish(GnssFixDataType &enu_input)
     {
         origin_.header.frame_id = frame_id_;
-        origin_.latitude = data.latitude;
-        origin_.longitude = data.longtitude;
-        origin_.altitude = data.status;
-        origin_.status.service = data.service;
+        origin_.latitude = enu_input.latitude;
+        origin_.longitude = enu_input.longtitude;
+        origin_.altitude = enu_input.status;
+        origin_.status.service = enu_input.service;
 
         publisher_.publish(origin_);
     }
