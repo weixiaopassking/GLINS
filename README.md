@@ -14,7 +14,12 @@ fusion.
 
 **Pipeline:**
 
-
+**Example:**    
+<left class="half">
+    <img src="./pic/gnss_test1.jpg" height="100">
+    <img src="./pic/gnss_test2.png" height="100"/>
+</left>
+     
 ## 1.Dependency
 **ros melodic**
 ```shell
@@ -65,7 +70,11 @@ sudo apt-get install ros-melodic-qt-build
 **Lidar:** Velodyne 16     
 **Camera:** ZED2i (Optional)
 
-<img src=./pic/car.jpg width=60% align="middle" />   
+
+
+<left class="half">
+    <img src="./pic/device.jpg" width=40% >
+</left>
 
 ## 3.Build 
 ```
