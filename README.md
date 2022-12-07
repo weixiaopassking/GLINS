@@ -5,8 +5,8 @@ fusion.
   
 **Relate Video:** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
 **Relate paper:**  
-GVINS    
-IC-GVINS  
+[GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation](https://arxiv.org/abs/2103.07899)     
+[IC-GVINS: A Robust, Real-time, INS-Centric GNSS-Visual-Inertial Navigation System for Wheeled Robot](https://arxiv.org/abs/2204.04962)    
 **Contacts:** For any technical issues, please open an issue at this repository or sent an email to me niu_wengang@163.com.
 **Pipeline:**
 
