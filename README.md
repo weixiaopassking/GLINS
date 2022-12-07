@@ -1,7 +1,8 @@
 # multisensor_fusion_localization_study
 This repo is just  a record for my study for multisensor_fusion_localization and  is released by tag form.   
 **Relate Video** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
-**Contacts:** For any technical issues, please open an issue at this repository.
+**Contacts:** For any technical issues, please open an issue at this repository.  
+**Pipeline:**
 
 
 ## 1.Dependency
@@ -88,3 +89,5 @@ The source code is released under GPLv3 license.
 **Level 1:Refinement my repo code use real device**  
 Next publish: Tag v5.0    
 **Level 2:Create something new**  
+
+
