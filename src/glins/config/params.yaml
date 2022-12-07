@@ -2,6 +2,7 @@
 cloud_sub_topic: /velodyne_points   
 imu_sub_topic: /imu/data 
 gnss_fix_sub_topic:  /navsat/fix   
+image_sub_topic: /
 
 #$ sensors extrinsics
 imu_to_gnss: [  1.00,  0.00,  0.00, 0.18,
