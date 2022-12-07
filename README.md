@@ -4,10 +4,14 @@ Currently,expect to  achieve   a robust and long term localization system with m
 fusion.      
   
 **Relate Video:** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
+
 **Relate paper:**  
 [GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation](https://arxiv.org/abs/2103.07899)     
-[IC-GVINS: A Robust, Real-time, INS-Centric GNSS-Visual-Inertial Navigation System for Wheeled Robot](https://arxiv.org/abs/2204.04962)    
+[IC-GVINS: A Robust, Real-time, INS-Centric GNSS-Visual-Inertial Navigation System for Wheeled Robot](https://arxiv.org/abs/2204.04962)      
+[LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping](https://arxiv.org/abs/2007.00258)  
+
 **Contacts:** For any technical issues, please open an issue at this repository or sent an email to me niu_wengang@163.com.
+
 **Pipeline:**
 
 
