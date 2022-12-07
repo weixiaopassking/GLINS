@@ -1,9 +1,17 @@
 # multisensor_fusion_localization_study
 This repo is just  a record for my study for multisensor_fusion_localization and  is released by tag form.    
-Finally,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar-inertial
-fusion.  
-**Relate Video** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
-**Contacts:** For any technical issues, please open an issue at this repository.  
+Currently,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar-inertial
+fusion.      
+  
+**Relate Video:** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
+
+**Relate paper:**  
+[GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation](https://arxiv.org/abs/2103.07899)     
+[IC-GVINS: A Robust, Real-time, INS-Centric GNSS-Visual-Inertial Navigation System for Wheeled Robot](https://arxiv.org/abs/2204.04962)      
+[LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping](https://arxiv.org/abs/2007.00258)  
+
+**Contacts:** For any technical issues, please open an issue at this repository or sent an email to me niu_wengang@163.com.
+
 **Pipeline:**
 
 
@@ -76,8 +84,7 @@ chmod +x glins.sh
 ```
 
 ## 6.Acknowledgements    
-GVINS  
-LIO SAM
+Thanks to GTSAM.
 
 ## 7.Licence  
 The source code is released under GPLv3 license.
@@ -88,9 +95,8 @@ The source code is released under GPLv3 license.
 2022/10/02 Tag v2.0  Use ndt  algorithm to calculatelidar odom.  
 2022/11/07 Tag v3.0  Loosly couple  lidar  odom with gnss.  
 2022/11/14 Tag v4.0  Simple use ndt algorithm to realize localization.  
-
 **Level 1:Refinement my repo code use real device**  
-Next publish: Tag v5.0    
+To publish  Tag v5.0    
 **Level 2:Create something new**  
 
 
