@@ -1,5 +1,7 @@
 # multisensor_fusion_localization_study
-This repo is just  a record for my study for multisensor_fusion_localization and  is released by tag form.   
+This repo is just  a record for my study for multisensor_fusion_localization and  is released by tag form.    
+Finally,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar-inertial
+fusion.  
 **Relate Video** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
 **Contacts:** For any technical issues, please open an issue at this repository.  
 **Pipeline:**
