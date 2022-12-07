@@ -55,6 +55,8 @@ sudo apt-get install ros-melodic-qt-build
 **Lidar:** Velodyne 16     
 **Camera:** ZED2i (Optional)
 
+<img src=./pic/car.jpg width=80% align="middle" />   
+
 ## 3.Build 
 ```
 cd $multisensor_fusion_localization_study
