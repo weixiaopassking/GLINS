@@ -59,6 +59,10 @@ sudo make install
 sudo apt-get install ros-melodic-qt-create    
 sudo apt-get install ros-melodic-qt-build  
 ```
+gtsam  
+```
+
+```
 ## 2.Device and config  
 **GNSS:** Ublox zedf9p      
 **IMU:** FDISYSTEM N100       
