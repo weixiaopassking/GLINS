@@ -61,14 +61,30 @@ namespace glins
     /**
      * @brief  software time synchronization
      * @note
-     *  hardware time synchronization first if supported 
+     * @todo
+     * hardware time synchronization first if supported
      * usually use gnss time as reference
-     * @todo 
      **/
     bool PreprocessFlow::TimeSynchronization()
     {
+        /*create unsynced queue*/
         static std::deque<ImuDataType> unsynced_imu_data_queue;
-        static std::deque<CloudDataType> unsynced_cloud_data_queue;
+        static std::deque<GnssFixDataType> unsynced_gnss_fix_data_queue;
+         //static std::deque<CloudDataType> unsynced_cloud_data_queue;
+
+        /*read sensor data from sensors' subscriber class*/
+        imu_sub_ptr_->ParseData(unsynced_imu_data_queue);
+        gnss_fix_sub_ptr_->ParseData(unsynced_gnss_fix_data_queue);
+        imu_sub_ptr_->ParseData(unsynced_imu_data_queue);
+
+        /*interpolation refer to lidar time stamp */
+
+        
+
+
+
+
+        return  true;    
     }
 
 } // namespace glins
