@@ -23,6 +23,7 @@ void mySigintHandler(int sig)
 {
     ColorTerminal::NodeInfo("[preprocess_node] shutdown");
     ros::shutdown();
+     exit (0);
 }
 
 int main(int argc, char **argv)

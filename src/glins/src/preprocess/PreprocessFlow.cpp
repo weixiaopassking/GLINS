@@ -7,9 +7,9 @@
  * @Note:
  */
 
-//relevent
+// relevent
 #include "../../include/preprocess/PreprocessFlow.hpp"
-//tools
+// tools
 #include "../../include/tools/ColorTerminal.hpp"
 
 namespace glins
@@ -22,7 +22,7 @@ namespace glins
     PreprocessFlow::PreprocessFlow(ros::NodeHandle &nh)
     {
         /*load yaml file*/
-        std::string config_file_path = ros::package::getPath("glins") + "/config/preprocess.yaml";
+        std::string config_file_path = ros::package::getPath("glins") + "/config/params.yaml";
         config_node_ = YAML::LoadFile(config_file_path);
 
         /*config subscriber*/
@@ -34,11 +34,11 @@ namespace glins
         cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/synced_cloud", "/velo_link", 100);
         gnss_fix_pub_ptr_ = std::make_shared<OdomPublisher>(nh, "/synced_gnss", "/map", "velo_link", 100);
         imu_pub_ptr_ = std::make_shared<ImuPublisher>(nh, "/synced_imu", 100, "map");
-        //TODO  imu preintegration     imu_odom_ptr_
+        // TODO  imu preintegration     imu_odom_ptr_
         enu_origin_pub_ptr_ = std::make_shared<EnuPublisher>(nh, "/ref_point_wgs84", 100, "map");
 
         /*config setting*/
-        gnss_enable_=config_node_["gnss_enable"];
+        gnss_enable_ = config_node_["gnss_enable"];
 
         /*terminal record*/
         ColorTerminal::FlowInfo("[preprocess_flow]  init");
@@ -52,8 +52,10 @@ namespace glins
     bool PreprocessFlow::Run()
     {
 
-        // SynceDataQueue();
-        // InitCalibration();
+        SpaceCalibration();
+
+        TimeSynchronization();
+
         // InitEnuOrigin();
 
         while (1)
@@ -75,6 +77,7 @@ namespace glins
      **/
     bool PreprocessFlow::TimeSynchronization()
     {
+
         /*create unsynced queue*/
         static std::deque<ImuDataType> unsynced_imu_data_queue;
         static std::deque<GnssFixDataType> unsynced_gnss_fix_data_queue;
@@ -89,18 +92,34 @@ namespace glins
        // ImuDataType::TimeSync()
         //GnssDataType::TimeSync();
 
+        /*time sync flag */
+        bool static time_sync_flag = false;
+        if (time_sync_flag == false)
+        {
+            ColorTerminal::FlowInfo("[preprocess_flow]  finish time synchronization");
+            time_sync_flag = true;
+            return true;
+        }
 
-        return true;
+        return false;
     }
 
     /**
-     * @brief
+     * @brief  calibrate the relative position between sensors
      * @note
-     * @todo
+     * @todo 
      **/
     bool PreprocessFlow::SpaceCalibration()
     {
-        return true;
+        static int space_calibration = false;
+        if (space_calibration == false)
+        {
+            ColorTerminal::FlowInfo("[preprocess_flow]  finish space calibration");
+            space_calibration = true;
+            return true;
+        }
+
+        return false;
     }
     bool PreprocessFlow::InitEnuOrigin()
     {
@@ -119,7 +138,6 @@ namespace glins
 
     void PreprocessFlow::PublishData()
     {
-       
     }
 
 } // namespace glins

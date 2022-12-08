@@ -10,7 +10,7 @@
 #ifndef GNSS_DATA_TYPE_HPP_
 #define GNSS_DATA_TYPE_HPP_
 
-//thirdpart lib
+// thirdpart lib
 #include <GeographicLib/LocalCartesian.hpp>
 
 namespace glins
@@ -30,6 +30,9 @@ namespace glins
     public:
         void FixOrigin();
         void UpdateGnssOdom();
+        static bool TimeSync(std::deque<GnssFixDataType> &unsynced_data_deque,
+                             std::deque<GnssFixDataType> &synced_data_buff,
+                             const double refer_time);
     }; // class GnssFixDataType
 
 } // namespace glins

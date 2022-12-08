@@ -45,6 +45,18 @@ namespace glins
         geo_converter.Forward(latitude, longtitude, altitude, local_east, local_north, local_up);
     }
 
+    /**
+     * @brief sync time for gnss
+     * @note use lerp method
+     * @todo 
+     **/
+    bool GnssFixDataType::TimeSync(std::deque<GnssFixDataType> &unsynced_data_deque,
+                                   std::deque<GnssFixDataType> &synced_data_buff,
+                                   const double refer_time)
+    {
+
+    }
+
     /*------------------------------GnssRawData--------------------------------*/
 
 } // namespace glins

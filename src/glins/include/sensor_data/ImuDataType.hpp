@@ -12,6 +12,7 @@
 
 // c++ lib
 #include <cmath>
+#include <deque>
 // thirdpart lib
 #include <Eigen/Dense>
 
@@ -56,6 +57,9 @@ namespace glins
 
     public:
         Eigen::Matrix3f OrientationToRotationMatrix();
+        static bool TimeSync(std::deque<ImuDataType> &unsynced_data_deque,
+                             std::deque<ImuDataType> &synced_data_buff,
+                             const double refer_time);
     }; // ImuData
 
 } // namespace glins
