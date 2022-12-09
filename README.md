@@ -95,10 +95,17 @@ catkin_make
 ## 4.Config Param
 before run on public dataset or with your device, param must be seted.
 
-## 5.Dataset  
-**Public dataset:**    
+## 5.Datasets
+### 5.1 Public  
 [UrbanNav-HK-Data20190428](https://github.com/weisongwen/UrbanNavDataset)    
 [M2DGR](https://github.com/SJTU-ViSYS/M2DGR)  
+
+### 5.2   Ours
+|  Sequence   Name  | Collection Date | Total Size |  Duration | Features | Rosbag |
+| ----------- | ----------- |----------- | ----------- |----------- |----------- | 
+| Camups_01      | 2022_11_26    | 7.9G | 120s  | Circle | [Aliyun](www.aliyundrive.com)
+
+
 ## 6.Run
 ```
 chmod +x glins.sh
