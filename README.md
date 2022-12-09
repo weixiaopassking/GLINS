@@ -64,9 +64,10 @@ sudo make install
 sudo apt-get install ros-melodic-qt-create    
 sudo apt-get install ros-melodic-qt-build  
 ```
-gtsam  
-```
-
+**gtsam 4.0**
+``` 
+  sudo add-apt-repository ppa:borglab/gtsam-release-4.0  
+  sudo apt install libgtsam-dev libgtsam-unstable-dev  
 ```
 ## 2.Device and config  
 **GNSS:** Ublox zedf9p      
