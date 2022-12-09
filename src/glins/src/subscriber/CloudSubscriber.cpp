@@ -30,11 +30,15 @@ namespace glins
      **/
     void CloudSubscriber::MsgCallbcak(const sensor_msgs::PointCloud2::ConstPtr &msg)
     {
+        cloud_sub_mutex_.lock();
+
         CloudDataType cloud_data;
         cloud_data.time_stamp = msg->header.stamp.toSec();
         pcl::fromROSMsg(*msg, *(cloud_data.cloud_ptr));
 
         data_buffer_.push_back(cloud_data);
+
+        cloud_sub_mutex_.unlock();
     }
 
     /**

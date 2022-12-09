@@ -11,6 +11,7 @@
 
 // c++
 #include <deque>
+#include <mutex>          
 // ros
 #include <ros/ros.h>
 #include <sensor_msgs/Imu.h>
@@ -33,6 +34,7 @@ namespace glins
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
         std::deque<ImuDataType> data_buffer_;
+        std::mutex imu_sub_mutex_;
     };
 
 } // namesapce glins

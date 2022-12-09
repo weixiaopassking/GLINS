@@ -29,6 +29,8 @@ namespace glins
      **/
     void GnssFixSubscriber::MsgCallbcak(const sensor_msgs::NavSatFixConstPtr &msg)
     {
+        gnss_fix_sub_mutex_.lock();
+
         GnssFixDataType gnss_fix_data;
 
         gnss_fix_data.time_stamp = msg->header.stamp.toSec();
@@ -41,6 +43,8 @@ namespace glins
         gnss_fix_data.service = msg->status.service;
 
         data_buffer_.push_back(gnss_fix_data);
+
+         gnss_fix_sub_mutex_.unlock();
     }
 
     /**

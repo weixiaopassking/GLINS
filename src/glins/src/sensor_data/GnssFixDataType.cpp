@@ -48,13 +48,13 @@ namespace glins
     /**
      * @brief sync time for gnss
      * @note use lerp method
-     * @todo 
+     * @todo
      **/
     bool GnssFixDataType::TimeSync(std::deque<GnssFixDataType> &unsynced_data_deque,
                                    std::deque<GnssFixDataType> &synced_data_buff,
                                    const double refer_time)
     {
-
+        return true;
     }
 
     /*------------------------------GnssRawData--------------------------------*/

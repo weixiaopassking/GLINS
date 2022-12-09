@@ -37,9 +37,10 @@ namespace glins
         bool TimeSynchronization();
         bool SpaceCalibration();
         bool InitEnuOrigin();
-
         bool CheckDataQueue();
         bool ExtractData();
+
+        void ImuPreintegration();
         void PublishData();
 
     private:
@@ -52,11 +53,12 @@ namespace glins
         std::shared_ptr<OdomPublisher> gnss_fix_pub_ptr_;
         std::shared_ptr<EnuPublisher> enu_origin_pub_ptr_;
         std::shared_ptr<ImuPublisher> imu_pub_ptr_;
+        std::shared_ptr<OdomPublisher> imu_odom_pub_ptr_;
         /*yaml node*/
         YAML::Node config_node_;
         /*flag for setting*/
-        bool gnss_enable_=false;
-        
+        bool gnss_enable_ = false;
+
         /*sensor data current and queue*/
     }; // class PreprocessFlow
 } // namespace glins

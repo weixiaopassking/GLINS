@@ -10,6 +10,8 @@
 #ifndef GNSS_DATA_TYPE_HPP_
 #define GNSS_DATA_TYPE_HPP_
 
+// c++ lib
+#include <deque>
 // thirdpart lib
 #include <GeographicLib/LocalCartesian.hpp>
 

@@ -13,6 +13,7 @@
 # include <sensor_msgs/PointCloud2.h>
 //c++ lib
 #include <deque>
+#include <mutex>
 
 namespace glins
 {
@@ -30,5 +31,6 @@ namespace glins
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
         std::deque<CloudDataType> data_buffer_;
+        std::mutex cloud_sub_mutex_;
     }; // class glins
 } // namespace glins

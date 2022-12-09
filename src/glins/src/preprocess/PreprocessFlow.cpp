@@ -34,8 +34,10 @@ namespace glins
         cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/synced_cloud", "/velo_link", 100);
         gnss_fix_pub_ptr_ = std::make_shared<OdomPublisher>(nh, "/synced_gnss", "/map", "velo_link", 100);
         imu_pub_ptr_ = std::make_shared<ImuPublisher>(nh, "/synced_imu", 100, "map");
+        imu_odom_pub_ptr_=std::make_shared<OdomPublisher>(nh,"/imu_odom");//imu preintergation result
         // TODO  imu preintegration     imu_odom_ptr_
         enu_origin_pub_ptr_ = std::make_shared<EnuPublisher>(nh, "/ref_point_wgs84", 100, "map");
+
 
         /*config setting*/
         gnss_enable_ = config_node_["gnss_enable"];
@@ -62,6 +64,9 @@ namespace glins
         {
             // CheckDataQueue
             // ExtractDataCurrent()
+
+            /*imu preintegration*/
+            ImuPreintegration();
             // PublishResult
         }
 
@@ -89,8 +94,8 @@ namespace glins
         imu_sub_ptr_->ParseData(unsynced_imu_data_queue);
 
         /*interpolation refer to lidar time stamp */
-       // ImuDataType::TimeSync()
-        //GnssDataType::TimeSync();
+        // ImuDataType::TimeSync()
+        // GnssDataType::TimeSync();
 
         /*time sync flag */
         bool static time_sync_flag = false;
@@ -107,7 +112,7 @@ namespace glins
     /**
      * @brief  calibrate the relative position between sensors
      * @note
-     * @todo 
+     * @todo
      **/
     bool PreprocessFlow::SpaceCalibration()
     {
@@ -134,6 +139,15 @@ namespace glins
     bool PreprocessFlow::ExtractData()
     {
         return true;
+    }
+    /**
+     * @brief  imu preintergation
+     * @note
+     * @todo
+     **/
+    void PreprocessFlow::ImuPreintegration()
+    {
+
     }
 
     void PreprocessFlow::PublishData()

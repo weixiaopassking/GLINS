@@ -9,7 +9,6 @@
 // relevent
 #include "../../include/subscriber/ImuSubscriber.hpp"
 
-
 namespace glins
 {
     /**
@@ -20,7 +19,7 @@ namespace glins
     ImuSubscriber::ImuSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size)
         : nh_(nh)
     {
-        subscriber_ = nh_.subscribe<sensor_msgs::Imu>(topic_name, queue_size, &ImuSubscriber::MsgCallbcak, this,ros::TransportHints().tcpNoDelay());
+        subscriber_ = nh_.subscribe<sensor_msgs::Imu>(topic_name, queue_size, &ImuSubscriber::MsgCallbcak, this, ros::TransportHints().tcpNoDelay());
     }
     /**
      * @brief  callback function
@@ -29,6 +28,8 @@ namespace glins
      **/
     void ImuSubscriber::MsgCallbcak(const sensor_msgs::ImuConstPtr &msg)
     {
+        imu_sub_mutex_.lock();
+
         ImuDataType imu_data;
 
         imu_data.time_stamp = msg->header.stamp.toSec();
@@ -47,6 +48,8 @@ namespace glins
         imu_data.orientation.w = msg->orientation.w;
 
         data_buffer_.push_back(imu_data);
+
+        imu_sub_mutex_.unlock();
     }
 
     /**

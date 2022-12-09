@@ -11,6 +11,7 @@
 
 // c++ lib
 #include <deque>
+#include <mutex>          
 // ros lib
 #include <ros/ros.h>
 #include <sensor_msgs/NavSatFix.h> 
@@ -33,6 +34,7 @@ namespace glins
         ros::NodeHandle nh_;
         ros::Subscriber subscriber_;
         std::deque<GnssFixDataType> data_buffer_;
+        std::mutex gnss_fix_sub_mutex_;
     }; // class glins
 
 } // namespace glins
