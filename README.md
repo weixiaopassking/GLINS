@@ -3,14 +3,20 @@ This repo is just  a record for my study for multisensor_fusion_localization and
 Currently,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar-inertial
 fusion.      
   
-**Relate Video:** [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
+**Relate Video:**  
+ [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
 
 **Relate paper:**  
-[GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation](https://arxiv.org/abs/2103.07899)     
+ [GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation](https://arxiv.org/abs/2103.07899)     
 [IC-GVINS: A Robust, Real-time, INS-Centric GNSS-Visual-Inertial Navigation System for Wheeled Robot](https://arxiv.org/abs/2204.04962)      
-[LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping](https://arxiv.org/abs/2007.00258)  
+ [LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping](https://arxiv.org/abs/2007.00258)  
 
-**Contacts:** For any technical issues, please open an issue at this repository or sent an email to me niu_wengang@163.com.
+**Author:**    
+Wengang Niu from UxV LAB, Northeastern  University.
+
+**Contacts:**   
+For any technical issues, please open an issue at this repository or sent an email to me niu_wengang@163.com.
+
 
 **Pipeline:**
 
@@ -89,21 +95,27 @@ catkin_make
 ## 4.Config Param
 before run on public dataset or with your device, param must be seted.
 
-
-
-## 5.Run
+## 5.Dataset  
+**Public dataset:**    
+[UrbanNav-HK-Data20190428](https://github.com/weisongwen/UrbanNavDataset)    
+[M2DGR](https://github.com/SJTU-ViSYS/M2DGR)  
+## 6.Run
 ```
 chmod +x glins.sh
 ./quick_start
 ```
 
-## 6.Acknowledgements    
-Thanks to GTSAM.
+## 7.Acknowledgements    
+Thanks the following projects for the helps in developing and evaluating the repo.
+ GVINIS  
+IC-GVINS  
+ LIO-SAM    
+FAST LIO2  
 
-## 7.Licence  
+## 9.Licence  
 The source code is released under GPLv3 license.
 
-## 8.Update Log   
+## 10.Update Log   
 **Level 0:  Mainly study the code  framework use  public dataset**  
 2022/09/16 Tag v1.0  Combaine and display  imu and gnss data by rviz_satellite.    
 2022/10/02 Tag v2.0  Use ndt  algorithm to calculatelidar odom.  
