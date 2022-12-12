@@ -27,6 +27,8 @@ include(cmake/geographiclib.cmake)
 include(cmake/eigen.cmake)
 include(cmake/yamlcpp.cmake)
 include(cmake/pcl.cmake)
+include(cmake/gtsam.cmake)
+
 
 file(GLOB_RECURSE ALL_SRCS "*.cpp")
 file(GLOB_RECURSE NODE_SRCS "src/*_node.cpp")

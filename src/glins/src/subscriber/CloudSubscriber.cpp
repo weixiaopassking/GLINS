@@ -16,7 +16,7 @@ namespace glins
     /**
      * @brief  config ros topic
      * @note refer to
-     * @todo马克
+     * @todo
      **/
     CloudSubscriber::CloudSubscriber(ros::NodeHandle &nh, const std::string topic_name, const size_t queue_size)
     {

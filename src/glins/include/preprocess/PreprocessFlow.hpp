@@ -37,6 +37,7 @@ namespace glins
         bool TimeSynchronization();
         bool SpaceCalibration();
         bool InitEnuOrigin();
+        
         bool CheckDataQueue();
         bool ExtractData();
 
