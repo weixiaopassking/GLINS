@@ -34,7 +34,7 @@ namespace glins
         cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, "/synced_cloud", "/velo_link", 100);
         gnss_fix_pub_ptr_ = std::make_shared<OdomPublisher>(nh, "/synced_gnss", "/map", "velo_link", 100);
         imu_pub_ptr_ = std::make_shared<ImuPublisher>(nh, "/synced_imu", 100, "map");
-        imu_odom_pub_ptr_=std::make_shared<OdomPublisher>(nh,"/imu_odom");//imu preintergation result
+        imu_odom_pub_ptr_=std::make_shared<OdomPublisher>(nh, "/imu_odom", "/map", "velo_link", 100);
         // TODO  imu preintegration     imu_odom_ptr_
         enu_origin_pub_ptr_ = std::make_shared<EnuPublisher>(nh, "/ref_point_wgs84", 100, "map");
 
