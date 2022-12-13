@@ -1,8 +1,8 @@
 #include "../../../../include/model/graph_optimizer/gtsam/gtsam_lib.hpp"
 
 /**
- * @brief  添加顶点
- * @note 可选择是否固定先验边
+ * @brief  add vertex and choose if fixed
+ * @note 
  * @todo
  **/
 void GtsamOpter::AddSe3Node(const Eigen::Isometry3d &pose, bool need_fix)
@@ -21,7 +21,7 @@ void GtsamOpter::AddSe3Node(const Eigen::Isometry3d &pose, bool need_fix)
 }
 
 /**
- * @brief  添加邻边
+ * @brief  add between edge
  * @note
  * @todo
  **/
@@ -31,13 +31,13 @@ void GtsamOpter::AddSe3Edge(int vertex_index1,
                             const Eigen::Vector3d &translation_noise,
                             const Eigen::Vector3d &rotation_noise)
 {
-    /*测量*/
+    /*measure*/
     gtsam::Pose3 measurement(relative_pose.matrix());
-    /*噪声*/
+    /*noise*/
     Eigen::Matrix<double, 6, 1> noise;
     noise << rotation_noise, translation_noise;
     gtsam::noiseModel::Diagonal::shared_ptr noise_model = gtsam::noiseModel::Diagonal::Variances(gtsam::Vector6(noise));
-    /*添加*/
+    /*add into graph*/
     if (need_robust_kernel_)
     {
         gtsam::noiseModel::Robust::shared_ptr robust_loss;
@@ -55,7 +55,7 @@ void GtsamOpter::AddSe3Edge(int vertex_index1,
 }
 
 /**
- * @brief  添加单边
+ * @brief  add prior egde
  * @note
  * @todo
  **/
@@ -73,7 +73,7 @@ void GtsamOpter::AddSe3PriorXYZEdge(int se3_vertex_index,
 }
 
 /**
- * @brief  执行优化
+ * @brief  excute optimize
  * @note
  * @todo
  **/
