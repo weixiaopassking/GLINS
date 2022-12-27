@@ -1,6 +1,6 @@
 # multisensor_fusion_localization_study
 This repo is just  a record for my study for multisensor_fusion_localization and  is released by tag form.    
-Currently,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar/camera-inertial
+Currently,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar-inertial
 fusion.      
   
 **Relate Video:**  
