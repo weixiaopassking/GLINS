@@ -1,6 +1,6 @@
-# GLINS
+# GXINS
 This repo is just  a simple demo  for multisensor fusion localization and  will be  released by tag form.    
-Currently,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar-inertial
+Currently,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-x(lidar or camera)-inertial
 fusion.      
   
 **Relate Video:**  
