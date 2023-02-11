@@ -84,7 +84,7 @@ sudo apt-get install ros-melodic-qt-build
 
 ## 3.代码编译
 ```
-cd $multisensor_fusion_localization_study
+cd $glins
 catkin_make 
 ```
 ## 4.参数配置
