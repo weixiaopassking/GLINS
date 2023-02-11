@@ -1,6 +1,6 @@
 # GLINS
 预期实现一种融合GNSS、Lidar、IMU的低成本、强鲁棒性长期建图与定位方案  
-本仓库将以Tag形式不断迭代，尽可能呈现出较好的代码习惯及简洁的架构，水平有限，欢迎交流指正。
++ 本仓库将以Tag形式不断迭代，尽可能呈现出较好的代码习惯及简洁的架构，水平有限，欢迎交流指正。
   
 **测试视频:**  
  [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
