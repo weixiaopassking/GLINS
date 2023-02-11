@@ -28,7 +28,7 @@
 ```
 **cmake  (3.16 or higher is required)**  
 ```
-#You don't need to remove the old version, just press the instructions below
+#不需要移除旧版本的cmake，直接按照以下指令覆盖即可
 git clone -b v3.16.5  https://github.com/Kitware/CMake.git
 mkdir build && cd build
 cmake ..
@@ -82,7 +82,7 @@ sudo apt-get install ros-melodic-qt-build
 </left>
 
 
-## 3.Build 
+## 3.编译
 ```
 cd $multisensor_fusion_localization_study
 catkin_make 
