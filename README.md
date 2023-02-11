@@ -21,7 +21,7 @@
     <img src="./pic/gnss_test2.png" height="100"/>
 </left>
      
-## 1.依赖项
+## 1.软件依赖项
 **ros melodic**
 ```shell
 #just follow ros wiki for melodic version
@@ -70,7 +70,7 @@ sudo apt-get install ros-melodic-qt-build
   sudo add-apt-repository ppa:borglab/gtsam-release-4.0  
   sudo apt install libgtsam-dev libgtsam-unstable-dev  
 ```
-## 2.Device and config  
+## 2.硬件设备
 **GNSS:** Ublox zedf9p      
 **IMU:** FDISYSTEM N100       
 **Lidar:** Velodyne 16     
