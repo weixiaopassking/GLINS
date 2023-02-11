@@ -82,46 +82,44 @@ sudo apt-get install ros-melodic-qt-build
 </left>
 
 
-## 3.编译
+## 3.代码编译
 ```
 cd $multisensor_fusion_localization_study
 catkin_make 
 ```
-## 4.Config Param
-before run on public dataset or with your device, param must be seted.
+## 4.参数配置
 
-## 5.Datasets
-### 5.1 Public  
+## 5.数据集
+### 5.1 公开数集  
 [UrbanNav-HK-Data20190428](https://github.com/weisongwen/UrbanNavDataset)    
 [M2DGR](https://github.com/SJTU-ViSYS/M2DGR)  
 
-### 5.2   Ours
+### 5.2 自采数据集
 |  Sequence   Name  | Collection Date | Total Size |  Duration | Features | Rosbag |
 | ----------- | ----------- |----------- | ----------- |----------- |----------- | 
 | Camups_01      | 2022_11_26    | 7.9G | 120s  | Circle | [Aliyun](www.aliyundrive.com)
 
 
-## 6.Run
+## 6.运行
 ```
 chmod +x glins.sh
-./quick_start
+./test.sh
 ```
 
-## 7.Acknowledgements    
-Thanks the following projects for the helps in developing and evaluating the repo.
+## 7.致谢    
  GVINIS  
 IC-GVINS  
  LIO-SAM    
 FAST LIO2  
 
-## 9.Licence  
-The source code is released under GPLv3 license.
+## 8.许可证
+遵循 GPLv3.
 
-## 10.Update Log   
-2022/09/16 Tag v1.0  Combaine and display  imu and gnss data by rviz_satellite.    
-2022/10/02 Tag v2.0  Use ndt  algorithm to calculatelidar odom.  
-2022/11/07 Tag v3.0  Loosly couple  lidar  odom with gnss.  
-2022/11/14 Tag v4.0  Simple use ndt algorithm to realize localization.  
+## 9.更新日志
+2022/09/16 Tag v1.0  可视化组合惯导信息
+2022/10/02 Tag v2.0  使用ndt配合子图前端里程计
+2022/11/07 Tag v3.0  使用g2o松耦合gnss
+2022/11/14 Tag v4.0  使用简单的NDT配合子地图进行定位
 To publish  Tag v5.0    
 
 
