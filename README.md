@@ -1,32 +1,27 @@
 # GLINS
-This repo is just  a simple demo  for multisensor fusion localization and  will be  released by tag form.    
-Currently,expect to  achieve   a robust and long term localization system with map-updating coupled gnss-lidar-inertial
-fusion.      
+一种低成本 融合GNSS、Lidar、IMU的长期建图与定位方案
   
-**Relate Video:**  
+**测试视频:**  
  [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
 
-**Relate paper:**  
+**相关论文:**  
  [GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation](https://arxiv.org/abs/2103.07899)     
 [IC-GVINS: A Robust, Real-time, INS-Centric GNSS-Visual-Inertial Navigation System for Wheeled Robot](https://arxiv.org/abs/2204.04962)      
  [LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping](https://arxiv.org/abs/2007.00258)  
 
-**Author:**    
-Wengang Niu from UxV LAB, Northeastern  University.
-
-**Contacts:**   
-For any technical issues, please open an issue at this repository or sent an email to me niu_wengang@163.com.
+**联系方式:**   
+如何有问题请提交issue或发邮件至niu_wengang@163.com.
 
 
-**Pipeline:**
+**框架:**
 
-**Example:**    
+**测试图片:**    
 <left class="half">
     <img src="./pic/gnss_test1.jpg" height="100">
     <img src="./pic/gnss_test2.png" height="100"/>
 </left>
      
-## 1.Dependency
+## 1.依赖项
 **ros melodic**
 ```shell
 #just follow ros wiki for melodic version
