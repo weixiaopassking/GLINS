@@ -13,7 +13,6 @@
 **联系方式:**   
 如何有问题请提交issue或发邮件至niu_wengang@163.com.
 
-
 **框架:**
 
 **测试图片:**    
@@ -96,7 +95,7 @@ catkin_make
 [M2DGR](https://github.com/SJTU-ViSYS/M2DGR)  
 
 ### 5.2 自采数据集
-|  Sequence   Name  | Collection Date | Total Size |  Duration | Features | Rosbag |
+|  序列号  | 采集时间 | 大小 |  时长 | 特点 | rosbag下载 |
 | ----------- | ----------- |----------- | ----------- |----------- |----------- | 
 | Camups_01      | 2022_11_26    | 7.9G | 120s  | Circle | [Aliyun](www.aliyundrive.com)
 
