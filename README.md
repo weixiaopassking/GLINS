@@ -2,26 +2,10 @@
 
 **预期功能**  bev视角下融合lidar、svc等传感器实现简单的代客泊车功能     
 **项目说明** 个人学习练手的demo，侧重于工程化实现(代码性能、框架调度等考量)及算法学习(多传感器的使用、语义slam、BEV former、混合astar等)     
-**更新说明** tag形式记录
-  
-**测试视频:**  
- [bilibili](https://space.bilibili.com/356146260/channel/collectiondetail?sid=753064&ctype=0)  
+**更新说明** tag形式记录，如有问题可提交issue
 
-**相关论文:**  
- [GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation](https://arxiv.org/abs/2103.07899)     
-[IC-GVINS: A Robust, Real-time, INS-Centric GNSS-Visual-Inertial Navigation System for Wheeled Robot](https://arxiv.org/abs/2204.04962)      
- [LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping](https://arxiv.org/abs/2007.00258)  
 
-**联系方式:**   
-如何有问题请提交issue或发邮件至niu_wengang@163.com.
 
-**框架:**
-
-**测试图片:**    
-<left class="half">
-    <img src="./pic/gnss_test1.jpg" height="100">
-    <img src="./pic/gnss_test2.png" height="100"/>
-</left>
      
 ## 1.软件依赖项
 **ros melodic**
