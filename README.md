@@ -18,7 +18,7 @@
 多传感器时间软同步、点云去畸变、前端ndt子图匹配定位、后端gnss构建残差图优化、ndt基于点云定位 
 
 | Tag版本      | 发布时间  | 功能     |
-| :---        |    :----:   |          ---: |
+|:---:|:----:|:---: |
 | Header      | Title       | Here's this   |
 | Paragraph   | Text        | And more      |
 
