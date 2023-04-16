@@ -1,0 +1,70 @@
+#定义需求版本和工程名称
+cmake_minimum_required(VERSION 3.0.2)
+project(multisensor_localization)
+
+#cmake 编译配置
+SET(CMAKE_BUILD_TYPE "Release")
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+add_compile_options(-std=c++14)
+add_definitions(-std=c++14)
+
+#第三方库配置
+set(THIRD_PART_LIBRARIES "")
+include(cmake/pcl.cmake)
+include(cmake/geographicLib.cmake)
+include(cmake/glog.cmake)
+include(cmake/yamlcpp.cmake)
+include(cmake/g2o.cmake)
+
+
+#ROS配置
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  roslib
+  tf
+  message_generation 
+)
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_service_files(
+   FILES
+   optimizeMap.srv
+   saveMap.srv
+)
+
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+)
+
+catkin_package()
+
+
+
+#自定义库设置
+file(GLOB_RECURSE ALL_SRCS "*.cpp")
+file(GLOB_RECURSE NODE_SRCS "src/*_node.cpp")
+list(REMOVE_ITEM  ALL_SRCS  ${NODE_SRCS})
+
+
+# #数据预处理节点
+add_executable(data_pretreat_node src/app/data_pretreat_node.cpp ${ALL_SRCS} )
+target_link_libraries(data_pretreat_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+#  前端里程计节点
+add_executable(front_end_node src/app/front_end_node.cpp ${ALL_SRCS} )
+target_link_libraries(front_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+#  #后端优化节点
+add_executable(back_end_node src/app/back_end_node.cpp ${ALL_SRCS} )
+target_link_libraries(back_end_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+# 回环检测
+# add_executable(loop_closing_node src/app/loop_closing_node.cpp ${ALL_SRCS} )
+# target_link_libraries(loop_closing_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+#可视化节点
+add_executable(viewer_node src/app/viewer_node.cpp ${ALL_SRCS} )
+target_link_libraries(viewer_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
+
+#匹配节点
+add_executable(matching_node src/app/matching_node.cpp ${ALL_SRCS} )
+target_link_libraries(matching_node ${catkin_LIBRARIES} ${THIRD_PART_LIBRARIES})
