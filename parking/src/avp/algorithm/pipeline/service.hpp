@@ -1,3 +1,10 @@
+/*******************************
+ *  @file     service.h
+ *  @brief    调度器
+ ********************************/
+#ifndef  _SERVICE_HPP
+#define _SERVICE_HPP
+
 #include <string>
 #include <memory>
 
@@ -13,3 +20,5 @@ private:
     class impl;
     std::unique_ptr<impl> _impl_p;
 };
+
+#endif
