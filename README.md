@@ -1,4 +1,4 @@
-# BEV-Semantic-Slam-Framework
+# BEV-Semantic-Slam-for-Parking
 
 **更新说明** tag形式记录更新，如有问题可提交issue     
 **项目说明** 个人学习练手的demo，将不断整合所竞赛、实习、课程时所学到的工程技巧及算法  
