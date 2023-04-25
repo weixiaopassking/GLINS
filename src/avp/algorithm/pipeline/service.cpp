@@ -6,7 +6,7 @@
 #include "service.hpp"
 #include "pipelineBase.hpp"
 
-// #include "./pipelinePerception/pipelinePerception.hpp"
+#include "./pipelinePerception/pipelinePerception.hpp"
 #include "./pipelineLocalization/pipelineLocalization.hpp"
 
 class service::impl
@@ -18,7 +18,7 @@ public:
     pipelineBase *getPipelinePlanning();     // 规控pipeline 混合Astar+mpc
     pipelineBase *getPipelineInteraction();  // 人机交互pipeline  车端rosqtUI+安卓端车位选择地图查看
 private:
-    // std::unique_ptr<pipelinePerception> _pipePerception_ptr;
+    std::unique_ptr<pipelinePerception> _pipePerception_ptr;
     std::unique_ptr<pipelineLocalization> _pipeLocalization_ptr;
     // std::unique_ptr<pipelineMapping> _pipeMapping_ptr;
     // std::unique_ptr<pipelinePlanning> _pipeMapping_ptr;
@@ -35,21 +35,26 @@ service::~service()
 
 void service::getPipeline(const std::string str)
 {
-    if(str.compare("定位")==0)
+    if (str.compare("定位") == 0)
     {
-    _impl_ptr->getPipelineLocalization();
+        _impl_ptr->getPipelineLocalization();
     }
-
+    else if (str.compare("定位") == 0)
+    {
+        _impl_ptr->getPipelinePerception();
+    }
 }
 
 pipelineBase *service::impl::getPipelinePerception()
 {
-
+    std::cout << "感知pipeline启动" << std::endl;
+    _pipePerception_ptr = std::make_unique<pipelinePerception>();
+    return _pipePerception_ptr.get();
 }
 
 pipelineBase *service::impl::getPipelineLocalization()
 {
-        std::cout << "定位pipeline启动" << std::endl;
+    std::cout << "定位pipeline启动" << std::endl;
     _pipeLocalization_ptr = std::make_unique<pipelineLocalization>();
     return _pipeLocalization_ptr.get();
 }

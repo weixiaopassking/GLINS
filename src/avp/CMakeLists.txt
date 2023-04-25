@@ -8,7 +8,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 add_compile_options(-std=c++14)
 add_definitions(-std=c++14)
 
-set(node_path     ${CMAKE_CURRENT_SOURCE_DIR}/algorithm/node)
+set(node_path   ${CMAKE_CURRENT_SOURCE_DIR}/node)
 
 
 #第三方库配置
@@ -33,10 +33,11 @@ file(GLOB_RECURSE node_src "*_node.cpp")
 list(REMOVE_ITEM  all_src  ${node_src})
 
 
-add_executable(preception_node   ${node_path}/preception_node.cpp)
-target_link_libraries( preception_node    ${catkin_LIBRARIES} ${all_src})
+add_executable(loclization_node   ${node_path}/loclization_node.cpp)
+target_link_libraries( loclization_node    ${catkin_LIBRARIES} ${all_src})
 
-
+add_executable(perception_node   ${node_path}/perception_node.cpp)
+target_link_libraries( perception_node    ${catkin_LIBRARIES} ${all_src})
 
 
 
