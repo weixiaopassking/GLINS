@@ -39,7 +39,7 @@ void service::getPipeline(const std::string str)
     {
         _impl_ptr->getPipelineLocalization();
     }
-    else if (str.compare("定位") == 0)
+    else if (str.compare("感知") == 0)
     {
         _impl_ptr->getPipelinePerception();
     }
