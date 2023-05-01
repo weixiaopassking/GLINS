@@ -1,10 +1,19 @@
 {
-    "python.autoComplete.extraPaths": [
-        "/opt/ros/melodic/lib/python2.7/dist-packages"
-    ],
-    "python.analysis.extraPaths": [
-        "/opt/ros/melodic/lib/python2.7/dist-packages"
-    ],
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    "vetur.format.defaultFormatter.js": "vscode-typescript",
+    "vetur.format.defaultFormatterOptions": {
+        "js-beautify-html": {
+            "wrap_line_length": 240,
+            "wrap_attributes": "auto",
+            "end_with_newline": false
+        },
+        "prettyhtml": {
+            "printWidth": 100,
+            "singleQuote": false,
+            "wrapAttributes": false,
+            "sortAttributes": false
+        }
+    },
     "files.associations": {
         "cctype": "cpp",
         "clocale": "cpp",
@@ -67,6 +76,7 @@
         "random": "cpp",
         "set": "cpp",
         "string": "cpp",
-        "string_view": "cpp"
-    }
+        "string_view": "cpp",
+        "core": "cpp"
+    },
 }
