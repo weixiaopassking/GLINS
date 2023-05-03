@@ -16,7 +16,7 @@ void eigenUsage::commonUse() {
 
   matrix_23 << 1, 2, 3, 4, 5, 6;
   std::cout << matrix_23 << std::endl;
-  rrrr
+
 
       for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 3; j++) {
