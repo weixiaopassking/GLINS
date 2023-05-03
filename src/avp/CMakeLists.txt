@@ -10,38 +10,39 @@ add_definitions(-std=c++14)
 
 set(node_path   ${CMAKE_CURRENT_SOURCE_DIR}/node)
 
-
 #第三方库配置
 set(thirdpart_lib  "")
-include(cmake/glog.cmake)
-include(cmake/yamlcpp.cmake)
+# include(cmake/glog.cmake)
+# include(cmake/yamlcpp.cmake)
 include(cmake/eigen.cmake)
+
 
 #ROS库配置
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  std_msgs
+  roslib
 )
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
-
+catkin_package()
 
 
 #自定义库配置
 
 file(GLOB_RECURSE all_src  "*.cpp")
-file(GLOB_RECURSE node_src "*_node.cpp")
+file(GLOB_RECURSE node_src  "${node_path}/*_node.cpp")
 list(REMOVE_ITEM  all_src  ${node_src})
 
 # add_executable(loclization_node   ${node_path}/loclization_node.cpp)
 # target_link_libraries( loclization_node    ${catkin_LIBRARIES} ${all_src})
 
 # add_executable(perception_node   ${node_path}/perception_node.cpp)
-# target_link_libraries( perception_node    ${catkin_LIBRARIES} ${all_src})
+# target_link_libraries( perception_node    ${catkin_LIBRARIES}  ${all_src})
 
-add_executable(mytest_node   ${node_path}/mytest_node.cpp)
-
-target_link_libraries( mytest_node    ${catkin_LIBRARIES} ${thirdpart_lib} )
+add_executable(test_node   ${node_path}/test_node.cpp  ${all_src})
+target_link_libraries( test_node    ${catkin_LIBRARIES}   ${thirdpart_lib} )
 
 

@@ -22,7 +22,7 @@ class service::impl {
   std::unique_ptr<pipelineLocalization> _pipeLocalization_ptr;
   // std::unique_ptr<pipelineMapping> _pipeMapping_ptr;
   // std::unique_ptr<pipelinePlanning> _pipeMapping_ptr;
-  std::unique_ptr<pipelineTest> _pipeTest_ptr;
+
 };
 
 service::service() { _impl_ptr = std::make_unique<impl>(); }
