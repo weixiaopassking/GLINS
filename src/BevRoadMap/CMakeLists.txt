@@ -1,6 +1,6 @@
 #定义需求版本和工程名称
 cmake_minimum_required(VERSION 3.0.2)
-project(avp)
+project(BevRoadMap)
 
 #cmake 编译配置
 SET(CMAKE_BUILD_TYPE "Release")
@@ -12,9 +12,11 @@ set(node_path   ${CMAKE_CURRENT_SOURCE_DIR}/node)
 
 #第三方库配置
 set(thirdpart_lib  "")
-# include(cmake/glog.cmake)
-# include(cmake/yamlcpp.cmake)
+include(cmake/yamlcpp.cmake)
 include(cmake/eigen.cmake)
+ include(cmake/opencv.cmake)
+# include(cmake/glog.cmake)
+
 
 
 #ROS库配置
@@ -31,7 +33,7 @@ catkin_package()
 
 
 #自定义库配置
-
+include_directories(/home/g/workspace/BEV-Semantic-Slam-for-Parking/src/avp/algorithm)
 file(GLOB_RECURSE all_src  "*.cpp")
 file(GLOB_RECURSE node_src  "${node_path}/*_node.cpp")
 list(REMOVE_ITEM  all_src  ${node_src})

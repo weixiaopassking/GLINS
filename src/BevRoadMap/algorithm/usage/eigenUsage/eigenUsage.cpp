@@ -35,7 +35,7 @@ void eigenUsage::commonUse() {
 }
 
 // 求解线性方程组
-void eigenDemo::solveLinearEquationsUse() {
+void eigenUsage::solveLinearEquationsUse() {
   const int MATRIX_SIZE = 100;
   Eigen::Matrix<double, MATRIX_SIZE, MATRIX_SIZE> matrix_nn;
   Eigen::Matrix<double, MATRIX_SIZE, 1> vec_n;
