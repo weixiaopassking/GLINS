@@ -1,6 +1,6 @@
 #定义需求版本和工程名称
 cmake_minimum_required(VERSION 3.0.2)
-project(BevRoadMap)
+project(BevRoadSlam)
 
 #cmake 编译配置
 SET(CMAKE_BUILD_TYPE "Release")

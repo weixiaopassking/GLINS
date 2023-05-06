@@ -6,15 +6,18 @@
 
 **目录结构**  
 .
-├── algorithm  
-│   ├── module		 算法子模块: 回环检测、车位检测、mpc    
-│   ├── pipeline		pipe: 感知pipe、定位pipeline ...    
-│   └── tools             通用工具: 文件管理器    
-├── cmake				 cmake配置文件: yamlcpp、glog、gtsam ...      
-├── config				    参数配置文件        
-├── dist				   	 目标文件: 预测结果、轨迹估计  
-├── node				   节点启动    
-├── refer				     资料参考    
+├── algorithm 
+│   ├── module  #算法模块
+│   ├── pipeline  #算法pipeline
+│   ├── tools   #工具类 
+│   └── usage  #第三方库测试用例
+├── cmake #cmake配置文件
+├── CMakeLists.txt
+├── config  #参数配置文件
+├── data   #本地数据
+├── node  #ros节点可执行文件
+├── package.xml
+└── refer   #参考资料
 
 
 ## 1.算法流程
@@ -26,9 +29,10 @@
 
 ## 3.环境配置
 
-|  第三方库  |    版本    |安装|
-| :----: | :----: | :----: |
-| yaml-cpp |0.6.0|  |
+|  开源库  |  作用  |    版本    |安装|
+| :----: | :----: | :----: | :----: |
+| yaml-cpp | 读参 |0.6.0|  |
+| glog | 日志 ||  |
 
 
 
