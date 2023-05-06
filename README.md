@@ -17,7 +17,7 @@
 ├── data                                                            #本地数据  
 ├── node                                                          #ros节点可执行文件  
 ├── package.xml  
-└── refer                                                          #参考资料  
+└── refer                                                           #参考资料  
 
 
 ## 1.算法流程
