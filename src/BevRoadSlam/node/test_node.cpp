@@ -1,24 +1,36 @@
+/*
+ * @Description: 测试节点
+ * @Function:
+ * @Author: Gang
+ * @Version : v1.0
+ * @Date: 2023-05-07
+ */
+
+// ros库
 #include <ros/ros.h>
+#include <ros/package.h>
 #include <yaml-cpp/yaml.h>
-
-#include <Eigen/Core>
+// 系统库
 #include <memory>
-#include <opencv2/opencv.hpp>
 #include <string>
-
+// 第三方库
+#include <Eigen/Core>
+#include <opencv2/opencv.hpp>
+// 自定义库
 #include "../algorithm/module/imageUndistort/imageUndistort.hpp"
 
-int main(int argc, char **argv) {
-  ros::init(argc, argv, "test_ndoe");
-  ros::NodeHandle nh;
-  YAML::Node config_node_ = YAML::LoadFile(
-      "/home/g/workspace/BEV-Semantic-Slam-for-Parking/src/avp/config/camera.yaml");
-  const std::string image_path =
-      "/home/g/workspace/BEV-Semantic-Slam-for-Parking/src/avp/data/test.png";
-  cv::Mat image = cv::imread(image_path, 0);  // 灰度读入
-  cv::imshow("demo", image);
-  cvWaitKey();
-  std::unique_ptr<imageUndistort> demo_ptr =
-      std::make_unique<imageUndistort>(image,config_node_);
-  return 0;
+int main(int argc, char **argv)
+{
+    ros::init(argc, argv, "test_ndoe");
+    ros::NodeHandle nh;
+
+    const std::string package_path = ros::package::getPath("BevRoadSlam");
+    YAML::Node camera_config_node = YAML::LoadFile(package_path + "/config/camera.yaml");
+    std::string image_path = package_path + "/data/test.png";
+
+    cv::Mat image = cv::imread(image_path, cv::IMREAD_GRAYSCALE); // 灰度读入
+    cv::imshow("畸变", image);
+    cv::waitKey(0);
+   std::unique_ptr<imageUndistort> demo_ptr = std::make_unique<imageUndistort>(image, camera_config_node);
+    return 0;
 }

@@ -16,7 +16,7 @@ include(cmake/yamlcpp.cmake)
 include(cmake/eigen.cmake)
  include(cmake/opencv.cmake)
 # include(cmake/glog.cmake)
-
+find_package(TBB REQUIRED)
 
 
 #ROS库配置
@@ -45,6 +45,11 @@ list(REMOVE_ITEM  all_src  ${node_src})
 # target_link_libraries( perception_node    ${catkin_LIBRARIES}  ${all_src})
 
 add_executable(test_node   ${node_path}/test_node.cpp  ${all_src})
-target_link_libraries( test_node    ${catkin_LIBRARIES}   ${thirdpart_lib} )
+target_link_libraries( test_node    ${catkin_LIBRARIES}   ${thirdpart_lib}   TBB::tbb)
 
 
+
+# find_package(TBB REQUIRED)
+# include_directories(${TBB_INCLUDE_DIR})
+# add_executable(TBB main.cpp)
+# target_link_libraries(TBB ${TBB_LIBRARIES})
