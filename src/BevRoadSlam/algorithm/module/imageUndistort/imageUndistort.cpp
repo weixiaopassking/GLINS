@@ -6,6 +6,7 @@
  * */
 imageUndistort::imageUndistort(cv::Mat image, const YAML::Node config_node)
 {
+  // Pinhole camera model
   double k1 = config_node["camera_distorted"]["k1"].as<double>();
   double k2 = config_node["camera_distorted"]["k2"].as<double>();
   double p1 = config_node["camera_distorted"]["p1"].as<double>();
@@ -20,7 +21,7 @@ imageUndistort::imageUndistort(cv::Mat image, const YAML::Node config_node)
   double rows = image.rows;
   double cols = image.cols;
 
-  cv::Mat image_undistorted = cv::Mat(rows, cols, CV_8UC1); //[y,x]
+  cv::Mat image_undistorted = cv::Mat(rows, cols, CV_8UC1); //opencv [y,x]
   for (double v_index = 0; v_index < rows; v_index++)
   {
     for (double u_index = 0; u_index < cols; u_index++)
@@ -28,8 +29,8 @@ imageUndistort::imageUndistort(cv::Mat image, const YAML::Node config_node)
       double x = (u_index - cx) / fx;
       double y = (v_index - cy) / fy;
       double rr = x * x + y * y;
-     double  x_distorted = x * (1 + k1 * rr + k2 * pow(rr, 2)) + 2 * p1 * x * y + p2 * (rr + 2 * pow(x, 2));
-      double y_distorted = y * (1 + k1 * rr + k2 * pow(rr, 2)) + 2 * p2 * y * x + p1 * (rr + 2 * pow(y, 2));
+      double x_distorted = x * (1 + k1 * rr + k2 * rr * rr) + 2 * p1 * x * y + p2 * (rr + 2 * x * x);
+      double y_distorted = y * (1 + k1 * rr + k2 * rr * rr) + 2 * p2 * y * x + p1 * (rr + 2 * y * y);
 
       double u_distorted = fx * x_distorted + cx;
       double v_distorted = fy * y_distorted + cy;

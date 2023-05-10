@@ -18,6 +18,7 @@
 #include <opencv2/opencv.hpp>
 // 自定义库
 #include "../algorithm/module/imageUndistort/imageUndistort.hpp"
+#include "../algorithm/tools/paramParseUtils.hpp"
 
 int main(int argc, char **argv)
 {
@@ -26,11 +27,12 @@ int main(int argc, char **argv)
 
     const std::string package_path = ros::package::getPath("BevRoadSlam");
     YAML::Node camera_config_node = YAML::LoadFile(package_path + "/config/camera.yaml");
-    std::string image_path = package_path + "/data/test.png";
+    std::cout <<paramParse::yamlParse<double>(camera_config_node["camera_distorted"]["k1"]);
+    //     std::string image_path = package_path + "/data/test.png";
 
-    cv::Mat image = cv::imread(image_path, cv::IMREAD_GRAYSCALE); // 灰度读入
-    cv::imshow("畸变", image);
-    cv::waitKey(0);
-   std::unique_ptr<imageUndistort> demo_ptr = std::make_unique<imageUndistort>(image, camera_config_node);
+    //     cv::Mat image = cv::imread(image_path, cv::IMREAD_GRAYSCALE); // 灰度读入
+    //     cv::imshow("畸变", image);
+    //     cv::waitKey(0);
+    //    std::unique_ptr<imageUndistort> demo_ptr = std::make_unique<imageUndistort>(image, camera_config_node);
     return 0;
 }
