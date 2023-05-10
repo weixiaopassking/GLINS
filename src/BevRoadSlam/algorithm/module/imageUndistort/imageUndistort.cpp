@@ -6,6 +6,7 @@
  * */
 imageUndistort::imageUndistort(cv::Mat image, const YAML::Node config_node)
 {
+  //todo fisheye
   // Pinhole camera model
   double k1 = config_node["camera_distorted"]["k1"].as<double>();
   double k2 = config_node["camera_distorted"]["k2"].as<double>();
