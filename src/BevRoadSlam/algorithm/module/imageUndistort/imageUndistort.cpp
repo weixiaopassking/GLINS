@@ -6,6 +6,7 @@
  * */
 void imageUndistort::configParam(const YAML::Node config_node)
 {
+
   /*1--读取相机内参*/
   Eigen::Matrix3d camera_param = Eigen::Map<Eigen::Matrix<double, 3, 3, Eigen::RowMajor>>(
       config_node["camera_Intrinsics"].as<std::vector<double>>().data());
@@ -13,6 +14,7 @@ void imageUndistort::configParam(const YAML::Node config_node)
   _camera_Intrinsics.cx = camera_param(0, 2);
   _camera_Intrinsics.fy = camera_param(1, 1);
   _camera_Intrinsics.cy = camera_param(1, 2);
+
   /*2--读取相机类型及对应畸变系数*/
   _camera_type = config_node["camera_type"].as<std::string>();
   if (_camera_type == "pinhole")
@@ -21,7 +23,6 @@ void imageUndistort::configParam(const YAML::Node config_node)
     _pinhole_distortion_coefficient.k2 = config_node["camera_distortion_coefficient"]["pinhole"]["k2"].as<double>();
     _pinhole_distortion_coefficient.p1 = config_node["camera_distortion_coefficient"]["pinhole"]["p1"].as<double>();
     _pinhole_distortion_coefficient.p2 = config_node["camera_distortion_coefficient"]["pinhole"]["p2"].as<double>();
-    std::cout << "-----------" << std::endl;
   }
   else if (_camera_type == "fisheye")
   {
@@ -32,8 +33,10 @@ void imageUndistort::configParam(const YAML::Node config_node)
   }
   else
   {
-    std::cout << "暂时无此相机的畸变参数" << std::endl;
+    std::cout << "暂时无此相机的畸变参数,请检查参数" << std::endl;
+    exit(0);
   }
+  std::cout << "相机参数加载完成" << std::endl;
 }
 
 cv::Mat imageUndistort::execUndistort(cv::Mat image)
@@ -80,8 +83,6 @@ cv::Mat imageUndistort::execUndistort(cv::Mat image)
       }
     }
   }
-  cv::imshow("校正后", image_undistorted);
-  cv::waitKey(0);
 
   return image_undistorted;
 }

@@ -27,15 +27,17 @@ int main(int argc, char **argv)
 
     const std::string package_path = ros::package::getPath("BevRoadSlam");
     YAML::Node camera_config_node = YAML::LoadFile(package_path + "/config/camera.yaml");
-    std::string image_path = package_path + "/data/fisheye.jpg";
+    std::string image_path = package_path + "/data/pinhole.jpg";
 
     cv::Mat image = cv::imread(image_path);
     cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
 
     cv::imshow("原始图像", image);
     cv::waitKey(0);
-    std::unique_ptr<imageUndistort> demo_ptr = std::make_unique<imageUndistort>();
-    demo_ptr->configParam(camera_config_node);
-    demo_ptr->execUndistort(image);
+    std::unique_ptr<imageUndistort> image_ptr = std::make_unique<imageUndistort>();
+    image_ptr->configParam(camera_config_node);
+    image = image_ptr->execUndistort(image).clone();
+    cv::imshow("校正图像", image);
+    cv::waitKey(0);
     return 0;
 }
