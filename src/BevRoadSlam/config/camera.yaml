@@ -1,7 +1,7 @@
 camera_type: mono_pinhole  # mono_fisheye    stereo  svc
 
 mono_pinhole:
- cam_intrinsics: 
+ cam_intrinsics_param: 
   fx: 458.654
   fy: 457.296
   cx:  367.215
@@ -32,7 +32,7 @@ stereo:
   fy: 690.48
   cx:  1295.56
   cy: 942.17
-  d:  0.573 #视差
+cam_disparity:  0.573 
 
 svc: 
  cam_intrinsics: 
@@ -40,3 +40,5 @@ svc:
   fy: 690.48
   cx:  1295.56
   cy: 942.17
+
+
