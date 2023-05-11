@@ -31,8 +31,8 @@ int main(int argc, char **argv)
 
     cv::Mat image = cv::imread(image_path);
     cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
-    std::cout << "~~~~~" << std::endl;
-    cv::imshow("畸变", image);
+
+    cv::imshow("原始图像", image);
     cv::waitKey(0);
     std::unique_ptr<imageUndistort> demo_ptr = std::make_unique<imageUndistort>();
     demo_ptr->configParam(camera_config_node);
