@@ -1,20 +1,42 @@
-# camera_type: pinhole  
-# camera_Intrinsics: [458.654 , 0.000 , 367.215 ,
-#                                         0.000 ,  457.296  , 248.375 ,
-#                                         0.000 , 0.000 , 1.000]
-camera_type: fisheye
-camera_Intrinsics: [689.21 , 0.000 , 1295.56 ,
-                                        0.000 , 690.48  ,942.17 ,
-                                        0.000 , 0.000 , 1.000]
- 
-camera_distortion_coefficient:
-  pinhole: #针孔
-    k1: -0.28340811
-    k2: 0.07395907
-    p1: 0.00019359
-    p2: 1.76187114e-5
-  fisheye: #鱼眼
-    k1: 0
-    k2: 0
-    k3: 0
-    k4: 0
+camera_type: mono_pinhole  # mono_fisheye    stereo  svc
+
+mono_pinhole:
+ cam_intrinsics: 
+  fx: 458.654
+  fy: 457.296
+  cx:  367.215
+  cy: 248.375
+ cam_distortion coefficient:
+   k1: -0.28340811
+   k2: 0.07395907
+   p1: 0.00019359
+   p2: 1.76187114e-5
+
+
+mono_fisheye: 
+ cam_intrinsics: 
+  fx: 689.21
+  fy: 690.48
+  cx:  1295.56
+  cy: 942.17
+ camera_distortion_coefficient:
+   k1: 0
+   k2: 0
+   k3: 0
+   k4: 0
+
+
+stereo: 
+ cam_intrinsics: 
+  fx: 689.21
+  fy: 690.48
+  cx:  1295.56
+  cy: 942.17
+  d:  0.573 #视差
+
+svc: 
+ cam_intrinsics: 
+  fx: 689.21
+  fy: 690.48
+  cx:  1295.56
+  cy: 942.17

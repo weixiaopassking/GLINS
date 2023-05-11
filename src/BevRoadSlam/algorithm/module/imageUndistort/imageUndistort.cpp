@@ -50,7 +50,7 @@ cv::Mat imageUndistort::execUndistort(cv::Mat image)
   {
     for (double v_index = 0; v_index < rows; v_index++)
     {
-      /*1--反向投影像素到归一化平面*/
+      /*1--反向投影像素到归一化平面 z=1*/
       double x = (u_index - _camera_Intrinsics.cx) / _camera_Intrinsics.fx;
       double y = (v_index - _camera_Intrinsics.cy) / _camera_Intrinsics.fy;
       double x_distorted, y_distorted;
