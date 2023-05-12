@@ -10,7 +10,8 @@ class imageProcess
 public:
   imageProcess(){};
   void configParam(const YAML::Node config_node); // 配置去畸变参数
-  cv::Mat execUndistort(cv::Mat);                 // 执行去畸变
+  cv::Mat execUndistort(cv::Mat image);           // 去畸变
+  void execPointCloud(cv::Mat left_image, cv::Mat right_image);
   ~imageProcess(){};
 
 private:
@@ -32,7 +33,7 @@ private:
 
   } _fisheye_distortion_coefficient;
 
-  double _camera_disparity;//仅针对双目相机
+  double _camera_disparity; // 仅针对双目相机
 
   std::string _camera_type;
 };
