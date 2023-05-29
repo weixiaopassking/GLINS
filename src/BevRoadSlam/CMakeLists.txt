@@ -5,8 +5,8 @@ project(BevRoadSlam)
 #cmake 编译配置
 SET(CMAKE_BUILD_TYPE "Release")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
-add_compile_options(-std=c++14)
-add_definitions(-std=c++14)
+add_compile_options(-std=c++17)
+add_definitions(-std=c++17)
 
 set(node_path   ${CMAKE_CURRENT_SOURCE_DIR}/node)
 
@@ -15,7 +15,7 @@ set(thirdpart_lib  "")
 include(cmake/yamlcpp.cmake)
 include(cmake/eigen.cmake)
  include(cmake/opencv.cmake)
-# include(cmake/glog.cmake)
+# include(cmake/glog.cmake
 find_package(TBB REQUIRED)
 
 
