@@ -1,0 +1,1 @@
+add_executable(localization_node node/localization_node.cpp)
