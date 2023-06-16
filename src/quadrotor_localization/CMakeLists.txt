@@ -1,1 +1,2 @@
 add_executable(localization_node node/localization_node.cpp)
+target_link_libraries(localization_node ${third_party_libs})

@@ -7,14 +7,14 @@ project(AlkaidQuadrotor)
 set(DEFAULT_BUILD_TYPE "Release")
 set(CMAKE_CXX_STANDARD 17)
 
-#第三方库
-# include(cmake/thirdpart.cmake)
-
 #文件存放 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)##bin 原则上只存*_node作为启动入口
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)#.so
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)#.a
 
+#第三方库
+
+include(cmake/thirdpartlib.cmake)
 
 #src
 add_subdirectory(src)
