@@ -6,10 +6,13 @@ include_directories(${Glog_INCLUDE_DIRS})
 
 #[ros]
 
+# [eigen3] sudo apt-get install libeigen3-dev
+find_package(Eigen3 REQUIRED)
+include_directories(${EIGEN3_INCLUDE_DIRS})
 
 #[yamlcpp]
 
+#[gflags]
 
 
-
-  set(third_party_libs glog   ${catkin_LIBRARIES})
+  set(third_party_libs glog gflags   ${catkin_LIBRARIES})

@@ -1,2 +1,4 @@
+include_directories(pipeline)
+add_library(localization_pipeline pipeline/localization_pipeline.cpp)
 add_executable(localization_node node/localization_node.cpp)
-target_link_libraries(localization_node ${third_party_libs})
+target_link_libraries(localization_node ${third_party_libs} localization_pipeline)
