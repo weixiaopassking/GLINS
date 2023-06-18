@@ -16,5 +16,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)#.a
 
 include(cmake/thirdpartlib.cmake)
 
+
+include_directories(${PROJECT_SOURCE_DIR}/src)
+
 #src
 add_subdirectory(src)
