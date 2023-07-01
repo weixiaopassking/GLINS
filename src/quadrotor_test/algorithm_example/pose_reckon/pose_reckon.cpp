@@ -15,7 +15,7 @@ void pose_reckon ::init()
     v_body << 1, 0, 0;
     w_body << 1, 2, 3;
     a_body << 0, 0, 0;
-    // ego_pose; //todo init
+    ego_pose;//
     dt = 1.0;
 }
 void pose_reckon::run()

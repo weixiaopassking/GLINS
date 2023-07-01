@@ -5,8 +5,8 @@ class sophus_use
 {
   public:
     sophus_use();
-    void demo1();
-    void demo2();
+    void demo1();//for R
+    void demo2();//for T
 };
 
 #endif

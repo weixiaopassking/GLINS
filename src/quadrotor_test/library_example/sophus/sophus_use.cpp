@@ -15,6 +15,7 @@
 
 sophus_use::sophus_use()
 {
+    this->demo1();
 }
 
 void sophus_use::demo1()
@@ -34,7 +35,10 @@ void sophus_use::demo1()
     std::cout << so3.transpose() << std::endl;
     Sophus::SO3 SO3_so3 = Sophus::SO3d::exp(so3);
 
-    /*4.反对称矩阵*/
+    /*4.李代数<-->反对称矩阵*/
+    // Eigen::Matrix3d R_v = Sophus::SO3d::hat(so3);
+    // std::cout << R_v << std::endl;
+    // Eigen::Vector3d so3_Rv 
 }
 
 void sophus_use::demo2()
