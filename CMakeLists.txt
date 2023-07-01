@@ -6,6 +6,7 @@ project(AlkaidQuadrotor)
 # 编译配置
 set(DEFAULT_BUILD_TYPE "Release")
 set(CMAKE_CXX_STANDARD 17)
+add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 
 #文件存放 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)##bin 原则上只存*_node作为启动入口

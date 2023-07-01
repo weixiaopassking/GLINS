@@ -11,12 +11,9 @@ include_directories(${EIGEN3_INCLUDE_DIRS})
 # sophus
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
 
-#[yamlcpp]
-
-#[gflags]
-
-
-#[ros]
+# pcl
+find_package(PCL REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
 
 
   set(third_party_libs glog gflags   ${catkin_LIBRARIES})

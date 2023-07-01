@@ -1,15 +1,13 @@
 
 #自建库文件
-add_library(pose_reckon algorithm_example/pose_reckon/pose_reckon.cpp)
-add_library(sophus_use library_example/sophus/sophus_use.cpp)
+add_library(pointcloud_handle basic_usage/pointcloud_handle/pointcloud_handle.cpp ) 
 
 
-add_executable(test_node node/test_node.cpp)
+
+add_executable(test_node test_node/test_node.cpp)
 target_link_libraries(test_node
  ${thirdpartlib}
-  pose_reckon
-  sophus_use
+ pointcloud_handle
   )
-
-include_directories(algorithm_example)
-include_directories(library_example)
+include_directories(basic_usage)
+include_directories(lib_usage)

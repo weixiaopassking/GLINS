@@ -57,10 +57,14 @@ LIO版
 |  |  || |
 
 
-## 4.代码标准
+## 4.代码规范
 c++:标准c++ 17   
 代码格式风格: visual studio风格
 
+类 MyClass   
+函数 MyFunction    
+类内变量 _my_function_ptr _my_function_vec  
+普通变量 my_function_ptr   my_function_vec  
 
 
 ## 5.更新日志
