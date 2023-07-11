@@ -1,21 +1,13 @@
 #include "pointcloud_handle.hpp"
 
-namespace quadrotor_test
-{
-PointCloudHandle::PointCloudHandle(std::string pcd_path)
-{
-
-}
-
-// PointCloudHandle::PointCloudHandle(PointCloudType pointcloud_source)
-// {
-// }
-
-// PointCloudHandle::PointCloudHandle(PointCloudType pointcloud_source, PointCloudType pointcloud_target)
-// {
-// }
-
-void PointCloudHandle::PointCloudHandle::Pcd2Bev()
+pointcloud_handle::pointcloud_handle()
 {
 }
-} // namespace
+
+pointcloud_handle::pointcloud_handle(const std::string)
+{
+}
+
+pointcloud_handle::~pointcloud_handle()
+{
+}
