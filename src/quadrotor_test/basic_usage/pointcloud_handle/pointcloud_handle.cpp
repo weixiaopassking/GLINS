@@ -110,7 +110,7 @@ void PointCloudHandle::Display()
  * @brief  scan_range_image 雷达消息投影到环上
  * @param
  * @return void
- * @note todo(用的不多)
+ * @note mid360 may not support it
  */
 void PointCloudHandle::GenerateRangeImage(const double deg_resolution, const double elevation)
 {
