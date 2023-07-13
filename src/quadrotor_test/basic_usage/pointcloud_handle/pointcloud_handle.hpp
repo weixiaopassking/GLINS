@@ -13,6 +13,8 @@
 ****************************************************************************
 */
 
+#include <Eigen/Core> //矩阵定义
+#include <numeric>
 #include <opencv2/core/core.hpp> //图像核心处理
 #include <opencv2/highgui/highgui.hpp>
 #include <ostream>
@@ -35,7 +37,12 @@ class PointCloudHandle
 
     void GenerateBevImage(const double image_resolution = 0.10, const double z_upper = 2.50,
                           const double z_lower = 0.20);
-    void GenerateRangeImage(const double deg_resolution = 0.30, const double elevation = 15.0);
+
+    static bool PlaneFitting(); // todo
+    static bool LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 3, 1> &start_point,
+                            Eigen::Matrix<double, 3, 1> &direction, const double eps = 0.2);
+
+    void Knn();
     void Display();
 
     friend std::ostream &operator<<(std::ostream &o, const PointCloudHandle &s);

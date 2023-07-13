@@ -38,7 +38,7 @@ PointCloudHandle::~PointCloudHandle()
 }
 
 /**
- * @brief pcd转换bev image
+ * @brief pcd转换bev image#include <numeric>
  * @param image_resolution 分辨率默认0.05
  * @return void
  * @note
@@ -106,14 +106,34 @@ void PointCloudHandle::Display()
     viewer->spin();
 }
 
-/**
- * @brief  scan_range_image 雷达消息投影到环上
- * @param
- * @return void
- * @note mid360 may not support it
- */
-void PointCloudHandle::GenerateRangeImage(const double deg_resolution, const double elevation)
+static bool LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 3, 1> &start_point,
+                        Eigen::Matrix<double, 3, 1> &direction, const double eps = 0.2)
 {
+    /*1--异常校验*/
+    if (points.size() < 2)
+        return false;
+    /*2--计算输入点云的均匀值p*/
+    start_point =
+        std::accumulate(points.begin(), points.end(), Eigen::Matrix<double, 3, 1>::Zero().eval()) / points.size();
+    /*3--计算xk-p=yk^T*/
+    Eigen::MatrixXd Y(points.size(), 3);
+    for (int i = 0; i < points.size(); i++)
+    {
+        Y.row(i) = (points[i] - start_point).transpose();
+    }
+    /*5--svd分解*/
+    Eigen::JacobiSVD svd(Y, Eigen::ComputeFullV); // 雅可比分解
+    direction = svd.matrixV().col(0);
+
+    /*6--检查eps*/
+    for (const auto &p : points)
+    {
+        if (direction.cross(p - start_point).squaredNorm() > eps)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 /**
