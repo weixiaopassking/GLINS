@@ -19,7 +19,7 @@ PointCloudHandle::PointCloudHandle(const std::string pcd_path)
 
     if (pcd_path.empty())
     {
-        // todo:  ad log
+        // todo:  add log
     }
     pcl::io::loadPCDFile(pcd_path, *_cloud_source_ptr);
 

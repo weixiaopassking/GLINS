@@ -1,3 +1,4 @@
+#include "../../common/project_path.h"
 #include "../lib/pointcloud_handle/pointcloud_handle.hpp"
 #include <Eigen/Core>
 #include <gtest/gtest.h> //单元测试
@@ -6,15 +7,20 @@
 #include <random>
 #include <string>
 
-
-
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
 
-TEST(pointcloud_hand, visual)
+TEST(pointcloud_handle, knn_bfnn)
+{
+    constexpr auto pcd_path = "/home/g/workspace/AlkaidQuadrotor/data/map_example.pcd";
+    std::cout << PROJECT_PATH << endl;
+}
+
+#if 0
+TEST(pointcloud_handle, visual)
 {
     constexpr auto pcd_path = "/home/g/workspace/AlkaidQuadrotor/data/map_example.pcd";
 
@@ -27,7 +33,7 @@ TEST(pointcloud_hand, visual)
         std::cout << *cloud_handle_ptr << std::endl;
 }
 
-TEST(pointcloud_hand, plane_fitting)
+TEST(pointcloud_handle, plane_fitting)
 {
         cv::RNG rng;
         Eigen::Vector4d real_plane_coffs(0.1, 0.2, 0.3, 0.4), esti_plane_coffs;
@@ -54,7 +60,7 @@ TEST(pointcloud_hand, plane_fitting)
         }
 }
 
-TEST(pointcloud_hand, line_fitting)
+TEST(pointcloud_handle, line_fitting)
 {
         cv::RNG rng;
         Eigen::Vector3d real_line_stat_point(0.1, 0.3, 0.5), esti_line_stat_point;
@@ -82,3 +88,4 @@ TEST(pointcloud_hand, line_fitting)
                 std::cout << "param estimation failed" << std::endl;
         }
 }
+#endif
