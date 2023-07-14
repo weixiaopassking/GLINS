@@ -1,3 +1,15 @@
+/**
+*****************************************************************************
+*  Copyright (C), 2023-2026,robotics gang
+*  @file    pointcloud_handle.cpp
+*  @brief  点云处理
+*  @author  robotics gang
+*  @date    2023/7/11
+*  @version v0.1
+*  @ref  github.com/gaoxiang12/slam_in_autonomous_driving
+****************************************************************************
+*/
+
 #include "pointcloud_handle.hpp"
 
 PointCloudHandle::PointCloudHandle(const std::string pcd_path)
@@ -106,6 +118,14 @@ void PointCloudHandle::Display()
     viewer->spin();
 }
 
+/**
+ * @brief 点云拟合平面(解析解)
+ * @param points 观测点云
+ * @param plane_coeffs 平面系数
+ * @param eps 误差
+ * @return bool
+ * @note
+ */
 bool PointCloudHandle::PlaneFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 4, 1> &plane_coeffs,
                                     const double eps)
 {
@@ -137,6 +157,14 @@ bool PointCloudHandle::PlaneFitting(std::vector<Eigen::Vector3d> &points, Eigen:
     return true;
 }
 
+/**
+ * @brief 点云拟合直线(解析解)
+ * @param points 观测点云
+ * @param start_point 直线方程起点
+ * @param direction 直线方程的方向向量
+ * @return bool
+ * @note
+ */
 bool PointCloudHandle::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 3, 1> &start_point,
                                    Eigen::Matrix<double, 3, 1> &direction, const double eps)
 {
@@ -168,10 +196,10 @@ bool PointCloudHandle::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::
 }
 
 /**
- * @brief 重载<<
+ * @brief 打印调试
  * @param
  * @return void
- * @note
+ * @note friend  重载<<
  */
 std::ostream &operator<<(std::ostream &o, const PointCloudHandle &s)
 {
