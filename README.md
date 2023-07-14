@@ -13,7 +13,7 @@
 LIO版
 
 ### 1.2 规划
-
+hybrid+minimum snap
 
 
 ### 1.3 感知
