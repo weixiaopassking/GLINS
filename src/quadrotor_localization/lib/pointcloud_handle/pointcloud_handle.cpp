@@ -12,22 +12,41 @@
 
 #include "pointcloud_handle.hpp"
 
-PointCloudHandle::PointCloudHandle(const std::string pcd_path)
+PointCloudHandle::PointCloudHandle(const std::string source_path)
+{
+    _cloud_source_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
+
+
+    if (source_path.empty())
+    {
+        std::cout<<"输入点云路径错误"<<std::endl;
+    }
+    pcl::io::loadPCDFile(source_path, *_cloud_source_ptr);
+
+    if (_cloud_source_ptr->empty())
+    {
+        std::cout << "输入点云无效" << std::endl;
+    }
+}
+
+PointCloudHandle::PointCloudHandle(const std::string source_path,const std::string target_path)
 {
     _cloud_source_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
     _cloud_target_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
-    if (pcd_path.empty())
+    if (source_path.empty() || target_path.empty())
     {
-        // todo:  add log
+        std::cout << "输入点云路径错误" << std::endl;
     }
-    pcl::io::loadPCDFile(pcd_path, *_cloud_source_ptr);
+    pcl::io::loadPCDFile(source_path, *_cloud_source_ptr);
+    pcl::io::loadPCDFile(target_path, *_cloud_target_ptr);
 
-    if (_cloud_source_ptr->empty())
+    if (_cloud_source_ptr->empty() || _cloud_target_ptr->empty())
     {
-        // todo: add log
+        std::cout << "输入点云无效" << std::endl;
     }
 }
+
 PointCloudHandle::PointCloudHandle::PointCloudHandle(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_source_ptr)
 {
     _cloud_source_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
@@ -193,6 +212,11 @@ bool PointCloudHandle::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::
         }
     }
     return true;
+}
+
+void PointCloudHandle::VoxelGrid(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, const float voxel_size)
+{
+
 }
 
 /**

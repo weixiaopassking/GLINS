@@ -15,8 +15,10 @@ int main(int argc, char **argv)
 
 TEST(pointcloud_handle, knn_bfnn)
 {
-    constexpr auto pcd_path = "/home/g/workspace/AlkaidQuadrotor/data/map_example.pcd";
-    std::cout << PROJECT_PATH << endl;
+    const std::string data_path = static_cast<std::string>(PROJECT_PATH) + "/data";
+    std::cout << "【点云数据路径】" << data_path << endl;
+    std::shared_ptr cloud_handle_ptr =
+        std::make_shared<PointCloudHandle>(data_path + "/first.pcd", data_path + "/second.pcd");
 }
 
 #if 0
