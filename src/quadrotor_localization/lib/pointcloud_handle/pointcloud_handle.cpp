@@ -12,24 +12,42 @@
 
 #include "pointcloud_handle.hpp"
 
+/**
+ * @brief  点云处理初始化 重载1
+ * @param source_path source点云 pcd的路径
+ * @return
+ * @note
+ */
 PointCloudHandle::PointCloudHandle(const std::string source_path)
 {
     _cloud_source_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
-
     if (source_path.empty())
     {
-        std::cout<<"输入点云路径错误"<<std::endl;
+        std::cout << "输入点云路径错误" << std::endl;
+        exit(0);
     }
     pcl::io::loadPCDFile(source_path, *_cloud_source_ptr);
 
     if (_cloud_source_ptr->empty())
     {
         std::cout << "输入点云无效" << std::endl;
+        exit(0);
+    }
+    else
+    {
+        std::cout << "点云数据规模为:" << _cloud_source_ptr->points.size() << std::endl;
     }
 }
 
-PointCloudHandle::PointCloudHandle(const std::string source_path,const std::string target_path)
+/**
+ * @brief  点云处理初始化 重载2
+ * @param source_path source点云 pcd的路径
+ * @param target_path  target点云 pcd的路径
+ * @return
+ * @note
+ */
+PointCloudHandle::PointCloudHandle(const std::string source_path, const std::string target_path)
 {
     _cloud_source_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
     _cloud_target_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
@@ -45,15 +63,31 @@ PointCloudHandle::PointCloudHandle(const std::string source_path,const std::stri
     {
         std::cout << "输入点云无效" << std::endl;
     }
+    else
+    {
+        std::cout << "source点云规模" << _cloud_source_ptr->points.size() << std::endl;
+        std::cout << "target点云规模" << _cloud_target_ptr->points.size() << std::endl;
+    }
 }
 
+/**
+ * @brief  点云处理初始化 重载3
+ * @param cloud_source_ptr source点云指针
+ * @return
+ * @note
+ */
 PointCloudHandle::PointCloudHandle::PointCloudHandle(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_source_ptr)
 {
     _cloud_source_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
-    _cloud_target_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
-
     _cloud_source_ptr = cloud_source_ptr;
 }
+/**
+ * @brief  点云处理初始化 重载4
+ * @param cloud_source_ptr source点云指针
+ * @param cloud_target_ptr target点云指针
+ * @return
+ * @note
+ */
 PointCloudHandle::PointCloudHandle(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_source_ptr,
                                    pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_target_ptr)
 {
@@ -64,8 +98,15 @@ PointCloudHandle::PointCloudHandle(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_so
     _cloud_target_ptr = cloud_target_ptr;
 }
 
+/**
+ * @brief  析构
+ * @param none
+ * @return
+ * @note
+ */
 PointCloudHandle::~PointCloudHandle()
 {
+
 }
 
 /**
@@ -130,11 +171,26 @@ void PointCloudHandle::GenerateBevImage(const double image_resolution, const dou
 void PointCloudHandle::Display()
 {
     pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer("Display3d"));
-    viewer->setBackgroundColor(0, 0, 0);
+    viewer->setBackgroundColor(0, 0, 0);//黑色
     pcl::visualization::PointCloudColorHandlerGenericField<pcl::PointXYZI> handle(_cloud_source_ptr,
                                                                                   "z"); // 使用高度来着色
     viewer->addPointCloud<pcl::PointXYZI>(_cloud_source_ptr, handle);
-    viewer->spin();
+    viewer->spin();//自旋
+}
+
+/**
+ * @brief 点云k近邻
+ * @param none
+ * @return void
+ * @note
+ */
+void PointCloudHandle::Knn()
+{
+this->VoxelGridFilter(this->_cloud_source_ptr,0.5);
+this->VoxelGridFilter(this->_cloud_target_ptr,0.5);
+/*for debug*/
+std::cout << "滤波后source点云规模" << _cloud_source_ptr->points.size() << std::endl;
+std::cout << "滤波后target点云规模" << _cloud_target_ptr->points.size() << std::endl;
 }
 
 /**
@@ -143,7 +199,7 @@ void PointCloudHandle::Display()
  * @param plane_coeffs 平面系数
  * @param eps 误差
  * @return bool
- * @note
+ * @note 静态成员函数
  */
 bool PointCloudHandle::PlaneFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 4, 1> &plane_coeffs,
                                     const double eps)
@@ -182,7 +238,7 @@ bool PointCloudHandle::PlaneFitting(std::vector<Eigen::Vector3d> &points, Eigen:
  * @param start_point 直线方程起点
  * @param direction 直线方程的方向向量
  * @return bool
- * @note
+ * @note 静态成员函数
  */
 bool PointCloudHandle::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 3, 1> &start_point,
                                    Eigen::Matrix<double, 3, 1> &direction, const double eps)
@@ -214,9 +270,21 @@ bool PointCloudHandle::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::
     return true;
 }
 
-void PointCloudHandle::VoxelGrid(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, const float voxel_size)
+/**
+ * @brief 体素滤波器
+ * @param cloud_ptr 点云指针
+ * @param voxel_size 滤波器尺寸
+ * @return void
+ * @note 静态成员函数
+ */
+void PointCloudHandle::VoxelGridFilter(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const float voxel_size)
 {
-
+    pcl::VoxelGrid<pcl::PointXYZI>filter_voxel;
+    filter_voxel.setLeafSize(voxel_size, voxel_size, voxel_size);
+    filter_voxel.setInputCloud(cloud_ptr);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_filtered_ptr(new pcl::PointCloud<pcl::PointXYZI>);
+    filter_voxel.filter(*cloud_filtered_ptr);
+    cloud_ptr->swap(*cloud_filtered_ptr);
 }
 
 /**
