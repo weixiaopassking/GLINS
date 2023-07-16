@@ -106,7 +106,6 @@ PointCloudHandle::PointCloudHandle(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_so
  */
 PointCloudHandle::~PointCloudHandle()
 {
-
 }
 
 /**
@@ -171,11 +170,11 @@ void PointCloudHandle::GenerateBevImage(const double image_resolution, const dou
 void PointCloudHandle::Display()
 {
     pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer("Display3d"));
-    viewer->setBackgroundColor(0, 0, 0);//黑色
+    viewer->setBackgroundColor(0, 0, 0); // 黑色
     pcl::visualization::PointCloudColorHandlerGenericField<pcl::PointXYZI> handle(_cloud_source_ptr,
                                                                                   "z"); // 使用高度来着色
     viewer->addPointCloud<pcl::PointXYZI>(_cloud_source_ptr, handle);
-    viewer->spin();//自旋
+    viewer->spin(); // 自旋
 }
 
 /**
@@ -186,11 +185,19 @@ void PointCloudHandle::Display()
  */
 void PointCloudHandle::Knn()
 {
-this->VoxelGridFilter(this->_cloud_source_ptr,0.5);
-this->VoxelGridFilter(this->_cloud_target_ptr,0.5);
-/*for debug*/
-std::cout << "滤波后source点云规模" << _cloud_source_ptr->points.size() << std::endl;
-std::cout << "滤波后target点云规模" << _cloud_target_ptr->points.size() << std::endl;
+    this->VoxelGridFilter(this->_cloud_source_ptr, 0.5);
+    this->VoxelGridFilter(this->_cloud_target_ptr, 0.5);
+    /*for debug*/
+    std::cout << "滤波后source点云规模" << _cloud_source_ptr->points.size() << std::endl;
+    std::cout << "滤波后target点云规模" << _cloud_target_ptr->points.size() << std::endl;
+
+
+    std::vector<size_t> index(_cloud_target_ptr->points.size());
+    std::for_each(index.begin(), index.end(), [idx = 0](size_t& i)mutable { i = idx++; });
+
+    std::unordered_map<size_t, size_t> index_hashmap;
+
+    std::for_each(index.begin(), index.end(), [&](auto idx) { index_hashmap[idx]=1; })
 }
 
 /**
@@ -279,7 +286,7 @@ bool PointCloudHandle::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::
  */
 void PointCloudHandle::VoxelGridFilter(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const float voxel_size)
 {
-    pcl::VoxelGrid<pcl::PointXYZI>filter_voxel;
+    pcl::VoxelGrid<pcl::PointXYZI> filter_voxel;
     filter_voxel.setLeafSize(voxel_size, voxel_size, voxel_size);
     filter_voxel.setInputCloud(cloud_ptr);
     pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_filtered_ptr(new pcl::PointCloud<pcl::PointXYZI>);

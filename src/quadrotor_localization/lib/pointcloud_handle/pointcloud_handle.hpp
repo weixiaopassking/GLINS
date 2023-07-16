@@ -15,11 +15,12 @@
 */
 
 #include <Eigen/Core> //矩阵定义
+#include <algorithm>
 #include <numeric>
 #include <opencv2/core/core.hpp> //图像核心处理
 #include <opencv2/highgui/highgui.hpp>
 #include <ostream>
-#include <pcl/filters/voxel_grid.h>//体素滤波
+#include <pcl/filters/voxel_grid.h>           //体素滤波
 #include <pcl/io/pcd_io.h>                    //读写pcd
 #include <pcl/point_cloud.h>                  //点云
 #include <pcl/point_types.h>                  //单点

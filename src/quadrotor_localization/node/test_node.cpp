@@ -7,12 +7,18 @@
 #include <random>
 #include <string>
 
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
+// static void registerCallBack(std::function<void()>const& f)
+// {
+//     f();
+// }
+// TEST(cpp11, test)
+// {
 
+//     auto f1 = []() -> void { std::cout << "f1" << std::endl; };
+//     auto f2 = []() -> void { std::cout << "f2" << std::endl; };
+//     registerCallBack(f1);
+//     registerCallBack(f2);
+// }
 TEST(pointcloud_handle, knn_bfnn)
 {
     const std::string data_path = static_cast<std::string>(PROJECT_PATH) + "/data";
@@ -21,6 +27,15 @@ TEST(pointcloud_handle, knn_bfnn)
         std::make_shared<PointCloudHandle>(data_path + "/first.pcd", data_path + "/second.pcd");
     cloud_handle_ptr->Knn();
 }
+
+int main(int argc, char **argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+
+
 
 #if 0
 TEST(pointcloud_handle, visual)
