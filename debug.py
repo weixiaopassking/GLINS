@@ -18,7 +18,8 @@ if build_code==0:
     run_code=os.system(exec_path)
     if run_code==0:
             print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.OKGREEN +'程序正常结束' + bcolor.ENDC)
-
+else :
+    print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.FAIL +'程序编译失败' + bcolor.ENDC)
 
 #example
 # print(bcolor.WARNING + 'WARNING: start httpd failed' + bcolor.ENDC)
