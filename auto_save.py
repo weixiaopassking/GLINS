@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
 
     os.system('git add .')
-    os.system('git commit -m "update"')
+    os.system('git commit -m '+write_log)
     os.system('git push')
     if len==2 :
          time_delay=sys.argv[2]
