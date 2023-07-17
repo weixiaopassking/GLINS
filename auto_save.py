@@ -25,5 +25,5 @@ if __name__ == '__main__':
     os.system('git push')
     if param_num>=3 :
         time_delay=sys.argv[2]
-        print( bcolor.OKBLUE + '程序已push '+time_delay+' min后关机' + bcolor.ENDC)
+        print( bcolor.OKBLUE + '程序已push '+time_delay+' min后关机 ...' + bcolor.ENDC)
         os.system('shutdown -h '+ time_delay)
