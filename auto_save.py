@@ -2,10 +2,10 @@ import os
 import sys
 
 
-write_log='update'
+
 
 if __name__ == '__main__':
-
+    write_log='update'
     param_num=len(sys.argv)
     if len==1 :
         write_log = sys.argv[1]
