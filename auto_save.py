@@ -1,3 +1,4 @@
+#-- coding:UTF-8 --
 import os
 import sys
 
@@ -14,6 +15,6 @@ if __name__ == '__main__':
     os.system('git push')
     if param_num>=3 :
          time_delay=sys.argv[2]
-         print(time_delay)
+         print('程序已push '+time_delay+' min后关机')
          os.system('shutdown -h '+ time_delay)
  

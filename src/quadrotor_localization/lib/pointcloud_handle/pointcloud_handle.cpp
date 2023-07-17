@@ -72,7 +72,7 @@ PointCloudHandle::PointCloudHandle(const std::string source_path, const std::str
     this->VoxelGridFilter(this->_cloud_source_ptr, 0.5);
     this->VoxelGridFilter(this->_cloud_target_ptr, 0.5);
     /*for debug*/
-    std::cout << "滤波后source点云规模" << _cloud_source_ptr->points.size() << std::endl;
+5    std::cout << "滤波后source点云规模" << _cloud_source_ptr->points.size() << std::endl;
     std::cout << "滤波后target点云规模" << _cloud_target_ptr->points.size() << std::endl;
 }
 
