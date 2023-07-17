@@ -15,5 +15,5 @@ if __name__ == '__main__':
     if param_num==3 :
          time_delay=sys.argv[2]
          print(time_delay)
-         os.system('shutdown -h'+ time_delay)
+         os.system('shutdown -h '+ time_delay)
  
