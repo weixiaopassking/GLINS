@@ -57,6 +57,10 @@ class PointCloudHandle
   private:
     pcl::PointCloud<pcl::PointXYZI>::Ptr _cloud_source_ptr;
     pcl::PointCloud<pcl::PointXYZI>::Ptr _cloud_target_ptr;
+    private:
+      int find_neighbour_index(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const pcl::PointXYZI &point);
+      //  int find_neighbour_index(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr,const int k);
+
 };
 
 #endif // _POINT_CLOUD_HPP

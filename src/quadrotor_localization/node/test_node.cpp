@@ -1,4 +1,5 @@
 #include "../../common/project_path.h"
+#include "../../common/time_utils.hpp"
 #include "../lib/pointcloud_handle/pointcloud_handle.hpp"
 #include <Eigen/Core>
 #include <gtest/gtest.h> //单元测试
@@ -22,10 +23,12 @@
 TEST(pointcloud_handle, knn_bfnn)
 {
     const std::string data_path = static_cast<std::string>(PROJECT_PATH) + "/data";
-    std::cout << "【点云数据路径】" << data_path << endl;
+    std::cout << "点云数据路径 " << data_path << endl;
     std::shared_ptr cloud_handle_ptr =
         std::make_shared<PointCloudHandle>(data_path + "/first.pcd", data_path + "/second.pcd");
-    cloud_handle_ptr->Knn();
+    RuntimeRecord([&cloud_handle_ptr]() -> void { cloud_handle_ptr->Knn(); }, "暴力匹配",100);
+
+    SUCCEED();
 }
 
 int main(int argc, char **argv)
@@ -33,9 +36,6 @@ int main(int argc, char **argv)
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-
-
-
 
 #if 0
 TEST(pointcloud_handle, visual)

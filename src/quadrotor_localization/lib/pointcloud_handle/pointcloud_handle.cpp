@@ -68,6 +68,12 @@ PointCloudHandle::PointCloudHandle(const std::string source_path, const std::str
         std::cout << "source点云规模" << _cloud_source_ptr->points.size() << std::endl;
         std::cout << "target点云规模" << _cloud_target_ptr->points.size() << std::endl;
     }
+
+    this->VoxelGridFilter(this->_cloud_source_ptr, 0.5);
+    this->VoxelGridFilter(this->_cloud_target_ptr, 0.5);
+    /*for debug*/
+    std::cout << "滤波后source点云规模" << _cloud_source_ptr->points.size() << std::endl;
+    std::cout << "滤波后target点云规模" << _cloud_target_ptr->points.size() << std::endl;
 }
 
 /**
@@ -185,19 +191,20 @@ void PointCloudHandle::Display()
  */
 void PointCloudHandle::Knn()
 {
-    this->VoxelGridFilter(this->_cloud_source_ptr, 0.5);
-    this->VoxelGridFilter(this->_cloud_target_ptr, 0.5);
-    /*for debug*/
-    std::cout << "滤波后source点云规模" << _cloud_source_ptr->points.size() << std::endl;
-    std::cout << "滤波后target点云规模" << _cloud_target_ptr->points.size() << std::endl;
+    std::vector<std::pair<size_t, size_t>> matches; // source target
 
 
     std::vector<size_t> index(_cloud_target_ptr->points.size());
-    std::for_each(index.begin(), index.end(), [idx = 0](size_t& i)mutable { i = idx++; });
+    std::for_each(index.begin(), index.end(),
+                  [idx = 0](size_t &i) mutable { i = idx++; }); // mutable用于修改传入的队列
 
-    std::unordered_map<size_t, size_t> index_hashmap;
+    matches.resize(index.size());
 
-    std::for_each(index.begin(), index.end(), [&](auto idx) { index_hashmap[idx]=1; })
+    std::for_each(index.begin(), index.end(), [&](auto idx) {
+        matches[idx].second=idx;
+         matches[idx].first= find_neighbour_index(_cloud_source_ptr, _cloud_target_ptr->points[idx]);
+    });
+
 }
 
 /**
@@ -313,3 +320,27 @@ std::ostream &operator<<(std::ostream &o, const PointCloudHandle &s)
 
     return o;
 }
+
+/**
+ * @brief 找最近邻 重载1
+ * @param cloud_ptr
+ * @param point
+ * @return
+ * @note 距离point最近的cloud_ptr对应的下标
+ */
+int PointCloudHandle::find_neighbour_index(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const pcl::PointXYZI& point)
+{
+    return std::min_element(cloud_ptr->points.begin(), cloud_ptr->points.end(),
+                            [&point](const pcl::PointXYZI &pt1, const pcl::PointXYZI &pt2) -> bool {
+                                return (pt1.getVector3fMap() - point.getVector3fMap()).squaredNorm() <
+                                       (pt2.getVector3fMap() - point.getVector3fMap()).squaredNorm();
+                            }) -
+           cloud_ptr->points.begin();
+}
+
+/**
+ * @brief 找最近邻 重载2
+ * @param
+ * @return
+ * @note
+ */
