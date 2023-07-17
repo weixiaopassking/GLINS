@@ -1,16 +1,13 @@
 import os
 import sys
 
-
-
-
 if __name__ == '__main__':
-    write_log='update'
     param_num=len(sys.argv)
+    write_log=''
     if len==2 :
         write_log = sys.argv[1]
     os.system('git add .')
-    os.system('git commit -m %s' % write_log)
+    os.system('git commit -m "update"')
     print(write_log)
     os.system('git push')
     if len==3 :
