@@ -14,5 +14,6 @@ if __name__ == '__main__':
     os.system('git push')
     if param_num==3 :
          time_delay=sys.argv[2]
+         print(time_delay)
          os.system('shutdown -h %d' % (time_delay))
  
