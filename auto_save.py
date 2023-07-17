@@ -1,6 +1,20 @@
 import os
-os.system('git add .')
-os.system('git commit -m "update"')
-os.system('git push')
-# os.system('shutdown -h 0')
-           
+import sys
+
+
+write_log='update'
+
+if __name__ == '__main__':
+
+    param_num=len(sys.argv)
+    if len==1 :
+        write_log = sys.argv[1]
+
+
+    os.system('git add .')
+    os.system('git commit -m "update"')
+    os.system('git push')
+    if len==2 :
+         time_delay=sys.argv[2]
+         os.system('shutdown -h time_delay')
+ 
