@@ -10,7 +10,7 @@ if __name__ == '__main__':
     if len==2 :
         write_log = sys.argv[1]
     os.system('git add .')
-    os.system('git commit -m'+write_log)
+    os.system('git commit -m %s' % write_log)
     print(write_log)
     os.system('git push')
     if len==3 :
