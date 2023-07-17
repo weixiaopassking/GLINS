@@ -7,6 +7,7 @@ if __name__ == '__main__':
     write_log="update"
     if len==2 :
         write_log = '"'+sys.argv[1]+'"'
+        print(write_log)
     os.system('git add .')
     os.system('git commit -m %s' % (write_log))
     print(write_log)
