@@ -3,6 +3,7 @@ import sys
 
 if __name__ == '__main__':
     param_num=len(sys.argv)
+    print(param_num)
     write_log=''
     if len==2 :
         write_log = sys.argv[1]
