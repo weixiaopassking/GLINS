@@ -16,5 +16,5 @@ if __name__ == '__main__':
     os.system('git push')
     if len==2 :
          time_delay=sys.argv[2]
-         os.system('shutdown -h 0')
+         os.system('shutdown -h %d' % (time_delay))
  
