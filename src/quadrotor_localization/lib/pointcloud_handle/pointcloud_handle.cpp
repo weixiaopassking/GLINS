@@ -200,11 +200,10 @@ void PointCloudHandle::Knn()
 
     matches.resize(index.size());
 
-    std::for_each(index.begin(), index.end(), [&](auto idx) {
+    std::for_each(std::execution::par_unseq,index.begin(), index.end(), [&](auto idx) {
         matches[idx].second=idx;
-         matches[idx].first= find_neighbour_index(_cloud_source_ptr, _cloud_target_ptr->points[idx]);
+        matches[idx].first = find_neighbour_index(_cloud_source_ptr, _cloud_target_ptr->points[idx]);
     });
-
 }
 
 /**

@@ -26,7 +26,7 @@ TEST(pointcloud_handle, knn_bfnn)
     std::cout << "点云数据路径 " << data_path << endl;
     std::shared_ptr cloud_handle_ptr =
         std::make_shared<PointCloudHandle>(data_path + "/first.pcd", data_path + "/second.pcd");
-    RuntimeRecord([&cloud_handle_ptr]() -> void { cloud_handle_ptr->Knn(); }, "暴力匹配",100);
+    RuntimeRecord([&cloud_handle_ptr]() -> void { cloud_handle_ptr->Knn(); }, "暴力匹配",10);
 
     SUCCEED();
 }

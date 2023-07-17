@@ -16,6 +16,7 @@
 
 #include <Eigen/Core> //矩阵定义
 #include <algorithm>
+#include <execution>
 #include <numeric>
 #include <opencv2/core/core.hpp> //图像核心处理
 #include <opencv2/highgui/highgui.hpp>
