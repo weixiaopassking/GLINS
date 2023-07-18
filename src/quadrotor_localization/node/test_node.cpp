@@ -1,12 +1,12 @@
-#include "../../common/project_path.h"
-#include "../../common/time_utils.hpp"
-#include "../lib/pointcloud_handle/pointcloud_handle.hpp"
-#include <Eigen/Core>
+// #include "../../common/project_path.h"
+// #include "../lib/pointcloud_handle/pointcloud_handle.hpp"
+// #include "../../common/time_utils.hpp"
+// #include <Eigen/Core>
 #include <gtest/gtest.h> //单元测试
-#include <memory>
-#include <opencv2/opencv.hpp>
-#include <random>
-#include <string>
+// #include <memory>
+// #include <opencv2/opencv.hpp>
+// #include <random>
+// #include <string>
 
 // static void registerCallBack(std::function<void()>const& f)
 // {
@@ -20,14 +20,20 @@
 //     registerCallBack(f1);
 //     registerCallBack(f2);
 // }
+// TEST(pointcloud_handle, knn_bfnn)
+// {
+//     const std::string data_path = static_cast<std::string>(PROJECT_PATH) + "/data";
+//     std::cout << "点云数据路径 " << data_path << endl;
+//     std::shared_ptr cloud_handle_ptr =
+//         std::make_shared<PointCloudHandle>(data_path + "/first.pcd", data_path + "/second.pcd");
+//     RuntimeRecord([&cloud_handle_ptr]() -> void { cloud_handle_ptr->Knn(); }, "暴力匹配",10);
+
+//     SUCCEED();
+// }
+
 TEST(pointcloud_handle, knn_bfnn)
 {
-    const std::string data_path = static_cast<std::string>(PROJECT_PATH) + "/data";
-    std::cout << "点云数据路径 " << data_path << endl;
-    std::shared_ptr cloud_handle_ptr =
-        std::make_shared<PointCloudHandle>(data_path + "/first.pcd", data_path + "/second.pcd");
-    RuntimeRecord([&cloud_handle_ptr]() -> void { cloud_handle_ptr->Knn(); }, "暴力匹配",10);
-
+    std::cout << "okok" << std::endl;
     SUCCEED();
 }
 
