@@ -9,7 +9,8 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 #getst  https://stackoverflow.com/questions/24295876/cmake-cannot-find-googletest-required-library-in-ubuntu
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
-
+#tbb
+# find_package(TBB REQUIRED)
 
 
   set(thirdparty_libs  
@@ -17,4 +18,5 @@ ${OpenCV_LIBS}
    ${PCL_LIBRARIES} 
 ${GTEST_BOTH_LIBRARIES} 
 pthread
+TBB::tbb
 )
