@@ -38,11 +38,12 @@
 TEST(cloud_handle_module, cloud_io)
 {
     const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
-    std::unique_ptr<CloudIO> cloud_io_ptr = std::make_unique<CloudIO>();
+    std::shared_ptr<CloudIO> cloud_io_ptr = std::make_shared<CloudIO>();
     cloud_io_ptr->LoadCloud(data_file_path + "first.pcd");
     pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr = cloud_io_ptr->GetCloud();
     std::cout << "获取到的点云尺寸:" << cloud_ptr->size() << std::endl;
-    SUCCEED();
+    std::cout<< *cloud_io_ptr<<std::endl;
+     SUCCEED();
 }
 
 int main(int argc, char **argv)

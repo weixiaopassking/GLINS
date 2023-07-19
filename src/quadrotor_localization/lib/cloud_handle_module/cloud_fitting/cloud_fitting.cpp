@@ -1,4 +1,18 @@
 /**
+*****************************************************************************
+*  Copyright (C), 2023-2026,robotics gang
+*  @file    cloud_io.hpp
+*  @brief  点云的读写
+*  @author  robotics gang
+*  @date    2023/7/18
+*  @version v0.1
+*  @ref https://github.com/gaoxiang12
+****************************************************************************
+*/
+
+#include "cloud_fitting.hpp"
+
+/**
  * @brief 点云拟合平面(解析解)
  * @param points 观测点云
  * @param plane_coeffs 平面系数
@@ -6,8 +20,8 @@
  * @return bool
  * @note 静态成员函数
  */
-bool PointCloudHandle::PlaneFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 4, 1> &plane_coeffs,
-                                    const double eps)
+bool CloudFitting::PlaneFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 4, 1> &plane_coeffs,
+                                const double eps)
 {
     /*1--异常校验*/
     if (points.size() < 3)
@@ -45,8 +59,8 @@ bool PointCloudHandle::PlaneFitting(std::vector<Eigen::Vector3d> &points, Eigen:
  * @return bool
  * @note 静态成员函数
  */
-bool PointCloudHandle::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 3, 1> &start_point,
-                                   Eigen::Matrix<double, 3, 1> &direction, const double eps)
+bool CloudFitting::LineFitting(std::vector<Eigen::Vector3d> &points, Eigen::Matrix<double, 3, 1> &start_point,
+                               Eigen::Matrix<double, 3, 1> &direction, const double eps)
 {
     /*1--异常校验*/
     if (points.size() < 2)

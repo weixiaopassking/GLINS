@@ -50,7 +50,7 @@ bool CloudIO::LoadCloud(const std::string pcd_path)
     return true;
 }
 
-//todo 
+// todo
 bool CloudIO::LoadParam(const YAML::Node node)
 {
 
@@ -67,18 +67,18 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr CloudIO::GetCloud()
 {
     if (_cloud_ptr->empty())
     {
-                ErrorAssert(ErrorCode::invalid_pcd, __FILE__, __FUNCTION__, __LINE__);
+        ErrorAssert(ErrorCode::invalid_pcd, __FILE__, __FUNCTION__, __LINE__);
     }
-        return _cloud_ptr; // 可能有异常
+    return _cloud_ptr; // 可能有异常
 }
 
-//todo
+// todo
 bool CloudIO::SaveCloud()
 {
     return true;
 }
 
-//todo
+// todo
 bool CloudIO::SaveParam()
 {
     return true;
@@ -86,4 +86,14 @@ bool CloudIO::SaveParam()
 
 CloudIO ::~CloudIO()
 {
+}
+
+std::ostream &operator<<(std::ostream &o, const CloudIO &obj)
+{
+    if (obj._cloud_ptr->empty())
+    {
+        ErrorAssert(ErrorCode::invalid_pcd, __FILE__, __FUNCTION__, __LINE__);
+    }
+    o << "检测" << std::endl;
+    return o;
 }

@@ -27,8 +27,12 @@ class CloudIO
     pcl::PointCloud<pcl::PointXYZI>::Ptr GetCloud();
     bool SaveCloud(); // 点云保存
     bool SaveParam(); // 参数保存
-    ~CloudIO();
+
+    friend std::ostream &operator<<(std::ostream &o, const CloudIO &obj);
+
+        ~CloudIO();
 
   private:
     pcl::PointCloud<pcl::PointXYZI>::Ptr _cloud_ptr;
 };
+

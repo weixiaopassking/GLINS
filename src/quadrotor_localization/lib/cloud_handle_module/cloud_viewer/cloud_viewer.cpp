@@ -1,0 +1,3 @@
+CloudViewer::~CloudViewer()
+{
+}
