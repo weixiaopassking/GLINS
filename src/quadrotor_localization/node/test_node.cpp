@@ -1,9 +1,13 @@
-// #include "../../common/project_path.h"
+#include "../../common/project_path.h"//工程全局路径
 #include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
+#include <gtest/gtest.h> //单元测试
+#include <memory>//智能指针
+#include <pcl/point_cloud.h> //点云
+#include <pcl/point_types.h> //点
+
+
 // #include "../../common/time_utils.hpp"
 // #include <Eigen/Core>
-#include <gtest/gtest.h> //单元测试
-#include <memory>
 // #include <opencv2/opencv.hpp>
 // #include <random>
 // #include <string>
@@ -22,7 +26,7 @@
 // }
 // TEST(pointcloud_handle, knn_bfnn)
 // {
-//     const std::string data_path = static_cast<std::string>(PROJECT_PATH) + "/data";
+
 //     std::cout << "点云数据路径 " << data_path << endl;
 //     std::shared_ptr cloud_handle_ptr =
 //         std::make_shared<PointCloudHandle>(data_path + "/first.pcd", data_path + "/second.pcd");
@@ -31,11 +35,14 @@
 //     SUCCEED();
 // }
 
-TEST(pointcloud_handle, knn_bfnn)
+TEST(cloud_handle_module, cloud_io)
 {
+    const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
     std::unique_ptr<CloudIO> cloud_io_ptr = std::make_unique<CloudIO>();
-    cloud_io_ptr->LoadCloud("");
-     SUCCEED();
+    cloud_io_ptr->LoadCloud(data_file_path + "first.pcd");
+    pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr = cloud_io_ptr->GetCloud();
+    std::cout << "获取到的点云尺寸:" << cloud_ptr->size() << std::endl;
+    SUCCEED();
 }
 
 int main(int argc, char **argv)

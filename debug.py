@@ -28,6 +28,7 @@ if build_code==0:
     print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.OKGREEN +'编译成功' + bcolor.ENDC)
 else :
     print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.FAIL +'编译失败' + bcolor.ENDC)
+    quit()
 #运行
 print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.OKGREEN +'运行启动......' + bcolor.ENDC)
 run_code=os.system(exec_path)

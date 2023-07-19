@@ -14,13 +14,7 @@
 
 
 
-// /**
-//  * @brief  点云处理初始化 重载2
-//  * @param source_path source点云 pcd的路径
-//  * @param target_path  target点云 pcd的路径
-//  * @return
-//  * @note
-//  */
+
 // PointCloudHandle::PointCloudHandle(const std::string source_path, const std::string target_path)
 // {
 //     _cloud_source_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
