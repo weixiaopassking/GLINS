@@ -1,5 +1,6 @@
 #include "../../common/project_path.h"//工程全局路径
 #include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
+#include "../lib/cloud_handle_module/cloud_viewer/cloud_viewer.hpp"
 #include <gtest/gtest.h> //单元测试
 #include <memory>//智能指针
 #include <pcl/point_cloud.h> //点云
@@ -35,15 +36,17 @@
 //     SUCCEED();
 // }
 
-TEST(cloud_handle_module, cloud_io)
+TEST(cloud_handle_module, temp)
 {
     const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
     std::shared_ptr<CloudIO> cloud_io_ptr = std::make_shared<CloudIO>();
-    cloud_io_ptr->LoadCloud(data_file_path + "first.pcd");
+    cloud_io_ptr->LoadCloud(data_file_path + "map_example.pcd");
     pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr = cloud_io_ptr->GetCloud();
     std::cout << "获取到的点云尺寸:" << cloud_ptr->size() << std::endl;
     std::cout<< *cloud_io_ptr<<std::endl;
-     SUCCEED();
+    CloudViewer::ViewerByPcl(cloud_ptr);
+    CloudViewer::ViewerByOpencv(cloud_ptr);
+    SUCCEED();
 }
 
 int main(int argc, char **argv)

@@ -5,7 +5,7 @@
  * @return void
  * @note 静态成员函数
  */
-void PointCloudHandle::VoxelGridFilter(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const float voxel_size)
+void VoxelFilter(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const float voxel_size)
 {
     pcl::VoxelGrid<pcl::PointXYZI> filter_voxel;
     filter_voxel.setLeafSize(voxel_size, voxel_size, voxel_size);

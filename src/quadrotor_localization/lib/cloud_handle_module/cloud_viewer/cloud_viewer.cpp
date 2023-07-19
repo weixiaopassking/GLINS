@@ -14,12 +14,13 @@ CloudViewer::~CloudViewer()
  * |
  * y(rows)
  */
-void CloudViewer::ViewerByOpencv()
+void CloudViewer::ViewerByOpencv(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const double image_resolution,
+                                 const double z_lower, const double z_upper)
 {
     /*1--计算点云边界*/
-    auto minmax_x = std::minmax_element(_cloud_source_ptr->points.begin(), _cloud_source_ptr->points.end(),
+    auto minmax_x = std::minmax_element(cloud_ptr->points.begin(), cloud_ptr->points.end(),
                                         [](const pcl::PointXYZI &p1, const pcl::PointXYZI &p2) { return p1.x < p2.x; });
-    auto minmax_y = std::minmax_element(_cloud_source_ptr->points.begin(), _cloud_source_ptr->points.end(),
+    auto minmax_y = std::minmax_element(cloud_ptr->points.begin(), cloud_ptr->points.end(),
                                         [](const pcl::PointXYZI &p1, const pcl::PointXYZI &p2) { return p1.y < p2.y; });
 
     double min_x = minmax_x.first->x;
@@ -41,7 +42,7 @@ void CloudViewer::ViewerByOpencv()
     /*3--生成图像*/
     cv::Mat image(image_rows, image_cols, CV_8UC3, cv::Scalar(255, 255, 255));
 
-    for (const auto &pt : _cloud_source_ptr->points)
+    for (const auto &pt : cloud_ptr->points)
     {
         int x = int((pt.x - x_center) * inv_r + image_cols_center);
         int y = int((pt.y - y_center) * inv_r + image_rows_center);
@@ -63,12 +64,18 @@ void CloudViewer::ViewerByOpencv()
  * @return
  * @note
  */
-void CloudViewer::ViewerByPcl()
+void CloudViewer::ViewerByPcl(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr)
 {
     pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer("Display3d"));
     viewer->setBackgroundColor(0, 0, 0); // 黑色
-    pcl::visualization::PointCloudColorHandlerGenericField<pcl::PointXYZI> handle(_cloud_source_ptr,
+    pcl::visualization::PointCloudColorHandlerGenericField<pcl::PointXYZI> handle(cloud_ptr,
                                                                                   "z"); // 使用高度来着色
-    viewer->addPointCloud<pcl::PointXYZI>(_cloud_source_ptr, handle);
+    viewer->addPointCloud<pcl::PointXYZI>(cloud_ptr, handle);
     viewer->spin(); // 自旋
+}
+
+// todo
+void CloudViewer::ViewerByRos()
+{
+    std::cout << "send pointcloud to ros" << std::endl;
 }
