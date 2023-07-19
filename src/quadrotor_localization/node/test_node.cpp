@@ -1,9 +1,9 @@
 // #include "../../common/project_path.h"
-// #include "../lib/pointcloud_handle/pointcloud_handle.hpp"
+#include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
 // #include "../../common/time_utils.hpp"
 // #include <Eigen/Core>
 #include <gtest/gtest.h> //单元测试
-// #include <memory>
+#include <memory>
 // #include <opencv2/opencv.hpp>
 // #include <random>
 // #include <string>
@@ -33,8 +33,9 @@
 
 TEST(pointcloud_handle, knn_bfnn)
 {
-    std::cout << "okok" << std::endl;
-    SUCCEED();
+    std::unique_ptr<CloudIO> cloud_io_ptr = std::make_unique<CloudIO>();
+    cloud_io_ptr->LoadCloud("");
+     SUCCEED();
 }
 
 int main(int argc, char **argv)

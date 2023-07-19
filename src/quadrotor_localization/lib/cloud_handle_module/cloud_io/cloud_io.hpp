@@ -2,23 +2,33 @@
 *****************************************************************************
 *  Copyright (C), 2023-2026,robotics gang
 *  @file    cloud_io.hpp
-*  @brief  点云的文件交互
+*  @brief  点云的读写
 *  @author  robotics gang
-*  @date    2023/7/11
+*  @date    2023/7/18
 *  @version v0.1
-*  @ref  github.com/gaoxiang12/slam_in_autonomous_driving
+*  @ref
 ****************************************************************************
 */
+
+#include "yaml-cpp/yaml.h"
+#include <pcl/point_cloud.h> //点云
+#include <pcl/point_types.h> //点
+#include "../../../../common/error_assert.hpp"//错误断言
 
 #include <string>
 
 class CloudIO
 {
   public:
-    CloudIO() = delete;                  // 禁止无参构造
-    bool LoadPcd(const std::string pcd_path); // 路径读取
-    // LoadCloud(Yaml::Node)
-    //  todo yaml配置
-    bool SavePcd();
+    CloudIO();
+    bool LoadCloud(const std::string pcd_path);      
+    bool LoadParam(const YAML::Node node);       
 
+    pcl::PointCloud<pcl::PointXYZI>::Ptr GetCloud(); 
+    bool SaveCloud();                                // 点云储存
+    bool SaveParam();
+    ~CloudIO();
+
+  private:
+    pcl::PointCloud<pcl::PointXYZI>::Ptr _cloud_ptr;
 };
