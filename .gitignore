@@ -1,3 +1,5 @@
 .vscode
 build/
 devel/
+data/*
+lib/*
