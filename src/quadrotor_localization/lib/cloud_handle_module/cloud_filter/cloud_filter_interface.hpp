@@ -5,5 +5,5 @@ class CloudFilterInterface
 {
   public:
     CloudFilterInterface() = delete;
-    virtual bool Filter() = 0;
+    virtual bool Filter(pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr& filtered_cloud_ptr) = 0;
 };

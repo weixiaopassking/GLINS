@@ -1,3 +1,10 @@
 #include "../cloud_filter_interface.hpp"
 
-void VoxelFilter(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, const float voxel_size)
+
+
+    class VoxelFilter : public CloudFilterInterface
+    {
+        Filter(pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_ptr,
+               pcl::PointCloud<pcl::PointXYZI>::Ptr &filtered_cloud_ptr);
+    }
+          
