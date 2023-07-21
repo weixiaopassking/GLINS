@@ -68,11 +68,11 @@ c++:标准c++ 17
 
 ## 5.更新日志
 
-|日期| Tag    | 内容 |说明 |short commit_id |
-| :----: | :----:| :----: | :----: | ------ |
-| 2022//11/20 | V0.1 | gnss imu lidar松耦合建图与定位 |简单demo,仅数据集验证,侧重框架构建|6885639|
-| 2023/07/30 | V0.2 | lio |                                    |                                    |
-|  | V0.3 |      |||
+|日期| Branch | 内容 |说明 | commit_id | video |
+| :----: | :----:| :----: | :----: | ------ | ------ |
+| 2022//11/20 | V0.1 | gnss imu lidar松耦合建图与定位 |简单demo,仅数据集验证,侧重框架构建|6885639|[v0.1 demo1](https://www.bilibili.com/video/BV1mt4y1K7Nt/?spm_id_from=333.999.0.0&vd_source=b86740d9f2b244ac781ad5f60dd8e818)     [v0.1 demo2](https://www.bilibili.com/video/BV1Ce4y1s75g/?spm_id_from=333.788&vd_source=b86740d9f2b244ac781ad5f60dd8e818)|
+| 2023/07/30 | V0.2 |  |                                    |                                    |                                    |
+|  | V0.3 |      ||||
 
 
 
