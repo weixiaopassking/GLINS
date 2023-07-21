@@ -33,14 +33,14 @@ bool CloudIO::LoadCloud(const std::string pcd_path)
 {
     if (pcd_path.empty())
     {
-        ErrorAssert(ErrorCode::empty_path, __FILE__, __FUNCTION__, __LINE__);
+        ErrorAssert(ErrorCode::error_path, __FILE__, __FUNCTION__, __LINE__);
     }
 
     pcl::io::loadPCDFile(pcd_path, *_cloud_ptr);
 
     if (_cloud_ptr->empty())
     {
-        ErrorAssert(ErrorCode::invalid_pcd, __FILE__, __FUNCTION__, __LINE__);
+        ErrorAssert(ErrorCode::error_path, __FILE__, __FUNCTION__, __LINE__);
     }
     else
     {
@@ -67,7 +67,7 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr CloudIO::GetCloud()
 {
     if (_cloud_ptr->empty())
     {
-        ErrorAssert(ErrorCode::invalid_pcd, __FILE__, __FUNCTION__, __LINE__);
+        ErrorAssert(ErrorCode::error_file, __FILE__, __FUNCTION__, __LINE__);
     }
     return _cloud_ptr; // 可能有异常
 }
@@ -92,7 +92,7 @@ std::ostream &operator<<(std::ostream &o, const CloudIO &obj)
 {
     if (obj._cloud_ptr->empty())
     {
-        ErrorAssert(ErrorCode::invalid_pcd, __FILE__, __FUNCTION__, __LINE__);
+        ErrorAssert(ErrorCode::error_file, __FILE__, __FUNCTION__, __LINE__);
     }
     o << "检测" << std::endl;
     return o;

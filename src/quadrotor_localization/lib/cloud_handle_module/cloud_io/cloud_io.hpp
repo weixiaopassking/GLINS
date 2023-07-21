@@ -1,3 +1,5 @@
+#ifndef _CLOUD_IO_HPP
+#define _CLOUD_IO_HPP
 /**
 *****************************************************************************
 *  Copyright (C), 2023-2026,robotics gang
@@ -36,3 +38,4 @@ class CloudIO
     pcl::PointCloud<pcl::PointXYZI>::Ptr _cloud_ptr;
 };
 
+#endif// _CLOUD_IO_HPP

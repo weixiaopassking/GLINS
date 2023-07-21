@@ -24,14 +24,14 @@
 
 enum ErrorCode
 {
-    empty_path,
-    invalid_pcd,
+    error_path,
+    error_file,
      unknown
 };
 
 static std::unordered_map<enum ErrorCode, std::string> ErrorMap{
-    {ErrorCode::empty_path, "路径空"},
-    {ErrorCode::invalid_pcd, "无效点云"},
+    {ErrorCode::error_path, "路径错误"},
+    {ErrorCode::error_file, "文件错误"},
     {ErrorCode::unknown, "未知错误"},
 };
 
