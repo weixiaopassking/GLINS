@@ -3,7 +3,9 @@ lib/cloud_handle_module/cloud_io/cloud_io.cpp
 lib/cloud_handle_module/cloud_fitting/cloud_fitting.cpp
 lib/cloud_handle_module/cloud_viewer/cloud_viewer.cpp
 lib/cloud_handle_module/cloud_fitting/cloud_fitting.cpp
+lib/cloud_handle_module/cloud_filter/voxel_filter/voxel_filter.cpp
 ) 
+
 
 add_executable(test_node node/test_node.cpp)
 add_test(test_node test_node)

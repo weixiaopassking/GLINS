@@ -2,7 +2,7 @@
 import os
 
 
-exec_path='bin/template_node'
+exec_path='bin/test_node'
 
 class bcolor(object):
     HEADER = '\033[95m'

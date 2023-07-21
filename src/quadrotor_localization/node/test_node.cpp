@@ -1,11 +1,11 @@
-#include "../../common/project_path.h"//工程全局路径
+#include "../../common/project_path.h" //工程全局路径
+#include "../lib/cloud_handle_module/cloud_filter/cloud_filter_interface.hpp"
+#include "../lib/cloud_handle_module/cloud_filter/voxel_filter/voxel_filter.hpp"
 #include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
-#include "../lib/cloud_handle_module/cloud_viewer/cloud_viewer.hpp"
-#include <gtest/gtest.h> //单元测试
-#include <memory>//智能指针
+#include <gtest/gtest.h>     //单元测试
+#include <memory>            //智能指针
 #include <pcl/point_cloud.h> //点云
 #include <pcl/point_types.h> //点
-
 
 // #include "../../common/time_utils.hpp"
 // #include <Eigen/Core>
@@ -43,9 +43,15 @@ TEST(cloud_handle_module, temp)
     cloud_io_ptr->LoadCloud(data_file_path + "map_example.pcd");
     pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr = cloud_io_ptr->GetCloud();
     std::cout << "获取到的点云尺寸:" << cloud_ptr->size() << std::endl;
-    std::cout<< *cloud_io_ptr<<std::endl;
-    CloudViewer::ViewerByPcl(cloud_ptr);
-    CloudViewer::ViewerByOpencv(cloud_ptr);
+    /*滤波*/
+    std::shared_ptr<CloudFilterInterface> cloud_filter_ptr = std::make_shared<VoxelFilter>(0.5, 0.5, 0.5);
+    cloud_filter_ptr->Filter(cloud_ptr, cloud_ptr);
+    std::cout << "滤波1后的点云尺寸:" << cloud_ptr->size() << std::endl;
+    cloud_filter_ptr = std::make_shared<VoxelFilter>(1, 1, 1);
+    cloud_filter_ptr->Filter(cloud_ptr, cloud_ptr);
+    std::cout << "滤波2后的点云尺寸:" << cloud_ptr->size() << std::endl;
+    // CloudViewer::ViewerByPcl(cloud_ptr);
+    // CloudViewer::ViewerByOpencv(cloud_ptr);
     SUCCEED();
 }
 
