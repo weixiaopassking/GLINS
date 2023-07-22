@@ -12,7 +12,7 @@
 ****************************************************************************
 */
 
-#include "../../../../common/error_assert.hpp" //错误断言
+#include "../../../../common/debug_info.hpp" //错误断言
 #include <pcl/io/pcd_io.h>                     //读写pcd
 #include <pcl/point_cloud.h>                   //点云
 #include <pcl/point_types.h>                   //点

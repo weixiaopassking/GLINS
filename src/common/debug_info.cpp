@@ -1,5 +1,4 @@
-#include "error_assert.hpp"
-
+#include "./debug_info.hpp"
 
 void ErrorAssert(enum ErrorCode number, const char *file, const char *function, const unsigned long line)
 {

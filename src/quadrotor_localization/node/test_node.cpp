@@ -1,5 +1,5 @@
 #include "../../common/project_path.h" //工程全局路径
-#include "../../common/debug_info.hpp" //工程全局路径
+#include "../../common/debug_info.hpp" //工程debug调用
 
 #include "../lib/cloud_handle_module/cloud_filter/cloud_filter_interface.hpp"
 #include "../lib/cloud_handle_module/cloud_filter/voxel_filter/voxel_filter.hpp"
@@ -41,7 +41,7 @@ TEST(cloud_handle_module, icp)
     {
         double tx, ty, tz, qw, qx, qy, qz;
         gt_file_stream >> tx >> ty >> tz >> qw >> qx >> qy >> qz;
-        DebugInfo("tx", tx, "ty", ty, "tz", tz, "qw", qw, "qx", qx, "qy", qy, "qz", qz);
+        VariableInfo("tx", tx, "ty", ty, "tz", tz, "qw", qw, "qx", qx, "qy", qy, "qz", qz);
         gt_file_stream.close();
     }
     else
