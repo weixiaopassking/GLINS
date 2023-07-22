@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 
+/*彩色终端*/
 // Reset
 #define Color_Off "\033[0m"
 // Regular Colors
@@ -21,6 +22,7 @@
 // Bold High Intensity
 #define BIRed "\033[1;91m"
 
+/*变量快捷打印*/
 template <typename... Tn> void VariableInfo(Tn... tn)
 {
     const int len_f = sizeof...(tn);
@@ -33,11 +35,12 @@ template <typename... Tn> void VariableInfo(Tn... tn)
     (..., f(tn)); // 一元左折
     }
 
+    /*错误断言*/
     enum ErrorCode
     {
-        error_path,
-        error_file,
-        unknown
+    error_path, // 路径错误
+    error_file,//文件错误
+    unknown//暂时未知
     };
 
     static std::unordered_map<enum ErrorCode, std::string> ErrorMap{
