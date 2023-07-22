@@ -4,6 +4,8 @@ class CloudKnnInterface
     CloudKnnInterface() = delete;
     virtual bool TreeBuild() = 0;
     virtual bool TreeSearch() = 0;
+
+   virtual  ~CloudKnnInterface();
 };
 
 // /**

@@ -3,9 +3,12 @@
 
 class CloudRegistrationInterface
 {
-
-
-//R T
-}; // CloudRegistrationInterface
+  public:
+    CloudRegistrationInterface() = delete;
+    virtual void SetTarget() = 0;
+    virtual void SetSource() = 0;
+    virtual void GetPose();
+    virtual ~CloudRegistrationInterface();
+};
 
 #endif //_CLOUD_REGISTRATION

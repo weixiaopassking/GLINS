@@ -35,6 +35,7 @@ TEST(cloud_handle_module, baic_use)
 
 TEST(cloud_handle_module, icp)
 {
+    /*1--读取gt真值*/
     const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
     std::ifstream gt_file_stream(data_file_path + "EPFL/kneeling_lady_pose.txt");
     if (gt_file_stream.is_open())
@@ -48,6 +49,8 @@ TEST(cloud_handle_module, icp)
     {
             ErrorAssert(ErrorCode::error_file, __FILE__, __FUNCTION__, __LINE__);
     }
+
+    
 
     SUCCEED();
 }

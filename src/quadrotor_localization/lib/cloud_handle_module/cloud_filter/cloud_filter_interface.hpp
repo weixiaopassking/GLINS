@@ -11,7 +11,7 @@ class CloudFilterInterface
     CloudFilterInterface() = default;
     virtual void  Filter(pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_ptr,
                         pcl::PointCloud<pcl::PointXYZI>::Ptr &filtered_cloud_ptr) = 0;
-    ~CloudFilterInterface() = default;
+    virtual ~CloudFilterInterface();
 };
 
 #endif //_CLOUD_FILTER_INTERFACE_HPP
