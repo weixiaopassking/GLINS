@@ -10,7 +10,7 @@ ICPRegistration::ICPRegistration()
 void ICPRegistration::SetSourceCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &source_cloud_ptr)
 {
     this->_source_cloud_ptr = source_cloud_ptr;
-    //this->_source_center_vec
+    // this->_source_center_vec=std::accumulate();
 }
 
 void ICPRegistration::SetTargetCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &target_cloud_ptr)
@@ -27,7 +27,7 @@ void ICPRegistration::SetGtTransform(const Sophus::SE3d &gt_transform)
 
 Sophus::SE3d ICPRegistration::GetResTransform()
 {
-    //return 
+    // return
 }
 
 ICPRegistration::~ICPRegistration()
