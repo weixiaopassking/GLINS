@@ -85,7 +85,7 @@ hybrid+minimum snap
 **commit规范**[1]
 
 ```Bash
-<type>(<scope>): <subject>
+<type>[<scope>]-> <subject>
 ```
 
 --type
