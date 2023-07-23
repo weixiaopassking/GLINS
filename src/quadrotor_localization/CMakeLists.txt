@@ -1,5 +1,6 @@
 include_directories ("./lib/cloud_handle_module/cloud_filter")
 include_directories ("./lib/cloud_handle_module/cloud_registration")  # 指定cuda头文件路径
+include_directories ("./lib/cloud_handle_module/cloud_io")
 
 add_library(cloud_handle_module  
 lib/cloud_handle_module/cloud_io/cloud_io.cpp
