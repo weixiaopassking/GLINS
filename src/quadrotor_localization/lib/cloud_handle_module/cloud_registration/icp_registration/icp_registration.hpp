@@ -1,11 +1,13 @@
 #include "../cloud_registration_interface.hpp"
 
-class ICP : public CloudRegistrationInterface
+class ICPRegistration : public CloudRegistrationInterface
 {
   public:
-    ICP(){}
+    ICPRegistration()
+    {
+    }
       void SetTarget() override;
     //  void SetSource() override;
     //  void GetPose() override;
-    ~ICP(){};
+      ~ICPRegistration(){};
 };

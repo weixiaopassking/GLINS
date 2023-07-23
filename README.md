@@ -56,17 +56,8 @@ hybrid+minimum snap
 |  |  || |
 
 
-## 4.代码规范
-c++:标准c++ 17   
-代码格式风格: visual studio风格
 
-类 MyClass   
-函数 MyFunction    
-类内变量 _my_function_ptr _my_function_vec  
-普通变量 my_function_ptr   my_function_vec  
-
-
-## 5.更新日志
+## 4.更新日志
 
 |日期| Branch | 内容 |说明 | commit_id | video |
 | :----: | :----:| :----: | :----: | ------ | ------ |
@@ -76,9 +67,53 @@ c++:标准c++ 17
 
 
 
+
+
+
+
+
+
+## 5.标准与规范
+
+**C++标准** c++ 17   
+**代码格式风格** visual studio风格
+ **命名规范**
+类 MyClass   如何规范你的Git commit？
+函数 MyFunction    
+类内变量 _my_function_ptr _my_function_vec  
+普通变量 my_function_ptr   my_function_vec  
+**commit规范**[1]
+
+```Bash
+<type>(<scope>): <subject>
+```
+
+--type
+
+feat：新功能（feature）
+fix/to：修复bug，可以是QA发现的BUG，也可以是研发自己发现的BUG
+fix：产生diff并自动修复此问题。适合于一次提交直接修复问题
+to：只产生diff不自动修复此问题。适合于多次提交。最终修复问题提交时使用fix
+docs：文档（documentation）
+style：格式（不影响代码运行的变动）
+refactor：重构（即不是新增功能，也不是修改bug的代码变动）
+perf：优化相关，比如提升性能、体验
+test：增加测试。
+chore：构建过程或辅助工具的变动
+revert：回滚到上一个版本
+merge：代码合并。
+sync：同步主线或分支的Bu
+
+例如:
+```
+fix(Planning):修复机身卡膨胀层静止的bug  
+docs(README):增加参考文章链接  
+feat(Localization):增加kd tree方法  
+``
+
 ## 6.参考
 
-
+[1]  [如何规范你的Git commit？](https://zhuanlan.zhihu.com/p/182553920)
 
 
 

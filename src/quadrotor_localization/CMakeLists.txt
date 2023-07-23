@@ -7,7 +7,7 @@ lib/cloud_handle_module/cloud_fitting/cloud_fitting.cpp
 lib/cloud_handle_module/cloud_viewer/cloud_viewer.cpp
 lib/cloud_handle_module/cloud_fitting/cloud_fitting.cpp
 lib/cloud_handle_module/cloud_filter/voxel_filter/voxel_filter.cpp
-lib/cloud_handle_module/cloud_registration/icp/icp.cpp
+lib/cloud_handle_module/cloud_registration/icp_registration/icp_registration.cpp
 ) 
 
 

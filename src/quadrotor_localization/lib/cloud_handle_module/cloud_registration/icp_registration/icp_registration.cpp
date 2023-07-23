@@ -1,6 +1,6 @@
-#include "./icp.hpp"
+#include "./icp_registration.hpp"
 
-void ICP::SetTarget()
+void ICPRegistration::SetTarget()
 {
 
 }

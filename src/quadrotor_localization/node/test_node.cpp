@@ -12,9 +12,9 @@
 #include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
 
 #include "cloud_registration_interface.hpp"
- #include "icp/icp.hpp"
+#include "icp_registration/icp_registration.hpp"
 
-    TEST(cloud_handle_module, baic_use)
+TEST(cloud_handle_module, baic_use)
 {
     const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
     std::shared_ptr<CloudIO> cloud_io_ptr = std::make_shared<CloudIO>();
@@ -31,7 +31,7 @@
     // CloudViewer::ViewerByPcl(cloud_ptr);
     // CloudViewer::ViewerByOpencv(cloud_ptr);
 
-   std::shared_ptr<CloudRegistrationInterface> cloud_regstration_ptr = std::make_shared<ICP>();
+    std::shared_ptr<CloudRegistrationInterface> cloud_regstration_ptr = std::make_shared<ICPRegistration>();
     SUCCEED();
 }
 
