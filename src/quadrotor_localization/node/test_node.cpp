@@ -44,14 +44,17 @@
     {
         double tx, ty, tz, qw, qx, qy, qz;
         gt_file_stream >> tx >> ty >> tz >> qw >> qx >> qy >> qz;
-        VariableInfo("tx", tx, "ty", ty, "tz", tz, "qw", qw, "qx", qx, "qy", qy, "qz", qz);
+        //VariableInfo("tx", tx, "ty", ty, "tz", tz, "qw", qw, "qx", qx, "qy", qy, "qz", qz);
         gt_file_stream.close();
     }
     else
     {
             ErrorAssert(ErrorCode::error_file, __FILE__, __FUNCTION__, __LINE__);
     }
+    
     std::shared_ptr<CloudRegistrationInterface> cloud_regstration_ptr = std::make_shared<ICPRegistration>();
+
+
 }
     
 

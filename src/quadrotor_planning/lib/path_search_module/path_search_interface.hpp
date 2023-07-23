@@ -3,10 +3,15 @@
 
 class PathSearchInterface
 {
-    PathSearchInterface();
-    virtual void SetMap();
-    // virtual SetTast(Node start_point,Node end_point);
-    // virtual Node* GetPath();
+    PathSearchInterface()
+    {
+    }
+    virtual void SetMap() = 0;
+    virtual void SetSatrtPoint() = 0;
+    virtual void SetEndPoint() = 0;
+    virtual  ~PathSearchInterface()
+    {
+    }
 };
 
 #endif //_PATH_SEARCH_INTERFACE

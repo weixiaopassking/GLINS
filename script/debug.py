@@ -23,7 +23,7 @@ class bcolor(object):
 
 
 #编译
-build_code = os.system('cmake -j16 -S . -B build && cmake --build  build')
+build_code = os.system('cd build && make -j16 ')
 if build_code==0:
     print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.OKGREEN +'编译成功' + bcolor.ENDC)
 else :

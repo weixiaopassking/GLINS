@@ -1,5 +1,5 @@
 add_subdirectory(common)
-# add_subdirectory(quadrotor_test)
+add_subdirectory(quadrotor_msg)
 #  add_subdirectory(quadrotor_perception)
 add_subdirectory(quadrotor_localization)
 # add_subdirectory(quadrotor_template)

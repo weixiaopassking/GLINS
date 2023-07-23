@@ -5,7 +5,8 @@
 class VoxelFilter : public CloudFilterInterface
 {
   public:
-    VoxelFilter(const YAML::Node &node);
+    VoxelFilter(){}
+     VoxelFilter(const YAML::Node &node);
     VoxelFilter(const float leaf_size_x, const float leaf_size_y, const float leaf_size_z);
     void Filter(pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_ptr,
                 pcl::PointCloud<pcl::PointXYZI>::Ptr &filtered_cloud_ptr) override;

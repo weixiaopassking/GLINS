@@ -32,6 +32,12 @@ list(APPEND thirdparty_libs ${YAML_CPP_LIBRARIES})
 message("${BoldYellow}Yamlcpp is Ok${ColourReset}")
 #————————————————————————————————————
 
+
+#sophus
+include_directories(${PROJECT_SOURCE_DIR}/thirdpart/sophus)
+message("${BoldYellow}Sophus is Ok${ColourReset}")
+#————————————————————————————————————
+
 #tbb
 set(TBB_ROOT_DIR ${PROJECT_SOURCE_DIR}/thirdpart/tbb/oneTBB-2019_U8/oneTBB-2019_U8)
 set(TBB_BUILD_DIR "tbb_build_dir=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")

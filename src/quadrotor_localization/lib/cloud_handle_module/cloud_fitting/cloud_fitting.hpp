@@ -13,7 +13,7 @@
 #include <vector>
 #include <pcl/point_cloud.h> //点云
 #include <pcl/point_types.h> //点
-#include <numeric>
+#include <numeric>//数值运算
 
 class CloudFitting
 {
