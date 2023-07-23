@@ -3,8 +3,9 @@
 class ICP : public CloudRegistrationInterface
 {
   public:
-    virtual void SetTarget() override;
-    virtual void SetSource() override;
-    virtual void GetPose() override;
-
+    ICP(){}
+      void SetTarget() override;
+    //  void SetSource() override;
+    //  void GetPose() override;
+    ~ICP(){};
 };

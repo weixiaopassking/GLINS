@@ -1,18 +1,20 @@
-#include "../../common/project_path.h" //工程全局路径
-#include "../../common/debug_info.hpp" //工程debug调用
-
-#include "../lib/cloud_handle_module/cloud_filter/cloud_filter_interface.hpp"
-#include "../lib/cloud_handle_module/cloud_filter/voxel_filter/voxel_filter.hpp"
-#include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
-#include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
-
 #include <gtest/gtest.h>     //单元测试
 #include <memory>            //智能指针
 #include <pcl/point_cloud.h> //点云
 #include <pcl/point_types.h> //点
 
-#if 0
-TEST(cloud_handle_module, baic_use)
+#include "../../common/debug_info.hpp" //工程debug调用
+#include "../../common/project_path.h" //工程全局路径
+
+#include "cloud_filter_interface.hpp"
+#include "voxel_filter/voxel_filter.hpp"
+
+#include "../lib/cloud_handle_module/cloud_io/cloud_io.hpp"
+
+#include "cloud_registration_interface.hpp"
+ #include "icp/icp.hpp"
+
+    TEST(cloud_handle_module, baic_use)
 {
     const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
     std::shared_ptr<CloudIO> cloud_io_ptr = std::make_shared<CloudIO>();
@@ -28,32 +30,34 @@ TEST(cloud_handle_module, baic_use)
     std::cout << "滤波2后的点云尺寸:" << cloud_ptr->size() << std::endl;
     // CloudViewer::ViewerByPcl(cloud_ptr);
     // CloudViewer::ViewerByOpencv(cloud_ptr);
+
+   std::shared_ptr<CloudRegistrationInterface> cloud_regstration_ptr = std::make_shared<ICP>();
     SUCCEED();
 }
 
-#endif
 
-TEST(cloud_handle_module, icp)
-{
-    /*1--读取gt真值*/
-    const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
-    std::ifstream gt_file_stream(data_file_path + "EPFL/kneeling_lady_pose.txt");
-    if (gt_file_stream.is_open())
-    {
-        double tx, ty, tz, qw, qx, qy, qz;
-        gt_file_stream >> tx >> ty >> tz >> qw >> qx >> qy >> qz;
-        VariableInfo("tx", tx, "ty", ty, "tz", tz, "qw", qw, "qx", qx, "qy", qy, "qz", qz);
-        gt_file_stream.close();
-    }
-    else
-    {
-            ErrorAssert(ErrorCode::error_file, __FILE__, __FUNCTION__, __LINE__);
-    }
+
+// TEST(cloud_handle_module, icp)
+// {
+//     /*1--读取gt真值*/
+//     const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
+//     std::ifstream gt_file_stream(data_file_path + "EPFL/kneeling_lady_pose.txt");
+//     if (gt_file_stream.is_open())
+//     {
+//         double tx, ty, tz, qw, qx, qy, qz;
+//         gt_file_stream >> tx >> ty >> tz >> qw >> qx >> qy >> qz;
+//         VariableInfo("tx", tx, "ty", ty, "tz", tz, "qw", qw, "qx", qx, "qy", qy, "qz", qz);
+//         gt_file_stream.close();
+//     }
+//     else
+//     {
+//             ErrorAssert(ErrorCode::error_file, __FILE__, __FUNCTION__, __LINE__);
+//     }
 
     
 
-    SUCCEED();
-}
+//     SUCCEED();
+// }
 
 int main(int argc, char **argv)
 {
