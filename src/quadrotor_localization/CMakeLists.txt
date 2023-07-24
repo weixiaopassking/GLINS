@@ -16,6 +16,6 @@ lib/cloud_handle_module/cloud_registration/icp_registration/icp_registration.cpp
 
 add_executable(test_node node/test_node.cpp)
 target_link_libraries(test_node cloud_handle_module  common ${thirdparty_libs} )
-add_test(test_node test_node)
+add_test(test_node  COMMAND  test_node)
 
 

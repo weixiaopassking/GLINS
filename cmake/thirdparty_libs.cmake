@@ -33,12 +33,12 @@ message("${BoldYellow}Yamlcpp is Ok${ColourReset}")
 #————————————————————————————————————
 
 
-#sophus
+#sophus 本地 thirdparty导入
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
 message("${BoldYellow}Sophus is Ok${ColourReset}")
 #————————————————————————————————————
 
-#tbb
+#tbb  本地 thirdparty导入
 function(extract_file filename extract_dir)
         message(STATUS "Extract ${filename} to ${extract_dir} ...")
         set(temp_dir ${extract_dir})
@@ -74,8 +74,7 @@ find_package(TBB REQUIRED)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/tbb/oneTBB-2019_U8/oneTBB-2019_U8/include)
 link_directories(${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/tbb_release)
 
-
-list(APPEND thirdparty_libs              TBB::tbb)
+list(APPEND thirdparty_libs   TBB::tbb)
 message("${BoldYellow}TBB is Ok${ColourReset}")
 #————————————————————————————————————
 
