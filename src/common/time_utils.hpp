@@ -1,10 +1,11 @@
 #ifndef _TIME_UTILS_HPP
 #define _TIME_UTILS_HPP
-#include <algorithm>//stl
+#include <algorithm>
 #include <chrono>
 #include <iostream>
-#include <numeric>
 #include <math.h>
+#include <numeric>
+
 
 template <typename Func> void RuntimeRecord(const Func& func, const std::string &func_name, const int exec_cnt=100)
 {

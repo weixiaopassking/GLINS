@@ -4,13 +4,13 @@
 #include <pcl/point_cloud.h> //点云
 #include <pcl/point_types.h> //点
 
-#include "../../common/debug_info.hpp" //工程debug调用
-#include "../../common/project_path.h" //工程全局路径
+#include "debug_info.hpp" //工程debug调用
+#include "project_path.h" //工程全局路径
 
 #include "cloud_filter_interface.hpp"
-#include "voxel_filter/voxel_filter.hpp"
-
 #include "cloud_io.hpp"
+#include "voxel_filter/voxel_filter.hpp"
+// #include <execution>
 
 #include "cloud_registration_interface.hpp"
 #include "icp_registration/icp_registration.hpp"
@@ -39,6 +39,7 @@
 TEST(cloud_handle_module, icp)
 {
     /*1--读取gt真值*/
+    Sophus::SE3d gt_transform;
     const std::string data_file_path = static_cast<std::string>(PROJECT_PATH) + "/data/";
     std::ifstream gt_file_stream(data_file_path + "EPFL/kneeling_lady_pose.txt");
     if (gt_file_stream.is_open())
@@ -47,20 +48,28 @@ TEST(cloud_handle_module, icp)
         gt_file_stream >> tx >> ty >> tz >> qw >> qx >> qy >> qz;
         // VariableInfo("tx", tx, "ty", ty, "tz", tz, "qw", qw, "qx", qx, "qy", qy, "qz", qz);
         gt_file_stream.close();
+
+        gt_transform = Sophus::SE3d(Eigen::Quaterniond(qw, qx, qy, qz), Eigen::Vector3d( tx, ty, tz));
     }
     else
     {
         ErrorAssert(ErrorCode::error_file, __FILE__, __FUNCTION__, __LINE__);
     }
+    /*2--读取source 和target 点云*/
     pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>);
     pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>);
     pcl::io::loadPCDFile(data_file_path + "EPFL/kneeling_lady_source.pcd", *source_cloud_ptr);
     pcl::io::loadPCDFile(data_file_path + "EPFL/kneeling_lady_target.pcd", *target_cloud_ptr);
+    /*3--点云配准*/
     std::shared_ptr<CloudRegistrationInterface> cloud_regstration_ptr = std::make_shared<ICPRegistration>();
     cloud_regstration_ptr->SetSourceCloud(source_cloud_ptr);
     cloud_regstration_ptr->SetTargetCloud(target_cloud_ptr);
+    cloud_regstration_ptr->SetGtTransform(gt_transform);
 
-        SUCCEED();
+    Sophus::SE3d res_transform;
+
+
+    SUCCEED();
 }
 
 
