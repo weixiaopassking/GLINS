@@ -94,7 +94,7 @@ feat：新功能
 fix：已修复  
 to：修复中  
 docs：文档  
-style：格式
+style：格式  
 refactor：重构  
 perf：优化  
 config: 修改配置文件  
