@@ -1,5 +1,5 @@
 #include "../cloud_registration_interface.hpp"
-
+#include <execution>
 
 class ICPRegistration : public CloudRegistrationInterface
 {
