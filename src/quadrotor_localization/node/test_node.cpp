@@ -10,7 +10,7 @@
 #include "cloud_filter_interface.hpp"
 #include "cloud_io.hpp"
 #include "voxel_filter/voxel_filter.hpp"
-// #include <execution>
+#include <execution>
 
 #include "cloud_registration_interface.hpp"
 #include "icp_registration/icp_registration.hpp"

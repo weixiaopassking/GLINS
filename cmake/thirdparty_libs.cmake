@@ -34,18 +34,36 @@ message("${BoldYellow}Yamlcpp is Ok${ColourReset}")
 
 
 #sophus
-include_directories(${PROJECT_SOURCE_DIR}/thirdpart/sophus)
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
 message("${BoldYellow}Sophus is Ok${ColourReset}")
 #————————————————————————————————————
 
 #tbb
-set(TBB_ROOT_DIR ${PROJECT_SOURCE_DIR}/thirdpart/tbb/oneTBB-2019_U8/oneTBB-2019_U8)
+function(extract_file filename extract_dir)
+        message(STATUS "Extract ${filename} to ${extract_dir} ...")
+        set(temp_dir ${extract_dir})
+        if(EXISTS ${temp_dir})
+            file(REMOVE_RECURSE ${temp_dir})
+        endif()
+        file(MAKE_DIRECTORY ${temp_dir})
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar -xvzf ${filename}
+                WORKING_DIRECTORY ${temp_dir})
+endfunction()
+
+set(TBB_ROOT_DIR ${PROJECT_SOURCE_DIR}/thirdparty/tbb/oneTBB-2019_U8/oneTBB-2019_U8)
 set(TBB_BUILD_DIR "tbb_build_dir=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
 set(TBB_BUILD_PREFIX "tbb_build_prefix=tbb")
+
+extract_file(${PROJECT_SOURCE_DIR}/thirdparty/tbb/2019_U8.tar.gz ${PROJECT_SOURCE_DIR}/thirdparty/tbb/oneTBB-2019_U8)
+
 include(${TBB_ROOT_DIR}/cmake/TBBBuild.cmake)
+
+    #message(STATUS "======TBB_BUILD_DIR = ${TBB_BUILD_DIR}")
+    #message(STATUS "======TBB_BUILD_PREFIX = ${TBB_BUILD_PREFIX}")
+
 tbb_build(TBB_ROOT ${TBB_ROOT_DIR}
             compiler=gcc-9
-            stdver=c++
+            stdver=c++17
             ${TBB_BUILD_DIR}
             ${TBB_BUILD_PREFIX}
             CONFIG_DIR
@@ -53,11 +71,11 @@ tbb_build(TBB_ROOT ${TBB_ROOT_DIR}
 
 find_package(TBB REQUIRED)
 
-include_directories(${PROJECT_SOURCE_DIR}/thirdpart/tbb/oneTBB-2019_U8/oneTBB-2019_U8/include)
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/tbb/oneTBB-2019_U8/oneTBB-2019_U8/include)
 link_directories(${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/tbb_release)
 
-list(APPEND thirdparty_libs TBB::tbb )
 
+list(APPEND thirdparty_libs              TBB::tbb)
 message("${BoldYellow}TBB is Ok${ColourReset}")
 #————————————————————————————————————
 
