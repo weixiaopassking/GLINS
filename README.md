@@ -76,12 +76,12 @@ hybrid+minimum snap
 ## 5.标准与规范
 
 **C++标准** c++ 17   
-**代码格式风格** visual studio风格
- **命名规范**
-类 MyClass   如何规范你的Git commit？
-函数 MyFunction    
-类内变量 _my_function_ptr _my_function_vec  
-普通变量 my_function_ptr   my_function_vec  
+**代码格式风格** visual studio风格  
+ **命名规范**  
+类 MyClass  
+函数 MyFunction      
+类内变量 _my_function_ptr _my_function_vec    
+普通变量 my_function_ptr   my_function_vec    
 **commit规范**[1]
 
 ```Bash
