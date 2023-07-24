@@ -112,10 +112,9 @@ feat(Localization):增加kd tree方法
 
 ## 6.参考
 
-[1]  [MARS:ROG-Map](https://github.com/hku-mars/ROG-Map)
-
-[2]  [gaoxiang:slam_in_autonomous_driving](https://github.com/gaoxiang12/slam_in_autonomous_driving)
-[3]  [ HUKST Aerial Robotics Group:Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner)
+[1]  [MARS:ROG-Map](https://github.com/hku-mars/ROG-Map)  
+[2]  [gaoxiang:slam_in_autonomous_driving](https://github.com/gaoxiang12/slam_in_autonomous_driving)  
+[3]  [ HUKST Aerial Robotics Group:Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner)  
 
 [4]  [阿里开发者:如何规范你的Git commit？](https://zhuanlan.zhihu.com/p/182553920)  
 
