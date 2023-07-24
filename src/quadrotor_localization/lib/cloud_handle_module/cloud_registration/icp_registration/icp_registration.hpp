@@ -1,5 +1,7 @@
 #include "../cloud_registration_interface.hpp"
 #include <execution>
+#include <pcl/kdtree/kdtree_flann.h>
+#include <vector>
 
 class ICPRegistration : public CloudRegistrationInterface
 {
@@ -33,5 +35,5 @@ class ICPRegistration : public CloudRegistrationInterface
 
     Eigen::Vector3d _source_center_vec;
     Eigen::Vector3d _target_center_vec;
-    Options options_;
+    Options _options;
 };

@@ -58,15 +58,41 @@ void ICPRegistration::GetResTransform(Sophus::SE3d &init_transform)
 
     /*3--建立搜索树*/
     pcl::KdTreeFLANN<pcl::PointXYZI> kdtree;
-    kdtree.setInputCloud(*_target_cloud_ptr);
+    kdtree.setInputCloud(_target_cloud_ptr);
+    std::vector<bool> effect_points_flag(index_map.size(), false);
 
-    for (int iter = 0; iter < options_.max_iteration; ++iter)
+    for (int iter = 0; iter < _options.max_iteration; ++iter)
     {
-        std::for_each(std::execution::par_unseq, index_map.begin(), index_map.end(), [](int index) {
-            Eigen::Vector3d q = _source_cloud_ptr->points[idx];
+        std::for_each(std::execution::par_unseq, index_map.begin(), index_map.end(), [&](int index) {
+            Eigen::Vector3d q = _source_cloud_ptr->points[index].getVector3fMap().cast<double>();
             Eigen::Vector3d q_r = res_transform * q; // 旋转过去
-            pcl::PointXYZI search_point(q_r.x(),q_r.y(),q_r.z());
-            // kdtree.nearestKSearch();
+            pcl::PointXYZI search_point;
+            search_point.x = q_r.x();
+            search_point.x = q_r.y();
+            search_point.x = q_r.z();
+
+            std::vector<int> nn_search_index_vec(1);
+            std::vector<float> nn_search_dis_vec(1);
+            kdtree.nearestKSearch(search_point, 1, nn_search_index_vec, nn_search_dis_vec);
+
+            if (!nn_search_index_vec.empty())
+            {
+                Eigen::Vector3d p = _target_cloud_ptr->points[nn_search_index_vec.front()].getVector3fMap().cast<double>();
+                double dis_square=(p-q_r).squaredNorm();
+                if (dis_square > _options.max_point2point_distance)
+                {
+                    effect_points_flag[index] = false;
+                    return ;//?
+                }
+                effect_points_flag[index] = true;
+
+                /*构建残差*/
+                Eigen::Vector3d residual=p-q_r;   //e_i=p_i-Rq_i-t=p_i-q'_i
+                Eigen::Matrix<double,3,6> J;     //对R t分别求导
+                J.block<3, 3>(0, 0) = res_transform.so3().matrix() * SO3::hat(q);//对R的偏导数
+                J.block<3, 3>(0, 3)=-Eigen::Matrix3d::Identity();//对t偏导数
+            }
+
         });
     }
 }
