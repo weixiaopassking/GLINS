@@ -97,6 +97,7 @@ docs：文档
 style：格式
 refactor：重构
 perf：优化
+config: 修改配置文件
 test：增加测试  
 chore：构建过程或辅助工具的变动  
 revert：回滚到上一个版本  
