@@ -68,7 +68,15 @@ TEST(cloud_handle_module, icp)
 
     Sophus::SE3d res_transform;
 
+    bool success_flag=cloud_regstration_ptr->GetResTransform(res_transform);
 
+    if (success_flag==true)
+    {
+        VariableInfo("res_transform q",
+                     res_transform.so3().unit_quaternion().coeffs().transpose());// (imag0, imag1, imag2, real)
+        VariableInfo("res_transform t", res_transform.translation().transpose());
+    }
+      
     SUCCEED();
 }
 
