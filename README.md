@@ -54,7 +54,7 @@ cmake/thirdparty_libs.cmake
 | pcl | 3D点云处理 |                | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
 | opencv |     2D图像处理      |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
 |  gtest   |      单元测试       |                |    ```sudo apt-get install libgtest-dev```     |                                      |
-| yaml-cpp |      yaml读写       |                |    ```sudo apt-get install libyaml-cpp-dev`    |                                      |
+| yaml-cpp |      yaml读写       |                |    `sudo apt-get install libyaml-cpp-dev`    |                                      |
 |          |                     |                |                                                |                                      |
 |  sophus  |   矩阵运算(流形)    || source code | |
 | tbb | Intel的并行加速框架 |oneTBB-2019_U8| source code | |
