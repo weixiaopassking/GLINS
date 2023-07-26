@@ -4,6 +4,9 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(cmake/colorful.cmake)
 set(thirdparty_libs )
 
+#eigen
+
+
 # pcl
 find_package(PCL REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})

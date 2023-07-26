@@ -45,14 +45,19 @@ hybrid+minimum snap <sup>[3]</sup>
 
 
 ## 3.环境配置
-|  开源库  |  作用  |    版本    |安装方式|
-| :----: | :----: | :----: | :----: |
-| yaml-cpp | 读yaml文件参数 |0.6.0|  |
-| glog | 日志 ||  |
-| tbb | cpu并行计算 || |
-| pcl | 点云处理 || |
-| gflags | 读命令行参数 || |
-|  |  || |
+
+cmake/thirdparty_libs.cmake
+
+|  开源库  |  作用  |    版本    |安装方式|版本查看|
+| :----: | :----: | :----: | :----: | ------ |
+| eigen | 矩阵运算 | 3.3.4 |```sudo apt-get install libeigen3-dev```|```pkg-config --modversion eigen3```|
+| pcl | 3D点云处理 |                | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
+| opencv |     2D图像处理      |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
+|  gtest   |      单元测试       |                |    ```sudo apt-get install libgtest-dev```     |                                      |
+| yaml-cpp |      yaml读写       |                |    ```sudo apt-get install libyaml-cpp-dev`    |                                      |
+|          |                     |                |                                                |                                      |
+|  sophus  |   矩阵运算(流形)    || source code | |
+| tbb | Intel的并行加速框架 |oneTBB-2019_U8| source code | |
 
 
 
@@ -61,7 +66,7 @@ hybrid+minimum snap <sup>[3]</sup>
 |日期| Branch | 内容 |说明 | commit_id | video |
 | :----: | :----:| :----: | :----: | ------ | ------ |
 | 2022//11/20 | V0.1 | gnss imu lidar松耦合建图与定位 |简单demo,仅数据集验证,侧重框架构建|6885639|[v0.1 demo1](https://www.bilibili.com/video/BV1mt4y1K7Nt/?spm_id_from=333.999.0.0&vd_source=b86740d9f2b244ac781ad5f60dd8e818)     [v0.1 demo2](https://www.bilibili.com/video/BV1Ce4y1s75g/?spm_id_from=333.788&vd_source=b86740d9f2b244ac781ad5f60dd8e818)|
-| 2023/07/30 | V0.2 |  |                                    |                                    |                                    |
+| 2023/08/10 | V0.2 |  |                                    |                                    |                                    |
 |  | V0.3 |      ||||
 
 
