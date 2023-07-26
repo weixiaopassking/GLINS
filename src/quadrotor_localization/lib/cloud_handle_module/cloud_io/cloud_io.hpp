@@ -1,16 +1,6 @@
 #ifndef _CLOUD_IO_HPP
 #define _CLOUD_IO_HPP
-/**
-*****************************************************************************
-*  Copyright (C), 2023-2026,robotics gang
-*  @file    cloud_io.hpp
-*  @brief  点云的读写
-*  @author  robotics gang
-*  @date    2023/7/18
-*  @version v0.1
-*  @ref
-****************************************************************************
-*/
+
 
 #include "../../../../common/debug_info.hpp" //错误断言
 #include <pcl/io/pcd_io.h>                     //读写pcd

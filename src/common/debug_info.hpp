@@ -25,6 +25,7 @@
 template <typename... Tn> void VariableInfo(Tn... tn)
 {
     const int len_f = sizeof...(tn);
+
     int cnt = 0;
     auto f = [&](auto it) {
         cnt == 0 ? std::cout << Yellow << it << ":\t" << Color_Off
@@ -52,6 +53,6 @@ static std::unordered_map<enum ErrorCode, std::string> ErrorMap{
 void ErrorAssert(enum ErrorCode, const char *file = "null", const char *function = "null",
                  const unsigned long line = 0);
 
-//example: ErrorAssert(ErrorCode::error_path, __FILE__, __FUNCTION__, __LINE__);
+// example: ErrorAssert(ErrorCode::error_path, __FILE__, __FUNCTION__, __LINE__);
 
 #endif // _DEBUG_INFO_HPP
