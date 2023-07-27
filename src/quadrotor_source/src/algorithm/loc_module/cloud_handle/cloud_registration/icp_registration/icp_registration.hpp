@@ -25,6 +25,9 @@ d. GetResTransform  获取点云
 #include <pcl/kdtree/kdtree_flann.h>
 #include <vector>
 
+namespace algorithm_ns
+{
+
 
 
 class ICPRegistration : public CloudRegistrationInterface
@@ -80,3 +83,5 @@ class ICPRegistration : public CloudRegistrationInterface
     typedef Eigen::Matrix<double, 6, 1> g_type;
     typedef Eigen::Matrix<double, 6, 1> dx_type;
 };
+} // namesapce algorithm_ns
+  
