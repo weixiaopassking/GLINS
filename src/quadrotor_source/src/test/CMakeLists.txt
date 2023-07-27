@@ -1,8 +1,8 @@
-include_directories ("../common")
 
 
-add_executable(quick_test quick_test.cpp)
-target_link_libraries(quick_test   common ${thirdparty_libs} )
-add_test(quick_test COMMAND quick_test)
+
+add_executable(test_cpp test_cpp.cpp)
+target_link_libraries(test_cpp   ${project_name}.common  ${thirdparty_LIBRARIES} )
+add_test(test_cpp COMMAND test_cpp)
 
 

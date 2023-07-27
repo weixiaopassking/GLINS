@@ -20,9 +20,9 @@ catkin_package()
 # set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)#.a
 
 
-
-
+#第三方库
 set(project_path ${CMAKE_CURRENT_SOURCE_DIR})
+set(project_name ${PROJECT_NAME})
 set(thirdparty_LIBRARIES)
 include(cmake/thirdparty_libs.cmake)
 
