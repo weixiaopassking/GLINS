@@ -2,4 +2,5 @@
 import os
 import sys
 
-build_code = os.system('cd build && rm -rf * && cmake -j16 .. && make -j16 ')
+os.system('catkin_make  -j16')
+os.system('rosrun quadrotor_localization vis')
