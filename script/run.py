@@ -21,7 +21,7 @@ else :
     print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.FAIL +'编译失败' + bcolor.ENDC)
     quit()
 
-run_status=os.system('rosrun quadrotor_source test_module')
+run_status=os.system('rosrun quadrotor_source test_pipe')
 if run_status==0:
     print(bcolor.OKBLUE + 'AlkaidQuadrotor$ '+bcolor.OKGREEN +'运行正常' + bcolor.ENDC)
 else :

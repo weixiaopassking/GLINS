@@ -32,7 +32,7 @@ class ICPRegistration : public CloudRegistrationInterface
 {
 
   public:
-    enum icp_methods
+    enum ICPMethods
     {
         point2point,
         point2line,
@@ -50,7 +50,7 @@ class ICPRegistration : public CloudRegistrationInterface
         const double max_point2plane_distance = 0.05;
 
         const double epsilon = 1e-4;//迭代阈值
-        icp_methods icp_method = icp_methods::point2point;
+        ICPMethods icp_method = ICPMethods::point2point;
     };
     ICPRegistration();
 
@@ -69,7 +69,7 @@ class ICPRegistration : public CloudRegistrationInterface
     pcl::PointCloud<pcl::PointXYZI>::Ptr _source_cloud_ptr;
     pcl::PointCloud<pcl::PointXYZI>::Ptr _target_cloud_ptr;
     Sophus::SE3d _gt_transform;
-    bool has_gt_transform;
+    bool _has_gt_transform;
 
     Eigen::Vector3d _source_center_vec;
     Eigen::Vector3d _target_center_vec;

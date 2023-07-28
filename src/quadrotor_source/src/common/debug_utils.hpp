@@ -6,7 +6,7 @@
 *  @author  wengang.niu
 *  @date    2023/7/27
 *  @version v0.2
-*  @ref github:gaoxiang12/slam_in_autonomous_driving
+*  @ref 
 *  @note
 ****************************************************************************
 */

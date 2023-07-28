@@ -26,7 +26,7 @@ namespace algorithm_ns
     {
         this->_source_cloud_ptr.reset();
         this->_target_cloud_ptr.reset();
-        has_gt_transform = false;
+        _has_gt_transform = false;
     }
 
     /**
@@ -80,7 +80,7 @@ namespace algorithm_ns
     {
 
         this->_gt_transform = gt_transform;
-        has_gt_transform = true;
+        _has_gt_transform = true;
         ("配准点云的gt真值", gt_transform.matrix());
     }
 
@@ -101,17 +101,17 @@ namespace algorithm_ns
         }
 
         /*2--icp配准方法选择*/
-        if (_options.icp_method == icp_methods::point2point)
+        if (_options.icp_method == ICPMethods::point2point)
         {
             common_ns::VariableInfo("icp配准方法", "点到点");
             return Point2Point(init_transform);
         }
-        else if (_options.icp_method == icp_methods::point2line)
+        else if (_options.icp_method == ICPMethods::point2line)
         {
             common_ns::VariableInfo("icp配准方法", "点到线"); // todo
             return false;
         }
-        else if (_options.icp_method == icp_methods::point2lane)
+        else if (_options.icp_method == ICPMethods::point2lane)
         {
             common_ns::VariableInfo("icp配准方法", "点到面"); // todo
             return false;
@@ -227,7 +227,7 @@ namespace algorithm_ns
             res_transform.translation() += dx.tail<3>();
 
             /*3.5 真值检查*/
-            if (has_gt_transform == true)
+            if (_has_gt_transform == true)
             {
                 double transform_error = (_gt_transform.inverse() * res_transform).log().norm(); //?
                 common_ns::VariableInfo("真值比较", transform_error);
