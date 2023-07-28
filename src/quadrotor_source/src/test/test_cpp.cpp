@@ -3,7 +3,7 @@ quick_test
 仅仅用于C++/Python  及第三方库使用快速验证
 */
 
-#include "../common/debug_utils.hpp"
+#include "debug_utils.hpp"
 #include "vector"
 #include <execution>
 #include <gtest/gtest.h> //单元测试

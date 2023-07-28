@@ -28,8 +28,6 @@ d. GetResTransform  获取点云
 namespace algorithm_ns
 {
 
-
-
 class ICPRegistration : public CloudRegistrationInterface
 {
 

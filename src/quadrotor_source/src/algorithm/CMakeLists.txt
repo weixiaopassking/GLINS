@@ -1,8 +1,10 @@
-set(algorithm_part ${project_path}/src/algorithm)
+set(loc_module_path ${project_path}/src/algorithm/loc_module)
+include_directories(${project_path}/src/common)
+
 
 add_library(${project_name}.algorithm.loc_module   
 
-${algorithm_part}/loc_module/cloud_handle/cloud_registration/icp_registration/icp_registration.cpp
+${loc_module_path}/cloud_handle/cloud_registration/icp_registration/icp_registration.cpp
 ) 
 
 # add_library(${project_name}.algorithm.pnc_module   ) 

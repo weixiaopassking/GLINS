@@ -15,7 +15,7 @@ class bcolor(object):
 if __name__ == '__main__':
 
     param_num=len(sys.argv)
-    print(param_num)
+    # print(param_num)
     write_log="update"
     if param_num>=2 :
         write_log = sys.argv[1]

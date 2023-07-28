@@ -77,6 +77,11 @@ template <typename... Tn> void VariableInfo(Tn... tn)
     };
 
     (..., f(tn)); // 一元左折 c++17折叠表达式
+    if (len_f%2!=0)
+    {
+        std::cout << std::endl;
+    }
+      
 }
 
 /**

@@ -19,7 +19,7 @@
 #include <pcl/point_cloud.h> //点云
 #include <pcl/point_types.h> //点
 
-#include "../../../../common/debug_utils.hpp"
+#include "debug_utils.hpp"
 
 namespace algorithm_ns
 {
@@ -32,7 +32,7 @@ namespace algorithm_ns
         virtual void SetTargetCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &target_cloud_ptr) = 0;
         virtual void SetGtTransform(const Sophus::SE3d &res_transform) = 0;
         virtual bool GetResTransform(Sophus::SE3d &init_transform) = 0;
-        virtual ~CloudRegistrationInterface(){};
+        virtual ~CloudRegistrationInterface(){};//务必
     };
 }
 #endif //_CLOUD_REGISTRATION

@@ -22,6 +22,7 @@ catkin_package()
 
 #第三方库
 set(project_path ${CMAKE_CURRENT_SOURCE_DIR})
+configure_file(${project_path}/src/common/project_path.h.in  ${project_path}/src/common/project_path.h)
 set(project_name ${PROJECT_NAME})
 set(thirdparty_LIBRARIES)
 include(cmake/thirdparty_libs.cmake)
