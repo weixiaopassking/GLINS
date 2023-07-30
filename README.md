@@ -43,7 +43,8 @@ hybrid+minimum snap <sup>[3]</sup>
 | 工具及耗材 | — | 400 |
 | 合计 |  | 11250 |
 
-<div align=center><img src="./file/pic/framework_hardware.drawio.svg" style="zoom:100%;" ></divdiv>
+<div align=center><img src="./file/pic/framework_hardware.drawio.svg" style="zoom:100%;" ></div>
+
 
 ## 3.环境配置
 
