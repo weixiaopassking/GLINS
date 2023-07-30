@@ -20,7 +20,7 @@ class DirectLo
     struct Options
     {
         double key_frame_distance = 0.5;   // 关键帧距离
-        double key_frame_deg = 30;          // 关键帧角度
+        double key_frame_deg = 30;          // 关键帧角度(角度制)
         int local_map_key_frames_num = 30; //
         RegistrationMethods registration_method = RegistrationMethods::ICP;
     };

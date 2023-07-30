@@ -19,6 +19,11 @@ DirectLo::DirectLo()
     _estimated_poses_vec.clear();
 }
 
+/**
+ * @brief 更新位姿
+ * @todo
+ * @note
+ **/
 bool DirectLo::Update(pcl::PointCloud<pcl::PointXYZI>::Ptr scan_ptr, Sophus::SE3d &current_pose)
 {
     /*1--处理第一帧*/
@@ -30,16 +35,29 @@ bool DirectLo::Update(pcl::PointCloud<pcl::PointXYZI>::Ptr scan_ptr, Sophus::SE3
         _cloud_registration_ptr->SetTargetCloud(_local_map_ptr);
         return true;
     }
-    /*2--处理之后帧*/
+    /*2--处理之后帧,计算R t*/
     _cloud_registration_ptr->SetSourceCloud(scan_ptr);
     _cloud_registration_ptr->GetResTransform(current_pose); // scan to local_map
-    pcl::PointCloud<pcl::PointXYZI>::Ptr scan_world(new pcl::PointCloud<pcl::PointXYZI>);
-    pcl::transformPointCloud(*scan_ptr, *scan_world, current_pose.matrix().cast<float>()); // scan转至世界系
+    pcl::PointCloud<pcl::PointXYZI>::Ptr scan_world_ptr(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl::transformPointCloud(*scan_ptr, *scan_world_ptr, current_pose.matrix().cast<float>()); // scan转至世界系
 
     /*3--p判断是否为关键帧*/
     if (IsKeyFrame(current_pose) == true)
     {
         _last_key_fram_pose = current_pose;
+        /*3.1--维护FIFO*/
+        _local_map_scans_que.emplace_back(scan_world_ptr);
+        if (_local_map_scans_que.size()>_optins.local_map_key_frames_num)//维护一个FIFO
+        {
+            _local_map_scans_que.pop_front();
+        }
+        /*3.2--重建local_map*/
+        _local_map_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
+        for (const auto &it_ptr : _local_map_scans_que)
+        {
+            *_local_map_ptr += *it_ptr;
+        }
+        _cloud_registration_ptr->SetTargetCloud(_local_map_ptr);
     }
 }
 
@@ -51,6 +69,11 @@ DirectLo::~DirectLo()
 {
 }
 
+/**
+ * @brief 判断是否关键帧
+ * @todo
+ * @note
+ **/
 bool DirectLo::IsKeyFrame(const Sophus::SE3d &current_pose)
 {
     Sophus::SE3d dtlta = _last_key_fram_pose.inverse() * current_pose;

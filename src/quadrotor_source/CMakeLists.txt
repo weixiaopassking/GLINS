@@ -32,12 +32,11 @@ include(cmake/thirdparty_libs.cmake)
 #src
 add_subdirectory(src)
 
-# set(cmake_path ${catkin_path})
-# string(APPEND cmake_file_path "cmake/thirdparty_libs.cmake")
-# message("cmakefile" ${cmake_file_path})
+# get_directory_property (inc_dirs INCLUDE_DIRECTORIES)
+# foreach( dir ${inc_dirs} )
+#     message(  "包含的目录: ${dir}" )
+# endforeach()
 
 
-# add_executable(vis node/vis_node.cpp )
-# target_link_libraries(vis ${catkin_LIBRARIES}  ${thirdparty_LIBRARIES} )
 
 
