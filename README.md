@@ -8,7 +8,7 @@
 
 ## 1.算法流程
 
-<img src="./file/pic/framework_software.drawio.svg" style="zoom:100%;" />
+<div align=center><img src="./file/pic/framework_software.drawio.svg" style="zoom:100%;" ></div>
 
 ### 1.1 定位
 
@@ -43,7 +43,7 @@ hybrid+minimum snap <sup>[3]</sup>
 | 工具及耗材 | — | 400 |
 | 合计 |  | 11250 |
 
-<img src="./file/pic/framework_hardware.drawio.svg" style="zoom:100%;" />
+<div align=center><img src="./file/pic/framework_hardware.drawio.svg" style="zoom:100%;" ></divdiv>
 
 ## 3.环境配置
 
