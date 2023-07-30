@@ -41,8 +41,6 @@ bool DirectLo::Update(pcl::PointCloud<pcl::PointXYZI>::Ptr scan_ptr, Sophus::SE3
     {
         _last_key_fram_pose = current_pose;
     }
-
-    
 }
 
 bool DirectLo::SaveMap()
