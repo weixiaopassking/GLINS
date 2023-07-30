@@ -6,8 +6,9 @@
 
 
 
-
 ## 1.算法流程
+
+<img src="./file/pic/framework_software.drawio.svg" style="zoom:100%;" />
 
 ### 1.1 定位
 
@@ -42,7 +43,7 @@ hybrid+minimum snap <sup>[3]</sup>
 | 工具及耗材 | — | 400 |
 | 合计 |  | 11250 |
 
-
+<img src="./file/pic/framework_hardware.drawio.svg" style="zoom:100%;" />
 
 ## 3.环境配置
 
@@ -55,7 +56,7 @@ cmake/thirdparty_libs.cmake
 | opencv |     2D图像处理      |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
 |  gtest   |      单元测试       |                |    ```sudo apt-get install libgtest-dev```     |                                      |
 | yaml-cpp |      yaml读写       |                |    `sudo apt-get install libyaml-cpp-dev`    |                                      |
-|          |                     |                |                                                |                                      |
+| geographiclib | gnss处理 |                | source code |                                      |
 |  sophus  |   矩阵运算(流形)    || source code | |
 | tbb | Intel的并行加速框架 |oneTBB-2019_U8| source code | |
 
@@ -77,10 +78,10 @@ cmake/thirdparty_libs.cmake
 
 ## 5.更新日志
 
-|日期| Branch | 内容 |说明 | commit_id | video |
+|日期| Branch | 更新 |说明 | commit_id | video |
 | :----: | :----:| :----: | :----: | ------ | ------ |
-| 2022//11/20 | V0.1 | gnss imu lidar松耦合建图与定位 |简单demo,仅数据集验证,侧重框架构建|6885639|[v0.1 demo1](https://www.bilibili.com/video/BV1mt4y1K7Nt/?spm_id_from=333.999.0.0&vd_source=b86740d9f2b244ac781ad5f60dd8e818)     [v0.1 demo2](https://www.bilibili.com/video/BV1Ce4y1s75g/?spm_id_from=333.788&vd_source=b86740d9f2b244ac781ad5f60dd8e818)|
-| 2023/08/10 | V0.2 |  |                                    |                                    |                                    |
+| 2022//11/20 | V0.1 | gnss imu lidar松耦合建图与定位简易demo |仅数据集验证,侧重框架构建|6885639|[v0.1 demo1](https://www.bilibili.com/video/BV1mt4y1K7Nt/?spm_id_from=333.999.0.0&vd_source=b86740d9f2b244ac781ad5f60dd8e818)     [v0.1 demo2](https://www.bilibili.com/video/BV1Ce4y1s75g/?spm_id_from=333.788&vd_source=b86740d9f2b244ac781ad5f60dd8e818)|
+| 2023/08/15 | V0.2 | 重构框架, | 新框架实际设备手持 |                                    |                                    |
 |  | V0.3 |      ||||
 
 
@@ -124,9 +125,9 @@ sync：同步主线或分支的Bu
 
 例如:
 ```
-fix(Planning):修复机身卡膨胀层静止的bug  
-docs(README):增加参考文章链接  
-feat(Localization):增加kd tree方法  
+fix[Planning]:修复机身卡膨胀层静止的bug  
+docs[README]:增加参考文章链接  
+feat[Localization]:增加kd tree方法  
 ```
 
 ## 6.参考
