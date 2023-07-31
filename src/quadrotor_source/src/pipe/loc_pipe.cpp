@@ -9,7 +9,7 @@ LocPipe::LocPipe(ros::NodeHandle &nh)
     /*1--算法调用初始化*/
     _cloud_sub_ptr = std::make_shared<rossub_ns::CloudSub>(nh, "/points_raw");
     _odom_ptr = std::make_shared<algorithm_ns::DirectLo>();
-    _odom_pub_ptr = std::make_shared<rospub_ns::OdomPub>(nh, "lidar", "map", "lidar", 1);
+    _odom_pub_ptr = std::make_shared<rospub_ns::OdomPub>(nh, "odom", "map", "lidar", 1);
 
 }
 

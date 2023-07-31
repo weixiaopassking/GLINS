@@ -94,7 +94,8 @@
         "ios": "cpp",
         "locale": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "*.ipp": "cpp"
     },
     "python.autoComplete.extraPaths": [
         "/opt/ros/melodic/lib/python2.7/dist-packages"

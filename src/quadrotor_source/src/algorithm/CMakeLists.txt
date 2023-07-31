@@ -4,7 +4,8 @@
 set(loc_module_path ${project_path}/src/algorithm/loc_module)
 
 add_library(${project_name}.algorithm.loc_module   
-${loc_module_path}/cloud_handle/cloud_registration/icp_registration/icp_registration.cpp
+${loc_module_path}/cloud_handle/cloud_registration/icp_registration.cpp
+${loc_module_path}/cloud_handle/cloud_registration/ndt_registration.cpp
 ${loc_module_path}/lidar_odom/direct_lo.cpp
 
 ) 

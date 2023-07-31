@@ -9,6 +9,10 @@ DirectLo::DirectLo()
     {
         _cloud_registration_ptr = std::make_shared<algorithm_ns::ICPRegistration>();
     }
+    else if (_options.registration_method == RegistrationMethods::NDT)
+    {
+        _cloud_registration_ptr = std::make_shared<algorithm_ns::NDTRegistration>();
+    }
     else
     {
         common_ns::ErrorAssert("无对应的配置方法", __FILE__, __FUNCTION__, __LINE__);
@@ -23,12 +27,10 @@ DirectLo::DirectLo()
 bool DirectLo::Update(pcl::PointCloud<pcl::PointXYZI>::Ptr scan_ptr, Sophus::SE3d &current_pose)
 {
 
-    // /*1--处理第一帧*/
+     /*1--处理第一帧*/
     if (_local_map_ptr == nullptr)
     {
         _local_map_ptr.reset(new pcl::PointCloud<pcl::PointXYZI>);
-        current_pose = Sophus::SE3d(); // 初始化第一帧地图和scan都是地图源点
-        _last_key_fram_pose = current_pose;
         (*_local_map_ptr) += (*scan_ptr);
         _cloud_registration_ptr->SetTargetCloud(_local_map_ptr);
         return true;
@@ -44,6 +46,7 @@ bool DirectLo::Update(pcl::PointCloud<pcl::PointXYZI>::Ptr scan_ptr, Sophus::SE3
     }
     _cloud_registration_ptr->GetResTransform(current_pose);
     _estimated_poses_vec.emplace_back(current_pose);
+    
     pcl::PointCloud<pcl::PointXYZI>::Ptr scan_world_ptr(new pcl::PointCloud<pcl::PointXYZI>);
     pcl::transformPointCloud(*scan_ptr, *scan_world_ptr, current_pose.matrix().cast<float>()); // scan转至世界系
 
@@ -86,9 +89,9 @@ bool DirectLo::IsKeyFrame(const Sophus::SE3d &current_pose)
     if (delta.translation().norm() > _options.key_frame_distance ||
         delta.so3().log().norm() > _options.key_frame_deg * M_PI / 180.0)
     {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 
 } // namespace algorithm_ns

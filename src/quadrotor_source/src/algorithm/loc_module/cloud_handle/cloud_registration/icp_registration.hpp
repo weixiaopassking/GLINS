@@ -20,7 +20,7 @@ d. GetResTransform  获取点云
 ****************************************************************************
 */
 
-#include "../cloud_registration_interface.hpp"
+#include "cloud_registration_interface.hpp"
 #include <execution>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <vector>

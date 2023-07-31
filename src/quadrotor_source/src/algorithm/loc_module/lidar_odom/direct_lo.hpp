@@ -1,5 +1,6 @@
 #include "../cloud_handle/cloud_registration/cloud_registration_interface.hpp"
-#include "../cloud_handle/cloud_registration/icp_registration/icp_registration.hpp"
+#include "../cloud_handle/cloud_registration/icp_registration.hpp"
+#include "../cloud_handle/cloud_registration/ndt_registration.hpp"
 #include <deque>
 #include <pcl/common/transforms.h>
 #include <sophus/se2.hpp>
@@ -22,7 +23,7 @@ class DirectLo
         double key_frame_distance = 0.5;   // 关键帧距离
         double key_frame_deg = 30;          // 关键帧角度(角度制)
         int local_map_key_frames_num = 30; //
-        RegistrationMethods registration_method = RegistrationMethods::ICP;
+        RegistrationMethods registration_method = RegistrationMethods::NDT;
     };
 
     DirectLo();
