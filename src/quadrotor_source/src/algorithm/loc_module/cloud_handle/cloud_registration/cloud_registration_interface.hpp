@@ -15,6 +15,7 @@
 
 #include <sophus/se2.hpp>
 #include <sophus/se3.hpp>
+#include "sensor_type/cloud_type.hpp"
 
 #include <pcl/point_cloud.h> //点云
 #include <pcl/point_types.h> //点
@@ -32,7 +33,7 @@ namespace algorithm_ns
         virtual void SetTargetCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &target_cloud_ptr) = 0;
         virtual void SetGtTransform(const Sophus::SE3d &res_transform) = 0;
         virtual bool GetResTransform(Sophus::SE3d &init_transform) = 0;
-        virtual ~CloudRegistrationInterface(){};//务必
+        virtual ~CloudRegistrationInterface(){};//基类析构函数务必虚化以吊起继承类析构正确释放内存
     };
 }
 #endif //_CLOUD_REGISTRATION

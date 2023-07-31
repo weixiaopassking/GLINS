@@ -1,22 +1,22 @@
 #include <iostream>
-
-#include "cloud_sub.hpp"
 #include <memory>
+#include <ros/ros.h>
+#include "loc_pipe.hpp"
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "test_node");
+    std::cout << " 定位节点loading..." << std::endl;
+
+    ros::init(argc, argv, "test_node_loc");
     ros::NodeHandle nh;
-    /*project start*/
-    std::shared_ptr<rossub_ns::CloudSub> cloud_sub_ptr = std::make_shared<rossub_ns::CloudSub>(nh, "/points_raw");
 
-    std::cout << "quadrotor 启动入口" << std::endl;
+    std::shared_ptr<pipe_ns::LocPipe> loc_pipe = std::make_shared<pipe_ns::LocPipe>();
 
-    ros::Rate rate(1); // 1s
+    ros::Rate rate(10); // 10hz执行一次
     while (ros::ok())
     {
-        ros::spinOnce();
+        loc_pipe->Run();
+         ros::spinOnce();
         rate.sleep();
-        std::cout << "reading  raw data" << std::endl;
     }
 }
