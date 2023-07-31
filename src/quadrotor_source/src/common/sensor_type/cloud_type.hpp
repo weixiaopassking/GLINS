@@ -13,9 +13,9 @@ class CloudType
 {
 
   public:
-    using POINT = pcl::PointXYZ;
-    using CLOUD = pcl::PointCloud<pcl::PointXYZI>;
-    using CLOUD_PTR = pcl::PointCloud<pcl::PointXYZI>::Ptr;
+    using POINT = pcl::PointXYZI;
+    using CLOUD = pcl::PointCloud<POINT>;
+    using CLOUD_PTR = pcl::PointCloud<POINT>::Ptr;
 
     CloudType();
 

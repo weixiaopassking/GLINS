@@ -41,15 +41,15 @@ class ICPRegistration : public CloudRegistrationInterface
  
      struct Options
     {
-        const int max_iteration = 100;
+        const int max_iteration = 40;
         const int min_nn_numbers = 10;//最小最近邻点数
-        const bool use_initial_translation=false; //是否使用平移初始值
+        const bool use_initial_translation=true; //是否使用平移初始值
 
         const double max_point2point_distance = 1.0;
         const double max_point2line_distance = 0.5;
         const double max_point2plane_distance = 0.05;
 
-        const double epsilon = 1e-4;//迭代阈值
+        const double epsilon = 1e-3;//迭代阈值
         ICPMethods icp_method = ICPMethods::point2point;
     };
     ICPRegistration();

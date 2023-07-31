@@ -14,31 +14,30 @@
 #ifndef _CLOUD_SUB_HPP
 #define _CLOUD_SUB_HPP
 
+#include <deque>
+#include <pcl_conversions/pcl_conversions.h>
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
 // common
 #include "sensor_type/cloud_type.hpp"
-#include <deque>
 
-
-    namespace rossub_ns
+namespace rossub_ns
 {
 class CloudSub
 {
   public:
     CloudSub() = default;
-    CloudSub(ros::NodeHandle &node_handle, const std::string topic_name, const size_t buffer_size=10);
-    void ParseData(std::deque<common_ns::CloudType> &cloud_ptr_que);
-    
+    CloudSub(ros::NodeHandle &node_handle, const std::string topic_name, const size_t buffer_size = 10);
+    void ParseData(std::deque<common_ns::CloudType> &cloud_msg_que);
 
-      private:
-        void MsgCallback(const sensor_msgs::PointCloud2::ConstPtr &cloud_msg_ptr);
+  private:
+    void MsgCallback(const sensor_msgs::PointCloud2::ConstPtr &cloud_msg);
 
-      private:
-        ros::NodeHandle _nh;
-        ros::Subscriber _sub;
-        std::deque<common_ns::CloudType> _cloud_ptr_que;
-    }; // class CloudSub
+  private:
+    ros::NodeHandle _nh;
+    ros::Subscriber _sub;
+    std::deque<common_ns::CloudType> _cloud_msg_que;
+}; // class CloudSub
 } // namespace rossub_ns
 
 #endif //_CLOUD_SUB_HPP

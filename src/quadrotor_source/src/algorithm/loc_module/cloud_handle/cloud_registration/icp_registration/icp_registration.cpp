@@ -45,7 +45,7 @@ namespace algorithm_ns
                                                        return sum + point.getVector3fMap().cast<double>();
                                                    }) /
                                    source_cloud_ptr->points.size();
-        common_ns::VariableInfo("source 点云几何中心", _source_center_vec.transpose());
+       // common_ns::VariableInfo("source 点云几何中心", _source_center_vec.transpose());
     }
 
     /**
@@ -66,7 +66,7 @@ namespace algorithm_ns
                                                        return sum + point.getVector3fMap().cast<double>();
                                                    }) /
                                    target_cloud_ptr->points.size();
-        common_ns::VariableInfo("target 点云几何中心", _target_center_vec.transpose());
+       // common_ns::VariableInfo("target 点云几何中心", _target_center_vec.transpose());
     }
 
     /**
@@ -81,7 +81,6 @@ namespace algorithm_ns
 
         this->_gt_transform = gt_transform;
         _has_gt_transform = true;
-        ("配准点云的gt真值", gt_transform.matrix());
     }
 
     /**
@@ -103,17 +102,17 @@ namespace algorithm_ns
         /*2--icp配准方法选择*/
         if (_options.icp_method == ICPMethods::point2point)
         {
-            common_ns::VariableInfo("icp配准方法", "点到点");
+           // common_ns::VariableInfo("icp配准方法", "点到点");
             return Point2Point(init_transform);
         }
         else if (_options.icp_method == ICPMethods::point2line)
         {
-            common_ns::VariableInfo("icp配准方法", "点到线"); // todo
+         //   common_ns::VariableInfo("icp配准方法", "点到线"); // todo
             return false;
         }
         else if (_options.icp_method == ICPMethods::point2lane)
         {
-            common_ns::VariableInfo("icp配准方法", "点到面"); // todo
+          //  common_ns::VariableInfo("icp配准方法", "点到面"); // todo
             return false;
         }
         else
@@ -230,17 +229,12 @@ namespace algorithm_ns
             if (_has_gt_transform == true)
             {
                 double transform_error = (_gt_transform.inverse() * res_transform).log().norm(); //?
-                common_ns::VariableInfo("真值比较", transform_error);
             }
             /*3.6 收敛判定*/
             if (dx.norm() < _options.epsilon)
             {
-                common_ns::VariableInfo("dx", dx);
                 break;
             }
-            std::cout << std::endl;
-            common_ns::VariableInfo("收敛状态", dx.norm());
-
         } // for (iter = 0: _options.max_iteration)
         /*4 结果返出*/
         init_transform = res_transform;
