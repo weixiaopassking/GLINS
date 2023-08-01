@@ -31,5 +31,5 @@ file(GLOB_RECURSE NODE_SRCS "node/*_node.cpp")
 list(REMOVE_ITEM  ALL_SRCS  ${NODE_SRCS})
 
 
-add_executable(localization_node node/localization_node.cpp ${ALL_SRCS})
-target_link_libraries(localization_node ${catkin_LIBRARIES}   ${thirdpart_LIBRARIES})
+add_executable(test_node node/test_node.cpp ${ALL_SRCS})
+target_link_libraries(test_node ${catkin_LIBRARIES}   ${thirdpart_LIBRARIES})

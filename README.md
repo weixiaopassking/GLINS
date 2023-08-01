@@ -1,88 +1,98 @@
 # AlkaidQuadrotor
 
-**项目说明** 写着玩的demo，从零搭建并手写实现一个智能无人机(决策、规划、感知、通讯、GUI), 主要不断整合并竞赛、实习、课程时所学到的工程技巧及算法 ,侧重于工程架构、算法实现、性能效率 
+AlkaidQuadrotor is  an intelligent robot  included hardware and software for personal assistant. It will carries multi sensors (gnss、lidar、imu、camera)  and computing equipments (Intel nuc、Pix)  to achieve localization、planning、decision、perception. 
 
-**更新说明** 稳定版义tag形式发布，测试节点以branch形式发布，如有问题可提交issue或者发邮箱niu_wengang@163.com       
+Actually, the project is  a vision for accomplishing a whole robot system  entirely independently
+
+If having advice or issue, please contact me at email  niu_wengang@163.com .   
 
 
 
-## 1.算法流程
+
+
+## 1. Algorithm Workflow
 
 <div align=center><img src="./file/pic/framework_software.drawio.svg" style="zoom:100%;" ></div>
 
-### 1.1 定位
+### 1.1 Localization Part
 
-LIO版<sup>[1]</sup><sup>[2]</sup>
+LIO<sup>[1]</sup><sup>[2]</sup>
 
-### 1.2 规划
+### 1.2 Planning Part
 hybrid+minimum snap <sup>[3]</sup>
 
+### 1.3 Perception Part
 
-### 1.3 感知
+cnn
 
 
-### 1.4决策
-决策树
+### 1.4 Decision Part
+decision tree
 
-## 2.硬件配置
+## 2.Hardware Config
 
-|      器件       | 数量 | 价格 |
+|              device              | amount | price |
 | :------: | :--: | :----: |
-|    QV250机架及配件    |  1   | 100 |
+|    QV250 rack and attachment    |  1   | 100 |
 | EMAX Bullet 30A |  4   | 510 |
-|     R12DSM 接收机     |  1   | 90 |
-|  livox mid360 及配件  |  1   | 5000 |
+|     R12DSM receiver     |  1   | 90 |
+|  livox mid360  |  1   | 5000 |
 | realsense d435i | 1 | 2700 |
-| 乐迪 AT9S Pro | 1 | 600 |
-| Holybro Pixhawk 6CMini飞控 | 1 | 1200 |
-| BB响 | 1 | 10 |
-| 格氏锂电池 4s 2300mah | 1 | 140 |
-| IMAX B6AC 80W平衡充 | 1 | 120 |
-| DCDC降压 | 2 | 30 |
+| RadioLink AT9S Pro | 1 | 600 |
+| Holybro Pixhawk 6CMini | 1 | 1200 |
+| buzzer | 1 | 10 |
+| tattu li-ion battery  4s 2300mah | 1 | 140 |
+| IMAX B6AC 80W | 1 | 120 |
+| DCDC | 2 | 30 |
 | TMOTOR V2306-2400KV | 5 | 350 |
-| 工具及耗材 | — | 400 |
-| 合计 |  | 11250 |
+| tools and consumable items | — | 400 |
+| total |  | 11250 |
 
 <div align=center><img src="./file/pic/framework_hardware.drawio.svg" style="zoom:100%;" ></div>
 
 
-## 3.环境配置
+## 3.Env Config
 
 cmake/thirdparty_libs.cmake
 
-|  开源库  |  作用  |    版本    |安装方式|版本查看|
-| :----: | :----: | :----: | :----: | ------ |
-| eigen | 矩阵运算 | 3.3.4 |```sudo apt-get install libeigen3-dev```|```pkg-config --modversion eigen3```|
-| pcl | 3D点云处理 |                | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
-| opencv |     2D图像处理      |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
-|  gtest   |      单元测试       |                |    ```sudo apt-get install libgtest-dev```     |                                      |
-| yaml-cpp |      yaml读写       |                |    `sudo apt-get install libyaml-cpp-dev`    |                                      |
-| geographiclib | gnss处理 |                | source code |                                      |
-|  sophus  |   矩阵运算(流形)    || source code | |
-| tbb | Intel的并行加速框架 |oneTBB-2019_U8| source code | |
+|  opensource  |  function  |    version    |installation method|check version|
+| :----: | :----: | :----: | :----: | :----: |
+| eigen | matrix calculation | 3.3.4 |```sudo apt-get install libeigen3-dev```|```pkg-config --modversion eigen3```|
+| pcl | point cloud handle |                | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
+| opencv |     image handle     |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
+|  gtest   |      unit test      |                |    ```sudo apt-get install libgtest-dev```     |                                      |
+| yaml-cpp |      yaml read and write      |                |    `sudo apt-get install libyaml-cpp-dev`    |                                      |
+| geographiclib | gnss handle |                | source code |                                      |
+|  sophus  |   matrix calculation on manifold   || source code | |
+| tbb | intel thread building blocks |oneTBB-2019_U8| source code | |
 
 
 
 
-## 4.运行
-### 4.1 数据集
+## 4.Start
+### 4.1 Dataset
 
 + NCLT
 
 + Urban Nav
-+ 自采数据(no gt)
 
-### 4.2 启动
++ Data collected by device (without ground truth)
+
+  
+
+### 4.2 Compile
+
+### 4.3 Run
 
 
 
 
-## 5.更新日志
+## 5.Update Log
 
-|日期| Branch | 更新 |说明 | commit_id | video |
+|date| branch | update |brief | commit_id | video |
 | :----: | :----:| :----: | :----: | ------ | ------ |
-| 2022//11/20 | V0.1 | gnss imu lidar松耦合建图与定位简易demo |仅数据集验证,侧重框架构建|6885639|[v0.1 demo1](https://www.bilibili.com/video/BV1mt4y1K7Nt/?spm_id_from=333.999.0.0&vd_source=b86740d9f2b244ac781ad5f60dd8e818)     [v0.1 demo2](https://www.bilibili.com/video/BV1Ce4y1s75g/?spm_id_from=333.788&vd_source=b86740d9f2b244ac781ad5f60dd8e818)|
-| 2023/08/15 | V0.2 | 重构框架, | 新框架实际设备手持 |                                    |                                    |
+| 2022//11/20 | V0.1 | gnss imu lidar loosely coupled ||6885639|[v0.1 demo1](https://www.bilibili.com/video/BV1mt4y1K7Nt/?spm_id_from=333.999.0.0&vd_source=b86740d9f2b244ac781ad5f60dd8e818)     [v0.1 demo2](https://www.bilibili.com/video/BV1Ce4y1s75g/?spm_id_from=333.788&vd_source=b86740d9f2b244ac781ad5f60dd8e818)|
+| 2023/08/15 | V0.2 |                                |       |                                    |                                    |
 |  | V0.3 |      ||||
 
 
@@ -93,16 +103,23 @@ cmake/thirdparty_libs.cmake
 
 
 
-## 5.标准与规范
+## 5.Standard
 
-+ **C++标准** c++ 17   
-+ **代码格式风格** visual studio风格  
- + **命名规范**  
-    类 MyClass  
-    函数 MyFunction      
-    类内变量 _my_function_ptr _my_function_vec    
-    普通变量 my_function_ptr   my_function_vec    
- +  **commit规范**<sup>[4]</sup>
++ **C++ standard** c++ 17   
+
++ **code style** visual studio style
+
+ + **naming conventions**  
+    class: MyClass  
+    function: MyFunction      
+    member variable:   _my_function_ptr _my_function_vec    
+    ordinary variable:     my_function_ptr   my_function_vec    
+    
+    namespace: pipe_ns、module_ns
+    
+    macro definition: _QUADROTOR_HPP
+    
+ +  **commit rules**<sup>[4]</sup>
 
 ```Bash
 <type>[<scope>]:<subject>
@@ -110,28 +127,28 @@ cmake/thirdparty_libs.cmake
 
 --type
 
-feat：新功能  
-fix：已修复  
-to：修复中  
-docs：文档  
-style：格式  
-refactor：重构  
-perf：优化  
-config: 修改配置文件  
-test：增加测试  
-chore：构建过程或辅助工具的变动  
-revert：回滚到上一个版本  
-merge：代码合并  
-sync：同步主线或分支的Bu  
+feat：new feature  
+fixed：bugs  has been fixed  
+fixing：bugs is fixing
+docs：readme.txt
+refactor：refactor  framework
+perf：optimize the performance
+config: modify config file 
+test：add test unit 
+chore：build tools changed  
+revert：reset to history commit
+merge：merge branch
 
-例如:
+  
+
+for example:
 ```
-fix[Planning]:修复机身卡膨胀层静止的bug  
-docs[README]:增加参考文章链接  
-feat[Localization]:增加kd tree方法  
+fix[Planning]:fixed the bug of core dumped 
+docs[README]:add links of paper
+feat[Localization]:add kd treemethod  
 ```
 
-## 6.参考
+## 6.Reference
 
 [1]  [MARS:ROG-Map](https://github.com/hku-mars/ROG-Map)  
 [2]  [gaoxiang:slam_in_autonomous_driving](https://github.com/gaoxiang12/slam_in_autonomous_driving)  
@@ -139,5 +156,5 @@ feat[Localization]:增加kd tree方法
 
 [4]  [阿里开发者:如何规范你的Git commit？](https://zhuanlan.zhihu.com/p/182553920)  
 
-## 7.许可证
-遵循 GPLv3.
+## 7.Licence
+ GPLv3.
