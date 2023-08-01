@@ -22,6 +22,7 @@ catkin_package()
 
 
 #第三方库配置
+set(thirdpart_LIBRARIES "")
 message("alkaid_localization$ 配置第三方库")
 include(cmake/thirdparty_lib.cmake)
 
@@ -31,4 +32,4 @@ list(REMOVE_ITEM  ALL_SRCS  ${NODE_SRCS})
 
 
 add_executable(localization_node node/localization_node.cpp ${ALL_SRCS})
-target_link_libraries(localization_node ${catkin_LIBRARIES} )
+target_link_libraries(localization_node ${catkin_LIBRARIES}   ${thirdpart_LIBRARIES})
