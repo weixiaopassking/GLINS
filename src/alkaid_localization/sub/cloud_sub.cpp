@@ -1,7 +1,7 @@
 #include "cloud_sub.hpp"
 #include <pcl_conversions/pcl_conversions.h>
 
-namespace pub_ns
+namespace sub_ns
 {
 
 CloudSub::CloudSub(ros::NodeHandle &nh, std::string topic_name, const size_t buffer_size)
@@ -28,4 +28,4 @@ void CloudSub::ParseData(std::deque<data_ns::CloudData> &cloud_data_queue)
     }
 }
 
-} // namespace pub_ns
+} // namespace sub_ns
