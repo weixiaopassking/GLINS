@@ -8,9 +8,10 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
 
     _cloud_sub_ptr = std::make_shared<sub_ns::CloudSub>(nh, "kitti/velo/pointcloud", 10);
     _cloud_pub_ptr = std::make_shared<pub_ns::CloudPub>(nh, "points_handled", "map", 1);
+    _odom_pub_ptr = std::make_shared<pub_ns::OdomPub>(nh, "lidar_odom", "map", "drone", 1);
 
-    _registration_ptr = std::make_shared<module_ns::NDT>();
-    _filter_ptr = std::make_shared<module_ns::Voxel>();
+    _registration_ptr = std::make_shared<module_ns::NDTRegistration>();
+    _filter_ptr = std::make_shared<module_ns::VoxelFilter>();
 
     _pose = data_ns::Mat4f::Identity();
 }
@@ -24,7 +25,8 @@ bool OdomPipe::Run()
         UpdateOdom(current_cloud_data, _pose);
         std::cout << "_pose:" << _pose << std::endl;
     }
-    return true;
+    _odom_pub_ptr->Pub(_pose);
+     return true;
 }
 
 OdomPipe ::~OdomPipe()
@@ -68,7 +70,7 @@ bool OdomPipe::UpdateOdom( data_ns::CloudData &cloud_data, data_ns::Mat4f &pose)
     predict_pose = _current_frame.pose* step_pose;
     last_pose = _current_frame.pose;
 
-    /*是否更新关键帧*/
+    /*6--if key frame and update local map*/
     if ((fabs(last_key_frame_pose(0, 3) - _current_frame.pose(0, 3)) +
          fabs(last_key_frame_pose(1, 3) - _current_frame.pose(1, 3)) +
          fabs(last_key_frame_pose(2, 3) - _current_frame.pose(2, 3))) > _key_frame_distance)
@@ -76,7 +78,6 @@ bool OdomPipe::UpdateOdom( data_ns::CloudData &cloud_data, data_ns::Mat4f &pose)
         AddNewFrame(_current_frame);
         last_key_frame_pose =_current_frame.pose;
     }
-    return true;
 
     return true;
 }
