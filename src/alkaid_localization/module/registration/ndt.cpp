@@ -3,8 +3,9 @@
 namespace module_ns
 {
 
-NDT::NDT()
+NDT::NDT() : _ndt_ptr(new pcl::NormalDistributionsTransform<data_ns::CloudData::POINT, data_ns::CloudData::POINT>())
 {
+   
     // todo add yaml config
     float res = 1.0;        // node["res"].as<float>();
     float step_size = 0.1;  // node["step_size"].as<float>();

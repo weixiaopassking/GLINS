@@ -4,7 +4,7 @@
 namespace module_ns
 {
 
-class NDT : public CloudRegistrationInterface
+class NDT : public RegistrationInterface
 {
 
   public:
