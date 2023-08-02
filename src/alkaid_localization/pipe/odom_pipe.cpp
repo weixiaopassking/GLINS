@@ -16,7 +16,7 @@ bool OdomPipe::Run()
     {
         data_ns::CloudData::CLOUD_PTR  current_cloud_ptr = _cloud_data_que.front()._cloud_ptr;
         _cloud_data_que.pop_front();
-        _cloud_pub_ptr->Pub(current_cloud_ptr);
+      //  _cloud_pub_ptr->Pub(current_cloud_ptr);
     }
     return true;
 }
@@ -25,4 +25,12 @@ OdomPipe ::~OdomPipe()
 {
     std::cout << "[OdomPipe]$ release" << std::endl;
 }
+
+bool OdomPipe::UpdateOdom(const data_ns::CloudData &cloud_data, data_ns::Mat4f &pose)
+{
+    std::vector<int> indices;
+    pcl::removeNaNFromPointCloud(*cloud_data._cloud_ptr, *cloud_data._cloud_ptr, indices);
+    return true;
+}
+
 } // namespace pipe_ns

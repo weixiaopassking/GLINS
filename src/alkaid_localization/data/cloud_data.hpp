@@ -9,15 +9,16 @@ namespace data_ns
 class CloudData
 {
   public:
-    using POINT = pcl::PointXYZ;
-    using CLOUD = pcl::PointCloud<pcl::PointXYZ>;
-    using CLOUD_PTR = pcl::PointCloud<pcl::PointXYZ>::Ptr;
+  //defination for cloud type used in the package
+    using POINT = pcl::PointXYZI;
+    using CLOUD = pcl::PointCloud<pcl::PointXYZI>;
+    using CLOUD_PTR = pcl::PointCloud<pcl::PointXYZI>::Ptr;
 
   public:
     CloudData();
 
   public:
-    double _time_stamp = 0.0;
+    double _time_stamp = 0.0;//sec use unix time
     CLOUD_PTR _cloud_ptr;
     
 }; // class CloudData
