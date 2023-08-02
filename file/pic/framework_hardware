@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-07-30T18:18:06.219Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.0.0" etag="bUQKKNEAkEabHd4-1A0Q" version="21.6.6" type="device">
+<mxfile host="app.diagrams.net" modified="2023-08-02T13:56:52.186Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="5PoV0f-spU-TesMx_UW9" version="21.6.6" type="device">
   <diagram name="第 1 页" id="vTios_N7b8ogaUXOkm03">
-    <mxGraphModel dx="1914" dy="1086" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="773" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -100,11 +100,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ppemUf5JR9Oxg8opPORM-19" value="DCDC&lt;br&gt;&amp;nbsp;5v稳压" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="ppemUf5JR9Oxg8opPORM-19" value="DCDC&lt;br&gt;&amp;nbsp;5v out" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="176.37" y="537.87" width="44.25" height="44.25" as="geometry" />
-        </mxCell>
-        <mxCell id="ppemUf5JR9Oxg8opPORM-45" value="" style="rounded=0;whiteSpace=wrap;html=1;opacity=0;" parent="1" vertex="1">
-          <mxGeometry x="33" y="172" width="744" height="513" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
