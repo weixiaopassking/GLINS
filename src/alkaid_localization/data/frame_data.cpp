@@ -5,9 +5,13 @@ namespace data_ns
 
 Quatd FrameData::GetRotation()
 {
+    Quatd q(_pose.block<3, 3>(0, 0));
+    return q;
 }
-Vec3f FrameData::GetTranslation()
+
+Vec3d FrameData::GetTranslation()
 {
+    return _pose.block<3, 1>(0,3);
 }
 void FrameData::QuatNorm()
 {

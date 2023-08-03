@@ -1,5 +1,3 @@
-#ifndef _KEY_FRAME_HPP
-#define _KEY_FRAME_HPP
 #ifndef _FRAME_DATA_HPP
 #define _FRAME_DATA_HPP
 
@@ -26,7 +24,7 @@ class FrameData
     FrameType _type = FrameType::NORMAL;
 
     Quatd GetRotation();
-    Vec3f GetTranslation();
+    Vec3d GetTranslation();
     void QuatNorm();
 };
 } // namespace data_ns

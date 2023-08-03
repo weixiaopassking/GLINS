@@ -6,10 +6,11 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
 {
 
     /*1--ros sub and pub config*/
-    _cloud_sub_ptr = std::make_shared<sub_ns::CloudSub>(nh, "points_raw", 100000);
-    _gnss_sub_ptr = std::make_shared<sub_ns::GNSSSub>(nh, "gps_fix", 100000);
+    _cloud_sub_ptr = std::make_shared<sub_ns::CloudSub>(nh, "points_raw", 1e4);
+    _gnss_sub_ptr = std::make_shared<sub_ns::GNSSSub>(nh, "gps_fix", 1e4);
     _cloud_pub_ptr = std::make_shared<pub_ns::CloudPub>(nh, "points_handled", "map", 100);
     _odom_pub_ptr = std::make_shared<pub_ns::OdomPub>(nh, "lidar_odom", "map", "drone", 100);
+
     /*2--modules config*/
     _registration_ptr = std::make_shared<module_ns::NDTRegistration>();
     _filter_ptr = std::make_shared<module_ns::VoxelFilter>();
@@ -18,28 +19,20 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
 }
 bool OdomPipe::Run()
 {
-    /*1--ReadData*/
+    /*1--parses sensor data from buffer*/
     _gnss_sub_ptr->ParseData(_gnss_data_deq);
+    _cloud_sub_ptr->ParseData(_cloud_data_deq);
+    std::cout << "[Run]$ " << _cloud_data_deq.size() << std::endl;
 
-    while (_gnss_data_deq.size() > 0)
+    while (_cloud_data_deq.size() > 0)
     {
-        data_ns::GNSSData gnss_data = _gnss_data_deq.front();
-        _gnss_data_deq.pop_front();
-        if (_hasGnssInited == false)
-        {
-            gnss_data.Init();
-            _hasGnssInited = true;
-        }
-        else
-        {
-            data_ns::Mat4d pose=data_ns::Mat4d::Identity();
-            gnss_data.Update();
-            pose.block<3, 1>(0, 3) << gnss_data._local_east , gnss_data._local_north , gnss_data._local_up;
-            std::cout << "[Run]$ pose"<<pose << std::endl;
-            _odom_pub_ptr->Pub(pose);
-        }
+        /*2--get current data*/
+        GetCurrentData();
+        /*3--handle raw data*/
+         CalculateOdom(_cur_cloud_data._cloud_ptr,_cur_frame_data);
+        /*4--pub the res*/
+        _cloud_pub_ptr->Pub(_cur_cloud_data._cloud_ptr);
     }
-
     return true;
 }
 
@@ -47,17 +40,28 @@ OdomPipe ::~OdomPipe()
 {
     std::cout << "[OdomPipe]$ released" << std::endl;
 }
-} // namespace pipe_ns
+
+bool OdomPipe::GetCurrentData()
+{
+    /*1--cloud*/
+    _cur_cloud_data = _cloud_data_deq.front();
+    _cloud_data_deq.pop_front();
+
+    /*2--gnss*/
+    _cur_gnss_data = _gnss_data_deq.front();
+    _gnss_data_deq.pop_front();
+
+    return true;
+}
 
 
+bool OdomPipe::CalculateOdom(data_ns::CloudData::CLOUD_PTR &cur_cloud_ptr, data_ns::FrameData &result_frame)
+{
 
-
-
-
-
-
-// bool OdomPipe::UpdateOdom(data_ns::CloudData &cloud_data, data_ns::Mat4f &pose)
-// {
+    
+return true;
+ }
+ } // namespace pipe_ns
 
 //     /*1--remove the nan points*/
 //     std::vector<int> indices;
