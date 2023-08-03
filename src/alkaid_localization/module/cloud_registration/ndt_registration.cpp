@@ -7,17 +7,10 @@ NDTRegistration::NDTRegistration()
     : _ndt_registration_ptr(
           new pcl::NormalDistributionsTransform<data_ns::CloudData::POINT, data_ns::CloudData::POINT>())
 {
-   
-    // todo add yaml config
-    float res = 1.0;        // node["res"].as<float>();
-    float step_size = 0.1;  // node["step_size"].as<float>();
-    float trans_eps = 0.01; // node["trans_eps"].as<float>();
-    int max_iter = 30;      // node["max_iter"].as<int>();
-
-    _ndt_registration_ptr->setResolution(res);
-    _ndt_registration_ptr->setStepSize(step_size);
-    _ndt_registration_ptr->setTransformationEpsilon(trans_eps);
-    _ndt_registration_ptr->setMaximumIterations(max_iter);
+    _ndt_registration_ptr->setResolution(_option.res);
+    _ndt_registration_ptr->setStepSize(_option.step_size);
+    _ndt_registration_ptr->setTransformationEpsilon(_option.trans_eps);
+    _ndt_registration_ptr->setMaximumIterations(_option.max_iter);
 }
 
 void NDTRegistration::SetSourceCloud(const data_ns::CloudData::CLOUD_PTR &source_cloud_ptr)

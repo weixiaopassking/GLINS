@@ -1,5 +1,5 @@
 #cmake 版本
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.13.0)
 #工程名
 project(alkaid_localization)
 #c++配置

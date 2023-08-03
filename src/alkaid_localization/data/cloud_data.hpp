@@ -10,9 +10,9 @@ class CloudData
 {
   public:
   //defination for cloud type used in the package
-    using POINT = pcl::PointXYZI;
-    using CLOUD = pcl::PointCloud<pcl::PointXYZI>;
-    using CLOUD_PTR = pcl::PointCloud<pcl::PointXYZI>::Ptr;
+    using POINT = pcl::PointXYZ;
+    using CLOUD = pcl::PointCloud<POINT>;
+    using CLOUD_PTR = CLOUD::Ptr;
 
   public:
     CloudData();

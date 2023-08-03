@@ -4,9 +4,9 @@ namespace module_ns
 {
 VoxelFilter::VoxelFilter()
 {
-    float leaf_size_x = 1.3;
-    float leaf_size_y = 1.3;
-    float leaf_size_z = 1.3;
+    float leaf_size_x = 1.0;
+    float leaf_size_y =1.0;
+    float leaf_size_z =1.0;
 
     _voxel_filter.setLeafSize(leaf_size_x, leaf_size_y, leaf_size_z);
 }

@@ -12,7 +12,7 @@ namespace sub_ns
 class CloudSub
 {
   public:
-    CloudSub() = default;
+    CloudSub() = delete;//must  set node handle
     CloudSub(ros::NodeHandle &nh, std::string topic_name, const size_t buffer_size);
     void ParseData(std::deque<data_ns::CloudData> &cloud_data_queue);
 

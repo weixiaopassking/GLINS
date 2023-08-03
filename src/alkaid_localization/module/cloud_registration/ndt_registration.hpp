@@ -1,4 +1,4 @@
-#include "registration_interface.hpp"
+#include "cloud_registration_interface.hpp"
 #include <pcl/registration/ndt.h>
 
 namespace module_ns
@@ -6,6 +6,13 @@ namespace module_ns
 
 class NDTRegistration : public CloudRegistrationInterface
 {
+    struct Options
+    {
+        float res = 1.0;
+        float step_size = 0.1;
+        float trans_eps = 0.01;
+        int max_iter = 30;
+    };
 
   public:
     NDTRegistration();
@@ -18,9 +25,9 @@ class NDTRegistration : public CloudRegistrationInterface
     ~NDTRegistration();
 
   private:
-    pcl::PointCloud<pcl::PointXYZI>::Ptr _source_cloud_ptr;
-    pcl::PointCloud<pcl::PointXYZI>::Ptr _target_cloud_ptr;
-
-    pcl::NormalDistributionsTransform<pcl::PointXYZI, pcl::PointXYZI>::Ptr _ndt_registration_ptr;
+    // pcl::PointCloud<pcl::PointXYZI>::Ptr _source_cloud_ptr;
+    // pcl::PointCloud<pcl::PointXYZI>::Ptr _target_cloud_ptr;
+    Options _option;
+    pcl::NormalDistributionsTransform<data_ns::CloudData::POINT, data_ns::CloudData::POINT>::Ptr _ndt_registration_ptr;
 };
 } // namespace module_ns
