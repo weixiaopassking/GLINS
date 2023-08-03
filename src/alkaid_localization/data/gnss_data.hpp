@@ -17,6 +17,8 @@ class GNSSData
     double _time_stamp = 0.0;
     double _longitude = 0.0, _latitude= 0.0, _altitude = 0.0;
     double _local_east = 0.0, _local_north = 0.0, _local_up = 0.0;
+    int _status = -1; // default no fix
+    int _service=1;//default gps
     // todo use
     // float _pseudorange;//raw data;
     // float  _doppler_shift;

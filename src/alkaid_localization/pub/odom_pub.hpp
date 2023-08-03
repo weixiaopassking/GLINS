@@ -16,13 +16,13 @@ class OdomPub
     OdomPub(ros::NodeHandle &nh, const std::string topic_name, const std::string base_frame_id, const std::string child_frame_id,
             const int buffer_size);
 
-    void Pub(const data_ns::Mat4f &transform_matrix, double time);
-    void Pub(const data_ns::Mat4f &transform_matrix);
+    void Pub(const data_ns::Mat4d &transform_matrix, double time);
+    void Pub(const data_ns::Mat4d &transform_matrix);
 
     bool HasSubscribers();
 
   private:
-    void PubData(const data_ns::Mat4f &transform_matrix, ros::Time time);
+    void PubData(const data_ns::Mat4d &transform_matrix, ros::Time time);
 
   private:
     ros::NodeHandle _nh;

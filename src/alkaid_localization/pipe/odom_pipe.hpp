@@ -3,6 +3,7 @@
 
 //data
 #include "../data/cloud_data.hpp"
+#include "../data/gnss_data.hpp"
 #include "../data/geometry_data.hpp"
 //module
 #include "../module/cloud_filter/voxel_filter.hpp"
@@ -46,20 +47,13 @@ class OdomPipe
     std::shared_ptr<pub_ns::CloudPub> _cloud_pub_ptr;
     std::shared_ptr<pub_ns::OdomPub> _odom_pub_ptr;
 
-
     //module
     std::shared_ptr<module_ns::CloudRegistrationInterface> _registration_ptr;
     std::shared_ptr<module_ns::CloudFilterInterface> _filter_ptr;
 
-    data_ns::Mat4f _pose = data_ns::Mat4f::Identity();
-    std::deque<data_ns::CloudData> _cloud_data_deq;
-
   private:
-    std::deque<Frame> _local_map_deq;
-    data_ns::CloudData::CLOUD_PTR _local_map_ptr;
-    Frame _current_frame;
-    const float _key_frame_distance = 1.0;
-    const int _local_frame_num = 20;
+    std::deque<data_ns::GNSSData> _gnss_data_deq;
+    bool _hasGnssInited=false;
 
 
 
@@ -67,3 +61,12 @@ class OdomPipe
 } // namespace pipe_ns
 
 #endif //_ODOM_PIPE_HPP
+
+// std::deque<Frame> _local_map_deq;
+// data_ns::CloudData::CLOUD_PTR _local_map_ptr;
+// Frame _current_frame;
+// const float _key_frame_distance = 1.0;
+// const int _local_frame_num = 20;
+
+// data_ns::Mat4f _pose = data_ns::Mat4f::Identity();
+// std::deque<data_ns::CloudData> _cloud_data_deq;

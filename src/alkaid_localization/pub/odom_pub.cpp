@@ -12,19 +12,19 @@ OdomPub::OdomPub(ros::NodeHandle &nh, const std::string topic_name, const std::s
     _odom.child_frame_id = child_frame_id;
 }
 
-void OdomPub::Pub(const data_ns::Mat4f  &transform_matrix, double time)
+void OdomPub::Pub(const data_ns::Mat4d  &transform_matrix, double time)
 {
     ros::Time ros_time((float)time);
     PubData(transform_matrix, ros_time);
 }
 
-void OdomPub::Pub(const data_ns::Mat4f &transform_matrix)
+void OdomPub::Pub(const data_ns::Mat4d &transform_matrix)
 {
     PubData(transform_matrix, ros::Time::now());
 }
 
 
-void OdomPub::PubData(const data_ns::Mat4f  &transform_matrix, ros::Time time)
+void OdomPub::PubData(const data_ns::Mat4d  &transform_matrix, ros::Time time)
 {
 
     _odom.header.stamp = time;
@@ -34,7 +34,7 @@ void OdomPub::PubData(const data_ns::Mat4f  &transform_matrix, ros::Time time)
     _odom.pose.pose.position.y = transform_matrix(1, 3);
     _odom.pose.pose.position.z = transform_matrix(2, 3);
 
-    data_ns::Quatf q;
+    data_ns::Quatd q;
     q = transform_matrix.block<3, 3>(0, 0);
     _odom.pose.pose.orientation.x = q.x();
     _odom.pose.pose.orientation.y = q.y();

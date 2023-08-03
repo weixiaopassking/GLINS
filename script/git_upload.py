@@ -16,14 +16,10 @@ if __name__ == '__main__':
 
     param_num=len(sys.argv)
     # print(param_num)
-    write_log="update"
+    write_log="update[]"
     if param_num>=2 :
         write_log = sys.argv[1]
     os.system('git add .')
     os.system('git commit -m %s' % (write_log))
     print( bcolor.OKBLUE+ 'push 修改为:'+write_log + bcolor.ENDC)
     os.system('git push')
-    if param_num>=3 :
-        time_delay=sys.argv[2]
-        print( bcolor.OKBLUE + '程序已push '+time_delay+' min后关机 ...' + bcolor.ENDC)
-        os.system('shutdown -h '+ time_delay)
