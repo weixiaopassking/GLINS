@@ -4,11 +4,15 @@
 namespace data_ns
 {
 
-using Quatd = Eigen::Quaterniond;
 using Quatf = Eigen::Quaternionf;
+using Quatd = Eigen::Quaterniond;
+
 
 // using SE3d= Sophus::SE3d;
 // using SE3f = Sophus::SE3f;
+
+using Vec3f = Eigen::Vector3f;
+using Vec3d = Eigen::Vector3d ;
 
 using Mat4d = Eigen::Matrix4d;
 using Mat4f = Eigen::Matrix4f;

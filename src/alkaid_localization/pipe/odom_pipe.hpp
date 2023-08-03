@@ -24,21 +24,11 @@ namespace pipe_ns
 class OdomPipe
 {
 
-    struct Frame
-    {
-        data_ns::Mat4f pose = data_ns::Mat4f::Identity();
-        data_ns::CloudData cloud_data;
-    };
-
   public:
     OdomPipe() = delete; // must be init by passing  nodehandle into function so delete defalut
     OdomPipe(ros::NodeHandle &nh);
     bool Run();
     ~OdomPipe();
-
-  private:
-    bool UpdateOdom(data_ns::CloudData &cloud_data, data_ns::Mat4f &pose);
-    bool AddNewFrame(const Frame &new_key_frame);
 
   private:
   //sub and pub 
@@ -55,12 +45,15 @@ class OdomPipe
     std::deque<data_ns::GNSSData> _gnss_data_deq;
     bool _hasGnssInited=false;
 
-
-
 }; // OdomPipe
 } // namespace pipe_ns
 
 #endif //_ODOM_PIPE_HPP
+
+
+
+
+
 
 // std::deque<Frame> _local_map_deq;
 // data_ns::CloudData::CLOUD_PTR _local_map_ptr;
