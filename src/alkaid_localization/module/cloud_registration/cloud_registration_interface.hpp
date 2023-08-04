@@ -1,4 +1,4 @@
-#ifndef  _REGISTRATION_HPP
+#ifndef _REGISTRATION_HPP
 #define _REGISTRATION_HPP
 
 #include "../../data/cloud_data.hpp"
@@ -14,10 +14,10 @@ class CloudRegistrationInterface
 {
   public:
     CloudRegistrationInterface() = default;
-    virtual void SetSourceCloud(const data_ns::CloudData::CLOUD_PTR  &source_cloud_ptr) = 0;
+    virtual void SetSourceCloud(const data_ns::CloudData::CLOUD_PTR &source_cloud_ptr) = 0;
     virtual void SetTargetCloud(const data_ns::CloudData::CLOUD_PTR &target_cloud_ptr) = 0;
-    virtual void SetGtTransform(const data_ns::Mat4f  &res_transform) = 0;
-    virtual bool GetResTransform(data_ns::Mat4f &init_transform) = 0;
+    virtual void SetGtTransform(const data_ns::Mat4f &res_transform) = 0;
+    virtual data_ns::Mat4f GetResTransform(const data_ns::Mat4f &predict_transform) = 0;
     virtual ~CloudRegistrationInterface() = default; // must be  set virtual  to release inherit class's memory
 };
 } // namespace module_ns

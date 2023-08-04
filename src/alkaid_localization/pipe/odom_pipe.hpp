@@ -33,7 +33,7 @@ class OdomPipe
 
   private:
     bool GetCurrentData();
-    bool CalculateOdom(data_ns::CloudData::CLOUD_PTR &cur_cloud_ptr, data_ns::FrameData &result_frame);
+    bool CalculateOdom();
     bool UpdateLocalMap();
 
   private:
@@ -59,6 +59,9 @@ class OdomPipe
 
     // flag
     bool _hasGnssInited = false;
+
+    //mpa
+   data_ns::CloudData::CLOUD_PTR _local_map_ptr;
 
 }; // OdomPipe
 } // namespace pipe_ns

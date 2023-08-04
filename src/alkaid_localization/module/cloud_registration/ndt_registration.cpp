@@ -29,12 +29,12 @@ void NDTRegistration::SetGtTransform(const data_ns::Mat4f &gt_transform)
 {
 }
 
-bool NDTRegistration::GetResTransform(data_ns::Mat4f &init_transform)
+data_ns::Mat4f NDTRegistration::GetResTransform(const data_ns::Mat4f &predict_transform)
 {
     data_ns::CloudData::CLOUD_PTR result_cloud_ptr(new data_ns::CloudData::CLOUD);
-    _ndt_registration_ptr->align(*result_cloud_ptr, init_transform);
-    init_transform = _ndt_registration_ptr->getFinalTransformation();
-    return true;
+    _ndt_registration_ptr->align(*result_cloud_ptr, predict_transform);
+    data_ns::Mat4f res_transform = _ndt_registration_ptr->getFinalTransformation();
+    return res_transform;
 }
 
 NDTRegistration::~NDTRegistration()

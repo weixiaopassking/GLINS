@@ -3,20 +3,21 @@
 namespace data_ns
 {
 
-Quatd FrameData::GetRotation()
+Quatf FrameData::GetRotation()
 {
-    Quatd q(_pose.block<3, 3>(0, 0));
+    Quatf q(_pose.block<3, 3>(0, 0));
     return q;
 }
 
-Vec3d FrameData::GetTranslation()
+Vec3f FrameData::GetTranslation()
 {
-    return _pose.block<3, 1>(0,3);
+    return _pose.block<3, 1>(0, 3);
 }
 void FrameData::QuatNorm()
 {
-    Quatd q(_pose.block<3, 3>(0, 0));
-    _pose=q.normalize().toRotationMatrix();
+    Quatf q(_pose.block<3, 3>(0, 0));
+   q.normalize();
+   _pose.block<3,3>(0,0) = q.toRotationMatrix();
 }
 
 }; // namespace data_ns

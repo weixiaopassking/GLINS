@@ -20,7 +20,7 @@ class NDTRegistration : public CloudRegistrationInterface
     void SetSourceCloud(const data_ns::CloudData::CLOUD_PTR &source_cloud_ptr) override;
     void SetTargetCloud(const data_ns::CloudData::CLOUD_PTR &target_cloud_ptr) override;
     void SetGtTransform(const data_ns::Mat4f &gt_transform) override;
-    bool GetResTransform(data_ns::Mat4f &init_transform) override;
+    data_ns::Mat4f GetResTransform(const data_ns::Mat4f &predict_transform) override;
 
     ~NDTRegistration();
 
