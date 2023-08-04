@@ -68,11 +68,3 @@ class OdomPipe
 
 #endif //_ODOM_PIPE_HPP
 
-// std::deque<Frame> _local_map_deq;
-// data_ns::CloudData::CLOUD_PTR _local_map_ptr;
-// Frame _current_frame;
-// const float _key_frame_distance = 1.0;
-// const int _local_frame_num = 20;
-
-// data_ns::Mat4f _pose = data_ns::Mat4f::Identity();
-// std::deque<data_ns::CloudData> _cloud_data_deq;

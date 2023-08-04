@@ -55,6 +55,7 @@ cmake/thirdparty_libs.cmake
 
 |  opensource  |  function  |    version    |installation method|check version|
 | :----: | :----: | :----: | :----: | :----: |
+| cmake | build tool | 3.13.0 |source code|```cmake --version```|
 | eigen | matrix calculation | 3.3.4 |```sudo apt-get install libeigen3-dev```|```pkg-config --modversion eigen3```|
 | pcl | point cloud handle | ros melodic version | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
 | opencv |     image handle     |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
@@ -63,6 +64,7 @@ cmake/thirdparty_libs.cmake
 | geographiclib | gnss hand | master | source code |                                      |
 |  sophus  |   matrix calculation on manifold   || source code | |
 | tbb | intel thread building blocks |oneTBB-2019_U8| source code | |
+|  |  ||  | |
 
 
 
@@ -141,12 +143,12 @@ docs[README]:add links of paper
 feat[Localization]:add kd treemethod  
 ```
 
-## 7.Reference
+## 8.Reference
 
 [1]  [MARS:ROG-Map](https://github.com/hku-mars/ROG-Map)  
 [2]  [gaoxiang:slam_in_autonomous_driving](https://github.com/gaoxiang12/slam_in_autonomous_driving)  
 [3]  [ HUKST Aerial Robotics Group:Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner)  
 [4]  [How to submit standard git commit？](https://zhuanlan.zhihu.com/p/182553920)  
 
-## 8.Licence
+## 9.Licence
 The source code is released under [GPLv3](http://www.gnu.org/licenses/) license. 

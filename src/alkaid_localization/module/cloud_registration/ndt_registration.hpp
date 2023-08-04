@@ -25,8 +25,6 @@ class NDTRegistration : public CloudRegistrationInterface
     ~NDTRegistration();
 
   private:
-    // pcl::PointCloud<pcl::PointXYZI>::Ptr _source_cloud_ptr;
-    // pcl::PointCloud<pcl::PointXYZI>::Ptr _target_cloud_ptr;
     Options _option;
     pcl::NormalDistributionsTransform<data_ns::CloudData::POINT, data_ns::CloudData::POINT>::Ptr _ndt_registration_ptr;
 };
