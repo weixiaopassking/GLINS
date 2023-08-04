@@ -53,7 +53,7 @@ bool OdomPipe::GetCurrentData()
     _cur_cloud_data = _cloud_data_deq.front();
     _cur_frame_data._cloud_ptr.reset(new data_ns::CloudData::CLOUD(*_cur_cloud_data._cloud_ptr)); //! deep copy
     _cloud_data_deq.pop_front();
-   // std::cout << "[GetCurrentData]$ origin points:" << _cur_frame_data._cloud_ptr->points.size() << std::endl;
+
     /*2--gnss*/
     // _cur_gnss_data = _gnss_data_deq.front();
     // _gnss_data_deq.pop_front();

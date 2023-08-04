@@ -8,8 +8,6 @@ If having advice or issue, please contact me at email  niu_wengang@163.com .
 
 
 
-
-
 ## 1. Algorithm Workflow
 
 <div align=center><img src="./file/pic/framework_software.drawio.svg" style="zoom:100%;" ></div>
@@ -58,11 +56,11 @@ cmake/thirdparty_libs.cmake
 |  opensource  |  function  |    version    |installation method|check version|
 | :----: | :----: | :----: | :----: | :----: |
 | eigen | matrix calculation | 3.3.4 |```sudo apt-get install libeigen3-dev```|```pkg-config --modversion eigen3```|
-| pcl | point cloud handle |                | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
+| pcl | point cloud handle | ros melodic version | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
 | opencv |     image handle     |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
-|  gtest   |      unit test      |                |    ```sudo apt-get install libgtest-dev```     |                                      |
-| yaml-cpp |      yaml read and write      |                |    `sudo apt-get install libyaml-cpp-dev`    |                                      |
-| geographiclib | gnss handle |                | source code |                                      |
+|  gtest   |      unit test      | --- |    ```sudo apt-get install libgtest-dev```     |                                      |
+| yaml-cpp |      yaml read and write      | 0.6.0 |    `sudo apt-get install libyaml-cpp-dev`    |                                      |
+| geographiclib | gnss hand | master | source code |                                      |
 |  sophus  |   matrix calculation on manifold   || source code | |
 | tbb | intel thread building blocks |oneTBB-2019_U8| source code | |
 
@@ -84,10 +82,13 @@ cmake/thirdparty_libs.cmake
 
 ### 4.3 Run
 
+## 5. Experimentation
+
+<div align=center><img src="./file/pic/nclt2013_lo2013.png" style="zoom:80%;" ></div>
 
 
 
-## 5.Update Log
+## 6.Update Log
 
 |date| branch | update  description | commit_id | video |
 | :----: | :----:| :----: | ------ | ------ |
@@ -97,13 +98,7 @@ cmake/thirdparty_libs.cmake
 
 
 
-
-
-
-
-
-
-## 5.Standard
+## 7. Standard
 
 + **C++ standard** c++ 17   
 
@@ -137,9 +132,7 @@ config: modify config file
 test：add test unit 
 chore：build tools changed  
 revert：reset to history commit
-merge：merge branch
-
-  
+merge：merge branch  
 
 for example:
 ```
@@ -148,12 +141,12 @@ docs[README]:add links of paper
 feat[Localization]:add kd treemethod  
 ```
 
-## 6.Reference
+## 7.Reference
 
 [1]  [MARS:ROG-Map](https://github.com/hku-mars/ROG-Map)  
 [2]  [gaoxiang:slam_in_autonomous_driving](https://github.com/gaoxiang12/slam_in_autonomous_driving)  
 [3]  [ HUKST Aerial Robotics Group:Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner)  
 [4]  [How to submit standard git commit？](https://zhuanlan.zhihu.com/p/182553920)  
 
-## 7.Licence
+## 8.Licence
 The source code is released under [GPLv3](http://www.gnu.org/licenses/) license. 
