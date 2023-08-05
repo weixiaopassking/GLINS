@@ -1,6 +1,7 @@
 #include "../data/geometry_data.hpp"
 #include "../module/cloud_registration/cloud_registration_interface.hpp"
 #include "../module/cloud_registration/ndt_registration.hpp"
+#include "../module/cloud_registration/icp_registration.hpp"
 #include "../module/cloud_filter/voxel_filter.hpp"
 #include "../module/cloud_filter/cloud_filter_interface.hpp"
 #include "../tools/tools.hpp"
@@ -40,7 +41,7 @@ TEST(cloud_registration, instance1)
     pcl::io::loadPCDFile(resource_file_path + "EPFL/aquarius_target.pcd", *target_cloud_ptr);
     /*2--create method*/
     std::shared_ptr<module_ns::CloudRegistrationInterface> registration_ptr =
-        std::make_shared<module_ns::NDTRegistration>();
+        std::make_shared<module_ns::ICPRegistration>();
     std::shared_ptr<module_ns::CloudFilterInterface> filter_ptr = std::make_shared<module_ns::VoxelFilter>(0.1);
     filter_ptr->Filter(source_cloud_ptr, source_cloud_ptr);
     filter_ptr->Filter(target_cloud_ptr, target_cloud_ptr);
@@ -52,11 +53,17 @@ TEST(cloud_registration, instance1)
     data_ns::Mat4f res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
     std::cout << "res_matrix: " <<std::endl<< res_matrix << std::endl;
         },
+        "classic icp", 1);
+
+    registration_ptr = std::make_shared<module_ns::NDTRegistration>();
+    TimeCost(
+        [&]() {
+            registration_ptr->SetTargetCloud(target_cloud_ptr);
+            registration_ptr->SetSourceCloud(source_cloud_ptr);
+            data_ns::Mat4f res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
+            std::cout << "res_matrix: " << std::endl << res_matrix << std::endl;
+        },
         "classic ndt", 1);
-
-  
-
- 
 }
 
 int main(int argc, char **argv)

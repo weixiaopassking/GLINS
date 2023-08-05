@@ -13,6 +13,7 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
 
     /*2--modules config*/
     _registration_ptr = std::make_shared<module_ns::NDTRegistration>(); //use polymorphisms
+    _registration_ptr = std::make_shared<module_ns::ICPRegistration>(); // use polymorphisms
     _filter_ptr = std::make_shared<module_ns::VoxelFilter>(0.6);//use polymorphisms
 
     std::cout << "[OdomPipe]$ has inited" << std::endl;
@@ -101,8 +102,9 @@ bool OdomPipe::CalculateOdom()
         /*5.1--get registration result */
         _registration_ptr->SetSourceCloud(filtered_cloud_ptr);                   // use filtered as source
         _cur_frame_data._pose = _registration_ptr->GetResTransform(predict_pose); // param input is const value
-        /*5.2--predcit  */
-        step_pose = last_pose.inverse() * _cur_frame_data._pose;
+        _cur_frame_data.QuatNorm();
+            /*5.2--predcit  */
+            step_pose = last_pose.inverse() * _cur_frame_data._pose;
         predict_pose = _cur_frame_data._pose * step_pose;
         last_pose = _cur_frame_data._pose;
         /*5.3--update local map*/

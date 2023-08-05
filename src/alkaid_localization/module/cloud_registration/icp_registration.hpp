@@ -4,9 +4,9 @@
 #include "cloud_registration_interface.hpp"
 #include "sophus/se2.hpp"
 #include "sophus/se3.hpp"
-// #include <execution>
 #include <numeric>
 #include <pcl/kdtree/kdtree_flann.h>
+#include <execution>
 #include <vector>
 
 namespace module_ns
