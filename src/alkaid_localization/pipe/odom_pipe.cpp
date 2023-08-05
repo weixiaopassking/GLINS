@@ -13,7 +13,7 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
 
     /*2--modules config*/
     _registration_ptr = std::make_shared<module_ns::NDTRegistration>(); //use polymorphisms
-    _filter_ptr = std::make_shared<module_ns::VoxelFilter>();//use polymorphisms
+    _filter_ptr = std::make_shared<module_ns::VoxelFilter>(0.6);//use polymorphisms
 
     std::cout << "[OdomPipe]$ has inited" << std::endl;
 }

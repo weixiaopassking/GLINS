@@ -1,3 +1,6 @@
+#ifndef _NDT_REGISTRATON_HPP
+#define _NDT_REGISTRATON_HPP
+
 #include "cloud_registration_interface.hpp"
 #include <pcl/registration/ndt.h>
 
@@ -8,7 +11,7 @@ class NDTRegistration : public CloudRegistrationInterface
 {
     struct Options
     {
-        float res = 1.0;
+        float res = 0.5;
         float step_size = 0.1;
         float trans_eps = 0.01;
         int max_iter = 30;
@@ -16,7 +19,6 @@ class NDTRegistration : public CloudRegistrationInterface
 
   public:
     NDTRegistration();
-
     void SetSourceCloud(const data_ns::CloudData::CLOUD_PTR &source_cloud_ptr) override;
     void SetTargetCloud(const data_ns::CloudData::CLOUD_PTR &target_cloud_ptr) override;
     void SetGtTransform(const data_ns::Mat4f &gt_transform) override;
@@ -29,3 +31,5 @@ class NDTRegistration : public CloudRegistrationInterface
     pcl::NormalDistributionsTransform<data_ns::CloudData::POINT, data_ns::CloudData::POINT>::Ptr _ndt_registration_ptr;
 };
 } // namespace module_ns
+
+#endif //_NDT_REGISTRATON_HPP

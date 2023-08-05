@@ -8,6 +8,8 @@
 namespace data_ns
 {
 
+/*use float prio*/
+
 using Quatf = Eigen::Quaternionf;
 // using Quatd = Eigen::Quaterniond;
 

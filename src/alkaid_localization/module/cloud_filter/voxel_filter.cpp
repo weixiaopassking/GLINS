@@ -2,11 +2,11 @@
 
 namespace module_ns
 {
-VoxelFilter::VoxelFilter()
+VoxelFilter::VoxelFilter(float leaf_size)
 {
-    float leaf_size_x = 0.6;//0.6
-    float leaf_size_y =0.6;
-    float leaf_size_z =0.6;
+    float leaf_size_x = leaf_size; // 0.6
+    float leaf_size_y = leaf_size;
+    float leaf_size_z = leaf_size;
 
     _voxel_filter.setLeafSize(leaf_size_x, leaf_size_y, leaf_size_z);
 }

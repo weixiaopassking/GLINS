@@ -6,7 +6,8 @@ namespace module_ns
 class VoxelFilter : public CloudFilterInterface
 {
   public:
-    VoxelFilter();
+    VoxelFilter()=delete;
+     VoxelFilter(float leaf_szie);
     bool Filter(const data_ns::CloudData::CLOUD_PTR &cloud_ptr,
                 data_ns::CloudData::CLOUD_PTR &filtered_cloud_ptr) override;
     ~VoxelFilter() = default;

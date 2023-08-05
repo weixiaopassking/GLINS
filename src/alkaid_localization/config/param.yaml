@@ -66,4 +66,4 @@ close_loop_optimize_step: 100
 
 
 #result record
-map_record_path: "./"
+map_record_path: "resource/output"
