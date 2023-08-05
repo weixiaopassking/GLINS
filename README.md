@@ -86,7 +86,7 @@ cmake/thirdparty_libs.cmake
 
 ## 5. Experimentation
 
-<div align=center><img src="./file/pic/nclt2013_lo2013.png" style="zoom:80%;" ></div>
+<div align=center><img src="./file/pic/20230805/pp_icp_lo.png" style="zoom:80%;" ></div>
 
 
 
