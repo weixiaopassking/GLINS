@@ -1,7 +1,5 @@
-#ifndef _REGISTRATION_HPP
-#define _REGISTRATION_HPP
-
-
+#ifndef  _CLOUD_REGISTRATION_INTERFACE_HPP
+#define _CLOUD_REGISTRATION_INTERFACE_HPP
 
 #include "../../data/cloud_data.hpp"
 #include "../../data/geometry_data.hpp"
@@ -9,7 +7,7 @@
 #include <pcl/point_cloud.h> //pointcloud
 #include <pcl/point_types.h> //point
 
-    namespace module_ns
+namespace module_ns
 {
 
 class CloudRegistrationInterface
