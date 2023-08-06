@@ -25,6 +25,18 @@ void ErrorAssert(const T &error_msg, const char *file, const char *function, con
     exit(EXIT_FAILURE);
 }
 
+template <typename... Tn> void VariableAssert(Tn... tn)
+{
+    const int len_f = sizeof...(tn);
+    int cnt = 0;
+    auto f = [&](auto it) {
+        cnt == 0 ? std::cout << std::setw(10) << std::left << it << " " : std::cout << it << std::endl;
+        cnt ^= 1;
+    };
+
+    (..., f(tn)); //supported in  c++17
+}
+
 /*measure of func*/
 template <typename Func> void TimeCost(const Func &func, const std::string &func_name, const int exec_cnt = 1)
 {

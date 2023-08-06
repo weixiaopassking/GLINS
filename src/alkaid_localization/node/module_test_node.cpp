@@ -13,17 +13,28 @@
 #include <iostream>
 #include <ros/package.h>
 // thirdparty
-#include <gtest/gtest.h> //unit test
+#include <gtest/gtest.h> //for unit test
 #include <pcl/io/pcd_io.h>
 
-// #define ON
+ #define OFF  //if use
+
+/**
+ * @brief    test for tools
+ * @param
+ * @note
+ **/
 TEST(Instance0,tools)
 {
-  
     tools_ns::StatusAssert("status exmaple", __FUNCTION__);
     tools_ns::ErrorAssert("error example", __FILE__, __FUNCTION__, __LINE__);
+    tools_ns::VariableAssert("cars:",11,"quadrotors:",34);
 }
 
+/**
+ * @brief    main entrance
+ * @param
+ * @note
+ **/
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
@@ -32,11 +43,14 @@ int main(int argc, char **argv)
 }
 
 #ifdef ON
-/* time cost for registration of cloud point */
+/**
+ * @brief    compare with different  cloud_registration's methods 
+ * @param
+ * @note
+ **/
 TEST(Instance1, cloud_registration)
 {
-    std::cout << "[Test]$ unit test for module" << std::endl;
-    /*1--get pointcloud and gt*/
+    /*1--get origin pointcloud and ground truth*/
     std::string resource_file_path = ros::package::getPath("alkaid_localization") + "/resource/";
     std::ifstream gt_stream(resource_file_path + "EPFL/aquarius_pose.txt");
     data_ns::Mat4f gt_maxtrix = data_ns::Mat4f::Identity();
