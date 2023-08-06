@@ -16,7 +16,6 @@
 #include <gtest/gtest.h> //for unit test
 #include <pcl/io/pcd_io.h>
 
- #define OFF  //if use
 
 /**
  * @brief    test for tools
@@ -25,10 +24,12 @@
  **/
 TEST(Instance0,tools)
 {
+    tools_ns::VariableAssert("cars:", 11, "quadrotors:", 34);
     tools_ns::StatusAssert("status exmaple", __FUNCTION__);
     tools_ns::ErrorAssert("error example", __FILE__, __FUNCTION__, __LINE__);
-    tools_ns::VariableAssert("cars:",11,"quadrotors:",34);
 }
+
+
 
 /**
  * @brief    main entrance
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
     return RUN_ALL_TESTS();
 }
 
-#ifdef ON
+#if (0)
 /**
  * @brief    compare with different  cloud_registration's methods 
  * @param

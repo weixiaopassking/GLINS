@@ -5,12 +5,17 @@
 
 namespace tools_ns
 {
+#define StatusOutput false
+#define VariableOutput true
 
 template <typename T> void StatusAssert(const T &status_msg, const char *function)
 {
+#if (StatusOutput == true)
     const std::string Green = "\033[0;32m";
     const std::string Reset = "\033[0m";
-    std::cout << Green << "[" << __FUNCTION__ << "]" << Reset << "$ " << status_msg << std::endl;
+    const std::string header = "[" + static_cast<std::string>(function) + "]$ ";
+    std::cout << Green << std::setw(10) << std::left << header << Reset << status_msg << std::endl;
+#endif
 }
 
 template <typename T>
@@ -18,23 +23,29 @@ void ErrorAssert(const T &error_msg, const char *file, const char *function, con
 {
     const std::string Red = "\033[0;31m";
     const std::string Reset = "\033[0m";
-    std::string position = static_cast<std::string>(file) + ":" + std::to_string(line_num);
-    std::cout << Red << "[" << __FUNCTION__ << "]" << Reset << "$ " << error_msg << std::endl
-              << "postion is:" << position << std::endl;
+    const std::string header = "[" + static_cast<std::string>(function) + "]$ ";
+    const std::string position = static_cast<std::string>(file) + ":" + std::to_string(line_num);
+    std::cout << Red << std::setw(10) << std::left << header << Reset << error_msg << std::endl;
+    std::cout << "postion is:" << position << std::endl;
 
     exit(EXIT_FAILURE);
 }
 
 template <typename... Tn> void VariableAssert(Tn... tn)
 {
+#if (VariableOutput == true)
+    std::string header = "--------------------------------------------------------";
+    std::cout << header << std::endl;
     const int len_f = sizeof...(tn);
     int cnt = 0;
     auto f = [&](auto it) {
-        cnt == 0 ? std::cout << std::setw(10) << std::left << it << " " : std::cout << it << std::endl;
+        cnt == 0 ? std::cout << std::setw(15) << std::left << it << " " : std::cout << it << std::endl;
         cnt ^= 1;
     };
 
-    (..., f(tn)); //supported in  c++17
+    (..., f(tn)); // supported in  c++17
+    std::cout << header << std::endl;
+#endif
 }
 
 /*measure of func*/
