@@ -21,7 +21,7 @@
  **/
 void MonitorHandler(int sig)
 {
-    tools_ns::StatusAssert("breakdown by signal");
+    tools_ns::StatusAssert("breakdown by signal", __FUNCTION__);
     ros::shutdown();
 }
 

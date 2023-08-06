@@ -1,13 +1,33 @@
+/*
+ * @Description: tools for debug
+ * @Function: assert、time measure
+ * @Author: wengang.niu
+ * @Version : v1.0
+ * @Date: 2023-08-06
+ */
+
 #ifndef _TOOLS_HPP
 #define _TOOLS_HPP
+#include <algorithm>
 #include <chrono>
+#include <iomanip>
+#include <iostream>
+#include <numeric>
 #include <string>
+#include <vector>
+#include <math.h>
 
 namespace tools_ns
 {
-#define StatusOutput false
+#define StatusOutput true
 #define VariableOutput true
 
+/**
+ * @brief    status output for debug
+ * @param status_msg
+ * @param function __FUNCTION__
+ * @note
+ **/
 template <typename T> void StatusAssert(const T &status_msg, const char *function)
 {
 #if (StatusOutput == true)
@@ -15,6 +35,30 @@ template <typename T> void StatusAssert(const T &status_msg, const char *functio
     const std::string Reset = "\033[0m";
     const std::string header = "[" + static_cast<std::string>(function) + "]$ ";
     std::cout << Green << std::setw(10) << std::left << header << Reset << status_msg << std::endl;
+#endif
+}
+
+/**
+ * @brief     variables output for debug
+ * @param Tn... multi params
+ * @note
+ **/
+template <typename... Tn> void VariableAssert(Tn... tn)
+{
+
+    const std::string Purple = "\033[0;35m";
+    const std::string Reset = "\033[0m";
+#if (VariableOutput == true)
+
+    const int len_f = sizeof...(tn);
+    int cnt = 0;
+    auto f = [&](auto it) {
+        cnt == 0 ? std::cout << Purple << it << " " << Reset : std::cout << it << std::endl;
+        cnt ^= 1;
+    };
+
+    (..., f(tn)); // supported in  c++17
+
 #endif
 }
 
@@ -31,25 +75,12 @@ void ErrorAssert(const T &error_msg, const char *file, const char *function, con
     exit(EXIT_FAILURE);
 }
 
-template <typename... Tn> void VariableAssert(Tn... tn)
-{
-#if (VariableOutput == true)
-    std::string header = "--------------------------------------------------------";
-    std::cout << header << std::endl;
-    const int len_f = sizeof...(tn);
-    int cnt = 0;
-    auto f = [&](auto it) {
-        cnt == 0 ? std::cout << std::setw(15) << std::left << it << " " : std::cout << it << std::endl;
-        cnt ^= 1;
-    };
-
-    (..., f(tn)); // supported in  c++17
-    std::cout << header << std::endl;
-#endif
-}
-
-/*measure of func*/
-template <typename Func> void TimeCost(const Func &func, const std::string &func_name, const int exec_cnt = 1)
+/**
+ * @brief   record time cost
+ * @param func  lambda expression
+ * @note
+ **/
+template <typename Func> void TimeCost(const Func &func, const std::string &func_name, int exec_cnt = 1)
 {
     std::vector<double> time_cost_vec(exec_cnt);
     for (int times = 0; times < exec_cnt; times++)

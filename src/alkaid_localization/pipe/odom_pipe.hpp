@@ -1,6 +1,15 @@
+/*
+ * @Description: odom pipe
+ * @Function: dispatch module and others
+ * @Author: wengang.niu
+ * @Version : v1.0
+ * @Date: 2023-08-06
+ */
+
 #ifndef _ODOM_PIPE_HPP
 #define _ODOM_PIPE_HPP
-
+//tools
+#include "../tools/tools.hpp"
 // data
 #include "../data/cloud_data.hpp"
 #include "../data/frame_data.hpp"
@@ -29,23 +38,24 @@ class OdomPipe
     OdomPipe() = delete; // must use nh
     OdomPipe(ros::NodeHandle &nh);
     bool Run();
-    ~OdomPipe();
+    ~OdomPipe()=default;
 
   private:
-    bool GetCurrentData();
+    bool AcquireSensorData();
     bool CalculateOdom();
     bool UpdateLocalMap();
+    void PublishEstimatedState();
 
   private:
     // sub and pub
-    std::shared_ptr<sub_ns::CloudSub> _cloud_sub_ptr;
-    std::shared_ptr<sub_ns::GNSSSub> _gnss_sub_ptr;
-    std::shared_ptr<pub_ns::CloudPub> _cloud_pub_ptr;
-    std::shared_ptr<pub_ns::OdomPub> _odom_pub_ptr;
+    std::shared_ptr<sub_ns::CloudSub> _cloud_sub_ptr=nullptr;
+    std::shared_ptr<sub_ns::GNSSSub> _gnss_sub_ptr=nullptr;
+    std::shared_ptr<pub_ns::CloudPub> _cloud_pub_ptr=nullptr;
+    std::shared_ptr<pub_ns::OdomPub> _odom_pub_ptr=nullptr;
 
     // module
-    std::shared_ptr<module_ns::CloudRegistrationInterface> _registration_ptr;
-    std::shared_ptr<module_ns::CloudFilterInterface> _filter_ptr;
+    std::shared_ptr<module_ns::CloudRegistrationInterface> _registration_ptr=nullptr;
+    std::shared_ptr<module_ns::CloudFilterInterface> _filter_ptr=nullptr;
 
     // data queue
     std::deque<data_ns::GNSSData> _gnss_data_deq;
@@ -58,12 +68,12 @@ class OdomPipe
     data_ns::FrameData _cur_frame_data;
 
     // flag
-    bool _hasGnssInited = false;
+    bool _hasGNSSInited = false;
 
     // mpa
     data_ns::CloudData::CLOUD_PTR _local_map_ptr;
 
-}; // OdomPipe
+}; // class OdomPipe
 } // namespace pipe_ns
 
 #endif //_ODOM_PIPE_HPP

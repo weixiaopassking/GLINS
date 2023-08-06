@@ -1,5 +1,6 @@
 
 #include "gnss_data.hpp"
+#include "../tools/tools.hpp"
 
 namespace data_ns
 {
@@ -18,11 +19,11 @@ void GNSSData::Update()
     if (_origin_position_inited == true)
     {
         _geo_converter.Forward(_latitude, _longitude, _altitude, _local_east, _local_north, _local_up);
+        tools_ns::StatusAssert("GNSS origin has been set", __FUNCTION__);
     }
     else
     {
-        std::cout << "gnss has not been set origin" << std::endl;
-        exit(-1);
+        tools_ns::ErrorAssert("GNSS origin has't been set", __FILE__, __FUNCTION__, __LINE__);
     }
 }
 

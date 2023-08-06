@@ -17,11 +17,9 @@ void GNSSSub::MsgCallback(const sensor_msgs::NavSatFixConstPtr &nav_sat_fix_ptr)
     gnss_data._longitude = nav_sat_fix_ptr->longitude;
     gnss_data._altitude = nav_sat_fix_ptr->altitude;
     // todo for raw data
-        gnss_data._status = nav_sat_fix_ptr->status.status;
+    gnss_data._status = nav_sat_fix_ptr->status.status;
     gnss_data._service= nav_sat_fix_ptr->status.service;
 
-    std::cout << " [MsgCallback]$latitude:" << gnss_data._latitude << std::endl;
-    std::cout << " [MsgCallback]$longitude:" << gnss_data._longitude << std::endl;
     _gnss_data_deq.push_back(gnss_data);
 }
 

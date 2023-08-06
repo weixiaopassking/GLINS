@@ -1,3 +1,11 @@
+/*
+ * @Description: module_test
+ * @Function: tests for module
+ * @Author: wengang.niu
+ * @Version : v1.0
+ * @Date: 2023-08-06
+ */
+
 // data
 #include "../data/geometry_data.hpp"
 // module
@@ -63,7 +71,7 @@ TEST(Instance1, cloud_registration)
 
         gt_maxtrix.block<3, 3>(0, 0) = data_ns::Quatf(qw, qx, qy, qz).toRotationMatrix();
         gt_maxtrix.block<3, 1>(0, 3) << tx, ty, tz;
-        std::cout << "gt_maxtrix:" << std::endl << gt_maxtrix << std::endl;
+        tools_ns::VariableAssert("gt_maxtrix:\n", gt_maxtrix);
     }
 
     data_ns::CloudData::CLOUD_PTR source_cloud_ptr(new data_ns::CloudData::CLOUD);
@@ -71,13 +79,16 @@ TEST(Instance1, cloud_registration)
 
     pcl::io::loadPCDFile(resource_file_path + "EPFL/aquarius_source.pcd", *source_cloud_ptr);
     pcl::io::loadPCDFile(resource_file_path + "EPFL/aquarius_target.pcd", *target_cloud_ptr);
-    /*2--create method*/
+
+    /*2--create method and filter point cloud*/
     std::shared_ptr<module_ns::CloudRegistrationInterface> registration_ptr =
         std::make_shared<module_ns::ICPRegistration>();
+
     std::shared_ptr<module_ns::CloudFilterInterface> filter_ptr = std::make_shared<module_ns::VoxelFilter>(0.1);
     filter_ptr->Filter(source_cloud_ptr, source_cloud_ptr);
     filter_ptr->Filter(target_cloud_ptr, target_cloud_ptr);
-    /*3-compare time*/
+    
+    /*3-compare different methdos on  time*/
     data_ns::Mat4f res_matrix;
 
     tools_ns::TimeCost(
@@ -86,8 +97,8 @@ TEST(Instance1, cloud_registration)
             registration_ptr->SetSourceCloud(source_cloud_ptr);
             res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
         },
-        "classic icp", 10);
-    std::cout << "res_matrix: " << std::endl << res_matrix << std::endl;
+        "classic icp", 100);
+    tools_ns::VariableAssert("res_matrix:\n", res_matrix);
 
     registration_ptr = std::make_shared<module_ns::NDTRegistration>();
     tools_ns::TimeCost(
@@ -96,8 +107,8 @@ TEST(Instance1, cloud_registration)
             registration_ptr->SetSourceCloud(source_cloud_ptr);
             res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
         },
-        "classic ndt", 10);
-    std::cout << "res_matrix: " << std::endl << res_matrix << std::endl;
+        "classic ndt", 100);
+    tools_ns::VariableAssert("res_matrix:\n", res_matrix);
 }
 
 #endif
