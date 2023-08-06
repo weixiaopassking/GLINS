@@ -57,13 +57,13 @@ cmake/thirdparty_libs.cmake
 | :----: | :----: | :----: | :----: | :----: |
 | cmake | build tool | 3.13.0 |source code|```cmake --version```|
 | eigen | matrix calculation | 3.3.4 |```sudo apt-get install libeigen3-dev```|```pkg-config --modversion eigen3```|
-| pcl | point cloud handle | ros melodic version | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
+| pcl | point cloud handle | --- | ```sudo apt-get install ros-melodic-pcl-ros``` |  |
 | opencv |     image handle     |3.2.0| ```sudo apt-get install libopencv-dev``` | ```pkg-config opencv --modversion``` |
 |  gtest   |      unit test      | --- |    ```sudo apt-get install libgtest-dev```     |                                      |
-| yaml-cpp |      yaml read and write      | 0.6.0 |    `sudo apt-get install libyaml-cpp-dev`    |                                      |
-| geographiclib | gnss hand | master | source code |                                      |
-|  sophus  |   matrix calculation on manifold   || source code | |
-| tbb | intel thread building blocks |oneTBB-2019_U8| source code | |
+| yaml-cpp |      yaml read and write      | 0.7.0 |    source code    |                                      |
+| geographiclib | gnss handle | master | source code |                                      |
+|  sophus  |   matrix calculation on manifold   |----| source code | |
+| tbb | intel thread building blocks |TBB 2020.2| source code | |
 |  |  ||  | |
 
 
@@ -95,7 +95,7 @@ cmake/thirdparty_libs.cmake
 |date| branch | update  description | commit_id | video |
 | :----: | :----:| :----: | ------ | ------ |
 | 2022//11/20 | V0.1 | simple framework for mapping and localization  with  gnss、imu and lidar loosely coupled |6885639|[v0.1 demo1](https://www.bilibili.com/video/BV1mt4y1K7Nt/?spm_id_from=333.999.0.0&vd_source=b86740d9f2b244ac781ad5f60dd8e818)     [v0.1 demo2](https://www.bilibili.com/video/BV1Ce4y1s75g/?spm_id_from=333.788&vd_source=b86740d9f2b244ac781ad5f60dd8e818)|
-| 2023/08/10 | V0.2 |  |                                    |                                    |
+| 2023/08/10 | V0.2 | simple tightly coupled  lio |                                    |                                    |
 | 2023/09/10 | V0.3 |      |||
 
 
@@ -123,7 +123,7 @@ cmake/thirdparty_libs.cmake
 ```
 
 --type
-note: add note for code
+
 feat：new feature  
 fixed：bugs  has been fixed  
 fixing：bugs is fixing
