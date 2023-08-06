@@ -12,7 +12,7 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
     _odom_pub_ptr = std::make_shared<pub_ns::OdomPub>(nh, "lidar_odom", "map", "drone", 100);
 
     /*2--modules config*/
-    _registration_ptr = std::make_shared<module_ns::NDTRegistration>(); //use polymorphisms
+    // _registration_ptr = std::make_shared<module_ns::NDTRegistration>(); //use polymorphisms
     _registration_ptr = std::make_shared<module_ns::ICPRegistration>(); // use polymorphisms
     _filter_ptr = std::make_shared<module_ns::VoxelFilter>(0.6);//use polymorphisms
 

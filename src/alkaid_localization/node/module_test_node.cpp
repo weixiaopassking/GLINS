@@ -1,21 +1,39 @@
+// data
 #include "../data/geometry_data.hpp"
-#include "../module/cloud_registration/cloud_registration_interface.hpp"
-#include "../module/cloud_registration/ndt_registration.hpp"
-#include "../module/cloud_registration/icp_registration.hpp"
-#include "../module/cloud_filter/voxel_filter.hpp"
+// module
 #include "../module/cloud_filter/cloud_filter_interface.hpp"
+#include "../module/cloud_filter/voxel_filter.hpp"
+#include "../module/cloud_registration/cloud_registration_interface.hpp"
+#include "../module/cloud_registration/icp_registration.hpp"
+#include "../module/cloud_registration/ndt_registration.hpp"
+// tools
 #include "../tools/tools.hpp"
-
+// system
 #include <fstream>
-#include <gtest/gtest.h> //unit
 #include <iostream>
-#include <pcl/io/pcd_io.h>
 #include <ros/package.h>
+// thirdparty
+#include <gtest/gtest.h> //unit test
+#include <pcl/io/pcd_io.h>
 
+// #define ON
+TEST(Instance0,tools)
+{
+  
+    tools_ns::StatusAssert("status exmaple", __FUNCTION__);
+    tools_ns::ErrorAssert("error example", __FILE__, __FUNCTION__, __LINE__);
+}
 
+int main(int argc, char **argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
 
+    return RUN_ALL_TESTS();
+}
+
+#ifdef ON
 /* time cost for registration of cloud point */
-TEST(cloud_registration, instance1)
+TEST(Instance1, cloud_registration)
 {
     std::cout << "[Test]$ unit test for module" << std::endl;
     /*1--get pointcloud and gt*/
@@ -33,7 +51,6 @@ TEST(cloud_registration, instance1)
         std::cout << "gt_maxtrix:" << std::endl << gt_maxtrix << std::endl;
     }
 
-    
     data_ns::CloudData::CLOUD_PTR source_cloud_ptr(new data_ns::CloudData::CLOUD);
     data_ns::CloudData::CLOUD_PTR target_cloud_ptr(new data_ns::CloudData::CLOUD);
 
@@ -46,29 +63,26 @@ TEST(cloud_registration, instance1)
     filter_ptr->Filter(source_cloud_ptr, source_cloud_ptr);
     filter_ptr->Filter(target_cloud_ptr, target_cloud_ptr);
     /*3-compare time*/
-    TimeCost(
-        [&]() {
-    registration_ptr->SetTargetCloud(target_cloud_ptr);
-    registration_ptr->SetSourceCloud(source_cloud_ptr);
-    data_ns::Mat4f res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
-    std::cout << "res_matrix: " <<std::endl<< res_matrix << std::endl;
-        },
-        "classic icp", 1);
+    data_ns::Mat4f res_matrix;
 
-    registration_ptr = std::make_shared<module_ns::NDTRegistration>();
-    TimeCost(
+    tools_ns::TimeCost(
         [&]() {
             registration_ptr->SetTargetCloud(target_cloud_ptr);
             registration_ptr->SetSourceCloud(source_cloud_ptr);
-            data_ns::Mat4f res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
-            std::cout << "res_matrix: " << std::endl << res_matrix << std::endl;
+            res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
         },
-        "classic ndt", 1);
+        "classic icp", 10);
+    std::cout << "res_matrix: " << std::endl << res_matrix << std::endl;
+
+    registration_ptr = std::make_shared<module_ns::NDTRegistration>();
+    tools_ns::TimeCost(
+        [&]() {
+            registration_ptr->SetTargetCloud(target_cloud_ptr);
+            registration_ptr->SetSourceCloud(source_cloud_ptr);
+            res_matrix = registration_ptr->GetResTransform(data_ns::Mat4f::Identity());
+        },
+        "classic ndt", 10);
+    std::cout << "res_matrix: " << std::endl << res_matrix << std::endl;
 }
 
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-
-    return RUN_ALL_TESTS();
-}
+#endif

@@ -123,7 +123,7 @@ cmake/thirdparty_libs.cmake
 ```
 
 --type
-
+note: add note for code
 feat：new feature  
 fixed：bugs  has been fixed  
 fixing：bugs is fixing

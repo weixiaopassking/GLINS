@@ -10,8 +10,8 @@
 #include "../module/cloud_filter/cloud_filter_interface.hpp"
 #include "../module/cloud_filter/voxel_filter.hpp"
 #include "../module/cloud_registration/cloud_registration_interface.hpp"
-#include "../module/cloud_registration/ndt_registration.hpp"
 #include "../module/cloud_registration/icp_registration.hpp"
+#include "../module/cloud_registration/ndt_registration.hpp"
 // sub and pub
 #include "../pub/cloud_pub.hpp"
 #include "../pub/odom_pub.hpp"
@@ -25,9 +25,8 @@ namespace pipe_ns
 {
 class OdomPipe
 {
-
   public:
-    OdomPipe() = delete; // must be init by passing  nodehandle into function so delete defalut
+    OdomPipe() = delete; // must use nh
     OdomPipe(ros::NodeHandle &nh);
     bool Run();
     ~OdomPipe();
@@ -61,11 +60,10 @@ class OdomPipe
     // flag
     bool _hasGnssInited = false;
 
-    //mpa
-   data_ns::CloudData::CLOUD_PTR _local_map_ptr;
+    // mpa
+    data_ns::CloudData::CLOUD_PTR _local_map_ptr;
 
 }; // OdomPipe
 } // namespace pipe_ns
 
 #endif //_ODOM_PIPE_HPP
-
