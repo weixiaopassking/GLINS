@@ -8,6 +8,7 @@
 
 #ifndef _TOOLS_HPP
 #define _TOOLS_HPP
+
 #include <algorithm>
 #include <chrono>
 #include <iomanip>
@@ -62,6 +63,11 @@ template <typename... Tn> void VariableAssert(Tn... tn)
 #endif
 }
 
+/**
+ * @brief     variables output for debug
+ * @param Tn... multi params __FILE__, __FUNCTION__, __LINE__
+ * @note
+ **/
 template <typename T>
 void ErrorAssert(const T &error_msg, const char *file, const char *function, const unsigned long line_num)
 {

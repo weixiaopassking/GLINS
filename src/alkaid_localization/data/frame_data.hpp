@@ -31,8 +31,9 @@ class FrameData
     unsigned int _index = 0;
     FrameType _type = FrameType::NORMAL;
 
-    Quatf GetRotation();
-    Vec3f GetTranslation();
+    data_ns::Quatf GetQuaternion();
+    data_ns::Mat3f GetRotation();
+    data_ns::Vec3f GetTranslation();
     void QuatNorm();
 }; // class FrameData
 } // namespace data_ns

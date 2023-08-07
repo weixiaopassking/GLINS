@@ -23,6 +23,8 @@ using Quatf = Eigen::Quaternionf;
 using Vec3f = Eigen::Vector3f;
 // using Vec3d = Eigen::Vector3d;
 
+using Mat3f = Eigen::Matrix3f;
+
 using Mat4f = Eigen::Matrix4f;
 // using Mat4d = Eigen::Matrix4d;
 

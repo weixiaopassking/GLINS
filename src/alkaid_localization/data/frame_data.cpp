@@ -16,10 +16,20 @@ namespace data_ns
  * @param none
  * @note
  **/
-Quatf FrameData::GetRotation()
+Quatf FrameData::GetQuaternion()
 {
     Quatf q(_pose.block<3, 3>(0, 0));
     return q;
+}
+
+/**
+ * @brief    get rotation from matrix T
+ * @param none
+ * @note
+ **/
+data_ns::Mat3f FrameData::GetRotation()
+{
+    return _pose.block<3, 3>(0, 0);
 }
 
 /**
@@ -32,6 +42,8 @@ Vec3f FrameData::GetTranslation()
     return _pose.block<3, 1>(0, 3);
 }
 
+
+
 /**
  * @brief    quaternions normalization
  * @param none
@@ -40,8 +52,9 @@ Vec3f FrameData::GetTranslation()
 void FrameData::QuatNorm()
 {
     Quatf q(_pose.block<3, 3>(0, 0));
-   q.normalize();
-   _pose.block<3,3>(0,0) = q.toRotationMatrix();
+    q.normalize();
+    _pose.block<3, 3>(0, 0) = q.toRotationMatrix();
 }
+
 
 }; // namespace data_ns
