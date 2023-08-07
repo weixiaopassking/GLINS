@@ -30,7 +30,7 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
     _registration_ptr = std::make_shared<module_ns::ICPRegistration>(); // use polymorphisms
     _filter_ptr = std::make_shared<module_ns::VoxelFilter>(0.6);        // use polymorphisms
 
-    tools_ns::StatusAssert("config init", __FUNCTION__);
+        tools_ns::StatusAssert("config init", __FUNCTION__);
 }
 
 /**
