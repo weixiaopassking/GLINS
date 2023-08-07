@@ -13,7 +13,7 @@
 #include "../module/cloud_filter/voxel_filter.hpp"
 #include "../module/cloud_registration/cloud_registration_interface.hpp"
 #include "../module/cloud_registration/icp_registration.hpp"
-#include "../module/cloud_registration/ndt_registration.hpp"
+#include "../module/cloud_registration/ndt_pcl_registration.hpp"
 // tools
 #include "../tools/tools.hpp"
 // system
@@ -100,7 +100,7 @@ TEST(Instance1, cloud_registration)
         "classic icp", 100);
     tools_ns::VariableAssert("res_matrix:\n", res_matrix);
 
-    registration_ptr = std::make_shared<module_ns::NDTRegistration>();
+    registration_ptr = std::make_shared<module_ns::NDTPclRegistration>();
     tools_ns::TimeCost(
         [&]() {
             registration_ptr->SetTargetCloud(target_cloud_ptr);

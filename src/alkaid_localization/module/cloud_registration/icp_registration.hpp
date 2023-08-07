@@ -1,13 +1,28 @@
+/*
+ * @Description: icp registration
+ * @Function:
+ * @Author: wengang.niu
+ * @Version : v1.0
+ * @Date: 2023-08-06
+ */
+
+
 #ifndef _ICP_REGISTRATON_HPP
 #define _ICP_REGISTRATON_HPP
 
+//module
 #include "cloud_registration_interface.hpp"
-#include "sophus/se2.hpp"
-#include "sophus/se3.hpp"
-#include <numeric>
-#include <pcl/kdtree/kdtree_flann.h>
+//system
 #include <execution>
 #include <vector>
+#include <numeric>
+//tools
+#include "../../tools/tools.hpp"
+//thirdparty
+#include "sophus/se2.hpp"
+#include "sophus/se3.hpp"
+#include <pcl/kdtree/kdtree_flann.h>
+
 
 namespace module_ns
 {
@@ -25,9 +40,9 @@ class ICPRegistration : public CloudRegistrationInterface
 
     struct Options
     {
-        const int max_iteration = 30;
-        const int min_nn_numbers = 10;             // 最小最近邻点数
-        const bool use_initial_translation = true; // 是否使用平移初始值
+        const int max_iteration = 30;//iteration
+        const int min_nn_numbers = 10;             // min nn number
+        const bool use_initial_translation = true; // if use translation default is true
 
         const double max_point2point_distance = 1.0;
         const double max_point2line_distance = 0.5;
@@ -39,6 +54,7 @@ class ICPRegistration : public CloudRegistrationInterface
     };
 
     ICPRegistration();
+
     void SetSourceCloud(const data_ns::CloudData::CLOUD_PTR &source_cloud_ptr) override;
     void SetTargetCloud(const data_ns::CloudData::CLOUD_PTR &target_cloud_ptr) override;
     void SetGtTransform(const data_ns::Mat4f &gt_transform) override;

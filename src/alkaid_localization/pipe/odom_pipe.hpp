@@ -20,7 +20,7 @@
 #include "../module/cloud_filter/voxel_filter.hpp"
 #include "../module/cloud_registration/cloud_registration_interface.hpp"
 #include "../module/cloud_registration/icp_registration.hpp"
-#include "../module/cloud_registration/ndt_registration.hpp"
+#include "../module/cloud_registration/ndt_pcl_registration.hpp"
 // sub and pub
 #include "../pub/cloud_pub.hpp"
 #include "../pub/odom_pub.hpp"

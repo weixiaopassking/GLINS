@@ -1,9 +1,19 @@
+/*
+ * @Description: cloud registration interface 
+ * @Function: 
+ * @Author: wengang.niu
+ * @Version : v1.0
+ * @Date: 2023-08-06
+ * @Note: supported ndt_pcl、p-p-icp
+ */
+
 #ifndef  _CLOUD_REGISTRATION_INTERFACE_HPP
 #define _CLOUD_REGISTRATION_INTERFACE_HPP
 
+//data
 #include "../../data/cloud_data.hpp"
 #include "../../data/geometry_data.hpp"
-
+//thirdparty
 #include <pcl/point_cloud.h> //pointcloud
 #include <pcl/point_types.h> //point
 
