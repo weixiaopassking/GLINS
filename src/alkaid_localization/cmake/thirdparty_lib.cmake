@@ -36,11 +36,19 @@ include_directories(${EIGEN3_INCLUDE_DIRS})
 #list(APPEND thirdpart_LIBRARIES ) need't
 message("Load  Eigen  successfully")
 
-#sophus (from pkg file)
-include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
-message("Load  sophus  successfully")
+
 
 #tbb (use https://github.com/wjakob/tbb)
 find_package(TBB REQUIRED)
 list(APPEND thirdparty_LIBRARIES  TBB::tbb)
 message("Load  TBB  successfully")
+
+
+#sophus (from thirdparty file)
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
+message("Load  sophus  successfully")
+
+#g2o  (from thirdparty file)
+include(${PROJECT_SOURCE_DIR}/cmake/g2o.cmake)
+list(APPEND thirdparty_LIBRARIES  ${g2o_libs})
+message("Load  g2o  successfully")
