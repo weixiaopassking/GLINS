@@ -42,7 +42,7 @@ class IMUData
     };
 
     data_ns::Mat3f   GetRotation();
-    double time_stamp_ = 0.0;
+    double _time_stamp = 0.0;
     LinearAcceleration _linear_acceleration;
     AngularVelocity _angular_velocity;
     Orientation _orientation;
