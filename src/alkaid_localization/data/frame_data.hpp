@@ -1,3 +1,11 @@
+/*
+ * @Description:definition for frame data
+ * @Function:
+ * @Author: wengang.niu
+ * @Version : v1.0
+ * @Date: 2023-08-07
+ */
+
 #ifndef _FRAME_DATA_HPP
 #define _FRAME_DATA_HPP
 
@@ -10,10 +18,10 @@ class FrameData
 {
     enum FrameType
     {
-        KEY,     // constitute local map
-        NORMAL,  // from evert scan
-        INVALID, // no use
-        HISTORICAL
+        KEY,     // select from general frame
+        NORMAL,  // general frame
+        INVALID, // invalid frame
+        RESERVED
     };
 
   public:
@@ -26,7 +34,7 @@ class FrameData
     Quatf GetRotation();
     Vec3f GetTranslation();
     void QuatNorm();
-};
+}; // class FrameData
 } // namespace data_ns
 
 #endif //_FRAME_DATA_HPP

@@ -70,7 +70,7 @@ class OdomPipe
     // flag
     bool _hasGNSSInited = false;
 
-    // mpa
+    // local map
     data_ns::CloudData::CLOUD_PTR _local_map_ptr;
 
 }; // class OdomPipe

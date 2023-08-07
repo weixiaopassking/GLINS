@@ -1,3 +1,11 @@
+/*
+ * @Description: definition for point cloud
+ * @Function:
+ * @Author: wengang.niu
+ * @Version : v1.0
+ * @Date: 2023-08-07
+ */
+
 #ifndef _CLOUD_DATA_HPP
 #define _CLOUD_DATA_HPP
 
@@ -9,7 +17,7 @@ namespace data_ns
 class CloudData
 {
   public:
-  //defination for cloud type used in the package
+
     using POINT = pcl::PointXYZ;
     using CLOUD = pcl::PointCloud<POINT>;
     using CLOUD_PTR = CLOUD::Ptr;

@@ -23,7 +23,7 @@ OdomPipe::OdomPipe(ros::NodeHandle &nh)
     _cloud_sub_ptr = std::make_shared<sub_ns::CloudSub>(nh, "points_raw", 1e4);
     _gnss_sub_ptr = std::make_shared<sub_ns::GNSSSub>(nh, "gps_fix", 1e4);
     _cloud_pub_ptr = std::make_shared<pub_ns::CloudPub>(nh, "points_handled", "map", 1e2);
-    _odom_pub_ptr = std::make_shared<pub_ns::OdomPub>(nh, "lidar_odom", "map", "drone", 1e2);
+    _odom_pub_ptr = std::make_shared<pub_ns::OdomPub>(nh, "lidar_odom", "map", "ego", 1e2);
 
     /*2--modules config*/
     // _registration_ptr = std::make_shared<module_ns::NDTRegistration>(); //use polymorphisms
@@ -92,6 +92,11 @@ bool OdomPipe::AcquireSensorData()
     return hasReceivedData;
 }
 
+/**
+ * @brief calcaulate odom
+ * @param none
+ * @note
+ **/
 bool OdomPipe::CalculateOdom()
 {
     /*1--remove invalid cloud points*/
