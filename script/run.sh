@@ -1,4 +1,10 @@
 
-source devel/setup.bash  
-pwd
-python script/run.py
+local_source="source devel/setup.bash"
+dataset_path="/home/g/dataset/20130110.bag"
+sleep 1s
+gnome-terminal --window
+gnome-terminal -t "roscore" -x bash -c "roscore;exec bash;"
+gnome-terminal -t "localization" -x bash -c "${local_source};rosrun alkaid_localization localization_node;exec bash;"
+gnome-terminal -t "dataset" -x bash -c "rosbag play ${dataset_path};exec bash;"
+gnome-terminal -t "rviz" -x bash -c "rosrun rviz rviz -d ./script/*.rviz;exec bash;"
+sleep 1s
