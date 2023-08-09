@@ -12,9 +12,10 @@ STATUS = os.system('catkin_make  -j${nproc}')
 if STATUS==0:
     print('\n'+HEADER+ 'AlkaidQuadrotor$ '+SUCCESS +'compile success' + RESET)
 else :
-    print('\n'+HEADER + 'AlkaidQuadrotor$ '+FAIL +'compile failed' + RESET+'\n')
+    print('\n'+HEADER + 'AlkaidQuadrotor$ '+FAIL +'compile failed' + RESET)
     quit()
 
-os.system('tree -L 2  ./devel/lib/')
+print('\n'+HEADER + 'AlkaidQuadrotor$ '+SUCCESS +'has been compiled: ' + RESET)
+os.system('find ./devel/lib/  -name  "*_node"')
 
-
+  

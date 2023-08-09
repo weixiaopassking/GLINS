@@ -14,6 +14,7 @@
 #include "../module/cloud_registration/cloud_registration_interface.hpp"
 #include "../module/cloud_registration/icp_registration.hpp"
 #include "../module/cloud_registration/ndt_pcl_registration.hpp"
+#include "../module/imu_preintegration/imu_preintergration.hpp"
 // tools
 #include "../tools/tools.hpp"
 // system
@@ -24,20 +25,32 @@
 #include <gtest/gtest.h> //for unit test
 #include <pcl/io/pcd_io.h>
 
-
-/**
- * @brief    test for tools
- * @param
- * @note
- **/
-TEST(Instance0,tools)
+TEST(Instance2, imu_preintergration)
 {
-    tools_ns::VariableAssert("cars:", 11, "quadrotors:", 34);
-    tools_ns::StatusAssert("status exmaple", __FUNCTION__);
-    tools_ns::ErrorAssert("error example", __FILE__, __FUNCTION__, __LINE__);
+    std::cout << "\n This is instance2 :test imu preintergration \n" << std::endl;
+
+    const double imu_time_span = 0.01;                 // imu measurment 10ms
+    const data_ns::Vec3f angular_velocity(0, 0, M_PI); // 180/s
+    const data_ns::Vec3f gravity(0, 0, -9.8);          // z is up dir
+
+    FrameType start_frame(0), end_frame(1);
+    // 1.directly intergation
+    data_ns::SO3f R;
+    data_ns::Vec3f t = data_ns::Vec3f::Zero();
+    data_ns::Vec3f v = data_ns::Vec3f::Zero();
+    // 2. pre intergation
+    module_ns::IMUIntegration imu_integration;
+
+    for (int i = 0; i <= 100; i++)
+    {
+        double time = imu_time_span * i;
+        data_ns::Vec3f accel = -gravity;
+
+        // 1.directly intergation
+
+        // 2. pre intergation
+    }
 }
-
-
 
 /**
  * @brief    main entrance
@@ -52,8 +65,21 @@ int main(int argc, char **argv)
 }
 
 #if (0)
+
 /**
- * @brief    compare with different  cloud_registration's methods 
+ * @brief    test for tools
+ * @param
+ * @note
+ **/
+TEST(Instance0, tools)
+{
+    tools_ns::VariableAssert("cars:", 11, "quadrotors:", 34);
+    tools_ns::StatusAssert("status exmaple", __FUNCTION__);
+    tools_ns::ErrorAssert("error example", __FILE__, __FUNCTION__, __LINE__);
+}
+
+/**
+ * @brief    compare with different  cloud_registration's methods
  * @param
  * @note
  **/
@@ -87,7 +113,7 @@ TEST(Instance1, cloud_registration)
     std::shared_ptr<module_ns::CloudFilterInterface> filter_ptr = std::make_shared<module_ns::VoxelFilter>(0.1);
     filter_ptr->Filter(source_cloud_ptr, source_cloud_ptr);
     filter_ptr->Filter(target_cloud_ptr, target_cloud_ptr);
-    
+
     /*3-compare different methdos on  time*/
     data_ns::Mat4f res_matrix;
 

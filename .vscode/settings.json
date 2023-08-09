@@ -99,7 +99,8 @@
         "core": "cpp",
         "numericaldiff": "cpp",
         "dense": "cpp",
-        "execution": "cpp"
+        "execution": "cpp",
+        "__functional_base_03": "cpp"
     },
     "python.autoComplete.extraPaths": [
         "/opt/ros/melodic/lib/python2.7/dist-packages"

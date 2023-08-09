@@ -16,7 +16,6 @@
 
 namespace data_ns
 {
-
 using Quatf = Eigen::Quaternionf;
 // using Quatd = Eigen::Quaterniond;
 
@@ -30,5 +29,8 @@ using Mat4f = Eigen::Matrix4f;
 
 using SE3f = Sophus::SE3f;
 // using SE3d= Sophus::SE3d;
+
+using SO3f = Sophus::SO3f;
+// using SO3f= Sophus::SO3f;
 
 } // namespace data_ns
