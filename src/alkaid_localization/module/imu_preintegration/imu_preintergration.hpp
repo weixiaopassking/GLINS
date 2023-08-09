@@ -12,30 +12,45 @@
 // data
 #include "../../data/frame_data.hpp"
 #include "../../data/geometry_data.hpp"
+#include "../../data/imu_data.hpp"
 
 namespace module_ns
 {
-class IMUIntegration
+class IMUPreIntegration
 {
-  public:
-    struct Options
-    {
-        data_ns::Vec3f gyro_bais = data_ns::Vec3f::Zero();  // set zero init
-        data_ns::Vec3f aceel_bais = data_ns::Vec3f::Zero(); // set zero init
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW // Eigen bytes align
 
+        public :
+
+        struct Options
+    {
+        data_ns::Vec3f gyro_bais_init = data_ns::Vec3f::Identity();
+        data_ns::Vec3f accel_bais_init = data_ns::Vec3f::Identity();
         double gyro_noise = 1e-2;  // use standard
         double accel_noise = 1e-2; // use standard
     };
 
-    IMUIntegration();
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW // Eigen bytes align
+    IMUPreIntegration();
+    void UpdateIMUData(data_ns::IMUData imu_data);
+    data_ns::FrameData UpdateStates(const data_ns::FrameData start_state, const data_ns::Vec3f &gravity);
 
-        ~IMUIntegration();
+    ~IMUPreIntegration();
 
   private:
-    Options _option; // param config
+    Options _option;                                     // param config
+    data_ns::Vec3f _gyro_bais = data_ns::Vec3f::Zero();  // set zero init
+    data_ns::Vec3f _aceel_bais = data_ns::Vec3f::Zero(); // set zero init
+    data_ns::Vec3f _dv = data_ns::Vec3f::Zero();
+    data_ns::Vec3f _dp = data_ns::Vec3f::Zero();
 
-}; // class IMUIntegration
+    //Jacobi
+    data_ns::Mat3f _R_round_gyro_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _V_round_gyro_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _V_round_accel_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _P_round_gyro_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _P_round_accel_bais = data_ns::Mat3f::Zero();
+
+}; // class IMUPreIntegration
 } // namespace module_ns
 
 #endif //_IMU_INTERGRATION_HPP

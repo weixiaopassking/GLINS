@@ -22,23 +22,20 @@ enum FrameType
     INVALID, // invalid frame
     RESERVED
 };
-struct FrameData
+class FrameData
 {
-    FrameData(const double &time_stamp = 0.0, const data_ns::Mat4f &pose = data_ns::Mat4f::Identity(),
-              const data_ns::Vec3f &linear_velocity = data_ns::Vec3f::Zero(),
-              const data_ns::Vec3f &accel_bais = data_ns::Vec3f::Zero(),
-              const data_ns::Vec3f &gyro_bais = data_ns::Vec3f::Zero(), FrameType type = FrameType::NORMAL)
-    {
-        _time_stamp = time_stamp;
-        _pose = pose;
-        _linear_velocity = linear_velocity;
-        _gyro_bais = gyro_bais;
-        _accel_bais = accel_bais;
-        _type=type;
-    }
+    public:
+
+    FrameData(const double time_stamp = 0.0, const data_ns::Mat4f &pose = data_ns::Mat4f::Identity(),
+                                 const data_ns::Vec3f &linear_velocity = data_ns::Vec3f::Zero(),
+                                 const data_ns::Vec3f &accel_bais = data_ns::Vec3f::Zero(),
+                                 const data_ns::Vec3f &gyro_bais = data_ns::Vec3f::Zero(),
+                                 const FrameType type = FrameType::NORMAL);
+
 
     // values
     data_ns::Mat4f _pose = data_ns::Mat4f::Identity();
+    
     data_ns::Vec3f _linear_velocity = data_ns::Vec3f::Zero();
     data_ns::Vec3f _gyro_bais = data_ns::Vec3f::Zero();
     data_ns::Vec3f _accel_bais = data_ns::Vec3f::Zero();
@@ -48,9 +45,10 @@ struct FrameData
     FrameType _type = FrameType::NORMAL;
 
     // fcuntion
-    data_ns::Quatf GetQuaternion();
-    data_ns::Mat3f GetRotation();
-    data_ns::Vec3f GetTranslation();
+    data_ns::Quatf GetQuaternion() const ;
+    data_ns::Mat3f GetRotation() const ;
+    data_ns::Vec3f GetTranslation()const ;
+
     void QuatNorm();
 
 }; // class FrameData

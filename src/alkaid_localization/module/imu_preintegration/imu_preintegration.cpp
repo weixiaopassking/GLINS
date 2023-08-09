@@ -11,11 +11,26 @@
 
 namespace module_ns
 {
-IMUIntegration::IMUIntegration
+IMUPreIntegration::IMUPreIntegration()
 {
 }
 
-~IMUIntegration::IMUIntegration
+void IMUPreIntegration::UpdateIMUData(data_ns::IMUData imu_data)
+{ 
+    /*1--minus the bais */
+    data_ns::Vec3f angular_velocity = imu_data._accel - _aceel_bais;
+    data_ns::Vec3f linear_acceleration = imu_data._gyro - _gyro_bais;
+    /*2--*/
+    
+
+}
+
+data_ns::FrameData IMUPreIntegration::UpdateStates(const data_ns::FrameData start_state, const data_ns::Vec3f &gravity)
 {
 }
+
+IMUPreIntegration::~IMUPreIntegration()
+{
+}
+
 } // namespace module_ns

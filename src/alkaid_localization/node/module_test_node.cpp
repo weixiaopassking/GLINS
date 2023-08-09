@@ -25,21 +25,25 @@
 #include <gtest/gtest.h> //for unit test
 #include <pcl/io/pcd_io.h>
 
-TEST(Instance2, imu_preintergration)
+TEST(Instance3, imu_preintergration)
 {
-    std::cout << "\n This is instance2 :test imu preintergration \n" << std::endl;
+    std::cout << "\n This is instance3 :test imu preintergration \n" << std::endl;
 
     const double imu_time_span = 0.01;                 // imu measurment 10ms
     const data_ns::Vec3f angular_velocity(0, 0, M_PI); // 180/s
     const data_ns::Vec3f gravity(0, 0, -9.8);          // z is up dir
 
-    FrameType start_frame(0), end_frame(1);
+    double start_time = 0.0, end_time = 1.0;
+    data_ns::FrameData start_frame(start_time);
+
+    // end_frame(end_time);
     // 1.directly intergation
     data_ns::SO3f R;
-    data_ns::Vec3f t = data_ns::Vec3f::Zero();
-    data_ns::Vec3f v = data_ns::Vec3f::Zero();
+    data_ns::Vec3f translation = data_ns::Vec3f::Zero();
+    data_ns::Vec3f velocity = data_ns::Vec3f::Zero();
     // 2. pre intergation
-    module_ns::IMUIntegration imu_integration;
+    std::shared_ptr<module_ns::IMUPreIntegration> imu_preintegration_ptr =
+        std::make_shared<module_ns::IMUPreIntegration>();
 
     for (int i = 0; i <= 100; i++)
     {
@@ -47,9 +51,15 @@ TEST(Instance2, imu_preintergration)
         data_ns::Vec3f accel = -gravity;
 
         // 1.directly intergation
-
+        translation += velocity * imu_time_span + 0.5 * gravity * imu_time_span * imu_time_span +0.5 * (R * accel) *
+        imu_time_span * imu_time_span; velocity += accel * imu_time_span + (R * accel) * imu_time_span; R *=
+        data_ns::SO3f::exp(angular_velocity * imu_time_span);
         // 2. pre intergation
+
     }
+
+    tools_ns::VariableAssert("R", R.matrix(), "translation", translation.transpose(), "velocity",
+    velocity.transpose());
 }
 
 /**
@@ -71,7 +81,7 @@ int main(int argc, char **argv)
  * @param
  * @note
  **/
-TEST(Instance0, tools)
+TEST(Instance1, tools)
 {
     tools_ns::VariableAssert("cars:", 11, "quadrotors:", 34);
     tools_ns::StatusAssert("status exmaple", __FUNCTION__);
@@ -83,7 +93,7 @@ TEST(Instance0, tools)
  * @param
  * @note
  **/
-TEST(Instance1, cloud_registration)
+TEST(Instance2, cloud_registration)
 {
     /*1--get origin pointcloud and ground truth*/
     std::string resource_file_path = ros::package::getPath("alkaid_localization") + "/resource/";

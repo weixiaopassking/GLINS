@@ -16,15 +16,6 @@ namespace data_ns
 class IMUData
 {
   public:
-    struct LinearAcceleration
-    {
-        float x = 0.0, y = 0.0, z = 0.0;
-    };
-
-    struct AngularVelocity
-    {
-        float x = 0.0, y = 0.0, z = 0.0;
-    };
     class Orientation
     {
       public:
@@ -43,9 +34,9 @@ class IMUData
 
     data_ns::Mat3f   GetRotation();
     double _time_stamp = 0.0;
-    LinearAcceleration _linear_acceleration;
-    AngularVelocity _angular_velocity;
-    Orientation _orientation;
+    data_ns::Vec3f   _accel;
+    data_ns::Vec3f  _gyro;
+    Orientation _orientation; 
 
 }; // class IMUData
 } // namespace data_ns

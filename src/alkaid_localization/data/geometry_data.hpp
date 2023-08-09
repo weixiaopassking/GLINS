@@ -27,7 +27,7 @@ using Mat3f = Eigen::Matrix3f;
 using Mat4f = Eigen::Matrix4f;
 // using Mat4d = Eigen::Matrix4d;
 
-using SE3f = Sophus::SE3f;
+    using SE3f = Sophus::SE3f;
 // using SE3d= Sophus::SE3d;
 
 using SO3f = Sophus::SO3f;

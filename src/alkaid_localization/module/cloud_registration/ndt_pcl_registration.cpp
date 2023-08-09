@@ -66,7 +66,8 @@ data_ns::Mat4f NDTPclRegistration::GetResTransform(const data_ns::Mat4f &predict
     data_ns::CloudData::CLOUD_PTR result_cloud_ptr(new data_ns::CloudData::CLOUD);
     _ndt_registration_ptr->align(*result_cloud_ptr, predict_transform);
     // _ndt_registration_ptr->align(*result_cloud_ptr);
-    data_ns::Mat4f res_transform = _ndt_registration_ptr->getFinalTransformation();
+    data_ns::Mat4f res_transform;
+    res_transform.matrix() = _ndt_registration_ptr->getFinalTransformation();
     return res_transform;
 }
 

@@ -65,7 +65,7 @@ void OdomPub::PubData(const data_ns::Mat4f &odom_matrix, ros::Time time_stamp)
     _odom.pose.pose.position.z = odom_matrix(2, 3);
 
     data_ns::Quatf q;
-    q = odom_matrix.block<3, 3>(0, 0);
+    q = odom_matrix.block<3,3>(0,0);
     _odom.pose.pose.orientation.x = q.x();
     _odom.pose.pose.orientation.y = q.y();
     _odom.pose.pose.orientation.z = q.z();
