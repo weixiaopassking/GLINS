@@ -21,28 +21,27 @@ void IMUPreIntegration::UpdateIMUData(data_ns::IMUData imu_data, const double dt
     data_ns::Vec3f accel = imu_data._accel - _aceel_bais;
     data_ns::Vec3f gyro = imu_data._gyro - _gyro_bais;
     /*2--update dv and dp*/
-    // _dp = _dp + _dv * dt + 0.5f * _dR.matrix() * accel * dt * dt;
-    // _dv = _dv + _dR * accel * dt;
-    // /*3--noise */
-    // Eigen::Matrix<double, 9, 9> A;
-    // A.setIdentity();
-    // Eigen::Matrix<double, 9, 6> B;
-    // B.setZero();
+    _dp = _dp + _dv * dt + 0.5f * _dR.matrix() * accel * dt * dt;
+    _dv = _dv + _dR * accel * dt;
+    /*3--noise */
+    Eigen::Matrix<float, 9, 9> A;
+    A.setIdentity();
+    Eigen::Matrix<float, 9, 6> B;
+    B.setZero();
 
-    // data_ns::Mat3f accel_hat = data_ns::SO3f::hat(accel);
-    // A.block<3, 3>(3, 0) = -_dR.matrix() * dt * accel_hat;
-    // A.block<3, 3>(6, 0) = -0.5f * _dR.matrix() * accel_hat * dt * dt;
-    // A.block<3, 3>(6, 3) = data_ns::Mat3f::Identity() * dt;
+    data_ns::Mat3f accel_hat = data_ns::SO3f::hat(accel);
+    A.block<3, 3>(3, 0) = -_dR.matrix() * dt * accel_hat;
+    A.block<3, 3>(6, 0) = -0.5f * _dR.matrix() * accel_hat * dt * dt;
+    A.block<3, 3>(6, 3) = dt * data_ns::Mat3f::Identity();
 
-    // B.block<3, 3>(3, 3) = _dR.matrix() * dt;
-    // B.block<3, 3>(6, 3) = 0.5f * _dR.matrix() * dt * dt;
+    B.block<3, 3>(3, 3) = _dR.matrix() * dt;
+    B.block<3, 3>(6, 3) = 0.5f * _dR.matrix() * dt * dt;
 
     /*4--update jacobi xxx round bais*/
 }
 
 data_ns::FrameData IMUPreIntegration::UpdateStates(const data_ns::FrameData start_state, const data_ns::Vec3f &gravity)
 {
-
 }
 
 IMUPreIntegration::~IMUPreIntegration()
