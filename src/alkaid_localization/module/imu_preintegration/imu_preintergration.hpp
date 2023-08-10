@@ -31,7 +31,7 @@ class IMUPreIntegration
     };
 
     IMUPreIntegration();
-    void UpdateIMUData(data_ns::IMUData imu_data);
+    void UpdateIMUData(data_ns::IMUData imu_data, const double dt);
     data_ns::FrameData UpdateStates(const data_ns::FrameData start_state, const data_ns::Vec3f &gravity);
 
     ~IMUPreIntegration();
@@ -40,8 +40,9 @@ class IMUPreIntegration
     Options _option;                                     // param config
     data_ns::Vec3f _gyro_bais = data_ns::Vec3f::Zero();  // set zero init
     data_ns::Vec3f _aceel_bais = data_ns::Vec3f::Zero(); // set zero init
-    data_ns::Vec3f _dv = data_ns::Vec3f::Zero();
+    data_ns::Vec3f _dv = data_ns::Vec3f::Zero();//preintegrate  
     data_ns::Vec3f _dp = data_ns::Vec3f::Zero();
+    data_ns::SO3f _dR;
 
     //Jacobi
     data_ns::Mat3f _R_round_gyro_bais = data_ns::Mat3f::Zero();

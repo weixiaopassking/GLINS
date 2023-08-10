@@ -51,9 +51,10 @@ TEST(Instance3, imu_preintergration)
         data_ns::Vec3f accel = -gravity;
 
         // 1.directly intergation
-        translation += velocity * imu_time_span + 0.5 * gravity * imu_time_span * imu_time_span +0.5 * (R * accel) *
-        imu_time_span * imu_time_span; velocity += accel * imu_time_span + (R * accel) * imu_time_span; R *=
-        data_ns::SO3f::exp(angular_velocity * imu_time_span);
+        translation += velocity * imu_time_span + 0.5 * gravity * imu_time_span * imu_time_span +
+                       0.5 * (R * accel) * imu_time_span * imu_time_span;
+        velocity += accel * imu_time_span + (R * accel) * imu_time_span;
+        R *= data_ns::SO3f::exp(angular_velocity * imu_time_span);
         // 2. pre intergation
 
     }
