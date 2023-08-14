@@ -25,9 +25,15 @@ using Vec3f = Eigen::Vector3f;
 using Mat3f = Eigen::Matrix3f;
 
 using Mat4f = Eigen::Matrix4f;
-// using Mat4d = Eigen::Matrix4d;
+// using Mat4f = Eigen::Matrix4f;
 
-    using SE3f = Sophus::SE3f;
+using Mat6f = Eigen::Matrix6f;
+// using Mat6f = Eigen::Matrix6f;
+
+using Mat9f = Eigen::Matrix9f;
+// using Mat6f = Eigen::Matrix6f;
+
+using SE3f = Sophus::SE3f;
 // using SE3d= Sophus::SE3d;
 
 using SO3f = Sophus::SO3f;

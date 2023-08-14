@@ -43,13 +43,19 @@ class IMUPreIntegration
     data_ns::Vec3f _dv = data_ns::Vec3f::Zero();//preintegrate  
     data_ns::Vec3f _dp = data_ns::Vec3f::Zero();
     data_ns::SO3f _dR;
+    data_ns::Mat9f  _cov=data_ns::Mat9f::Zero();//accumulated  noise matrix
+    data_ns::Mat6f _noise_gryo_accel=data_ns::Mat6f::Zero();
+
+    double _dt=0;
+
+
 
     //Jacobi
-    data_ns::Mat3f _R_round_gyro_bais = data_ns::Mat3f::Zero();
-    data_ns::Mat3f _V_round_gyro_bais = data_ns::Mat3f::Zero();
-    data_ns::Mat3f _V_round_accel_bais = data_ns::Mat3f::Zero();
-    data_ns::Mat3f _P_round_gyro_bais = data_ns::Mat3f::Zero();
-    data_ns::Mat3f _P_round_accel_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _dR_round_gyro_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _dv_round_gyro_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _dv_round_accel_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _dp_round_gyro_bais = data_ns::Mat3f::Zero();
+    data_ns::Mat3f _dp_round_accel_bais = data_ns::Mat3f::Zero();
 
 }; // class IMUPreIntegration
 } // namespace module_ns

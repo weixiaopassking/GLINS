@@ -1,4 +1,4 @@
-# topic
+# topic  sub from sensors
 cloud_sub_topic: /velodyne_points
 imu_sub_topic: /imu/data
 gnss_sub_topic: /navsat/fix 
@@ -8,7 +8,7 @@ use_gnss: false
 
 
 
-#calibration
+#space calibration
 calibration_matrix:
    lidar_to_imu: [-0.47342,  0.66084 ,-0.00000,-0.00000,
                                 -0.66084, -0.47342 ,-0.00000 ,-0.00000,
@@ -67,3 +67,5 @@ close_loop_optimize_step: 100
 
 #result record
 map_record_path: "resource/output"
+
+
