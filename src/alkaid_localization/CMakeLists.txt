@@ -21,7 +21,7 @@ include(cmake/thirdparty_lib.cmake)
 file(GLOB_RECURSE ALL_SRCS "module/*.cpp" "pipe/*.cpp" "pub/*.cpp" "sub/*.cpp"  "tools/*.cpp"  "data/*.cpp")
 
 #exe
-option(USE_TEST  "module test code" OFF)
+option(USE_TEST  "module test code" ON)
 
 if(USE_TEST)
 message("now test module")

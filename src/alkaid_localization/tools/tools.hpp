@@ -54,7 +54,8 @@ template <typename... Tn> void VariableAssert(Tn... tn)
     const int len_f = sizeof...(tn);
     int cnt = 0;
     auto f = [&](auto it) {
-        cnt == 0 ? std::cout << Purple << it << " " << Reset : std::cout << it << std::endl;
+        cnt == 0 ? std::cout << Purple << std::setw(10) << std::left << it << " " << Reset
+                 : std::cout << it << std::endl;
         cnt ^= 1;
     };
 

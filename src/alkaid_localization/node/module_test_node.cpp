@@ -25,42 +25,54 @@
 #include <gtest/gtest.h> //for unit test
 #include <pcl/io/pcd_io.h>
 
-TEST(Instance3, imu_preintergration)
+/**
+ * @brief    instance3
+ * @param
+ * @note
+ **/
+TEST(Instance4, imu_preintergration)
 {
     std::cout << "\n This is instance3 :test imu preintergration \n" << std::endl;
 
-    const double imu_time_span = 0.01;                 // imu measurment 10ms
-    const data_ns::Vec3f angular_velocity(0, 0, M_PI); // 180/s
-    const data_ns::Vec3f gravity(0, 0, -9.8);          // z is up dir
+    /*1--params preseted*/
+    const double delta_t = 0.01; // 10ms sample
+    const data_ns::Vec3f gyro(0, 0, M_PI);
+    const data_ns::Vec3f gravity(0, 0, -9.8);
+    const data_ns::Vec3f accel(0.1, 0.0, -9.8);
+    const double start_time = 0.0, end_time = 1.0;
 
-    double start_time = 0.0, end_time = 1.0;
-    data_ns::FrameData start_frame(start_time);
-
-    // end_frame(end_time);
-    // 1.directly intergation
+    /*2--variables preseted*/
+    /*2.1--directly intergation's variable*/
     data_ns::SO3f R;
-    data_ns::Vec3f translation = data_ns::Vec3f::Zero();
-    data_ns::Vec3f velocity = data_ns::Vec3f::Zero();
-    // 2. pre intergation
+    data_ns::Vec3f t = data_ns::Vec3f::Zero();
+    data_ns::Vec3f v = data_ns::Vec3f::Zero();
+    /*2.2-preintergation's variable*/
     std::shared_ptr<module_ns::IMUPreIntegration> imu_preintegration_ptr =
         std::make_shared<module_ns::IMUPreIntegration>();
 
-    for (int i = 0; i <= 100; i++)
+    data_ns::FrameData start_state(0.0);
+    data_ns::FrameData end_state(1.0);
+
+    /*3--run it*/
+    for (int index = 0; index <= 100; index++)
     {
-        double time = imu_time_span * i;
-        data_ns::Vec3f accel = -gravity;
+        double time = delta_t * index;
 
-        // 1.directly intergation
-        translation += velocity * imu_time_span + 0.5 * gravity * imu_time_span * imu_time_span +
-                       0.5 * (R * accel) * imu_time_span * imu_time_span;
-        velocity += accel * imu_time_span + (R * accel) * imu_time_span;
-        R *= data_ns::SO3f::exp(angular_velocity * imu_time_span);
+        /*3.1--directly intergation*/
+        t = t + v * delta_t + 0.5 * gravity * pow(delta_t, 2) + 0.5 * (R.matrix() * accel) * pow(delta_t, 2);
+        v = v + (R.matrix() * accel) * delta_t + gravity * delta_t;
+        R = R * data_ns::SO3f::exp(gyro * delta_t);
         // 2. pre intergation
-
+        data_ns::IMUData imu_data;
+        imu_data._gyro = gyro;
+        imu_data._accel = accel;
+        imu_preintegration_ptr->UpdateIMUData(imu_data, delta_t);
     }
-
-    tools_ns::VariableAssert("R", R.matrix(), "translation", translation.transpose(), "velocity",
-    velocity.transpose());
+    /*4--print result*/
+    end_state = imu_preintegration_ptr->UpdateState(start_state, gravity);
+    tools_ns::VariableAssert("R", end_state.GetRotation(), "t", end_state.GetTranslation().transpose(), "velocity",
+                             end_state._linear_velocity.transpose());
+    tools_ns::VariableAssert("R", R.matrix(), "t", t.transpose(), "velocity", v.transpose());
 }
 
 /**
@@ -146,6 +158,14 @@ TEST(Instance2, cloud_registration)
         },
         "classic ndt", 100);
     tools_ns::VariableAssert("res_matrix:\n", res_matrix);
+}
+
+
+TEST(Instance3, usage_for_sopuhs)
+{
+
+
+
 }
 
 #endif

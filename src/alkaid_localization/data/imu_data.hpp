@@ -36,7 +36,7 @@ class IMUData
     double _time_stamp = 0.0;
     data_ns::Vec3f   _accel;
     data_ns::Vec3f  _gyro;
-    Orientation _orientation; 
+    Orientation _orientation; //optional
 
 }; // class IMUData
 } // namespace data_ns

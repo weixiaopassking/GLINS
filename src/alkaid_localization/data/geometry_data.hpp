@@ -27,10 +27,10 @@ using Mat3f = Eigen::Matrix3f;
 using Mat4f = Eigen::Matrix4f;
 // using Mat4f = Eigen::Matrix4f;
 
-using Mat6f = Eigen::Matrix6f;
+using Mat6f = Eigen::Matrix<float,6,6>;
 // using Mat6f = Eigen::Matrix6f;
 
-using Mat9f = Eigen::Matrix9f;
+using Mat9f = Eigen::Matrix<float,9,9>;
 // using Mat6f = Eigen::Matrix6f;
 
 using SE3f = Sophus::SE3f;
