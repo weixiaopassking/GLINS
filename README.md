@@ -50,6 +50,7 @@ decision tree
 
 
 ## 3.Env Config
+ubuntu20.04
 
 cmake/thirdparty_libs.cmake
 

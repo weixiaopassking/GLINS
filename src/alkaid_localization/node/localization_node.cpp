@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 
     /*2--pipe init*/
     std::shared_ptr<pipe_ns::OdomPipe> odom_pip_ptr = std::make_shared<pipe_ns::OdomPipe>(localization_handle);
-    
+
     /*3--pipe run */
     while (ros::ok())
     {
