@@ -1,4 +1,4 @@
-# AlkaidQuadrotor
+# LightRoadMap
 
 AlkaidQuadrotor is  an intelligent robot  included hardware and software for personal assistant. It will carries multi sensors (gnss、lidar、imu、camera)  and computing equipments (Intel nuc、Pix)  to achieve localization、planning、decision、perception. 
 
