@@ -1,0 +1,15 @@
+topic_sub:
+  lidar: lidar_blue_scan
+  imu: imu
+  gnss: gps
+  camera_center: image_front_left
+  camera_front: image_default
+  camera_rear: image_default
+  camera_left: image_default
+  camera_right: image_default
+  
+topic_pub:
+  raw_cloud: raw_cloud
+  handled_cloud: handled_cloud
+  svc: svc
+
