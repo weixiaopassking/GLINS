@@ -1,5 +1,7 @@
 #include "gnss_sub.hpp"
 
+namespace sub
+{
 GnssSub::GnssSub()
 {
 }
@@ -18,3 +20,4 @@ bool GnssSub::HasSubscribed()
 GnssSub::~GnssSub()
 {
 }
+} // namespace sub

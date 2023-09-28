@@ -23,9 +23,15 @@ include_directories(
 
 
 #自定义
-file(GLOB_RECURSE all_SRCS "module/*.cpp" "pipeline/*.cpp" "pub/*.cpp" "sub/*.cpp"  "tools/*.cpp")
+file( GLOB_RECURSE all_SRCS 
+"module/*.cpp" 
+"pipeline/*.cpp"
+"pub/*.cpp"
+"sub/*.cpp"
+"msg/*.cpp"
+"tools/*.cpp")
+
 set(thirdparty_LIBRARIES "")
 include(cmake/thirdparty_lib.cmake)
 add_executable(node node/node.cpp ${all_SRCS})
-target_link_libraries(node ${catkin_LIBRARIES}  ${thirdparty_LIBRARIES})
-
+target_link_libraries(node   ${catkin_LIBRARIES}  ${thirdparty_LIBRARIES})

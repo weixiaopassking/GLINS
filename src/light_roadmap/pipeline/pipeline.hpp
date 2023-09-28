@@ -15,7 +15,7 @@ class PipeLine
 
     ~PipeLine() = default;
 
-    std::shared_ptr<SubBase> gnss_sub_ptr_;
+    std::shared_ptr<sub::SubBase> gnss_sub_ptr_;
 }; // PipeLine
 
 #endif //_PIPE_LINE_HPP

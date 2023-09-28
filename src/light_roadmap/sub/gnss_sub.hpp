@@ -14,17 +14,21 @@
 #include <ros/ros.h>
 #include <sensor_msgs/NavSatFix.h>
 
+namespace sub
+{
 class GnssSub : public SubBase
 {
   public:
     GnssSub();
-    void ParseData();
-    void MsgCallback();
-    bool HasSubscribed();
     ~GnssSub();
+    void ParseData();
+private:
+void MsgCallback();
+bool HasSubscribed();
 
-  private:
-    ros::NodeHandle _nh;
+private:
+ros::NodeHandle _nh;
 };
+} // namespace sub
 
 #endif //_GNSS_SUB_HPP
