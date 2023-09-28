@@ -15,7 +15,7 @@ CloudSub::CloudSub()
 {
 }
 
-CloudSub()::~CloudSub()
+CloudSub::~CloudSub()
 {
 }
 
@@ -29,7 +29,7 @@ void CloudSub::MsgCallback(const sensor_msgs::PointCloud2::ConstPtr &cloud_msg_p
 {
     msg::CloudData cloud_data;
     cloud_data.timestamp_ns = cloud_msg_ptr->header.stamp.toSec() * 10e9;
-    pcl::fromROSMsg(*cloud_msg_ptr, *(cloud_data.cloud_ptr)); //! risk
+    pcl::fromROSMsg(*cloud_msg_ptr, *(cloud_data.cloud_ptr)); //! my have risk
     _cloud_data_que.push_back(cloud_data);
 }
 

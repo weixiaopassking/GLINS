@@ -44,7 +44,7 @@ class CloudData
   public:
     CloudData();
     ~CloudData();
-    void Undistort();//point cloud undistort
+    void Undistort();//! todo 
     long double timestamp_ns;
     CLOUD_PTR cloud_ptr;
 };

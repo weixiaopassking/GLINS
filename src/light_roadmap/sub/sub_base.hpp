@@ -1,5 +1,5 @@
-#ifndef SUB_BASE_HPP_
-#define SUB_BASE_HPP_
+#ifndef _SUB_BASE_HPP
+#define _SUB_BASE_HPP
 #include <deque>
 
 namespace sub

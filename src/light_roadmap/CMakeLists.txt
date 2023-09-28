@@ -9,6 +9,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  roslib
 )
 
 
@@ -25,7 +26,7 @@ include_directories(
 #自定义
 file( GLOB_RECURSE all_SRCS 
 "module/*.cpp" 
-"pipeline/*.cpp"
+"pipe/*.cpp"
 "pub/*.cpp"
 "sub/*.cpp"
 "msg/*.cpp"
